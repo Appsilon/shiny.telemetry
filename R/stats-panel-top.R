@@ -1,7 +1,7 @@
 #' @export
 shiny_stats_ui <- function(custom_css_path = NULL) {
   shinyUI(
-    semanticPage(
+    shiny.semantic::semanticPage(
       shinyjs::useShinyjs(),
       suppressDependencies("bootstrap"),
       suppressDependencies("plotlyjs"),
@@ -20,7 +20,7 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
 }
 
 #' @export
-shiny_stats_server <- function(get_user, allow_admin_rule, db_credentials) {
+shiny_stats_server <- function(get_user, allow_admin_rule = function(session) TRUE, db_credentials) {
   shinyServer(function(input, output, session) {
     session$user <- get_user(session)
     output$admin_page <- renderUI({
@@ -32,14 +32,14 @@ shiny_stats_server <- function(get_user, allow_admin_rule, db_credentials) {
           class = "ui middle aligned center aligned grid",
           div(
             class = "ui row",
-            uiicon("remove circle"), style = "margin-top: 1em;",
+            shiny.semantic::uiicon("remove circle"), style = "margin-top: 1em;",
             "Access only for admin!"
           ),
           div(
             class = "ui row",
             tags$a(
               class = "ui labeled icon basic button", href = "../../logout",
-              semantic.dashboard::icon("power off"), "Logout"
+              shiny.semantic::uiicon("power off"), "Logout"
             )
           )
         )

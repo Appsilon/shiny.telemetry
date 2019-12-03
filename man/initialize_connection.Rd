@@ -5,12 +5,17 @@
 \alias{initialize_custom_connection}
 \title{Register connection to database}
 \usage{
-initialize_connection(db_connection)
+initialize_connection(db_connection, username, session_id = NULL)
 
-initialize_custom_connection(db_connection, table_schemes)
+initialize_custom_connection(db_connection, username, session_id,
+  table_schemes)
 }
 \arguments{
 \item{db_connection}{Connection to database object.}
+
+\item{username}{Username of logged user.}
+
+\item{session_id}{Logged user session id (if NULL, id is randomly generated).}
 
 \item{table_schemes}{Specific table schemes that should be created or connected with inside 'db_connection'.
 Each list object specifies separate table and should be of the form:
