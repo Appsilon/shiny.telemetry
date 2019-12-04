@@ -27,15 +27,36 @@ get_user <- function(session) {
 3. Structure your main app to register user's actions.
 
 ```
+library(shiny)
+library(shiny.stats)
+connection <- odbc::dbConnect(RSQLite::SQLite(), dbname = "user_stats.sqlite")
+
+ui <- fluidPage(
+  titlePanel("Old Faithful Geyser Data"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("bins",
+                  "Number of bins:",
+                  min = 1,
+                  max = 50,
+                  value = 30),
+      actionButton("apply_slider", "Apply")
+    ),
+    mainPanel(
+      plotOutput("distPlot")
+    )
+  )
+)
+
 server <- function(input, output, session) {
 
   # creating user connection list and making sure required tables exist in DB
   user_connection <- initialize_connection(connection, username = get_user(session))
 
-  # register login
+  # registering login
   log_login(user_connection)
 
-  # select registered actions to watch
+  # selecting registered actions to watch
   log_click(user_connection, id = "apply_slider")
   log_input(user_connection, input, input_id = "bins")
 
@@ -47,7 +68,7 @@ server <- function(input, output, session) {
     hist(x, breaks = bins, col = 'darkgray', border = 'white')
   })
 
-  # register logout (this also disconnects connection object, if not used take care of it on your own)
+  # registering logout (this also disconnects connection object, if not used take care of it on your own)
   log_logout(user_connection)
 }
 ```
@@ -71,7 +92,7 @@ db_credentials <- list(
   DB_DRIVER = "SQLite"
 )
 
-# define get username function
+# define function hot to get username
 get_user <- function(session) {
   username <- isolate(parseQueryString(session$clientData$url_search)$username)
   req(username)
