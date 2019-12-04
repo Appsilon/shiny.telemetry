@@ -9,7 +9,7 @@
 \usage{
 browser_info_js
 
-log_browser_version(input, user_connection_data, user_session, user)
+log_browser_version(input, user_connection_data)
 }
 \description{
 It sends info about user's browser to server.

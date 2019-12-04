@@ -11,22 +11,22 @@
 \alias{log_session_detail}
 \title{Log user activity}
 \usage{
-log_input(user_connection_data, input, input_id, user_session, user,
-  matching_values = NULL, input_type = "text")
+log_input(user_connection_data, input, input_id, matching_values = NULL,
+  input_type = "text")
 
-log_button(user_connection_data, input, button_id, user_session, user)
+log_button(user_connection_data, input, button_id)
 
 log_custom_action(user_connection_data, table_name = "user_log", values)
 
-log_action(user_connection_data, user_session, user, action)
+log_action(user_connection_data, action)
 
-log_click(user_connection_data, user_session, user, id)
+log_click(user_connection_data, id)
 
-log_login(user_connection_data, user_session, user)
+log_login(user_connection_data)
 
-log_logout(user_connection_data, user_session, user)
+log_logout(user_connection_data)
 
-log_session_detail(user_connection_data, user_session, detail)
+log_session_detail(user_connection_data, detail)
 }
 \arguments{
 \item{user_connection_data}{List with user session and DB connection. See \link{initialize_connection}.}
@@ -34,10 +34,6 @@ log_session_detail(user_connection_data, user_session, detail)
 \item{input}{input object inherited from server function.}
 
 \item{input_id}{id of registered input control.}
-
-\item{user_session}{session value specified to each user (may be inherited from server function).}
-
-\item{user}{user id to be registered.}
 
 \item{matching_values}{An object specified possible values to register.}
 

@@ -1,3 +1,7 @@
+#' @importFrom dplyr summarise mutate group_by select distinct full_join left_join pull case_when arrange
+#' @importFrom plotly renderPlotly add_bars subplot layout plot_ly config add_trace
+#' @importFrom semantic.dashboard renderValueBox valueBox renderInfoBox
+
 prepare_admin_panel_components <- function(input, output, session, db_config_list) {
   hour_levels <- c("12am", paste0(1:11, "am"), "12pm", paste0(1:11, "pm"))
 
@@ -7,7 +11,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
       "SELECT * FROM user_log WHERE date(time) >= '%s' AND date(time) <= '%s'",
       input$date_from, input$date_to
     )
-    selected_log_data <- dbGetQuery(db, query) %>% {
+    selected_log_data <- odbc::dbGetQuery(db, query) %>% {
       if (nrow(.) > 0) mutate(., date = as.Date(time)) else req(FALSE)
     }
     odbc::dbDisconnect(db)
@@ -20,7 +24,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
       "SELECT * FROM session_details WHERE date(time) >= '%s' AND date(time) <= '%s'",
       input$date_from, input$date_to
     )
-    selected_session_details <- dbGetQuery(db, query) %>%
+    selected_session_details <- odbc::dbGetQuery(db, query) %>%
       select(session, detail) %>%
       group_by(session) %>%
       summarise(title = paste(detail, collapse = " | "))
@@ -44,11 +48,11 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
     tagList(
       tags$div(
         tags$div(HTML("From")),
-        date_input("date_from", value = Sys.Date() - 30, icon = NULL, style = "width: 135px;")
+        shiny.semantic::date_input("date_from", value = Sys.Date() - 30, icon = NULL, style = "width: 135px;")
       ),
       tags$div(
         tags$div(HTML("To")),
-        date_input("date_to", value = Sys.Date(), icon = NULL, style = "width: 135px;")
+        shiny.semantic::date_input("date_to", value = Sys.Date(), icon = NULL, style = "width: 135px;")
       )
     )
   })
@@ -154,7 +158,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
       ))
   })
 
-  output$daily_stats <- renderPlotly({
+  output$daily_stats <- plotly::renderPlotly({
     n_plots <- length(unique(per_day_plot_data()$id))
     x_axis_ticks <- prepare_date_axis_ticks(unique(per_day_plot_data()$date))
     x_date <-
@@ -263,9 +267,9 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
       group_by(date) %>%
       summarise(users = n())
 
-    nested_users_data <- as.tibble(selected_log_data()) %>%
+    nested_users_data <- tibble::as.tibble(selected_log_data()) %>%
       group_by(date) %>%
-      nest(username)
+      tidyr::nest(username)
 
     new_users <- purrr::map(nested_users_data$data, function(x) unique(unlist(x))) %>% {
       Reduce(union, ., accumulate = TRUE)
@@ -302,7 +306,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
     heatmap_temp_data
   })
 
-  output$users_general <- renderPlotly({
+  output$users_general <- plotly::renderPlotly({
     x_axis_ticks <- prepare_date_axis_ticks(unique(users_plot_data()$date))
     plot_ly(arrange(users_plot_data(), date),
             x = ~date, y = ~new_users, color = I("#ff7f0e"),
@@ -324,7 +328,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
       config(displayModeBar = F)
   })
 
-  output$users_per_hour <- renderPlotly({
+  output$users_per_hour <- plotly::renderPlotly({
     colz <- prepare_color_scale(heatmap_data()$users, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(heatmap_data()$date))
     plot_ly(heatmap_data(),
@@ -347,7 +351,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
   })
 
   output$selected_user <- renderUI({
-    search_selection_choices("selected_users", sort(unique(selected_log_data()$username)),
+    shiny.semantic::search_selection_choices("selected_users", sort(unique(selected_log_data()$username)),
                              multiple = FALSE, default_text = "Select user"
     )
   })
@@ -376,7 +380,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
     temp_user_actions_data
   })
 
-  output$user_actions <- renderPlotly({
+  output$user_actions <- plotly::renderPlotly({
     colz <- prepare_color_scale(actions_per_users_data()$actions, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(actions_per_users_data()$date))
     plot_ly(actions_per_users_data(),
@@ -489,7 +493,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
       tidyr::replace_na(list(times = 0))
   })
 
-  output$global_action_plot <- renderPlotly({
+  output$global_action_plot <- plotly::renderPlotly({
     colz <- prepare_color_scale(global_action_data()$times, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(global_action_data()$date))
     plot_ly(global_action_data(),
@@ -513,7 +517,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
 
   output$total_inputs <- renderValueBox({
     total_inputs_value <- global_action_data() %>%
-      filter(action == "input") %>%
+      dplyr::filter(action == "input") %>%
       pull(times) %>%
       sum()
 
@@ -528,7 +532,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
 
   output$total_clicks <- renderValueBox({
     total_clicks_value <- global_action_data() %>%
-      filter(action == "click") %>%
+      dplyr::filter(action == "click") %>%
       pull(times) %>%
       sum()
 
@@ -543,11 +547,11 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
 
   output$select_action <- renderUI({
     actions <- selected_log_data() %>%
-      filter(action %in% c("click", "input")) %>%
+      dplyr::filter(action %in% c("click", "input")) %>%
       pull(action) %>%
       unique() %>%
       sort()
-    search_selection_choices("selected_action", actions, multiple = FALSE, default_text = "...")
+    shiny.semantic::search_selection_choices("selected_action", actions, multiple = FALSE, default_text = "...")
   })
 
   selected_action_data <- reactive({
@@ -561,7 +565,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
       summarise(times_total = n())
   })
 
-  output$selected_action_plot <- renderPlotly({
+  output$selected_action_plot <- plotly::renderPlotly({
     id_date_base <- expand.grid(
       date = date_base()$date, id = unique(selected_action_data()$id),
       stringsAsFactors = FALSE
@@ -602,7 +606,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
   output$select_action_id <- renderUI({
     shiny::validate(need(input$selected_action, "selected_action"))
     if (input$selected_action == "input") {
-      search_selection_choices("selected_action_id", sort(unique(selected_action_data()$id)),
+      shiny.semantic::search_selection_choices("selected_action_id", sort(unique(selected_action_data()$id)),
                                multiple = FALSE, default_text = "Select action id"
       )
     } else {
@@ -630,7 +634,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
     selected_action_id_data() %>%
       group_by(value) %>%
       summarise(times = n()) %>%
-      set_colnames(c("Value of selected input", "Total Amount"))
+      magrittr::set_colnames(c("Value of selected input", "Total Amount"))
   },
   rownames = FALSE,
   options = list(
@@ -658,7 +662,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
   sessions_data <- reactive({
     selected_log_data() %>%
       select(time, session, action) %>%
-      filter(action %in% c("login", "logout", "input", "click")) %>%
+      dplyr::filter(action %in% c("login", "logout", "input", "click")) %>%
       distinct() %>%
       group_by(session) %>%
       summarise(
@@ -702,7 +706,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
   selected_session_data <- reactive({
     shiny::validate(need(selected_session(), label = "selected_session"))
     selected_log_data() %>%
-      filter(action %in% c("login", "logout", "input", "click"), session == selected_session()) %>%
+      dplyr::filter(action %in% c("login", "logout", "input", "click"), session == selected_session()) %>%
       mutate(
         start = as.character(time),
         content = case_when(

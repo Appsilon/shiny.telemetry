@@ -32,7 +32,6 @@ convert_char_HM_timediff_to_timediff <- function(time_char) {
   as.difftime(time_char, format = "%Hh:%Mm", units = "secs")
 }
 
-
 prepare_color_scale <- function(values, palette) {
   vals <- scales::rescale(min(values):max(values))
   o <- order(vals, decreasing = FALSE)
@@ -63,6 +62,8 @@ render_download_button <- function(output_id, label, style = NULL) {
   )
 }
 
+#' @importFrom semantic.dashboard dashboardHeader dashboardSidebar dashboardBody sidebarMenu menuSubItem menuItem valueBoxOutput tabItems tabItem dashboardPage
+#' @importFrom plotly plotlyOutput
 adminUI <- function() {
 
   # Dashboard header carrying the title of the dashboard

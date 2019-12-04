@@ -49,6 +49,8 @@ connect_to_db <- function(db_credentials) {
 #' @description This connects to specified sqlite database (or create new one when it doesn't exist).
 #' Should be used outside server and ui function.
 #' @param db_connection Connection to database object.
+#' @param username Username of logged user.
+#' @param session_id Logged user session id (if NULL, id is randomly generated).
 #' @return Return list with two objects:
 #' session_id (useful to specify user session after app is opened),
 #' db_connection the same object that was passed as db_connection parameter.
@@ -58,9 +60,11 @@ connect_to_db <- function(db_credentials) {
 #' and 'session_details' table with:
 #' \code{CREATE TABLE session_details(time TIMESTAMP, session TEXT, detail TEXT)} inside DB.
 #' @export
-initialize_connection <- function(db_connection) {
+initialize_connection <- function(db_connection, username, session_id = NULL) {
   initialize_custom_connection(
     db_connection,
+    username,
+    session_id,
     table_schemes = list(
       user_log = c(time = "TIMESTAMP", session = "TEXT", username = "TEXT",
                    action = "TEXT", id = "TEXT", value = "TEXT"),
@@ -73,8 +77,11 @@ initialize_connection <- function(db_connection) {
 #' table_name = c(col_1_name = col_1_type, ...)
 #' @rdname initialize_connection
 #' @export
-initialize_custom_connection <- function(db_connection, table_schemes) {
-  session_id <- generate_session_id()
+initialize_custom_connection <- function(db_connection, username, session_id, table_schemes) {
+  if (is.null(session_id)) {
+    session_id <- generate_session_id()
+  }
+
   table_names <-  names(table_schemes)
 
   purrr::walk2(table_names, table_schemes,
@@ -82,6 +89,7 @@ initialize_custom_connection <- function(db_connection, table_schemes) {
   )
 
   list(
+    username = username,
     session_id = session_id,
     db_connection = db_connection
   )
