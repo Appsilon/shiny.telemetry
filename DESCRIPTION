@@ -1,7 +1,7 @@
 Package: shiny.stats
 Type: Package
 Title: Shiny app usability logs and statistics
-Version: 0.0.9001
+Version: 0.0.9002
 Author: Appsilon Data Science <dev@appsilondatascience.com>
 Maintainer: Appsilon Data Science <dev@appsilondatascience.com>
 Description: Easy way for logging users activity and adding statistics panel to your Shiny app.
@@ -11,16 +11,16 @@ LazyData: true
 Suggests: testthat,
     lintr,
     RSQLite,
-    RPostgreSQL
-Imports: odbc,
-    purrr,
-    tibble,
-    dplyr,
-    tidyr,
-    shiny,
+    RPostgreSQL,
     timevis,
     semantic.dashboard (>= 0.1.1),
-    shiny.router (>= 0.1.1),
     shiny.semantic (>= 0.2.0),
-    RColorBrewer
+    RColorBrewer,
+    tibble,
+    tidyr,
+    dplyr,
+    plotly
+Imports: odbc,
+    purrr,
+    shiny
 RoxygenNote: 6.1.1
