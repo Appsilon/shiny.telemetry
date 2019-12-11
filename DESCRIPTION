@@ -19,7 +19,8 @@ Suggests: testthat,
     tibble,
     tidyr,
     dplyr,
-    plotly
+    plotly,
+    shinyjs
 Imports: magrittr,
     odbc,
     purrr,

@@ -460,7 +460,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
             class = "ui grid",
             div(
               class = "column eleven wide",
-              plotlyOutput("user_actions")
+              plotly::plotlyOutput("user_actions")
             ),
             div(
               style = "margin-top: 1.8em;", class = "column five wide",
@@ -621,7 +621,7 @@ prepare_admin_panel_components <- function(input, output, session, db_config_lis
     if (is.null(input$selected_action) | input$selected_action == "") {
       ""
     } else {
-      div(class = "sixteen wide column", plotlyOutput("selected_action_plot", height = "200px"))
+      div(class = "sixteen wide column", plotly::plotlyOutput("selected_action_plot", height = "200px"))
     }
   })
 
