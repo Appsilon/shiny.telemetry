@@ -21,7 +21,7 @@ DBI::dbDisconnect(connection)
 In this example we just extract username from url `username` parameter.
 ```
 get_user <- function(session) {
-  parseQueryString(session$clientData$url_search)$username
+  parseQueryString(isolate(session$clientData$url_search))$username
 }
 ```
 3. Structure your main app to register user's actions.
@@ -29,7 +29,7 @@ get_user <- function(session) {
 ```
 library(shiny)
 library(shiny.stats)
-connection <- odbc::dbConnect(RSQLite::SQLite(), dbname = "user_stats.sqlite")
+library(RSQLite)
 
 ui <- fluidPage(
   titlePanel("Old Faithful Geyser Data"),
@@ -49,7 +49,8 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-
+  connection <- odbc::dbConnect(RSQLite::SQLite(), dbname = "user_stats.sqlite")
+  
   # creating user connection list and making sure required tables exist in DB
   user_connection <- initialize_connection(connection, username = get_user(session))
 
@@ -84,6 +85,8 @@ shinyApp(ui = ui, server = server, options = list(port = 8888, launch.browser = 
 ```
 library(shiny)
 library(RSQLite)
+# please install shiny.stats with all dependencies
+# install.packages("shiny.stats", dependencies = TRUE)
 library(shiny.stats)
 
 # prepare credentials list to access logs:
