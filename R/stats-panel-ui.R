@@ -62,32 +62,30 @@ render_download_button <- function(output_id, label, style = NULL) {
   )
 }
 
-#' @importFrom semantic.dashboard dashboardHeader dashboardSidebar dashboardBody sidebarMenu menuSubItem menuItem valueBoxOutput tabItems tabItem dashboardPage
-#' @importFrom plotly plotlyOutput
 adminUI <- function() {
 
   # Dashboard header carrying the title of the dashboard
-  header <- dashboardHeader(
+  header <- semantic.dashboard::dashboardHeader(
     tags$div(
       class = "right menu",
       tags$a(class = "icon item", href = "../../logout", semantic.dashboard::icon("power off"))
     )
   )
   # Sidebar content of the dashboard
-  sidebar <- dashboardSidebar(
+  sidebar <- semantic.dashboard::dashboardSidebar(
     size = "",
-    sidebarMenu(
-      menuItem(text = "General stats", tabName = "general", icon = semantic.dashboard::icon("bar chart")),
-      menuItem(text = "Activity stats", tabName = "input_part", icon = semantic.dashboard::icon("laptop")),
-      menuItem(text = "User specific stats", tabName = "user", icon = semantic.dashboard::icon("user outline")),
-      menuItem(text = "Sessions", tabName = "sessions", icon = semantic.dashboard::icon("history")),
-      menuItem(
+    semantic.dashboard::sidebarMenu(
+      semantic.dashboard::menuItem(text = "General stats", tabName = "general", icon = semantic.dashboard::icon("bar chart")),
+      semantic.dashboard::menuItem(text = "Activity stats", tabName = "input_part", icon = semantic.dashboard::icon("laptop")),
+      semantic.dashboard::menuItem(text = "User specific stats", tabName = "user", icon = semantic.dashboard::icon("user outline")),
+      semantic.dashboard::menuItem(text = "Sessions", tabName = "sessions", icon = semantic.dashboard::icon("history")),
+      semantic.dashboard::menuItem(
         text = HTML(paste("Tools", semantic.dashboard::icon("wrench"))),
-        menuSubItem(
+        semantic.dashboard::menuSubItem(
           text = HTML(paste("Date window", semantic.dashboard::icon("calendar"))),
           uiOutput("filters", style = "padding-left: 2em;")
         ),
-        menuSubItem(
+        semantic.dashboard::menuSubItem(
           text = HTML(paste("Data download", semantic.dashboard::icon("download"))),
           render_download_button("download_data", "Download", style = "margin-left: 2em;")
         )
@@ -102,23 +100,23 @@ adminUI <- function() {
       div(class = "row", uiOutput("date_header")),
       div(
         class = "four column row",
-        valueBoxOutput("total_users", 4),
-        valueBoxOutput("total_sessions", 4),
-        valueBoxOutput("total_time", 4),
-        valueBoxOutput("total_days", 4)
+        semantic.dashboard::valueBoxOutput("total_users", 4),
+        semantic.dashboard::valueBoxOutput("total_sessions", 4),
+        semantic.dashboard::valueBoxOutput("total_time", 4),
+        semantic.dashboard::valueBoxOutput("total_days", 4)
       )
     )
   )
 
   stats_daily <- segment(
     title = "Statistics daily",
-    plotlyOutput("daily_stats", height = "600px")
+    plotly::plotlyOutput("daily_stats", height = "600px")
   )
 
   global_user_stats <- segment(
     title = "General users stats",
-    plotlyOutput("users_general"),
-    plotlyOutput("users_per_hour")
+    plotly::plotlyOutput("users_general"),
+    plotly::plotlyOutput("users_per_hour")
   )
 
   user_specific_stats <- segment(
@@ -133,10 +131,10 @@ adminUI <- function() {
       class = "ui grid",
       div(
         style = "margin-top: 2em;", class = "ui row",
-        valueBoxOutput("total_inputs", width = 8),
-        valueBoxOutput("total_clicks", width = 8)
+        semantic.dashboard::valueBoxOutput("total_inputs", width = 8),
+        semantic.dashboard::valueBoxOutput("total_clicks", width = 8)
       ),
-      div(class = "ui row", plotlyOutput("global_action_plot", height = "200px"))
+      div(class = "ui row", plotly::plotlyOutput("global_action_plot", height = "200px"))
     )
   )
 
@@ -164,21 +162,21 @@ adminUI <- function() {
   )
 
   # combine the two fluid rows to make the body
-  body <- dashboardBody(
+  body <- semantic.dashboard::dashboardBody(
     tags$head(
       tags$style(
         HTML(".shiny-output-error-validation {color: white;} .ui.statistic > .value {text-transform: none !important}")
       )
     ),
-    tabItems(
-      tabItem(tabName = "general", final_stats, stats_daily),
-      tabItem(tabName = "input_part", activity_global_stats, stats_per_action, stats_per_id),
-      tabItem(tabName = "user", global_user_stats, user_specific_stats),
-      tabItem(tabName = "sessions", global_session_stats, session_specific_stats)
+    semantic.dashboard::tabItems(
+      semantic.dashboard::tabItem(tabName = "general", final_stats, stats_daily),
+      semantic.dashboard::tabItem(tabName = "input_part", activity_global_stats, stats_per_action, stats_per_id),
+      semantic.dashboard::tabItem(tabName = "user", global_user_stats, user_specific_stats),
+      semantic.dashboard::tabItem(tabName = "sessions", global_session_stats, session_specific_stats)
     )
   )
 
-  dashboardPage(
+  semantic.dashboard::dashboardPage(
     title = "App usage statistics",
     header, sidebar, body
   )

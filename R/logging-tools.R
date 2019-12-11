@@ -197,7 +197,7 @@ browser_info_js <- shiny::HTML("
 #' @export
 log_browser_version <- function(input, user_connection_data) {
   browser <- input$browser_version
-  validate(need(browser, "'browser_info_js' should be set in app head"))
+  shiny::validate(shiny::need(browser, "'browser_info_js' should be set in app head"))
   log_custom_action(
     user_connection_data,
     table_name = "user_log",
