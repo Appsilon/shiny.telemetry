@@ -21,7 +21,7 @@ DBI::dbDisconnect(connection)
 In this example we just extract username from url `username` parameter.
 ```
 get_user <- function(session) {
-  isolate(parseQueryString(session$clientData$url_search)$username)
+  parseQueryString(isolate(session$clientData$url_search))$username
 }
 ```
 3. Structure your main app to register user's actions.
