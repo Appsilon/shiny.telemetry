@@ -20,7 +20,8 @@ Suggests: testthat,
     tidyr,
     dplyr,
     plotly
-Imports: odbc,
+Imports: magrittr,
+    odbc,
     purrr,
     shiny
 RoxygenNote: 6.1.1
