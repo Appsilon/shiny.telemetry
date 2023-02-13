@@ -1,5 +1,5 @@
 #' Shiny app usability logs and statistics
 #'
-#' @name shiny.stats-package
+#' @name shiny.telemetry-package
 #' @importFrom magrittr %>%
 NULL
