@@ -1,4 +1,4 @@
-shiny.stats
+shiny.telemetry
 ============
 
 Easy way for logging users activity and adding statistics panel to your Shiny app.
@@ -28,7 +28,7 @@ get_user <- function(session) {
 
 ```
 library(shiny)
-library(shiny.stats)
+library(shiny.telemetry)
 library(RSQLite)
 
 ui <- fluidPage(
@@ -50,7 +50,7 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   connection <- odbc::dbConnect(RSQLite::SQLite(), dbname = "user_stats.sqlite")
-  
+
   # creating user connection list and making sure required tables exist in DB
   user_connection <- initialize_connection(connection, username = get_user(session))
 
@@ -85,9 +85,9 @@ shinyApp(ui = ui, server = server, options = list(port = 8888, launch.browser = 
 ```
 library(shiny)
 library(RSQLite)
-# please install shiny.stats with all dependencies
-# install.packages("shiny.stats", dependencies = TRUE)
-library(shiny.stats)
+# please install shiny.telemetry with all dependencies
+# install.packages("shiny.telemetry", dependencies = TRUE)
+library(shiny.telemetry)
 
 # prepare credentials list to access logs:
 db_credentials <- list(

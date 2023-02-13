@@ -1,8 +1,8 @@
 library(shiny)
 library(RSQLite)
-# please install shiny.stats with all dependencies
-# install.packages("shiny.stats", dependencies = TRUE)
-library(shiny.stats)
+# please install shiny.telemetry with all dependencies
+# install.packages("shiny.telemetry", dependencies = TRUE)
+library(shiny.telemetry)
 
 # prepare credentials list to access logs:
 db_credentials <- list(
