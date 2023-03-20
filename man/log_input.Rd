@@ -11,8 +11,13 @@
 \alias{log_session_detail}
 \title{Log user activity}
 \usage{
-log_input(user_connection_data, input, input_id, matching_values = NULL,
-  input_type = "text")
+log_input(
+  user_connection_data,
+  input,
+  input_id,
+  matching_values = NULL,
+  input_type = "text"
+)
 
 log_button(user_connection_data, input, button_id)
 
@@ -39,6 +44,8 @@ log_session_detail(user_connection_data, detail)
 
 \item{input_type}{'text' to registered bare input value, 'json' to parse value from JSON format.}
 
+\item{button_id}{id of registered button input control.}
+
 \item{table_name}{Specific table name to create or connect inside 'path_to_db'.}
 
 \item{values}{Named list. Names of the list specify column names of \code{table_name} and list elements
@@ -58,7 +65,7 @@ These functions connects to database and log specific user activity. See more in
 \code{log_input} and \code{log_button} observe selected input value and registers its insertion or change inside specified database.
 
 Each function (except \code{log_custom_action}) store logs inside 'user_log' table.
-It is required to build admin panel (See \link{initialize_admin_panel}).
+It is required to build admin panel (See \link{prepare_admin_panel_components}).
 
 \code{log_logout} should be used inside \code{observe} function. It is based on \code{shiny::onStop}.
 }

@@ -7,7 +7,7 @@
 connect_to_db(db_credentials)
 }
 \arguments{
-\item{config_list}{data.frame with database config parameters}
+\item{db_credentials}{data.frame with database config parameters}
 }
 \description{
 Makes connection to database based on passed config data

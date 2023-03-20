@@ -1,7 +1,7 @@
 segment <- function(title, ..., color = "blue") {
-  div(
+  shiny::div(
     class = "ui raised segment", style = "margin-bottom: 0.5em; width: 100%;",
-    tags$div(style = "margin-bottom: 0.5em;", class = paste("ui demo right ribbon label", color), title),
+    shiny::tags$div(style = "margin-bottom: 0.5em;", class = paste("ui demo right ribbon label", color), title),
     ...
   )
 }
@@ -36,7 +36,7 @@ prepare_color_scale <- function(values, palette) {
   vals <- scales::rescale(min(values):max(values))
   o <- order(vals, decreasing = FALSE)
   cols <- scales::col_numeric(palette, domain = NULL)(vals)
-  setNames(data.frame(vals[o], cols[o]), NULL)
+  stats::setNames(data.frame(vals[o], cols[o]), NULL)
 }
 
 prepare_date_axis_ticks <- function(date_sequence, quantile = 0.1) {
@@ -51,7 +51,7 @@ prepare_date_axis_ticks <- function(date_sequence, quantile = 0.1) {
 }
 
 render_download_button <- function(output_id, label, style = NULL) {
-  a(
+  shiny::a(
     id = output_id,
     class = "ui grey tiny basic button shiny-download-link",
     style = style,

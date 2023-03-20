@@ -1,3 +1,7 @@
+#' get users data
+#'
+#' @param users_credentials_db_config Named vector with environmental variables concerning db connection.
+#'
 #' @export
 get_users_data <- function(users_credentials_db_config) {
   db_config <- users_credentials_db_config
@@ -9,12 +13,23 @@ get_users_data <- function(users_credentials_db_config) {
   users_data
 }
 
+#' Source renviron from file
+#'
+#' @param path path to Renviron file
+#' @param variable_name name of variable to return with the function
+#'
+#' @return environmental variable
+#'
 #' @export
 source_renviron <- function(path, variable_name) {
   readRenviron(path)
   Sys.getenv(variable_name)
 }
 
+#'
+#' TODO
+#' @param path path to db configs
+#'
 #' @export
 list_stats_targets <- function(path) {
   variable_names <- target_env_variables
@@ -34,7 +49,7 @@ list_stats_targets <- function(path) {
 
 #' Connect with sql database
 #' @description Makes connection to database based on passed config data
-#' @param config_list data.frame with database config parameters
+#' @param db_credentials data.frame with database config parameters
 #' @export
 connect_to_db <- function(db_credentials) {
   drv <- DBI::dbDriver(db_credentials$DB_DRIVER)
@@ -136,7 +151,9 @@ create_users_table <- function(db_connection) {
 #' @return Return data.frame with passed parameters and its valies.
 #' @export
 get_config <- function(config_variables) {
-  config <- na.omit(data.frame(key = names(config_variables), value = config_variables, stringsAsFactors = FALSE))
+  config <- stats::na.omit(data.frame(key = names(config_variables),
+                                      value = config_variables,
+                                      stringsAsFactors = FALSE))
   split(config$value, config$key)
 }
 
@@ -149,7 +166,9 @@ make_connection_parameters <- function(config_list) {
 }
 
 generate_session_id <- function() {
-  paste(c(sample(c(letters, LETTERS, 0:9), 10), format(Sys.time(), "%d%m%H%M%S")), collapse = "")
+  paste(c(sample(c(letters, LETTERS, 0:9), 10),
+          format(Sys.time(), "%d%m%H%M%S")),
+        collapse = "")
 }
 
 parse_val <- function(val) {

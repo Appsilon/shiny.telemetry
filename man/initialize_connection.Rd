@@ -7,8 +7,12 @@
 \usage{
 initialize_connection(db_connection, username, session_id = NULL)
 
-initialize_custom_connection(db_connection, username, session_id,
-  table_schemes)
+initialize_custom_connection(
+  db_connection,
+  username,
+  session_id,
+  table_schemes
+)
 }
 \arguments{
 \item{db_connection}{Connection to database object.}

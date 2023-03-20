@@ -4,7 +4,9 @@
 \name{MAX_POSTGRES_CONNECTIONS}
 \alias{MAX_POSTGRES_CONNECTIONS}
 \title{Maximum of connections}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \usage{
 MAX_POSTGRES_CONNECTIONS
 }

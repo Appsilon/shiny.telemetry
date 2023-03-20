@@ -47,6 +47,7 @@ log_input <- function(user_connection_data, input, input_id,
 }
 
 #' @rdname log_input
+#' @param button_id id of registered button input control.
 #' @export
 log_button <- function(user_connection_data, input, button_id) {
   shiny::observeEvent(input[[button_id]], {
@@ -65,7 +66,7 @@ log_button <- function(user_connection_data, input, button_id) {
 }
 
 #' @details Each function (except \code{log_custom_action}) store logs inside 'user_log' table.
-#' It is required to build admin panel (See \link{initialize_admin_panel}).
+#' It is required to build admin panel (See \link{prepare_admin_panel_components}).
 #' @param table_name Specific table name to create or connect inside 'path_to_db'.
 #' @param values Named list. Names of the list specify column names of \code{table_name} and list elements
 #' corresponding values that should be intsert into the table. Column 'time' is filled automatically so
@@ -149,12 +150,12 @@ log_session_detail <- function(user_connection_data, detail) {
 #' if (interactive()) {
 #' library(shiny)
 #' library(shiny.semantic)
-#' library(shiny.admin)
+#' library(shiny.telemetry)
 #'
 #' ui <- function() {
 #'   shinyUI(
 #'     semanticPage(
-#'       tags$head(shiny.admin::browser_info_js),
+#'       tags$head(shiny.telemetry::browser_info_js),
 #'       title = "Browser info example",
 #'       textOutput("browser")
 #'     )
@@ -194,6 +195,8 @@ browser_info_js <- shiny::HTML("
 
 
 #' @rdname browser_info_js
+#' @param input input object inherited from server function.
+#' @param user_connection_data List with user session and DB connection. See \link{initialize_connection}.
 #' @export
 log_browser_version <- function(input, user_connection_data) {
   browser <- input$browser_version
