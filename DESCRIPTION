@@ -20,7 +20,9 @@ Suggests: testthat,
     tidyr,
     dplyr,
     plotly,
-    shinyjs
+    shinyjs,
+    rcmdcheck,
+    spelling
 Imports: magrittr,
     odbc,
     purrr,
