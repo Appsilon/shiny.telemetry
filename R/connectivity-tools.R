@@ -183,7 +183,7 @@ create_users_table <- function(db_connection) {
 #' @param config_variables Named vector with environmental variables concerning
 #' db connection.
 #'
-#' @return Return data.frame with passed parameters and its valies.
+#' @return Return data.frame with passed parameters and its values.
 #'
 #' @export
 get_config <- function(config_variables) {

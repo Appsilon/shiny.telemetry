@@ -11,7 +11,7 @@ get_config(config_variables)
 db connection.}
 }
 \value{
-Return data.frame with passed parameters and its valies.
+Return data.frame with passed parameters and its values.
 }
 \description{
 Converts config database file into data.frame
