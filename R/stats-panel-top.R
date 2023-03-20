@@ -13,11 +13,16 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
     shiny::tags$head(
       shiny::tags$link(rel = "stylesheet", href = custom_css_path),
       shiny::tags$script(src = "https://cdn.plot.ly/plotly-1.20.2.min.js"),
-      shiny::tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js")
+      shiny::tags$script(
+        src = "https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js"
+      )
     ),
     shiny::tags$div(
       class = "right menu",
-      shiny::tags$a(class = "icon item", href = "../../logout", semantic.dashboard::icon("power off"))
+      shiny::tags$a(
+        class = "icon item", href = "../../logout",
+        semantic.dashboard::icon("power off")
+      )
     )
   )
 
@@ -25,19 +30,41 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
   sidebar <- semantic.dashboard::dashboardSidebar(
     size = "",
     semantic.dashboard::sidebarMenu(
-      semantic.dashboard::menuItem(text = "General stats", tabName = "general", icon = semantic.dashboard::icon("bar chart")),
-      semantic.dashboard::menuItem(text = "Activity stats", tabName = "input_part", icon = semantic.dashboard::icon("laptop")),
-      semantic.dashboard::menuItem(text = "User specific stats", tabName = "user", icon = semantic.dashboard::icon("user outline")),
-      semantic.dashboard::menuItem(text = "Sessions", tabName = "sessions", icon = semantic.dashboard::icon("history")),
+      semantic.dashboard::menuItem(
+        text = "General stats",
+        tabName = "general",
+        icon = semantic.dashboard::icon("bar chart")
+      ),
+      semantic.dashboard::menuItem(
+        text = "Activity stats",
+        tabName = "input_part",
+        icon = semantic.dashboard::icon("laptop")
+      ),
+      semantic.dashboard::menuItem(
+        text = "User specific stats",
+        tabName = "user",
+        icon = semantic.dashboard::icon("user outline")
+      ),
+      semantic.dashboard::menuItem(
+        text = "Sessions",
+        tabName = "sessions",
+        icon = semantic.dashboard::icon("history")
+      ),
       semantic.dashboard::menuItem(
         text = shiny::HTML(paste("Tools", semantic.dashboard::icon("wrench"))),
         semantic.dashboard::menuSubItem(
-          text = shiny::HTML(paste("Date window", semantic.dashboard::icon("calendar"))),
+          text = shiny::HTML(paste(
+            "Date window", semantic.dashboard::icon("calendar")
+          )),
           shiny::uiOutput("filters", style = "padding-left: 2em;")
         ),
         semantic.dashboard::menuSubItem(
-          text = shiny::HTML(paste("Data download", semantic.dashboard::icon("download"))),
-          render_download_button("download_data", "Download", style = "margin-left: 2em;")
+          text = shiny::HTML(paste(
+            "Data download", semantic.dashboard::icon("download")
+          )),
+          render_download_button(
+            "download_data", "Download", style = "margin-left: 2em;"
+          )
         )
       )
     )
@@ -71,7 +98,11 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
 
   user_specific_stats <- shiny.semantic::segment(
     title = "User specific stats",
-    shiny::div(class = "ui segment", shiny::tags$h3("Select desired user: "), shiny::uiOutput("selected_user")),
+    shiny::div(
+      class = "ui segment",
+      shiny::tags$h3("Select desired user: "),
+      shiny::uiOutput("selected_user")
+    ),
     shiny::uiOutput("selected_user_stats")
   )
 
@@ -84,7 +115,10 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
         semantic.dashboard::valueBoxOutput("total_inputs", width = 8),
         semantic.dashboard::valueBoxOutput("total_clicks", width = 8)
       ),
-      shiny::div(class = "ui row", plotly::plotlyOutput("global_action_plot", height = "200px"))
+      shiny::div(
+        class = "ui row",
+        plotly::plotlyOutput("global_action_plot", height = "200px")
+      )
     )
   )
 
@@ -95,7 +129,9 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
     shiny::uiOutput("action_stats", style = "margin-top: 2em;")
   )
 
-  stats_per_id <- shiny::uiOutput("action_id_stats", style = "width: 100%; padding: 0;")
+  stats_per_id <- shiny::uiOutput(
+    "action_id_stats", style = "width: 100%; padding: 0;"
+  )
 
   global_session_stats <- shiny.semantic::segment(
     title = "Sessions timeline",
@@ -106,7 +142,10 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
   session_specific_stats <- shiny.semantic::segment(
     title = "Sessions details",
     shiny::tags$h3("Summary per session", style = "margin-top:0;"),
-    shiny::tags$h4("Select row to display more details", style = "margin-top:0; color: grey; font-style: italic;"),
+    shiny::tags$h4(
+      "Select row to display more details",
+      style = "margin-top:0; color: grey; font-style: italic;"
+    ),
     DT::dataTableOutput("sessions_table"),
     timevis::timevisOutput("session_actions")
   )
@@ -115,14 +154,28 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
   body <- semantic.dashboard::dashboardBody(
     shiny::tags$head(
       shiny::tags$style(
-        shiny::HTML(".shiny-output-error-validation {color: white;} .ui.statistic > .value {text-transform: none !important}")
+        shiny::HTML(paste0(
+          ".shiny-output-error-validation {color: white;}",
+          " .ui.statistic > .value {text-transform: none !important}"
+        ))
       )
     ),
     semantic.dashboard::tabItems(
-      semantic.dashboard::tabItem(tabName = "general", final_stats, stats_daily),
-      semantic.dashboard::tabItem(tabName = "input_part", activity_global_stats, stats_per_action, stats_per_id),
-      semantic.dashboard::tabItem(tabName = "user", global_user_stats, user_specific_stats),
-      semantic.dashboard::tabItem(tabName = "sessions", global_session_stats, session_specific_stats)
+      semantic.dashboard::tabItem(
+        tabName = "general", final_stats, stats_daily
+      ),
+      semantic.dashboard::tabItem(
+        tabName = "input_part",
+        activity_global_stats,
+        stats_per_action,
+        stats_per_id
+      ),
+      semantic.dashboard::tabItem(
+        tabName = "user", global_user_stats, user_specific_stats
+      ),
+      semantic.dashboard::tabItem(
+        tabName = "sessions", global_session_stats, session_specific_stats
+      )
     )
   )
 
@@ -141,7 +194,9 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
 #' @param db_credentials data.frame with database config parameters
 #'
 #' @export
-shiny_stats_server <- function(get_user, allow_admin_rule = function(session) TRUE, db_credentials) {
+shiny_stats_server <- function(
+  get_user, allow_admin_rule = function(session) TRUE, db_credentials
+) {
   shiny::shinyServer(function(input, output, session) {
     session$user <- get_user(session)
     prepare_admin_panel_components(input, output, session, db_credentials)

@@ -5,9 +5,14 @@ get_log_data <- function(db_credentials, date_from, date_to) {
     "SELECT * FROM user_log WHERE date(time) >= '%s' AND date(time) <= '%s'",
     date_from, date_to
   )
-  selected_log_data <- odbc::dbGetQuery(db, query) %>% (function(.dot) {
-    if (nrow(.dot) > 0) dplyr::mutate(.dot, date = as.Date(.data$time)) else shiny::req(FALSE)
-  })()
+  selected_log_data <- odbc::dbGetQuery(db, query) %>%
+    (function(.dot) {
+      if (nrow(.dot) > 0) {
+        dplyr::mutate(.dot, date = as.Date(.data$time))
+      } else {
+        shiny::req(FALSE)
+      }
+    })()
   odbc::dbDisconnect(db)
   selected_log_data
 }
@@ -31,11 +36,18 @@ date_filters <- function() {
   shiny::tagList(
     shiny::tags$div(
       shiny::tags$div(shiny::HTML("From")),
-      shiny.semantic::date_input("date_from", value = Sys.Date() - 30, icon = NULL, style = "width: 135px;")
+      shiny.semantic::date_input(
+        "date_from",
+        value = Sys.Date() - 30,
+        icon = NULL,
+        style = "width: 135px;"
+      )
     ),
     shiny::tags$div(
       shiny::tags$div(shiny::HTML("To")),
-      shiny.semantic::date_input("date_to", value = Sys.Date(), icon = NULL, style = "width: 135px;")
+      shiny.semantic::date_input(
+        "date_to", value = Sys.Date(), icon = NULL, style = "width: 135px;"
+      )
     )
   )
 }
@@ -62,7 +74,12 @@ get_time_per_day <- function(log_data) {
   log_data %>%
     dplyr::mutate(time = as.POSIXct(.data$time)) %>%
     dplyr::group_by(.data$date, .data$session) %>%
-    dplyr::summarise(time = round(as.numeric(max(.data$time) - min(.data$time), units = "hours"), 2)) %>%
+    dplyr::summarise(
+      time = round(
+        as.numeric(max(.data$time) - min(.data$time), units = "hours"),
+        2
+      )
+    ) %>%
     dplyr::group_by(.data$date) %>%
     dplyr::summarise(time = mean(.data$time))
 }
@@ -76,7 +93,9 @@ get_actions_per_day <- function(log_data) {
     dplyr::summarise(action = dplyr::n())
 }
 
-get_per_day_data <- function(users_per_day_data, sessions_per_day, time_per_day, actions_per_day) {
+get_per_day_data <- function(
+  users_per_day_data, sessions_per_day, time_per_day, actions_per_day
+) {
   users_per_day_data %>%
     dplyr::full_join(sessions_per_day, by = "date") %>%
     dplyr::full_join(time_per_day, by = "date") %>%
@@ -87,7 +106,9 @@ get_time_daily <- function(log_data) {
   log_data %>%
     dplyr::mutate(time = as.POSIXct(.data$time)) %>%
     dplyr::group_by(.data$session, .data$date) %>%
-    dplyr::summarise(time_spent = difftime(max(.data$time), min(.data$time), units = "secs"))
+    dplyr::summarise(
+      time_spent = difftime(max(.data$time), min(.data$time), units = "secs")
+    )
 }
 
 get_active_users <- function(log_data) {
@@ -101,7 +122,9 @@ get_active_users <- function(log_data) {
 
 get_per_day_plot_data <- function(base, per_day) {
   dplyr::left_join(base, per_day, by = "date") %>%
-    tidyr::pivot_longer(c(-"date"), names_to = "statistic", values_to = "value") %>%
+    tidyr::pivot_longer(
+      c(-"date"), names_to = "statistic", values_to = "value"
+    ) %>%
     dplyr::arrange(.data$date, .data$statistic, .data$value) %>%
     tidyr::replace_na(list(value = 0)) %>%
     dplyr::mutate(id = dplyr::case_when(
@@ -124,7 +147,9 @@ get_per_day_plot_data <- function(base, per_day) {
 #' @param output output object inherited from server function.
 #' @param session session object inherited from server function.
 #' @param db_credentials data.frame with database config parameters
-prepare_admin_panel_components <- function(input, output, session, db_credentials) {
+prepare_admin_panel_components <- function(
+  input, output, session, db_credentials
+) {
   hour_levels <- c("12am", paste0(1:11, "am"), "12pm", paste0(1:11, "pm"))
 
   log_data <- shiny::reactive({
@@ -155,7 +180,10 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
   )
 
   output$date_header <- shiny::renderUI({
-    shiny::tags$h4(class = "ui horizontal divider header", sprintf("From %s to %s", input$date_from, input$date_to))
+    shiny::tags$h4(
+      class = "ui horizontal divider header",
+      sprintf("From %s to %s", input$date_from, input$date_to)
+    )
   })
   ## general tab reactives
 
@@ -179,12 +207,20 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
     n_plots <- length(unique(plot_data$id))
     x_axis_ticks <- prepare_date_axis_ticks(unique(plot_data$date))
     annote <- function(y, text) {
-      list(y = y, text = text, showarrow = F, xref = "paper", yref = "paper", font = list(size = 16))
+      list(
+        y = y,
+        text = text,
+        showarrow = FALSE,
+        xref = "paper",
+        yref = "paper",
+        font = list(size = 16)
+      )
     }
     plot_data %>%
       plotly::plot_ly(
         x = ~date, y = ~value, color = ~statistic,
-        colors = c("#fbbd08", "#b21e1e", "#00827c", "#1a69a4"), yaxis = ~paste0("y", id)
+        colors = c("#fbbd08", "#b21e1e", "#00827c", "#1a69a4"),
+        yaxis = ~paste0("y", id)
       ) %>%
       plotly::add_bars() %>%
       plotly::subplot(nrows = n_plots, shareX = TRUE) %>%
@@ -201,18 +237,44 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
           annote(y = 0.29, text = "Total clicks and inputs")
         )
       ) %>%
-      plotly::config(displayModeBar = F)
+      plotly::config(displayModeBar = FALSE)
   }
 
-  users_per_day <- shiny::reactive({ get_users_per_day(selected_log_data()) })
-  sessions_per_day <- shiny::reactive({ get_sessions_per_day(selected_log_data()) })
-  time_per_day <- shiny::reactive({ get_time_per_day(selected_log_data()) })
-  actions_per_day <- shiny::reactive({ get_actions_per_day(selected_log_data()) })
-  per_day_data <- shiny::reactive({ get_per_day_data(users_per_day(), sessions_per_day(), time_per_day(), actions_per_day()) })
-  per_day_plot_data <- shiny::reactive({ get_per_day_plot_data(date_base(), per_day_data()) })
-  time_daily <- shiny::reactive({ get_time_daily(selected_log_data()) })
+  users_per_day <- shiny::reactive({
+    get_users_per_day(selected_log_data())
+  })
 
-  output$daily_stats <- plotly::renderPlotly({ plot_daily_stats(per_day_plot_data()) })
+  sessions_per_day <- shiny::reactive({
+    get_sessions_per_day(selected_log_data())
+  })
+
+  time_per_day <- shiny::reactive({
+    get_time_per_day(selected_log_data())
+  })
+
+  actions_per_day <- shiny::reactive({
+    get_actions_per_day(selected_log_data())
+  })
+
+  per_day_data <- shiny::reactive({
+    get_per_day_data(
+      users_per_day(),
+      sessions_per_day(),
+      time_per_day(),
+      actions_per_day())
+  })
+
+  per_day_plot_data <- shiny::reactive({
+    get_per_day_plot_data(date_base(), per_day_data())
+  })
+
+  time_daily <- shiny::reactive({
+    get_time_daily(selected_log_data())
+  })
+
+  output$daily_stats <- plotly::renderPlotly({
+    plot_daily_stats(per_day_plot_data())
+  })
 
   shiny::observe({
     if (length(time_daily()) > 0) {
@@ -220,7 +282,7 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
         time_hours <- time_daily() %>%
           dplyr::pull(.data$time_spent) %>%
           mean() %>%
-          convert_timediff_to_HM()
+          convert_timediff_to_hm()
 
         semantic.dashboard::valueBox(
           value = time_hours,
@@ -239,7 +301,11 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
     if (nrow(selected_log_data()) > 0) {
       output$total_users <- semantic.dashboard::renderValueBox({
         semantic.dashboard::valueBox(
-          value = length(unique(selected_log_data() %>% dplyr::filter(.data$username != "") %>% dplyr::pull(.data$username))),
+          value = length(unique(
+            selected_log_data() %>%
+              dplyr::filter(.data$username != "") %>%
+              dplyr::pull(.data$username)
+          )),
           subtitle = "Unique users accessed app",
           icon = semantic.dashboard::icon("User Circle"),
           color = "red",
@@ -289,7 +355,8 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
       (function(.dot) {
         Reduce(union, .dot, accumulate = TRUE)
       })() %>%
-      purrr::map(length) %>% (function(.dot){
+      purrr::map(length) %>%
+      (function(.dot) {
         c(.dot[[1]], diff(unlist(.dot)))
       })()
 
@@ -301,10 +368,16 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
       dplyr::mutate(previous_users = .data$users - .data$new_users)
   })
 
-  active_users <- shiny::reactive({ get_active_users(selected_log_data()) })
+  active_users <- shiny::reactive({
+    get_active_users(selected_log_data())
+  })
 
   heatmap_data <- shiny::reactive({
-    heatmap_temp_data <- dplyr::left_join(date_base_with_hours(), active_users(), by = c("date", "day_hour")) %>%
+    heatmap_temp_data <- dplyr::left_join(
+      date_base_with_hours(),
+      active_users(),
+      by = c("date", "day_hour")
+    ) %>%
       tidyr::replace_na(list(users = 0))
     heatmap_temp_data$day_hour <- factor(
       heatmap_temp_data$day_hour,
@@ -333,7 +406,7 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
         ),
         title = "Users logged each day", barmode = "stack"
       ) %>%
-      plotly::config(displayModeBar = F)
+      plotly::config(displayModeBar = FALSE)
   })
 
   output$users_per_hour <- plotly::renderPlotly({
@@ -355,12 +428,14 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
           tickvals = x_axis_ticks$tickvals, ticktext = x_axis_ticks$ticktext
         )
       ) %>%
-      plotly::config(displayModeBar = F)
+      plotly::config(displayModeBar = FALSE)
   })
 
   output$selected_user <- shiny::renderUI({
-    shiny.semantic::search_selection_choices("selected_users", sort(unique(selected_log_data()$username)),
-                             multiple = FALSE, default_text = "Select user"
+    shiny.semantic::search_selection_choices(
+      "selected_users",
+      sort(unique(selected_log_data()$username)),
+      multiple = FALSE, default_text = "Select user"
     )
   })
 
@@ -412,17 +487,19 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
         ),
         margin = list(r = 25, b = 50)
       ) %>%
-      plotly::config(displayModeBar = F)
+      plotly::config(displayModeBar = FALSE)
   })
 
   output$user_total_time <- semantic.dashboard::renderValueBox({
     total_hours <- selected_user_data() %>%
       dplyr::mutate(time = as.POSIXct(.data$time)) %>%
       dplyr::group_by(.data$session) %>%
-      dplyr::summarise(time_spent = difftime(max(.data$time), min(.data$time), units = "secs")) %>%
+      dplyr::summarise(
+        time_spent = difftime(max(.data$time), min(.data$time), units = "secs")
+      ) %>%
       dplyr::pull(.data$time_spent) %>%
       sum() %>%
-      convert_timediff_to_HM()
+      convert_timediff_to_hm()
 
     semantic.dashboard::valueBox(
       value = total_hours,
@@ -480,10 +557,22 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
             ),
             shiny::div(
               style = "margin-top: 1.8em;", class = "column five wide",
-              shiny::div(semantic.dashboard::valueBoxOutput("user_total_time"), style = "margin-bottom: 0.5em;"),
-              shiny::div(semantic.dashboard::valueBoxOutput("user_active_days"), style = "margin-bottom: 0.5em;"),
-              shiny::div(semantic.dashboard::valueBoxOutput("user_actions_mean"), style = "margin-bottom: 0.5em;"),
-              shiny::div(semantic.dashboard::valueBoxOutput("user_since"), style = "margin-bottom: 0.5em;")
+              shiny::div(
+                semantic.dashboard::valueBoxOutput("user_total_time"),
+                style = "margin-bottom: 0.5em;"
+              ),
+              shiny::div(
+                semantic.dashboard::valueBoxOutput("user_active_days"),
+                style = "margin-bottom: 0.5em;"
+              ),
+              shiny::div(
+                semantic.dashboard::valueBoxOutput("user_actions_mean"),
+                style = "margin-bottom: 0.5em;"
+              ),
+              shiny::div(
+                semantic.dashboard::valueBoxOutput("user_since"),
+                style = "margin-bottom: 0.5em;"
+              )
             )
           )
         )
@@ -494,12 +583,17 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
   # input stats
 
   global_action_data <- shiny::reactive({
-    action_date_base <- expand.grid(date = date_base()$date, action = c("input", "click"), stringsAsFactors = FALSE)
+    action_date_base <- expand.grid(
+      date = date_base()$date,
+      action = c("input", "click"),
+      stringsAsFactors = FALSE
+    )
 
     selected_log_data() %>%
       dplyr::filter(.data$action %in% c("input", "click")) %>%
       dplyr::group_by(.data$action, .data$date) %>%
-      dplyr::summarise(times = dplyr::n()) %>% (function(.dot) {
+      dplyr::summarise(times = dplyr::n()) %>%
+      (function(.dot) {
         dplyr::left_join(action_date_base, .dot, by = c("action", "date"))
       })() %>%
       tidyr::replace_na(list(times = 0))
@@ -524,7 +618,7 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
           tickvals = x_axis_ticks$tickvals, ticktext = x_axis_ticks$ticktext
         )
       ) %>%
-      plotly::config(displayModeBar = F)
+      plotly::config(displayModeBar = FALSE)
   })
 
   output$total_inputs <- semantic.dashboard::renderValueBox({
@@ -563,7 +657,12 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
       dplyr::pull(.data$action) %>%
       unique() %>%
       sort()
-    shiny.semantic::search_selection_choices("selected_action", actions, multiple = FALSE, default_text = "...")
+    shiny.semantic::search_selection_choices(
+      "selected_action",
+      actions,
+      multiple = FALSE,
+      default_text = "..."
+    )
   })
 
   selected_action_data <- shiny::reactive({
@@ -571,7 +670,8 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
       dplyr::filter(.data$action == input$selected_action)
   })
 
-  selected_action_aggregated_data <- shiny::reactive({
+  # s_* = selected_*
+  s_action_aggregated_data <- shiny::reactive({
     selected_action_data() %>%
       dplyr::group_by(.data$id) %>%
       dplyr::summarise(times_total = dplyr::n())
@@ -586,12 +686,15 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
 
     id_data <- selected_action_data() %>%
       dplyr::group_by(.data$date, .data$id) %>%
-      dplyr::summarise(times = dplyr::n()) %>% (function(.dot) {
+      dplyr::summarise(times = dplyr::n()) %>%
+      (function(.dot) {
         dplyr::left_join(id_date_base, .dot, by = c("id", "date"))
       })() %>%
-      dplyr::left_join(selected_action_aggregated_data()) %>%
+      dplyr::left_join(s_action_aggregated_data()) %>%
       tidyr::replace_na(list(times = 0)) %>%
-      dplyr::mutate(input_label = sprintf("%s (total %s)", .data$id, .data$times_total))
+      dplyr::mutate(
+        input_label = sprintf("%s (total %s)", .data$id, .data$times_total)
+      )
 
     colz <- prepare_color_scale(heatmap_data()$users, "Blues")
 
@@ -612,7 +715,7 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
         ),
         margin = list(l = 150)
       ) %>%
-      plotly::config(displayModeBar = F)
+      plotly::config(displayModeBar = FALSE)
   })
 
   output$select_action_id <- shiny::renderUI({
@@ -640,7 +743,10 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
     if (is.null(input$selected_action) | input$selected_action == "") {
       ""
     } else {
-      shiny::div(class = "sixteen wide column", plotly::plotlyOutput("selected_action_plot", height = "200px"))
+      shiny::div(
+        class = "sixteen wide column",
+        plotly::plotlyOutput("selected_action_plot", height = "200px")
+      )
     }
   })
 
@@ -707,9 +813,10 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
   })
 
   output$sessions_table <- DT::renderDataTable({
-    DT::datatable(sessions_summary(),
-                  selection = "single",
-                  colnames = c("Session ID", "User name", "Init time", "Duration (s)", "Performed actions")
+    DT::datatable(
+      sessions_summary(),
+      selection = "single",
+      colnames = c("Session ID", "User name", "Init time", "Duration (s)", "Performed actions")
     )
   })
 
@@ -721,7 +828,9 @@ prepare_admin_panel_components <- function(input, output, session, db_credential
   selected_session_data <- shiny::reactive({
     shiny::validate(shiny::need(selected_session(), label = "selected_session"))
     selected_log_data() %>%
-      dplyr::filter(.data$action %in% c("login", "logout", "input", "click"), session == selected_session()) %>%
+      dplyr::filter(
+        .data$action %in% c("login", "logout", "input", "click"), session == selected_session()
+      ) %>%
       dplyr::mutate(
         start = as.character(.data$time),
         content = dplyr::case_when(

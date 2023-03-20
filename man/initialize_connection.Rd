@@ -21,8 +21,9 @@ initialize_custom_connection(
 
 \item{session_id}{Logged user session id (if NULL, id is randomly generated).}
 
-\item{table_schemes}{Specific table schemes that should be created or connected with inside 'db_connection'.
-Each list object specifies separate table and should be of the form:
+\item{table_schemes}{Specific table schemes that should be created or
+connected with inside 'db_connection'. Each list object specifies separate
+table and should be of the form:
 table_name = c(col_1_name = col_1_type, ...)}
 }
 \value{
@@ -31,11 +32,13 @@ session_id (useful to specify user session after app is opened),
 db_connection the same object that was passed as db_connection parameter.
 
 It also sets empty 'user_log' table with:
-\code{CREATE TABLE user_log(time TIMESTAMP, session TEXT, username TEXT, action TEXT, id TEXT, value TEXT)}
+\code{CREATE TABLE user_log(time TIMESTAMP, session TEXT, username TEXT,
+action TEXT, id TEXT, value TEXT)}
 and 'session_details' table with:
-\code{CREATE TABLE session_details(time TIMESTAMP, session TEXT, detail TEXT)} inside DB.
+\code{CREATE TABLE session_details(time TIMESTAMP, session TEXT, detail TEXT)}
+ inside DB.
 }
 \description{
-This connects to specified sqlite database (or create new one when it doesn't exist).
-Should be used outside server and ui function.
+This connects to specified sqlite database (or create new one
+when it doesn't exist). Should be used outside server and ui function.
 }

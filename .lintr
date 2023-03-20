@@ -1,8 +1,11 @@
 linters:
   linters_with_defaults(
-    line_length_linter = line_length_linter(100)
+    line_length_linter = line_length_linter(100),
+    object_name_linter(styles = c("SNAKE_CASE", "snake_case", "symbols"))
   )
 exclusions:
-  c(
-    "vignettes"
+  list(
+    "R/constants.R" = 15,
+    "vignettes",
+    "inst/examples/app/analytics.R" = 4
   )

@@ -7,7 +7,8 @@
 get_users_data(users_credentials_db_config)
 }
 \arguments{
-\item{users_credentials_db_config}{Named vector with environmental variables concerning db connection.}
+\item{users_credentials_db_config}{Named vector with environmental variables
+concerning db connection.}
 }
 \description{
 get users data
