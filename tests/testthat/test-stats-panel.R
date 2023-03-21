@@ -51,6 +51,11 @@ test_that("get_per_day_plot_data", {
     date_initial + 1,    "total opened sessions",     41,   1,
     date_initial + 1, "avg session time (hours)",      8,   2,
     date_initial + 1,  "total clicks and inputs",     99,   1,
+    #
+    date_initial + 2,    "logged users (unique)",      0,   3,
+    date_initial + 2,    "total opened sessions",      0,   1,
+    date_initial + 2, "avg session time (hours)",      0,   2,
+    date_initial + 2,  "total clicks and inputs",      0,   1,
   ) %>%
     dplyr::arrange(dplyr::across(tidyr::matches("[a-zA-Z]")))
 
@@ -61,10 +66,10 @@ test_that("get_per_day_plot_data", {
   )
 
   # 2 days
-  base2 <- dplyr::bind_rows(base, base + 1)
+  base2 <- dplyr::bind_rows(base, base + 1, base + 2)
 
   expect_equal(
-    get_per_day_plot_data(base2, per_day) %>%
+      get_per_day_plot_data(base2, per_day) %>%
       dplyr::arrange(dplyr::across(tidyr::matches("[a-zA-Z]"))),
     per_day_plot_data,
     ignore_attr = TRUE
