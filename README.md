@@ -111,3 +111,17 @@ server <- shiny_stats_server(get_user, db_credentials = db_credentials)
 ```
 shinyApp(ui = ui, server = server, options = list(port = 8887, launch.browser = FALSE))
 ```
+
+## Appsilon
+
+<img src="https://avatars0.githubusercontent.com/u/6096772" align="right" alt="" width="6%" />
+
+Appsilon is a **Posit (formerly RStudio) Full Service Certified Partner**.<br/>
+Learn more
+at [appsilon.com](https://appsilon.com).
+
+Get in touch [opensource@appsilon.com](mailto:opensource@appsilon.com)
+
+Check the [Rhinoverse](https://rhinoverse.dev).
+
+<a href = "https://appsilon.com/careers/" target="_blank"><img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!"/></a>

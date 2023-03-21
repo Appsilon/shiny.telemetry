@@ -1,0 +1,68 @@
+title: shiny.telemetry
+template:
+  bootstrap: 5
+  bootswatch: pulse
+  bslib:
+    pkgdown-nav-height: 100px
+  includes:
+    in_header: |
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-D33PHDKY5M"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D33PHDKY5M');
+      </script>
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-FQQZL5V93G"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-FQQZL5V93G');
+      </script>
+      <script async defer src="https://buttons.github.io/buttons.js"></script>
+    before_navbar: |
+      <a href="https://rhinoverse.dev" class="home"><i class="fa fa-lg fa-chevron-left"></i></a>
+
+url: https://appsilon.github.io/shiny.telemetry/
+
+navbar:
+  bg: primary
+  structure:
+    left: [home, reference]
+    right: [search, github, twitter, mastodon]
+  components:
+    home:
+      icon: fa-home
+      text: "Start"
+      href: index.html
+    reference:
+      icon: fa-file-code-o
+      text: "Reference"
+      href: reference/index.html
+    github:
+      icon: fa-github fa-lg
+      href: https://github.com/Appsilon/shiny.telemetry
+    twitter:
+      icon: fa-twitter fa-lg
+      href: https://twitter.com/Appsilon
+    mastodon:
+      icon: fab fa-mastodon fa-lg
+      href: https://fosstodon.org/@appsilon
+
+home:
+  sidebar:
+    structure: [star, links, license, community, citation, authors, dev]
+    components:
+      star:
+        title: GitHub
+        text: |
+          <a class="github-button" href="https://github.com/appsilon/shiny.telemetry" data-size="large" data-show-count="true" aria-label="Star appsilon/shiny.telemetry on GitHub">Star</a>
+
+footer:
+  structure:
+    left: developed
+  components:
+    developed: "Developed with :heart: by [Appsilon](https://appsilon.com)."
