@@ -4,8 +4,7 @@
 \alias{register_user}
 \title{Registers a new user in the database.}
 \usage{
-register_user(connection, username, password, roles = list(),
-  info = list())
+register_user(connection, username, password, roles = list(), info = list())
 }
 \arguments{
 \item{connection}{Database connection.}

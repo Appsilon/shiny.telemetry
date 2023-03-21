@@ -7,17 +7,28 @@
 get_config(config_variables)
 }
 \arguments{
-\item{config_variables}{Named vector with environmental variables concerning db connection.}
+\item{config_variables}{Named vector with environmental variables concerning
+db connection.}
 }
 \value{
-Return data.frame with passed parameters and its valies.
+Return data.frame with passed parameters and its values.
 }
 \description{
 Converts config database file into data.frame
-Configuration file should contain following parameters (each parameter on separate line
-with value separated with \code{=} sign):
+Configuration file should contain following parameters (each parameter on
+separate line with value separated with \code{=} sign):
+
+
 In case of sqlite file:
-DB_NAME - path to database file (absolute or relative to application directory), DRV - "sqlite"
-In case of external PostgreSQL database: DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DRV - respective
-parameters of RPostgreSQL.
+
+
+DB_NAME - path to database file (absolute or relative to application directory)
+DRV - "sqlite"
+
+
+In case of external PostgreSQL database:
+
+
+DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DRV - respective parameters
+ of RPostgreSQL.
 }

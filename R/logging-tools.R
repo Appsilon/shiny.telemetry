@@ -1,13 +1,19 @@
 #' Log user activity
 #'
-#' @description These functions connects to database and log specific user activity. See more in \strong{Details} section.
+#' @description These functions connects to database and log specific user
+#' activity. See more in \strong{Details} section.
 #'
-#' @details \code{log_input} and \code{log_button} observe selected input value and registers its insertion or change inside specified database.
-#' @param user_connection_data List with user session and DB connection. See \link{initialize_connection}.
+#' @details \code{log_input} and \code{log_button} observe selected input value
+#' and registers its insertion or change inside specified database.
+#'
+#' @param user_connection_data List with user session and DB connection.
+#' See \link{initialize_connection}.
 #' @param input input object inherited from server function.
 #' @param input_id id of registered input control.
 #' @param matching_values An object specified possible values to register.
-#' @param input_type 'text' to registered bare input value, 'json' to parse value from JSON format.
+#' @param input_type 'text' to registered bare input value, 'json' to parse
+#' value from JSON format.
+#'
 #' @export
 log_input <- function(user_connection_data, input, input_id,
                       matching_values = NULL, input_type = "text") {
@@ -21,7 +27,10 @@ log_input <- function(user_connection_data, input, input_id,
       if (!is.null(matching_values) && input_type == "json") {
         input_value <- parse_val(input_value)
       }
-      if (is.null(matching_values) | (!is.null(matching_values) && input_value %in% matching_values)) {
+      if (
+        is.null(matching_values) |
+        (!is.null(matching_values) && input_value %in% matching_values)
+      ) {
         db <- user_connection_data$db_connection
         persist_log <- function(input_value, input_id) {
           res <- odbc::dbSendQuery(conn = db,
@@ -47,6 +56,7 @@ log_input <- function(user_connection_data, input, input_id,
 }
 
 #' @rdname log_input
+#' @param button_id id of registered button input control.
 #' @export
 log_button <- function(user_connection_data, input, button_id) {
   shiny::observeEvent(input[[button_id]], {
@@ -64,13 +74,19 @@ log_button <- function(user_connection_data, input, button_id) {
   )
 }
 
-#' @details Each function (except \code{log_custom_action}) store logs inside 'user_log' table.
-#' It is required to build admin panel (See \link{initialize_admin_panel}).
-#' @param table_name Specific table name to create or connect inside 'path_to_db'.
-#' @param values Named list. Names of the list specify column names of \code{table_name} and list elements
-#' corresponding values that should be intsert into the table. Column 'time' is filled automatically so
+#' @details Each function (except \code{log_custom_action}) store logs inside
+#' 'user_log' table.
+#' It is required to build admin panel (See \link{prepare_admin_panel_components}).
+#'
+#' @param table_name Specific table name to create or connect inside
+#' 'path_to_db'.
+#' @param values Named list. Names of the list specify column names of
+#' \code{table_name} and list elements corresponding values that should be
+#' insert into the table. Column 'time' is filled automatically so
 #' you cannot pass it on you own.
+#'
 #' @rdname log_input
+#'
 #' @export
 log_custom_action <- function(user_connection_data, table_name = "user_log", values) {
 
@@ -82,11 +98,21 @@ log_custom_action <- function(user_connection_data, table_name = "user_log", val
     stop("You mustn't pass 'time' value into database. It is set automatically.")
   }
 
-  send_query_df <- as.data.frame(c(time = as.character(Sys.time()), values), stringsAsFactors = FALSE)
+  send_query_df <- as.data.frame(
+    c(time = as.character(Sys.time()), values),
+    stringsAsFactors = FALSE
+  )
 
   db <- user_connection_data$db_connection
 
-  odbc::dbWriteTable(db, table_name, send_query_df, overwrite = FALSE, append = TRUE, row.names = FALSE)
+  odbc::dbWriteTable(
+    db,
+    table_name,
+    send_query_df,
+    overwrite = FALSE,
+    append = TRUE,
+    row.names = FALSE
+  )
 
 }
 
@@ -95,8 +121,10 @@ log_custom_action <- function(user_connection_data, table_name = "user_log", val
 #' @export
 log_action <- function(user_connection_data, action) {
   log_custom_action(user_connection_data, "user_log", values = list(
-    "session" = user_connection_data$session_id, "username" = user_connection_data$username, "action" = action)
-  )
+    "session" = user_connection_data$session_id,
+    "username" = user_connection_data$username,
+    "action" = action
+  ))
 }
 
 #' @rdname log_input
@@ -104,7 +132,8 @@ log_action <- function(user_connection_data, action) {
 #' @export
 log_click <- function(user_connection_data, id) {
   log_custom_action(user_connection_data, "user_log", values = list(
-    "session" = user_connection_data$session_id, "username" = user_connection_data$username,
+    "session" = user_connection_data$session_id,
+    "username" = user_connection_data$username,
     "action" = "click", "id" = id)
   )
 }
@@ -113,18 +142,23 @@ log_click <- function(user_connection_data, id) {
 #' @export
 log_login <- function(user_connection_data) {
   log_custom_action(user_connection_data, "user_log", values = list(
-    "session" = user_connection_data$session_id, "username" = user_connection_data$username, "action" = "login")
-  )
+    "session" = user_connection_data$session_id,
+    "username" = user_connection_data$username,
+    "action" = "login"
+  ))
 }
 
-#' @details \code{log_logout} should be used inside \code{observe} function. It is based on \code{shiny::onStop}.
+#' @details \code{log_logout} should be used inside \code{observe} function.
+#' It is based on \code{shiny::onStop}.
 #' @rdname log_input
 #' @export
 log_logout <- function(user_connection_data) {
   shiny::onStop(function() {
     log_custom_action(user_connection_data, "user_log", values = list(
-      "session" = user_connection_data$session_id, "username" = user_connection_data$username, "action" = "logout")
-    )
+      "session" = user_connection_data$session_id,
+      "username" = user_connection_data$username,
+      "action" = "logout"
+    ))
     odbc::dbDisconnect(user_connection_data$db_connection)
   })
 }
@@ -141,20 +175,22 @@ log_session_detail <- function(user_connection_data, detail) {
 #' Browser info
 #'
 #' @description It sends info about user's browser to server.
-#' Place it inside head tag of your Shiny app. You can get this value on server from \code{input[["browser_version"]]}.
-#' You can also use log_browser_version function to log browser version into sqlite file.
+#' Place it inside head tag of your Shiny app. You can get this value on server
+#' from \code{input[["browser_version"]]}.
+#' You can also use log_browser_version function to log browser version into
+#' sqlite file.
 #'
 #' @examples
 #' ## Only run examples in interactive R sessions
 #' if (interactive()) {
 #' library(shiny)
 #' library(shiny.semantic)
-#' library(shiny.admin)
+#' library(shiny.telemetry)
 #'
 #' ui <- function() {
 #'   shinyUI(
 #'     semanticPage(
-#'       tags$head(shiny.admin::browser_info_js),
+#'       tags$head(shiny.telemetry::browser_info_js),
 #'       title = "Browser info example",
 #'       textOutput("browser")
 #'     )
@@ -194,6 +230,11 @@ browser_info_js <- shiny::HTML("
 
 
 #' @rdname browser_info_js
+#'
+#' @param input input object inherited from server function.
+#' @param user_connection_data List with user session and DB connection.
+#' See \link{initialize_connection}.
+#'
 #' @export
 log_browser_version <- function(input, user_connection_data) {
   browser <- input$browser_version
@@ -202,7 +243,8 @@ log_browser_version <- function(input, user_connection_data) {
     user_connection_data,
     table_name = "user_log",
     values = list(
-      "session" = user_connection_data$session_id, "username" = user_connection_data$username,
+      "session" = user_connection_data$session_id,
+      "username" = user_connection_data$username,
       "action" = "browser", "value" = browser
     )
   )

@@ -5,28 +5,38 @@
 \alias{browser_info_js}
 \alias{log_browser_version}
 \title{Browser info}
-\format{An object of class \code{html} (inherits from \code{character}) of length 1.}
+\format{
+An object of class \code{html} (inherits from \code{character}) of length 1.
+}
 \usage{
 browser_info_js
 
 log_browser_version(input, user_connection_data)
 }
+\arguments{
+\item{input}{input object inherited from server function.}
+
+\item{user_connection_data}{List with user session and DB connection.
+See \link{initialize_connection}.}
+}
 \description{
 It sends info about user's browser to server.
-Place it inside head tag of your Shiny app. You can get this value on server from \code{input[["browser_version"]]}.
-You can also use log_browser_version function to log browser version into sqlite file.
+Place it inside head tag of your Shiny app. You can get this value on server
+from \code{input[["browser_version"]]}.
+You can also use log_browser_version function to log browser version into
+sqlite file.
 }
 \examples{
 ## Only run examples in interactive R sessions
 if (interactive()) {
 library(shiny)
 library(shiny.semantic)
-library(shiny.admin)
+library(shiny.telemetry)
 
 ui <- function() {
   shinyUI(
     semanticPage(
-      tags$head(shiny.admin::browser_info_js),
+      tags$head(shiny.telemetry::browser_info_js),
       title = "Browser info example",
       textOutput("browser")
     )

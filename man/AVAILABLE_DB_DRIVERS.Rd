@@ -4,7 +4,9 @@
 \name{AVAILABLE_DB_DRIVERS}
 \alias{AVAILABLE_DB_DRIVERS}
 \title{Possible drivers allowed for log storage}
-\format{An object of class \code{character} of length 2.}
+\format{
+An object of class \code{character} of length 2.
+}
 \usage{
 AVAILABLE_DB_DRIVERS
 }

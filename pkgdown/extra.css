@@ -1,0 +1,45 @@
+.navbar {
+  background-color: #505050 !important;
+}
+
+#navbar > ul.navbar-nav > li.nav-item a:hover {
+  background-color: #505050 !important;
+}
+
+.navbar-dark .navbar-nav .active>.nav-link {
+  background-color: #505050 !important;
+  color: #fff;
+}
+
+.navbar-dark input[type="search"] {
+  background-color: #fff !important;
+  color: #444 !important;
+}
+
+nav .text-muted {
+  color: #d8d8d8 !important;
+}
+
+a {
+  color: #505050;
+}
+
+a:hover {
+  color: #2c2b2b;
+}
+
+button.btn.btn-primary.btn-copy-ex {
+  background-color: #505050;
+  border-color: #505050;
+}
+
+.home {
+  left: 0px;
+  position: absolute;
+  padding: 8px 30px;
+  color: rgba(255,255,255,0.55);
+}
+
+.home:hover {
+  color: rgba(255,255,255,0.9);
+}

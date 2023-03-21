@@ -41,10 +41,11 @@ server <- function(input, output, session) {
     input$apply_slider
     x <- faithful[, 2]
     bins <- seq(min(x), max(x), length.out = isolate(input$bins) + 1)
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    hist(x, breaks = bins, col = "darkgray", border = "white")
   })
 
-  # registering logout (this also disconnects connection object, if not used take care of it on your own)
+  # registering logout (this also disconnects connection object, if not used
+  #  take care of it on your own)
   log_logout(user_connection)
 }
 

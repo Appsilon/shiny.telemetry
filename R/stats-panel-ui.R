@@ -1,17 +1,27 @@
 segment <- function(title, ..., color = "blue") {
-  div(
+  shiny::div(
     class = "ui raised segment", style = "margin-bottom: 0.5em; width: 100%;",
-    tags$div(style = "margin-bottom: 0.5em;", class = paste("ui demo right ribbon label", color), title),
+    shiny::tags$div(
+      style = "margin-bottom: 0.5em;",
+      class = paste("ui demo right ribbon label", color),
+      title
+    ),
     ...
   )
 }
 
 convert_hour <- function(time) {
   hour <- as.POSIXlt(time)$hour
-  ifelse(hour == 0, "12am", ifelse(hour == 12, "12pm", ifelse(hour < 12, paste0(hour, "am"), paste0(hour - 12, "pm"))))
+  ifelse(
+    hour == 0, "12am",
+    ifelse(
+      hour == 12, "12pm",
+      ifelse(hour < 12, paste0(hour, "am"), paste0(hour - 12, "pm"))
+    )
+  )
 }
 
-convert_timediff_to_HM <- function(timediff_in_seconds) {
+convert_timediff_to_hm <- function(timediff_in_seconds) {
   days <- (timediff_in_seconds / (60 * 60 * 24)) %>% floor()
   seconds_in_posixct <- .POSIXct(timediff_in_seconds, tz = "GMT")
   S <- as.numeric(format(seconds_in_posixct, "%S"))
@@ -25,10 +35,10 @@ convert_timediff_to_HM <- function(timediff_in_seconds) {
 }
 
 format_time_diff <- function(time_end, time_start) {
-  convert_timediff_to_HM(difftime(time_end, time_start, units = "secs"))
+  convert_timediff_to_hm(difftime(time_end, time_start, units = "secs"))
 }
 
-convert_char_HM_timediff_to_timediff <- function(time_char) {
+convert_char_hm_to_timediff <- function(time_char) {
   as.difftime(time_char, format = "%Hh:%Mm", units = "secs")
 }
 
@@ -36,7 +46,7 @@ prepare_color_scale <- function(values, palette) {
   vals <- scales::rescale(min(values):max(values))
   o <- order(vals, decreasing = FALSE)
   cols <- scales::col_numeric(palette, domain = NULL)(vals)
-  setNames(data.frame(vals[o], cols[o]), NULL)
+  stats::setNames(data.frame(vals[o], cols[o]), NULL)
 }
 
 prepare_date_axis_ticks <- function(date_sequence, quantile = 0.1) {
@@ -51,7 +61,7 @@ prepare_date_axis_ticks <- function(date_sequence, quantile = 0.1) {
 }
 
 render_download_button <- function(output_id, label, style = NULL) {
-  a(
+  shiny::a(
     id = output_id,
     class = "ui grey tiny basic button shiny-download-link",
     style = style,
@@ -61,4 +71,3 @@ render_download_button <- function(output_id, label, style = NULL) {
     label
   )
 }
-
