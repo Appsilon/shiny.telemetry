@@ -208,5 +208,5 @@ generate_session_id <- function() {
 }
 
 parse_val <- function(val) {
-  jsonlite::fromJSON(ifelse(is.null(val), "\"\"", val))
+  rjson::fromJSON(ifelse(is.null(val), "\"\"", val))
 }

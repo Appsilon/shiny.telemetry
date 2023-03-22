@@ -272,7 +272,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
         "WHERE date(time) >= '{date_from}' AND date(time) <= '{date_to}'"
       )
       odbc::dbGetQuery(private$db_con, query) %>%
-        tibble::tibble()
+        dplyr::tibble()
     }
   )
 )

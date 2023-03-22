@@ -1,5 +1,5 @@
 test_that("get_active_users", {
-  log_data <- tibble::tibble(
+  log_data <- dplyr::tibble(
     time = strptime("2023-03-20 15:00:00", format = "%Y-%m-%d %H:%M:%S") + c(10, 20, 30, 3601),
     username = c("a", "b", "a", "c"),
     date = Sys.Date()
@@ -18,7 +18,7 @@ test_that("get_active_users", {
 })
 
 test_that("get_actions_per_day", {
-  log_data <- tibble::tibble(
+  log_data <- dplyr::tibble(
     action = c("login", "login", "logout", "something else", "other"),
     date = rep(Sys.Date(), 5)
   )
@@ -34,13 +34,13 @@ test_that("get_per_day_plot_data", {
 
   base <- data.frame(date = date_initial)
 
-  per_day <- tibble::tribble(
+  per_day <- dplyr::tribble(
     ~date,                 ~users, ~sessions, ~time, ~actions,
     date_initial + 0,      3,         4,     0,        5,
     date_initial + 1,     31,        41,     8,       99
   )
 
-  per_day_plot_data <- tibble::tribble(
+  per_day_plot_data <- dplyr::tribble(
                ~date,                 ~statistic, ~value, ~id,
     date_initial + 0,    "logged users (unique)",      3,   3,
     date_initial + 0,    "total opened sessions",      4,   1,

@@ -1,6 +1,6 @@
 #' Shiny app usability logs and statistics
 #'
 #' @name shiny.telemetry-package
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' @importFrom rlang .data
 NULL

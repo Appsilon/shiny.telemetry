@@ -346,7 +346,7 @@ prepare_admin_panel_components <- function(
       dplyr::group_by(.data$date) %>%
       dplyr::summarise(users = dplyr::n())
 
-    nested_users_data <- tibble::as_tibble(selected_log_data()) %>%
+    nested_users_data <- dplyr::as_tibble(selected_log_data()) %>%
       dplyr::group_by(.data$date) %>%
       tidyr::nest(data = c("username"))
 
@@ -755,7 +755,7 @@ prepare_admin_panel_components <- function(
     selected_action_id_data() %>%
       dplyr::group_by(.data$value) %>%
       dplyr::summarise(times = dplyr::n()) %>%
-      magrittr::set_colnames(c("Value of selected input", "Total Amount"))
+      dplyr::rename("Value of selected input" = "value", "Total Amount" = "times")
   },
   rownames = FALSE,
   options = list(
