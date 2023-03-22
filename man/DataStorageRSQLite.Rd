@@ -4,9 +4,17 @@
 \alias{DataStorageRSQLite}
 \title{Data storage class with SQLite provider}
 \description{
-Data storage class with SQLite provider
-
-Data storage class with SQLite provider
+Implementation of the DataStorage R6 class to SQLite backend using a unified
+API for read/write opeations
+}
+\examples{
+data_storage <- DataStorageRSQLite$new(
+  username = "test_user",
+  db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
+)
+data_storage$insert(list(id = "an_id", action = "click"))
+data_storage$insert(list(id = "another_id", action = "click"))
+data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageRSQLite}

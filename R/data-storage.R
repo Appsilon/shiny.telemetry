@@ -1,5 +1,10 @@
 
-#' Data storage abstract class
+#' Data Storage abstract class to handle all the read/write operations
+#'
+#' @description
+#' Abstract R6 Class that encapsulates all the operations needed by
+#' Shiny.telemetry to read and write. This removes the complexity from the
+#' functions and uses a unified API.
 DataStorage <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorage",
   #
@@ -121,7 +126,21 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
 )
 
 #' Data storage class with SQLite provider
+#'
+#' @description
+#' Implementation of the DataStorage R6 class to SQLite backend using a unified
+#' API for read/write opeations
+#'
 #' @export
+#'
+#' @examples
+#' data_storage <- DataStorageRSQLite$new(
+#'   username = "test_user",
+#'   db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
+#' )
+#' data_storage$insert(list(id = "an_id", action = "click"))
+#' data_storage$insert(list(id = "another_id", action = "click"))
+#' data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
 DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageRSQLite",
   inherit = DataStorage,

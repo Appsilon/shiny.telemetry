@@ -23,10 +23,9 @@ test_that("Data storage initializes a dummy class", {
 
 test_that("SQL Data storage inserts / reads", {
   db_path <- tempfile(fileext = ".sqlite")
+  withr::defer(file.remove(db_path))
 
   data_storage <- DataStorageRSQLite$new("sample_user_name", db_path = db_path)
 
   test_common(data_storage)
-
-  file.remove(db_path)
 })

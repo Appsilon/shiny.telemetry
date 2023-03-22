@@ -2,11 +2,11 @@
 % Please edit documentation in R/data-storage.R
 \name{DataStorage}
 \alias{DataStorage}
-\title{Data storage abstract class}
+\title{Data Storage abstract class to handle all the read/write operations}
 \description{
-Data storage abstract class
-
-Data storage abstract class
+Abstract R6 Class that encapsulates all the operations needed by
+Shiny.telemetry to read and write. This removes the complexity from the
+functions and uses a unified API.
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
