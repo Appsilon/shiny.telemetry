@@ -129,7 +129,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
 #'
 #' @description
 #' Implementation of the DataStorage R6 class to SQLite backend using a unified
-#' API for read/write opeations
+#' API for read/write operations
 #'
 #' @export
 #'

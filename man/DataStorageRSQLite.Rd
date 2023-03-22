@@ -5,7 +5,7 @@
 \title{Data storage class with SQLite provider}
 \description{
 Implementation of the DataStorage R6 class to SQLite backend using a unified
-API for read/write opeations
+API for read/write operations
 }
 \examples{
 data_storage <- DataStorageRSQLite$new(
