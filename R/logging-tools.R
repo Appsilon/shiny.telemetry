@@ -53,7 +53,7 @@ log_input <- function(
       }
     }
   },
-    # Options to observe call
+    # Options to observeEvent call
     priority = -1, ignoreInit = TRUE
   )
 }
@@ -67,7 +67,7 @@ log_button <- function(data_storage, input, button_id) {
     {
       data_storage$insert(list(action = "click", id = button_id), "user_log")
     },
-    # Options to observe call
+    # Options to observeEvent call
     priority = -1, ignoreInit = TRUE
   )
 }
