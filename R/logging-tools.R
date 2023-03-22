@@ -18,7 +18,7 @@
 log_input <- function(
   data_storage, input, input_id, matching_values = NULL, input_type = "text"
 ) {
-  shiny::observe({
+  shiny::observeEvent(input[[input_id]], {
     input_value <- input[[input_id]]
     if (is.logical(input_value)) {
       input_value <- as.character(input_value)
@@ -54,23 +54,22 @@ log_input <- function(
     }
   },
     # Options to observe call
-    priority = -1
-  ) %>%
-    shiny::bindEvent(input[[input_id]], ignoreInit = TRUE)
+    priority = -1, ignoreInit = TRUE
+  )
 }
 
 #' @rdname log_input
 #' @param button_id id of registered button input control.
 #' @export
 log_button <- function(data_storage, input, button_id) {
-  shiny::observe(
+  shiny::observeEvent(
+    input[[button_id]],
     {
       data_storage$insert(list(action = "click", id = button_id), "user_log")
     },
     # Options to observe call
-    priority = -1
-  ) %>%
-    shiny::bindEvent(input[[button_id]], ignoreInit = TRUE)
+    priority = -1, ignoreInit = TRUE
+  )
 }
 
 #' @details Each function (except \code{log_custom_action}) store logs inside
