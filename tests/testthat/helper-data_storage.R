@@ -8,26 +8,23 @@ test_common <- function(data_storage) {
 
   expect_error(data_storage$insert("some value"), "Must be of type 'list'")
 
-  data_storage$insert(values = list(action = "logout"), "user_log") %>%
-    expect_silent()
+  expect_silent({
+    data_storage$insert(values = list(action = "logout"), "user_log")
+    data_storage$insert(list(action = "click", id = "some_button_id"))
+    data_storage$insert(list(action = "click", id = "some_button_id_2"))
+    data_storage$insert(
+      list(detail = "bla"), bucket = "session_details", add_username = FALSE
+    )
+    data_storage$insert(
+      list(detail = "yada"), bucket = "session_details", add_username = FALSE
+    )
+  })
 
-  data_storage$insert(list(action = "click", id = "some_button_id")) %>%
-    expect_silent()
+  date_from <- Sys.Date() - 365 * 10
+  date_to <- Sys.Date() + 10
 
-  data_storage$insert(list(action = "click", id = "some_button_id_2")) %>%
-    expect_silent()
-
-  data_storage$insert(list(detail = "bla"), bucket = "session_details") %>%
-    expect_silent()
-
-  data_storage$insert(list(detail = "yada"), bucket = "session_details") %>%
-    expect_silent()
-
-  date_1 <- Sys.Date() - 365 * 10
-  date_2 <- Sys.Date()
-
-  user_data <- data_storage$read_user_data(date_1, date_2)
-  session_data <- data_storage$read_session_data(date_1, date_2)
+  user_data <- data_storage$read_user_data(date_from, date_to)
+  session_data <- data_storage$read_session_data(date_from, date_to)
 
   expect_true(checkmate::test_tibble(user_data))
   expect_true(checkmate::test_tibble(session_data))

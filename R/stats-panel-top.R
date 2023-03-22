@@ -199,6 +199,12 @@ shiny_stats_server <- function(
 ) {
   shiny::shinyServer(function(input, output, session) {
     session$user <- get_user(session)
-    prepare_admin_panel_components(input, output, session, db_credentials)
+
+    data_storage <- DataStorageRSQLite$new(
+      username = session$user,
+      db_path = db_credentials$DB_NAME
+    )
+
+    prepare_admin_panel_components(input, output, session, data_storage)
   })
 }

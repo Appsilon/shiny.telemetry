@@ -53,7 +53,7 @@ Initialize the data storage class
 \subsection{Method \code{insert()}}{
 Insert new data
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageRSQLite$insert(values, bucket = "user_log")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorageRSQLite$insert(values, bucket = "user_log", add_username = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -62,6 +62,9 @@ Insert new data
 \item{\code{values}}{list of values to write to database}
 
 \item{\code{bucket}}{name of table to write}
+
+\item{\code{add_username}}{boolean flag that indicates if line should include
+the username of the current session}
 }
 \if{html}{\out{</div>}}
 }

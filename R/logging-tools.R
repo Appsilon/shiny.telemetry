@@ -6,8 +6,8 @@
 #' @details \code{log_input} and \code{log_button} observe selected input value
 #' and registers its insertion or change inside specified database.
 #'
-#' @param user_connection_data List with user session and DB connection.
-#' See \link{initialize_connection}.
+#' @param data_storage data_storage instance that will handle all backend read
+#' and writes.
 #' @param input input object inherited from server function.
 #' @param input_id id of registered input control.
 #' @param matching_values An object specified possible values to register.
@@ -15,71 +15,68 @@
 #' value from JSON format.
 #'
 #' @export
-log_input <- function(user_connection_data, input, input_id,
-                      matching_values = NULL, input_type = "text") {
-  shiny::observeEvent(input[[input_id]], {
+log_input <- function(
+  data_storage, input, input_id, matching_values = NULL, input_type = "text"
+) {
+  shiny::observe({
     input_value <- input[[input_id]]
     if (is.logical(input_value)) {
       input_value <- as.character(input_value)
     }
-    if (!is.null(input_value)) {
-      n_values <- length(input_value)
-      if (!is.null(matching_values) && input_type == "json") {
-        input_value <- parse_val(input_value)
+
+    if (is.null(input_value)) {
+      return(NULL)
+    }
+
+    if (!is.null(matching_values) && input_type == "json") {
+      input_value <- parse_val(input_value)
+    }
+
+    if (
+      is.null(matching_values) |
+      (!is.null(matching_values) && input_value %in% matching_values)
+    ) {
+      persist_log <- function(input_value, input_id) {
+        data_storage$insert(
+          values = list(action = "input", id = input_id, value = input_value),
+          bucket = "user_log"
+        )
       }
-      if (
-        is.null(matching_values) |
-        (!is.null(matching_values) && input_value %in% matching_values)
-      ) {
-        db <- user_connection_data$db_connection
-        persist_log <- function(input_value, input_id) {
-          res <- odbc::dbSendQuery(conn = db,
-            DBI::sqlInterpolate(conn = db,
-              "INSERT INTO user_log
-              VALUES (?time, ?session, ?username, ?action, ?id, ?value)",
-              time = as.character(Sys.time()), session = user_connection_data$session_id,
-              username = user_connection_data$username,
-              action = "input", id = input_id, value = input_value))
-          odbc::dbClearResult(res)
-        }
-        if (n_values > 1) {
-          input_ids <- sprintf("%s_%s", input_id, 1:n_values)
-          purrr::walk2(input_value, input_ids, persist_log)
-        } else {
-          persist_log(input_value, input_id)
-        }
+
+      # save each value separately
+      n_values <- length(input_value)
+      if (n_values > 1) {
+        input_ids <- sprintf("%s_%s", input_id, 1:n_values)
+        purrr::walk2(input_value, input_ids, persist_log)
+      } else {
+        persist_log(input_value, input_id)
       }
     }
   },
-  priority = -1,
-  ignoreInit = TRUE)
+    # Options to observe call
+    priority = -1
+  ) %>%
+    shiny::bindEvent(input[[input_id]], ignoreInit = TRUE)
 }
 
 #' @rdname log_input
 #' @param button_id id of registered button input control.
 #' @export
-log_button <- function(user_connection_data, input, button_id) {
-  shiny::observeEvent(input[[button_id]], {
-    db <- user_connection_data$db_connection
-    res <- odbc::dbSendQuery(conn = db,
-      DBI::sqlInterpolate(conn = db,
-        "INSERT INTO user_log(time, session, username, action, id)
-        VALUES (?time, ?session, ?username, ?action, ?id)",
-        time = as.character(Sys.time()), session = user_connection_data$session_id,
-        username = user_connection_data$username, action = "click", id = button_id))
-    odbc::dbClearResult(res)
+log_button <- function(data_storage, input, button_id) {
+  shiny::observe(
+    {
+      data_storage$insert(list(action = "click", id = button_id), "user_log")
     },
-    priority = -1,
-    ignoreInit = TRUE
-  )
+    # Options to observe call
+    priority = -1
+  ) %>%
+    shiny::bindEvent(input[[button_id]], ignoreInit = TRUE)
 }
 
 #' @details Each function (except \code{log_custom_action}) store logs inside
 #' 'user_log' table.
 #' It is required to build admin panel (See \link{prepare_admin_panel_components}).
 #'
-#' @param data_storage data_storage instance that will handle all backend read
-#' and writes.
 #' @param table_name Specific table name to create or connect inside
 #' 'path_to_db'.
 #' @param values Named list. Names of the list specify column names of
@@ -95,29 +92,20 @@ log_custom_action <- function(data_storage, table_name = "user_log", values) {
 }
 
 #' @rdname log_input
-#' @param data_storage data_storage instance that will handle all backend read
-#' and writes.
 #' @param action Specified action value that should be added to 'user_log' table.
 #' @export
 log_action <- function(data_storage, action) {
-  log_custom_action(data_storage, "user_log", values = list(
-    "username" = data_storage$username,
-    "action" = action
-  ))
+  data_storage$insert(values = list("action" = action), bucket = "user_log")
 }
 
 #' @rdname log_input
 #'
-#' @param data_storage data_storage instance that will handle all backend read
-#' and writes.
 #' @param id Id of clicked button.
 #' @export
 log_click <- function(data_storage, id) {
-  log_custom_action(data_storage, "user_log", values = list(
-    "username" = data_storage$username,
-    "action" = "click",
-    "id" = id
-  ))
+  data_storage$insert(
+    values = list("action" = "click", "id" = id), bucket = "user_log"
+  )
 }
 
 #' @rdname log_input
@@ -125,10 +113,7 @@ log_click <- function(data_storage, id) {
 #' and writes.
 #' @export
 log_login <- function(data_storage) {
-  log_custom_action(data_storage, "user_log", values = list(
-    "username" = data_storage$username,
-    "action" = "login"
-  ))
+  data_storage$insert(values = list("action" = "login"), bucket = "user_log")
 }
 
 #' @details \code{log_logout} should be used inside \code{observe} function.
@@ -141,23 +126,22 @@ log_login <- function(data_storage) {
 #' @export
 log_logout <- function(data_storage) {
   shiny::onStop(function() {
-    log_custom_action(data_storage, "user_log", values = list(
-      "username" = data_storage$username,
-      "action" = "logout"
-    ))
+    data_storage$insert(
+      values = list("action" = "logout"), bucket = "user_log"
+    )
     data_storage$close()
   })
 }
 
 #' @rdname log_input
 #'
-#' @param data_storage data_storage instance that will handle all backend read
-#' and writes.
 #' @param detail Information that should describe session.
 #' @export
 log_session_detail <- function(data_storage, detail) {
-  log_custom_action(data_storage, "session_details", values = list(
-    "detail" = detail)
+  data_storage$insert(
+    values = list("detail" = detail),
+    bucket = "session_details",
+    add_username = FALSE
   )
 }
 
@@ -227,13 +211,11 @@ browser_info_js <- shiny::HTML("
 #' @export
 log_browser_version <- function(input, data_storage) {
   browser <- input$browser_version
-  shiny::validate(shiny::need(browser, "'browser_info_js' should be set in app head"))
-  log_custom_action(
-    data_storage,
-    table_name = "user_log",
-    values = list(
-      "username" = data_storage$username,
-      "action" = "browser", "value" = browser
-    )
+  shiny::validate(
+    shiny::need(browser, "'browser_info_js' should be set in app head")
+  )
+  data_storage$insert(
+    values = list("action" = "browser", "value" = browser),
+    bucket = "user_log"
   )
 }

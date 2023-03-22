@@ -24,21 +24,19 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  connection <- odbc::dbConnect(RSQLite::SQLite(), dbname = "user_stats.sqlite")
-
+  # Connecting to a SQLite data storage backend
   data_storage <- DataStorageRSQLite$new(
-    username = get_user(session), db_path = "user_stats2.sqlite"
+    username = get_user(session), db_path = "user_stats.sqlite"
   )
-
-  # creating user connection list and making sure required tables exist in DB
-  user_connection <- initialize_connection(connection, username = get_user(session))
 
   # registering login
   log_login(data_storage)
 
+  log_click(data_storage, id = "random_click_with_init")
+
   # selecting registered actions to watch
-  log_click(data_storage, id = "apply_slider")
-  log_input(user_connection, input, input_id = "bins")
+  log_button(data_storage, input, button_id = "apply_slider")
+  log_input(data_storage, input, input_id = "bins")
 
   # server code
   output$distPlot <- renderPlot({

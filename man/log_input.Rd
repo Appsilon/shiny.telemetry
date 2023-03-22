@@ -12,14 +12,14 @@
 \title{Log user activity}
 \usage{
 log_input(
-  user_connection_data,
+  data_storage,
   input,
   input_id,
   matching_values = NULL,
   input_type = "text"
 )
 
-log_button(user_connection_data, input, button_id)
+log_button(data_storage, input, button_id)
 
 log_custom_action(data_storage, table_name = "user_log", values)
 
@@ -34,8 +34,8 @@ log_logout(data_storage)
 log_session_detail(data_storage, detail)
 }
 \arguments{
-\item{user_connection_data}{List with user session and DB connection.
-See \link{initialize_connection}.}
+\item{data_storage}{data_storage instance that will handle all backend read
+and writes.}
 
 \item{input}{input object inherited from server function.}
 
@@ -47,9 +47,6 @@ See \link{initialize_connection}.}
 value from JSON format.}
 
 \item{button_id}{id of registered button input control.}
-
-\item{data_storage}{data_storage instance that will handle all backend read
-and writes.}
 
 \item{table_name}{Specific table name to create or connect inside
 'path_to_db'.}

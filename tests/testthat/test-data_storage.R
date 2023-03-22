@@ -13,10 +13,10 @@ test_that("Data storage initializes a dummy class", {
   expect_true(checkmate::test_string(data_storage$session_id))
   expect_true(uuid::is.UUID(uuid::UUIDparse(data_storage$session_id)))
 
-  expect_error(data_storage$insert("some value"), error_msg)
+  expect_error(data_storage$insert(list(value = "some value")), error_msg)
   expect_error(data_storage$read_user_data(date_1, date_2), error_msg)
   expect_error(data_storage$read_session_data("some value"), error_msg)
-  expect_error(data_storage$insert("some value"), error_msg)
+  expect_error(data_storage$insert(list(value = "some value")), error_msg)
   expect_error(data_storage$close(), error_msg)
 
 })

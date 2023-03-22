@@ -29,8 +29,12 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' @param values list of values to write to storage provider
     #' @param bucket string with name of type of data to write (example, for
     #' SQL it should represent a table)
+    #' @param add_username boolean flag that indicates if line should include
+    #' the username of the current session
 
-    insert = function(values, bucket = "user_log") {
+    insert = function(values, bucket = "user_log", add_username = TRUE) {
+      private$insert_checks(values, bucket, add_username)
+
       rlang::abort("Method not implemented.")
     },
 
@@ -78,6 +82,40 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     },
     close_connection = function() {
       rlang::abort("Method not implemented.")
+    },
+    insert_checks = function(values, bucket, add_username) {
+      checkmate::expect_string(bucket)
+      checkmate::expect_list(values)
+
+      if ("time" %in% names(values)) {
+        rlang::abort(paste0(
+          "You must not pass 'time' value into database.",
+          " It is set automatically."
+        ))
+      }
+
+      if ("session" %in% names(values)) {
+        rlang::abort(paste0(
+          "You must not pass 'session' value into database.",
+          " It is set automatically."
+        ))
+      }
+
+      if ("username" %in% names(values)) {
+        rlang::abort(paste0(
+          "You must not pass 'username' value into database.",
+          " It is set automatically."
+        ))
+      }
+
+      values$time <- as.character(Sys.time())
+      values$session <- private$.session_id
+
+      if (isTRUE(add_username)) {
+        values$username <- private$.username
+      }
+
+      values
     }
   )
 )
@@ -114,26 +152,12 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
 
     #' @description Insert new data
     #' @param values list of values to write to database
-    #'
     #' @param bucket name of table to write
+    #' @param add_username boolean flag that indicates if line should include
+    #' the username of the current session
 
-    insert = function(values, bucket = "user_log") {
-      checkmate::expect_string(bucket)
-      checkmate::expect_list(values)
-
-      if ("time" %in% names(values)) {
-        rlang::abort(paste0(
-          "You must not pass 'time' value into database.",
-          " It is set automatically."
-        ))
-      }
-
-      if ("session" %in% names(values)) {
-        rlang::abort(paste0(
-          "You must not pass 'session' value into database.",
-          " It is set automatically."
-        ))
-      }
+    insert = function(values, bucket = "user_log", add_username = TRUE) {
+      values <- private$insert_checks(values, bucket, add_username)
 
       private$write(values, bucket)
     },
@@ -185,9 +209,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
 
     connect = function(db_path) {
       # Initialize connection with sqlite database
-      private$db_con <- odbc::dbConnect(
-        RSQLite::SQLite(), dbname = db_path
-      )
+      private$db_con <- odbc::dbConnect(RSQLite::SQLite(), dbname = db_path)
     },
 
     # @description disconnect with sql database
@@ -240,14 +262,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
       checkmate::expect_string(bucket)
       checkmate::expect_list(values)
 
-      send_query_df <- as.data.frame(
-        c(
-          time = as.character(Sys.time()),
-          session = private$.session_id,
-          values
-        ),
-        stringsAsFactors = FALSE
-      )
+      send_query_df <- as.data.frame(values, stringsAsFactors = FALSE)
 
       odbc::dbWriteTable(
         private$db_con,
@@ -271,6 +286,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
         "FROM {bucket}",
         "WHERE date(time) >= '{date_from}' AND date(time) <= '{date_to}'"
       )
+
       odbc::dbGetQuery(private$db_con, query) %>%
         dplyr::tibble()
     }
