@@ -21,17 +21,17 @@ log_input(
 
 log_button(user_connection_data, input, button_id)
 
-log_custom_action(user_connection_data, table_name = "user_log", values)
+log_custom_action(data_storage, table_name = "user_log", values)
 
-log_action(user_connection_data, action)
+log_action(data_storage, action)
 
-log_click(user_connection_data, id)
+log_click(data_storage, id)
 
-log_login(user_connection_data)
+log_login(data_storage)
 
-log_logout(user_connection_data)
+log_logout(data_storage)
 
-log_session_detail(user_connection_data, detail)
+log_session_detail(data_storage, detail)
 }
 \arguments{
 \item{user_connection_data}{List with user session and DB connection.

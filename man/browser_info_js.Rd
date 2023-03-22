@@ -11,12 +11,12 @@ An object of class \code{html} (inherits from \code{character}) of length 1.
 \usage{
 browser_info_js
 
-log_browser_version(input, user_connection_data)
+log_browser_version(input, data_storage)
 }
 \arguments{
 \item{input}{input object inherited from server function.}
 
-\item{user_connection_data}{List with user session and DB connection.
+\item{data_storage}{List with user session and DB connection.
 See \link{initialize_connection}.}
 }
 \description{

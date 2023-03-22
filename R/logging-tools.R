@@ -88,41 +88,16 @@ log_button <- function(user_connection_data, input, button_id) {
 #' @rdname log_input
 #'
 #' @export
-log_custom_action <- function(user_connection_data, table_name = "user_log", values) {
-
-  if (!all(names(user_connection_data) == c("username", "session_id", "db_connection"))) {
-    stop("user_connection_data should be list of session_id and db_connection objects!")
-  }
-
-  if ("time" %in% names(values)) {
-    stop("You mustn't pass 'time' value into database. It is set automatically.")
-  }
-
-  send_query_df <- as.data.frame(
-    c(time = as.character(Sys.time()), values),
-    stringsAsFactors = FALSE
-  )
-
-  db <- user_connection_data$db_connection
-
-  odbc::dbWriteTable(
-    db,
-    table_name,
-    send_query_df,
-    overwrite = FALSE,
-    append = TRUE,
-    row.names = FALSE
-  )
-
+log_custom_action <- function(data_storage, table_name = "user_log", values) {
+  data_storage$insert(values, bucket = table_name)
 }
 
 #' @rdname log_input
 #' @param action Specified action value that should be added to 'user_log' table.
 #' @export
-log_action <- function(user_connection_data, action) {
-  log_custom_action(user_connection_data, "user_log", values = list(
-    "session" = user_connection_data$session_id,
-    "username" = user_connection_data$username,
+log_action <- function(data_storage, action) {
+  log_custom_action(data_storage, "user_log", values = list(
+    "username" = data_storage$username,
     "action" = action
   ))
 }
@@ -130,20 +105,19 @@ log_action <- function(user_connection_data, action) {
 #' @rdname log_input
 #' @param id Id of clicked button.
 #' @export
-log_click <- function(user_connection_data, id) {
-  log_custom_action(user_connection_data, "user_log", values = list(
-    "session" = user_connection_data$session_id,
-    "username" = user_connection_data$username,
-    "action" = "click", "id" = id)
-  )
+log_click <- function(data_storage, id) {
+  log_custom_action(data_storage, "user_log", values = list(
+    "username" = data_storage$username,
+    "action" = "click",
+    "id" = id
+  ))
 }
 
 #' @rdname log_input
 #' @export
-log_login <- function(user_connection_data) {
-  log_custom_action(user_connection_data, "user_log", values = list(
-    "session" = user_connection_data$session_id,
-    "username" = user_connection_data$username,
+log_login <- function(data_storage) {
+  log_custom_action(data_storage, "user_log", values = list(
+    "username" = data_storage$username,
     "action" = "login"
   ))
 }
@@ -152,23 +126,22 @@ log_login <- function(user_connection_data) {
 #' It is based on \code{shiny::onStop}.
 #' @rdname log_input
 #' @export
-log_logout <- function(user_connection_data) {
+log_logout <- function(data_storage) {
   shiny::onStop(function() {
-    log_custom_action(user_connection_data, "user_log", values = list(
-      "session" = user_connection_data$session_id,
-      "username" = user_connection_data$username,
+    log_custom_action(data_storage, "user_log", values = list(
+      "username" = data_storage$username,
       "action" = "logout"
     ))
-    odbc::dbDisconnect(user_connection_data$db_connection)
+    data_storage$close()
   })
 }
 
 #' @rdname log_input
 #' @param detail Information that should describe session.
 #' @export
-log_session_detail <- function(user_connection_data, detail) {
-  log_custom_action(user_connection_data, "session_details", values = list(
-    "session" = user_connection_data$session_id, "detail" = detail)
+log_session_detail <- function(data_storage, detail) {
+  log_custom_action(data_storage, "session_details", values = list(
+    "detail" = detail)
   )
 }
 
@@ -232,19 +205,18 @@ browser_info_js <- shiny::HTML("
 #' @rdname browser_info_js
 #'
 #' @param input input object inherited from server function.
-#' @param user_connection_data List with user session and DB connection.
+#' @param data_storage List with user session and DB connection.
 #' See \link{initialize_connection}.
 #'
 #' @export
-log_browser_version <- function(input, user_connection_data) {
+log_browser_version <- function(input, data_storage) {
   browser <- input$browser_version
   shiny::validate(shiny::need(browser, "'browser_info_js' should be set in app head"))
   log_custom_action(
-    user_connection_data,
+    data_storage,
     table_name = "user_log",
     values = list(
-      "session" = user_connection_data$session_id,
-      "username" = user_connection_data$username,
+      "username" = data_storage$username,
       "action" = "browser", "value" = browser
     )
   )

@@ -36,7 +36,12 @@ Imports: magrittr,
     DBI,
     bcrypt,
     scales,
-    rlang
+    rlang,
+    R6,
+    logger,
+    uuid,
+    checkmate,
+    glue
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
 Language: en-US
