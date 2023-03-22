@@ -6,6 +6,7 @@ Renviron
 Rhinoverse
 UI
 appsilon
+cloneable
 config
 configs
 css
@@ -13,5 +14,6 @@ json
 postgres
 renviron
 sql
+sqlfile
 sqlite
 ui

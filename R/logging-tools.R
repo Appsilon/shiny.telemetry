@@ -78,6 +78,8 @@ log_button <- function(user_connection_data, input, button_id) {
 #' 'user_log' table.
 #' It is required to build admin panel (See \link{prepare_admin_panel_components}).
 #'
+#' @param data_storage data_storage instance that will handle all backend read
+#' and writes.
 #' @param table_name Specific table name to create or connect inside
 #' 'path_to_db'.
 #' @param values Named list. Names of the list specify column names of
@@ -93,6 +95,8 @@ log_custom_action <- function(data_storage, table_name = "user_log", values) {
 }
 
 #' @rdname log_input
+#' @param data_storage data_storage instance that will handle all backend read
+#' and writes.
 #' @param action Specified action value that should be added to 'user_log' table.
 #' @export
 log_action <- function(data_storage, action) {
@@ -103,6 +107,9 @@ log_action <- function(data_storage, action) {
 }
 
 #' @rdname log_input
+#'
+#' @param data_storage data_storage instance that will handle all backend read
+#' and writes.
 #' @param id Id of clicked button.
 #' @export
 log_click <- function(data_storage, id) {
@@ -114,6 +121,8 @@ log_click <- function(data_storage, id) {
 }
 
 #' @rdname log_input
+#' @param data_storage data_storage instance that will handle all backend read
+#' and writes.
 #' @export
 log_login <- function(data_storage) {
   log_custom_action(data_storage, "user_log", values = list(
@@ -125,6 +134,10 @@ log_login <- function(data_storage) {
 #' @details \code{log_logout} should be used inside \code{observe} function.
 #' It is based on \code{shiny::onStop}.
 #' @rdname log_input
+#'
+#' @param data_storage data_storage instance that will handle all backend read
+#' and writes.
+#'
 #' @export
 log_logout <- function(data_storage) {
   shiny::onStop(function() {
@@ -137,6 +150,9 @@ log_logout <- function(data_storage) {
 }
 
 #' @rdname log_input
+#'
+#' @param data_storage data_storage instance that will handle all backend read
+#' and writes.
 #' @param detail Information that should describe session.
 #' @export
 log_session_detail <- function(data_storage, detail) {
@@ -205,8 +221,8 @@ browser_info_js <- shiny::HTML("
 #' @rdname browser_info_js
 #'
 #' @param input input object inherited from server function.
-#' @param data_storage List with user session and DB connection.
-#' See \link{initialize_connection}.
+#' @param data_storage data_storage instance that will handle all backend read
+#' and writes.
 #'
 #' @export
 log_browser_version <- function(input, data_storage) {

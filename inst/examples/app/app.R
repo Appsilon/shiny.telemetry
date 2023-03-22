@@ -1,6 +1,5 @@
 library(shiny)
-#library(shiny.telemetry)
-devtools::load_all()
+library(shiny.telemetry)
 library(RSQLite)
 
 get_user <- function(session) {

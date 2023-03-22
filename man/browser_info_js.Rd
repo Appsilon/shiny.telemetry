@@ -16,8 +16,8 @@ log_browser_version(input, data_storage)
 \arguments{
 \item{input}{input object inherited from server function.}
 
-\item{data_storage}{List with user session and DB connection.
-See \link{initialize_connection}.}
+\item{data_storage}{data_storage instance that will handle all backend read
+and writes.}
 }
 \description{
 It sends info about user's browser to server.

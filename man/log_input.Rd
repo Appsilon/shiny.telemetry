@@ -48,6 +48,9 @@ value from JSON format.}
 
 \item{button_id}{id of registered button input control.}
 
+\item{data_storage}{data_storage instance that will handle all backend read
+and writes.}
+
 \item{table_name}{Specific table name to create or connect inside
 'path_to_db'.}
 
