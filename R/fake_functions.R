@@ -7,4 +7,5 @@ fake_function <- function() {
   checkmate::expect_string
   glue::glue
   logger::log_debug
+  RSQLite::SQLite
 }
