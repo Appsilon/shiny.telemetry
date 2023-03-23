@@ -13,12 +13,17 @@ Suggests:
     mockery,
     withr,
     lintr,
+    spelling,
+    rcmdcheck,
     RPostgreSQL,
     timevis,
     RColorBrewer,
     plotly,
-    rcmdcheck,
-    spelling
+    DT,
+    shinyjs,
+    scales,
+    semantic.dashboard (>= 0.1.1),
+    shiny.semantic (>= 0.2.0)
 Imports: purrr,
     tidyr,
     dplyr,
@@ -30,15 +35,9 @@ Imports: purrr,
     RSQLite,
     rlang,
     bcrypt,
-    scales,
-    uuid,
     checkmate,
     glue,
-    DT,
-    shiny,
-    shinyjs,
-    semantic.dashboard (>= 0.1.1),
-    shiny.semantic (>= 0.2.0)
+    shiny
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
 Language: en-US

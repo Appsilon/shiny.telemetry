@@ -4,7 +4,6 @@ test_common <- function(data_storage) {
   expect_true(checkmate::test_string(data_storage$username))
 
   expect_true(checkmate::test_string(data_storage$session_id))
-  expect_true(uuid::is.UUID(uuid::UUIDparse(data_storage$session_id)))
 
   expect_error(data_storage$insert("some value"), "Must be of type 'list'")
 

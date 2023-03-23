@@ -12,7 +12,8 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' @description initialize data storage object
     #'
     #' @param username string with username of the current session
-    #' @param session_id string with custom session id (should not be used)
+    #' @param session_id string with custom session id. We recommend using the
+    #' session$token from Shiny
 
     initialize = function(username, session_id = NULL) {
       checkmate::expect_string(username)
@@ -91,7 +92,13 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     .username = NULL,
     .session_id = NULL,
     generate_session_id = function() {
-      uuid::UUIDgenerate()
+      paste(
+        c(
+          sample(c(letters, LETTERS, 0:9), 10),
+          format(Sys.time(), "%Y%d%m%H%M%S")
+        ),
+        collapse = ""
+      )
     },
     close_connection = function() {
       rlang::abort("Method not implemented.")

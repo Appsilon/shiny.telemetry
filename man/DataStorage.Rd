@@ -48,7 +48,8 @@ initialize data storage object
 \describe{
 \item{\code{username}}{string with username of the current session}
 
-\item{\code{session_id}}{string with custom session id (should not be used)}
+\item{\code{session_id}}{string with custom session id. We recommend using the
+session$token from Shiny}
 }
 \if{html}{\out{</div>}}
 }
