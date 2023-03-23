@@ -233,7 +233,7 @@ browser_info_js <- shiny::tags$script(type = "text/javascript",
 #'
 #' @export
 log_browser_version <- function(data_storage, input) {
-  observeEvent(input$browser_version, {
+  shiny::observeEvent(input$browser_version, {
     browser <- input$browser_version
     print(browser)
     shiny::validate(
