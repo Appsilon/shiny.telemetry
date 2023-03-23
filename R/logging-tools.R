@@ -248,7 +248,6 @@ browser_info_js <- function(id = "") {
 log_browser_version <- function(data_storage, input) {
   shiny::observeEvent(input$browser_version, {
     browser <- input$browser_version
-    print(browser)
     shiny::validate(
       shiny::need(browser, "'browser_info_js' should be set in app head")
     )
