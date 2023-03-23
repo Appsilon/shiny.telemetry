@@ -6,17 +6,17 @@
 \alias{log_browser_version}
 \title{Browser info}
 \format{
-An object of class \code{html} (inherits from \code{character}) of length 1.
+An object of class \code{shiny.tag} of length 3.
 }
 \usage{
 browser_info_js
 
-log_browser_version(input, data_storage)
+log_browser_version(data_storage, input)
 }
 \arguments{
-\item{input}{input object inherited from server function.}
+\item{data_storage}{data_storage instance that will handle all backend read}
 
-\item{data_storage}{data_storage instance that will handle all backend read
+\item{input}{input object inherited from server function.
 and writes.}
 }
 \description{

@@ -198,47 +198,50 @@ log_session_detail <- function(data_storage, detail) {
 #' })
 #'
 #' shinyApp(ui = ui(), server = server)
-#'}
+#' }
 #' @export
-browser_info_js <- shiny::HTML("
-    <script type='text/javascript'>
+browser_info_js <- shiny::tags$script(type = "text/javascript",
+  shiny::HTML("
       $(document).on('shiny:sessioninitialized', function(event) {
         var br_ver = (function(){
-          var ua= navigator.userAgent, tem,
-          M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\\/))\\/?\\s*(\\d+)/i) || [];
-          if(/trident/i.test(M[1])){
-            tem=  /\\brv[ :]+(\\d+)/g.exec(ua) || [];
+          var ua= navigator.userAgent, tem, M;
+          M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\\/))\\/?\\s*(\\d+)/i) || [];
+          if (/trident/i.test(M[1])) {
+            tem = /\\brv[ :]+(\\d+)/g.exec(ua) || [];
             return 'IE '+(tem[1] || '');
           }
-          if(M[1]=== 'Chrome'){
+          if (M[1]=== 'Chrome') {
             tem= ua.match(/\\b(OPR|Edge)\\/(\\d+)/);
             if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
           }
-          M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+          M = M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
           if((tem= ua.match(/version\\/(\\d+)/i))!= null) M.splice(1, 1, tem[1]);
           return M.join(' ');
         })();
-
-        Shiny.onInputChange(\"browser_version\", br_ver);}
-      );
-    </script>"
+        console.log('shiny session started', br_ver);
+        Shiny.setInputValue(\"app-browser_version\", br_ver);}
+      );"
+  )
 )
 
 
 #' @rdname browser_info_js
 #'
-#' @param input input object inherited from server function.
 #' @param data_storage data_storage instance that will handle all backend read
+#' @param input input object inherited from server function.
 #' and writes.
 #'
 #' @export
-log_browser_version <- function(input, data_storage) {
-  browser <- input$browser_version
-  shiny::validate(
-    shiny::need(browser, "'browser_info_js' should be set in app head")
-  )
-  data_storage$insert(
-    values = list("action" = "browser", "value" = browser),
-    bucket = data_storage$action_bucket
-  )
+log_browser_version <- function(data_storage, input) {
+  observeEvent(input$browser_version, {
+    browser <- input$browser_version
+    print(browser)
+    shiny::validate(
+      shiny::need(browser, "'browser_info_js' should be set in app head")
+    )
+    data_storage$insert(
+      values = list("action" = "browser", "value" = browser),
+      bucket = data_storage$action_bucket
+    )
+  })
 }
