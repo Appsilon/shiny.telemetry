@@ -12,6 +12,7 @@ config
 configs
 css
 json
+moduleServer
 postgres
 renviron
 sql

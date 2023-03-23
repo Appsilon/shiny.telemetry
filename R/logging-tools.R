@@ -176,6 +176,8 @@ log_session_detail <- function(data_storage, detail) {
 #' You can also use log_browser_version function to log browser version into
 #' sqlite file.
 #'
+#' @param id string with namespace for use within moduleServer
+#'
 #' @examples
 #' ## Only run examples in interactive R sessions
 #' if (interactive()) {
@@ -200,8 +202,6 @@ log_session_detail <- function(data_storage, detail) {
 #' shinyApp(ui = ui(), server = server)
 #' }
 #' @export
-#' @examples
-#' browser_info_js("app")
 browser_info_js <- function(id = "") {
   checkmate::expect_string(id, null.ok = TRUE)
   shiny_namespace <- ""
