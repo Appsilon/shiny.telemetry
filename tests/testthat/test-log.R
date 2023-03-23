@@ -9,7 +9,7 @@ test_that("log_input", {
   mockery::stub(
     log_input,
     "shiny::observeEvent",
-    function(eventExpr, handlerExpr, priority, ignoreInit) {
+    function(eventExpr, handlerExpr, ...) { # nolint object_name_linter
       handlerExpr
     }
   )
