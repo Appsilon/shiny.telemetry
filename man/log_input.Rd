@@ -21,7 +21,7 @@ log_input(
 
 log_button(data_storage, input, button_id)
 
-log_custom_action(data_storage, table_name = "user_log", values)
+log_custom_action(data_storage, values, bucket = "user_log")
 
 log_action(data_storage, action)
 
@@ -48,13 +48,12 @@ value from JSON format.}
 
 \item{button_id}{id of registered button input control.}
 
-\item{table_name}{Specific table name to create or connect inside
-'path_to_db'.}
-
 \item{values}{Named list. Names of the list specify column names of
-\code{table_name} and list elements corresponding values that should be
-insert into the table. Column 'time' is filled automatically so
+\code{bucket} and list elements corresponding values that should be
+inserted. Columns 'time' and 'session' are filled automatically so
 you cannot pass it on you own.}
+
+\item{bucket}{string with bucket name (or table name) to store the values}
 
 \item{action}{Specified action value that should be added to 'user_log' table.}
 

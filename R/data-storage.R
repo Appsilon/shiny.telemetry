@@ -7,8 +7,6 @@
 #' functions and uses a unified API.
 DataStorage <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorage",
-  #
-  #
   public = list(
 
     #' @description initialize data storage object
@@ -147,9 +145,6 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
   #
   # Public
   public = list(
-    # @title initialize RSQLite storage provider
-    # @param username string with username of the current session
-    #
 
     #' @description
     #' Initialize the data storage class
@@ -218,26 +213,18 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
   private = list(
     # Private Fields
     db_con = NULL,
-    #
-    #
-    # Private methods
 
-    # @name connect
-    # Makes connection to database based on passed config data
-    # @param db_path string with path to file
+    # Private methods
 
     connect = function(db_path) {
       # Initialize connection with sqlite database
       private$db_con <- odbc::dbConnect(RSQLite::SQLite(), dbname = db_path)
     },
 
-    # @description disconnect with sql database
-
     close_connection = function() {
       odbc::dbDisconnect(private$db_con)
     },
-    #
-    #
+
     initialize_connection = function(username, table_schemes) {
       table_schemes <- list(
         user_log = c(
@@ -260,7 +247,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
       )
       NULL
     },
-    #
+
     create_table_from_schema = function(table_name, table_scheme) {
       if (!(table_name %in% odbc::dbListTables(private$db_con))) {
         logger::log_debug("Creating table {table_name}")
@@ -275,8 +262,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
       }
       NULL
     },
-    #
-    #
+
     write = function(values, bucket) {
       checkmate::expect_string(bucket)
       checkmate::expect_list(values)
@@ -292,8 +278,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
         row.names = FALSE
       )
     },
-    #
-    #
+
     read_data = function(bucket, date_from, date_to) {
       checkmate::expect_string(bucket)
       checkmate::expect_date(date_from)

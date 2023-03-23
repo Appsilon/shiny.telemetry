@@ -76,18 +76,17 @@ log_button <- function(data_storage, input, button_id) {
 #' 'user_log' table.
 #' It is required to build admin panel (See \link{prepare_admin_panel_components}).
 #'
-#' @param table_name Specific table name to create or connect inside
-#' 'path_to_db'.
+#' @param bucket string with bucket name (or table name) to store the values
 #' @param values Named list. Names of the list specify column names of
-#' \code{table_name} and list elements corresponding values that should be
-#' insert into the table. Column 'time' is filled automatically so
+#' \code{bucket} and list elements corresponding values that should be
+#' inserted. Columns 'time' and 'session' are filled automatically so
 #' you cannot pass it on you own.
 #'
 #' @rdname log_input
 #'
 #' @export
-log_custom_action <- function(data_storage, table_name = "user_log", values) {
-  data_storage$insert(values, bucket = table_name)
+log_custom_action <- function(data_storage, values, bucket = "user_log") {
+  data_storage$insert(values, bucket = bucket)
 }
 
 #' @rdname log_input
