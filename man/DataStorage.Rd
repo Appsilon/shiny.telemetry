@@ -14,6 +14,12 @@ functions and uses a unified API.
 \item{\code{username}}{string field that returns the current username}
 
 \item{\code{session_id}}{string field that returns the current session_id}
+
+\item{\code{action_bucket}}{string that identifies the bucket to store user
+related and action data}
+
+\item{\code{session_bucket}}{string that identifies the bucket to store session
+details data}
 }
 \if{html}{\out{</div>}}
 }

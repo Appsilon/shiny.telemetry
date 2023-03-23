@@ -4,6 +4,7 @@
 \alias{log_input}
 \alias{log_button}
 \alias{log_custom_action}
+\alias{log_custom_session}
 \alias{log_action}
 \alias{log_click}
 \alias{log_login}
@@ -21,7 +22,9 @@ log_input(
 
 log_button(data_storage, input, button_id)
 
-log_custom_action(data_storage, values, bucket = "user_log")
+log_custom_action(data_storage, values)
+
+log_custom_session(data_storage, values)
 
 log_action(data_storage, action)
 
@@ -53,9 +56,8 @@ value from JSON format.}
 inserted. Columns 'time' and 'session' are filled automatically so
 you cannot pass it on you own.}
 
-\item{bucket}{string with bucket name (or table name) to store the values}
-
-\item{action}{Specified action value that should be added to 'user_log' table.}
+\item{action}{Specified action value that should be added to 'user_log'
+bucket.}
 
 \item{id}{Id of clicked button.}
 
@@ -70,8 +72,8 @@ activity. See more in \strong{Details} section.
 and registers its insertion or change inside specified database.
 
 Each function (except \code{log_custom_action}) store logs inside
-'user_log' table.
-It is required to build admin panel (See \link{prepare_admin_panel_components}).
+'user_log' table. It is required to build admin panel
+(See \link{prepare_admin_panel_components}).
 
 \code{log_logout} should be used inside \code{observe} function.
 It is based on \code{shiny::onStop}.

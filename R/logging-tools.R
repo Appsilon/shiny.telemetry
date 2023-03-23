@@ -36,21 +36,21 @@ log_input <- function(
       is.null(matching_values) |
       (!is.null(matching_values) && input_value %in% matching_values)
     ) {
-      persist_log <- function(input_value, input_id) {
-        data_storage$insert(
-          values = list(action = "input", id = input_id, value = input_value),
-          bucket = "user_log"
-        )
+      # save each value separately (if more than 1)
+      n_values <- length(input_value)
+      input_ids <- input_id
+      if (n_values > 1) {
+        input_ids <- glue::glue("{input_id}_{seq(1, n_values)}")
       }
 
-      # save each value separately
-      n_values <- length(input_value)
-      if (n_values > 1) {
-        input_ids <- sprintf("%s_%s", input_id, 1:n_values)
-        purrr::walk2(input_value, input_ids, persist_log)
-      } else {
-        persist_log(input_value, input_id)
-      }
+      purrr::walk2(
+        input_value,
+        input_ids,
+        ~ data_storage$insert(
+           values = list(action = "input", id = .y, value = .x),
+           bucket = data_storage$action_bucket
+        )
+      )
     }
   },
     # Options to observeEvent call
@@ -65,7 +65,10 @@ log_button <- function(data_storage, input, button_id) {
   shiny::observeEvent(
     input[[button_id]],
     {
-      data_storage$insert(list(action = "click", id = button_id), "user_log")
+      data_storage$insert(
+        list(action = "click", id = button_id),
+        data_storage$action_bucket
+      )
     },
     # Options to observeEvent call
     priority = -1, ignoreInit = TRUE
@@ -73,10 +76,9 @@ log_button <- function(data_storage, input, button_id) {
 }
 
 #' @details Each function (except \code{log_custom_action}) store logs inside
-#' 'user_log' table.
-#' It is required to build admin panel (See \link{prepare_admin_panel_components}).
+#' 'user_log' table. It is required to build admin panel
+#' (See \link{prepare_admin_panel_components}).
 #'
-#' @param bucket string with bucket name (or table name) to store the values
 #' @param values Named list. Names of the list specify column names of
 #' \code{bucket} and list elements corresponding values that should be
 #' inserted. Columns 'time' and 'session' are filled automatically so
@@ -85,15 +87,33 @@ log_button <- function(data_storage, input, button_id) {
 #' @rdname log_input
 #'
 #' @export
-log_custom_action <- function(data_storage, values, bucket = "user_log") {
-  data_storage$insert(values, bucket = bucket)
+log_custom_action <- function(data_storage, values) {
+  data_storage$insert(values, bucket = data_storage$action_bucket)
+}
+
+#' @param values Named list. Names of the list specify column names of
+#' \code{bucket} and list elements corresponding values that should be
+#' inserted. Columns 'time' and 'session' are filled automatically so
+#' you cannot pass it on you own.
+#'
+#' @rdname log_input
+#'
+#' @export
+log_custom_session <- function(data_storage, values) {
+  data_storage$insert(
+    values, bucket = data_storage$session_bucket, add_username = FALSE
+  )
 }
 
 #' @rdname log_input
-#' @param action Specified action value that should be added to 'user_log' table.
+#' @param action Specified action value that should be added to 'user_log'
+#' bucket.
 #' @export
 log_action <- function(data_storage, action) {
-  data_storage$insert(values = list("action" = action), bucket = "user_log")
+  data_storage$insert(
+    values = list("action" = action),
+    bucket = data_storage$action_bucket
+  )
 }
 
 #' @rdname log_input
@@ -102,7 +122,9 @@ log_action <- function(data_storage, action) {
 #' @export
 log_click <- function(data_storage, id) {
   data_storage$insert(
-    values = list("action" = "click", "id" = id), bucket = "user_log"
+    values = list(
+      "action" = "click", "id" = id),
+      bucket = data_storage$action_bucket
   )
 }
 
@@ -111,7 +133,10 @@ log_click <- function(data_storage, id) {
 #' and writes.
 #' @export
 log_login <- function(data_storage) {
-  data_storage$insert(values = list("action" = "login"), bucket = "user_log")
+  data_storage$insert(
+    values = list("action" = "login"),
+    bucket = data_storage$action_bucket
+  )
 }
 
 #' @details \code{log_logout} should be used inside \code{observe} function.
@@ -125,7 +150,7 @@ log_login <- function(data_storage) {
 log_logout <- function(data_storage) {
   shiny::onStop(function() {
     data_storage$insert(
-      values = list("action" = "logout"), bucket = "user_log"
+      values = list("action" = "logout"), bucket = data_storage$action_bucket
     )
     data_storage$close()
   })
@@ -138,7 +163,7 @@ log_logout <- function(data_storage) {
 log_session_detail <- function(data_storage, detail) {
   data_storage$insert(
     values = list("detail" = detail),
-    bucket = "session_details",
+    bucket = data_storage$session_bucket,
     add_username = FALSE
   )
 }
@@ -214,6 +239,6 @@ log_browser_version <- function(input, data_storage) {
   )
   data_storage$insert(
     values = list("action" = "browser", "value" = browser),
-    bucket = "user_log"
+    bucket = data_storage$action_bucket
   )
 }

@@ -75,7 +75,17 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
 
     session_id = function() {
       private$.session_id
-    }
+    },
+
+    #' @field action_bucket string that identifies the bucket to store user
+    #' related and action data
+
+    action_bucket = function() "user_log",
+
+    #' @field session_bucket string that identifies the bucket to store session
+    #' details data
+
+    session_bucket = function() "session_bucket"
   ),
   private = list(
     .username = NULL,
