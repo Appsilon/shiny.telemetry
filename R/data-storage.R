@@ -352,7 +352,6 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       super$initialize(username, session_id)
       # rlang::inform(glue::glue("path to file: {log_file_path}"))
       logger::log_info("path to file: {log_file_path}")
-      private$log_file_path <- log_file_path
       private$connect(log_file_path = log_file_path)
     },
 
@@ -413,18 +412,12 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     # @param log_file_path string with path to file
 
     connect = function(log_file_path) {
-      # Sets up logger settings and specifies file to store logs
-      logger::log_formatter(formatter_json, namespace = "shinyapp")
-      logger::log_layout(layout_json(fields = c("time", "msg")), namespace = "shinyapp")
-      logger::log_appender(appender_file(log_file_path), namespace = "shinyapp")
+      private$log_file_path <- log_file_path
     },
 
     # @description reverts logger settings to default
 
     close_connection = function() {
-      logger::log_formatter(logger::formatter_glue, namespace = "shinyapp")
-      logger::log_layout(logger::layout_simple, namespace = "shinyapp")
-      logger::log_appender(logger::appender_console, namespace = "shinyapp")
     },
 
     insert_checks = function(values) {
@@ -451,6 +444,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
         ))
       }
 
+      values$time <- Sys.time()
       values$username <- private$.username
       values$session <- private$.session_id
 
@@ -460,7 +454,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     write = function(values) {
       checkmate::expect_list(values)
 
-      logger::log_level(level = logger::INFO, values, namespace = "shiny.app")
+      cat(jsonlite::toJSON(values), file = private$log_file_path, sep = "\n", append = TRUE)
     },
 
     # @name read_data
