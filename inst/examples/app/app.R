@@ -24,17 +24,19 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  connection <- odbc::dbConnect(RSQLite::SQLite(), dbname = "user_stats.sqlite")
-
-  # creating user connection list and making sure required tables exist in DB
-  user_connection <- initialize_connection(connection, username = get_user(session))
+  # Connecting to a SQLite data storage backend
+  data_storage <- DataStorageRSQLite$new(
+    username = get_user(session), db_path = "user_stats.sqlite"
+  )
 
   # registering login
-  log_login(user_connection)
+  log_login(data_storage)
+
+  log_click(data_storage, id = "random_click_with_init")
 
   # selecting registered actions to watch
-  log_click(user_connection, id = "apply_slider")
-  log_input(user_connection, input, input_id = "bins")
+  log_button(data_storage, input, button_id = "apply_slider")
+  log_input(data_storage, input, input_id = "bins")
 
   # server code
   output$distPlot <- renderPlot({
@@ -46,7 +48,7 @@ server <- function(input, output, session) {
 
   # registering logout (this also disconnects connection object, if not used
   #  take care of it on your own)
-  log_logout(user_connection)
+  log_logout(data_storage)
 }
 
 shinyApp(ui = ui, server = server, options = list(port = 8888, launch.browser = FALSE))

@@ -5,3 +5,4 @@
 .lintr
 .github
 pkgdown
+.*\.sqlite

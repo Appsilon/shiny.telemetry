@@ -4,7 +4,7 @@
 \alias{prepare_admin_panel_components}
 \title{prepare_admin_panel_components}
 \usage{
-prepare_admin_panel_components(input, output, session, db_credentials)
+prepare_admin_panel_components(input, output, session, data_storage)
 }
 \arguments{
 \item{input}{input object inherited from server function.}
@@ -13,7 +13,8 @@ prepare_admin_panel_components(input, output, session, db_credentials)
 
 \item{session}{session object inherited from server function.}
 
-\item{db_credentials}{data.frame with database config parameters}
+\item{data_storage}{data_storage instance that will handle all backend read
+and writes.}
 }
 \description{
 prepare_admin_panel_components

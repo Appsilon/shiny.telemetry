@@ -146,18 +146,23 @@ get_per_day_plot_data <- function(base, per_day) {
 #' @param input input object inherited from server function.
 #' @param output output object inherited from server function.
 #' @param session session object inherited from server function.
-#' @param db_credentials data.frame with database config parameters
+#' @param data_storage data_storage instance that will handle all backend read
+#' and writes.
 prepare_admin_panel_components <- function(
-  input, output, session, db_credentials
+  input, output, session, data_storage
 ) {
   hour_levels <- c("12am", paste0(1:11, "am"), "12pm", paste0(1:11, "pm"))
 
   log_data <- shiny::reactive({
-    get_log_data(db_credentials, input$date_from, input$date_to)
+    data_storage$read_user_data(
+      as.Date(input$date_from), as.Date(input$date_to)
+    )
   })
 
   session_details <- shiny::reactive({
-    reactive_session_details(db_credentials,  input$date_from, input$date_to)
+    data_storage$read_session_data(
+      as.Date(input$date_from), as.Date(input$date_to)
+    )
   })
 
   output$filters <- shiny::renderUI(date_filters())
@@ -346,7 +351,7 @@ prepare_admin_panel_components <- function(
       dplyr::group_by(.data$date) %>%
       dplyr::summarise(users = dplyr::n())
 
-    nested_users_data <- tibble::as_tibble(selected_log_data()) %>%
+    nested_users_data <- dplyr::as_tibble(selected_log_data()) %>%
       dplyr::group_by(.data$date) %>%
       tidyr::nest(data = c("username"))
 
@@ -755,7 +760,7 @@ prepare_admin_panel_components <- function(
     selected_action_id_data() %>%
       dplyr::group_by(.data$value) %>%
       dplyr::summarise(times = dplyr::n()) %>%
-      magrittr::set_colnames(c("Value of selected input", "Total Amount"))
+      dplyr::rename("Value of selected input" = "value", "Total Amount" = "times")
   },
   rownames = FALSE,
   options = list(

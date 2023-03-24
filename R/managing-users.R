@@ -60,8 +60,8 @@ register_user <- function(connection, username, password, roles = list(), info =
   record <- list(
     username = username,
     password = encrypted_password,
-    roles = rjson::toJSON(roles),
-    info = rjson::toJSON(info)
+    roles = jsonlite::toJSON(roles),
+    info = jsonlite::toJSON(info)
   )
 
   odbc::dbWriteTable(connection, USERS_TABLE_NAME, as.data.frame(record, stringsAsFactors = FALSE),
@@ -70,8 +70,8 @@ register_user <- function(connection, username, password, roles = list(), info =
 
 deserialize_user <- function(user) {
   user <- as.list(user)
-  user$roles <- rjson::fromJSON(user$roles)
-  user$info <- rjson::fromJSON(user$info)
+  user$roles <- jsonlite::fromJSON(user$roles)
+  user$info <- jsonlite::fromJSON(user$info)
 
   return(user)
 }

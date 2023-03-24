@@ -4,6 +4,7 @@
 \alias{log_input}
 \alias{log_button}
 \alias{log_custom_action}
+\alias{log_custom_session}
 \alias{log_action}
 \alias{log_click}
 \alias{log_login}
@@ -12,30 +13,32 @@
 \title{Log user activity}
 \usage{
 log_input(
-  user_connection_data,
+  data_storage,
   input,
   input_id,
   matching_values = NULL,
   input_type = "text"
 )
 
-log_button(user_connection_data, input, button_id)
+log_button(data_storage, input, button_id)
 
-log_custom_action(user_connection_data, table_name = "user_log", values)
+log_custom_action(data_storage, values)
 
-log_action(user_connection_data, action)
+log_custom_session(data_storage, values)
 
-log_click(user_connection_data, id)
+log_action(data_storage, action)
 
-log_login(user_connection_data)
+log_click(data_storage, id)
 
-log_logout(user_connection_data)
+log_login(data_storage)
 
-log_session_detail(user_connection_data, detail)
+log_logout(data_storage)
+
+log_session_detail(data_storage, detail)
 }
 \arguments{
-\item{user_connection_data}{List with user session and DB connection.
-See \link{initialize_connection}.}
+\item{data_storage}{data_storage instance that will handle all backend read
+and writes.}
 
 \item{input}{input object inherited from server function.}
 
@@ -48,15 +51,13 @@ value from JSON format.}
 
 \item{button_id}{id of registered button input control.}
 
-\item{table_name}{Specific table name to create or connect inside
-'path_to_db'.}
-
 \item{values}{Named list. Names of the list specify column names of
-\code{table_name} and list elements corresponding values that should be
-insert into the table. Column 'time' is filled automatically so
+\code{bucket} and list elements corresponding values that should be
+inserted. Columns 'time' and 'session' are filled automatically so
 you cannot pass it on you own.}
 
-\item{action}{Specified action value that should be added to 'user_log' table.}
+\item{action}{Specified action value that should be added to 'user_log'
+bucket.}
 
 \item{id}{Id of clicked button.}
 
@@ -71,8 +72,8 @@ activity. See more in \strong{Details} section.
 and registers its insertion or change inside specified database.
 
 Each function (except \code{log_custom_action}) store logs inside
-'user_log' table.
-It is required to build admin panel (See \link{prepare_admin_panel_components}).
+'user_log' table. It is required to build admin panel
+(See \link{prepare_admin_panel_components}).
 
 \code{log_logout} should be used inside \code{observe} function.
 It is based on \code{shiny::onStop}.

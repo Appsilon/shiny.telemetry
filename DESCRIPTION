@@ -1,7 +1,7 @@
 Package: shiny.telemetry
 Type: Package
 Title: Shiny app usability logs and statistics
-Version: 0.0.9002
+Version: 0.0.9003
 Author: Appsilon Data Science <dev@appsilondatascience.com>
 Maintainer: Appsilon Data Science <dev@appsilondatascience.com>
 Description: Easy way for logging users activity and adding statistics panel to your Shiny app.
@@ -10,33 +10,34 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat (>= 3.0.0),
+    mockery,
+    withr,
     lintr,
-    RSQLite,
+    spelling,
+    rcmdcheck,
     RPostgreSQL,
     timevis,
-    semantic.dashboard (>= 0.1.1),
-    shiny.semantic (>= 0.2.0),
     RColorBrewer,
-    tibble,
+    plotly,
+    DT,
+    shinyjs,
+    scales,
+    semantic.dashboard (>= 0.1.1),
+    shiny.semantic (>= 0.2.0)
+Imports: purrr,
     tidyr,
     dplyr,
-    plotly,
-    shinyjs,
-    rcmdcheck,
-    spelling
-Imports: magrittr,
     odbc,
-    purrr,
-    shiny,
-    jsonlite,
-    rjson,
-    DT,
-    stats,
-    utils,
     DBI,
+    jsonlite,
+    logger,
+    R6,
+    RSQLite,
+    rlang,
     bcrypt,
-    scales,
-    rlang
+    checkmate,
+    glue,
+    shiny
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
 Language: en-US
