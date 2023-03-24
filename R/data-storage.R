@@ -466,20 +466,12 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       checkmate::expect_date(date_to)
 
       json_log_msg <- readLines(bucket)
-      json_log <- dplyr::bind_rows(lapply(json_log_msg, unnest_msg))
+      json_log <- dplyr::bind_rows(lapply(json_log_msg, jsonlite::fromJSON))
       json_log %>%
         dplyr::filter(
           date >=  date_from,
           date <= date_to
         )
-    },
-
-    unnest_msg = function(json_log_msg) {
-      json_log_msg %>%
-        jsonlite::fromJSON(json_log_msg) %>%
-        as.data.frame(json_log_msg) %>%
-        dplyr::mutate(msg = jsonlite::fromJSON(msg)) %>%
-        tidyr::unnest(msg)
     }
   )
 )
