@@ -317,7 +317,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
 #' Data storage class for JSON Log File
 #'
 #' @description
-#' Implementation of the DataStorage R6 class to SQLite backend using a unified
+#' Implementation of the DataStorage R6 class to a JSON log file backend using a unified
 #' API for read/write operations
 #'
 #' @export
@@ -331,7 +331,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
 #' data_storage$insert(list(id = "another_id", action = "click"))
 #' data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
 DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
-  classname = "DataStorageRSQLite",
+  classname = "DataStorageLogFile",
   inherit = DataStorage,
   #
   # Public
@@ -351,19 +351,20 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     ) {
       super$initialize(username, session_id)
       logger::log_info("path to file: {log_file_path}")
+      private$log_file_path <- log_file_path
       private$connect(log_file_path = log_file_path)
     },
 
     #' @description Insert new data
     #' @param values list of values to write to database
-    #' @param bucket name of table to write
+    #' @param bucket name of table to write (not used)
     #' @param add_username boolean flag that indicates if line should include
-    #' the username of the current session
+    #' the username of the current session (not used)
 
     insert = function(values, bucket = "user_log", add_username = TRUE) {
-      values <- private$insert_checks(values, bucket, add_username)
+      values <- private$insert_checks(values)
 
-      private$write(values, bucket)
+      private$write(values)
     },
 
     #' @description read all user data from SQLite
@@ -401,10 +402,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
   #
   # Private
   private = list(
-    # Private Fields
-    db_con = NULL,
-    #
-    #
+    # Private fields
+    log_file_path = NULL,
+
     # Private methods
 
     # @name connect
@@ -425,8 +425,8 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       logger::log_layout(logger::layout_simple)
       logger::log_appender(logger::appender_console)
     },
-    insert_checks = function(values, bucket, add_username) {
-      checkmate::expect_string(bucket)
+
+    insert_checks = function(values) {
       checkmate::expect_list(values)
 
       if ("time" %in% names(values)) {
@@ -456,37 +456,36 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       values
     },
 
-    write = function(values, bucket) {
-      checkmate::expect_string(bucket)
+    write = function(values) {
       checkmate::expect_list(values)
 
-      send_query_df <- as.data.frame(values, stringsAsFactors = FALSE)
-
-      odbc::dbWriteTable(
-        private$db_con,
-        bucket,
-        send_query_df,
-        overwrite = FALSE,
-        append = TRUE,
-        row.names = FALSE
-      )
+      logger::log_info(values)
     },
-    #
-    #
+
+    # @name read_data
+    # Reads the JSON log file
+    # @param bucket string with path to file
     read_data = function(bucket, date_from, date_to) {
       checkmate::expect_string(bucket)
       checkmate::expect_date(date_from)
       checkmate::expect_date(date_to)
 
-      query <- glue::glue(
-        .sep = " ",
-        "SELECT *",
-        "FROM {bucket}",
-        "WHERE date(time) >= '{date_from}' AND date(time) <= '{date_to}'"
-      )
+      json_log_msg <- readLines(bucket)
+      json_log <- private$unnest_msg(json_log_msg)
+      json_log <- dplyr::bind_rows(lapply(json_log_msg, unnest_msg))
+      json_log %>%
+        dplyr::filter(
+          date >=  date_from,
+          date <= date_to
+        )
+    },
 
-      odbc::dbGetQuery(private$db_con, query) %>%
-        dplyr::tibble()
+    unnest_msg = function(json_log_msg) {
+      json_log_msg %>%
+        jsonlite::fromJSON(json_log_msg) %>%
+        as.data.frame(json_log_msg) %>%
+        dplyr::mutate(msg = jsonlite::fromJSON(msg), date = as.Date(time)) %>%
+        tidyr::unnest(msg)
     }
   )
 )
