@@ -1,7 +1,7 @@
 Package: shiny.telemetry
 Type: Package
 Title: Shiny app usability logs and statistics
-Version: 0.0.9002
+Version: 0.0.9003
 Author: Appsilon Data Science <dev@appsilondatascience.com>
 Maintainer: Appsilon Data Science <dev@appsilondatascience.com>
 Description: Easy way for logging users activity and adding statistics panel to your Shiny app.
