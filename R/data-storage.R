@@ -449,12 +449,8 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
         ))
       }
 
-      values$time <- as.character(Sys.time())
+      values$username <- private$.username
       values$session <- private$.session_id
-
-      if (isTRUE(add_username)) {
-        values$username <- private$.username
-      }
 
       values
     },
