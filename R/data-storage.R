@@ -351,10 +351,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     ) {
       super$initialize(username, session_id)
       logger::log_info("path to file: {log_file_path}")
-      log_threshold(INFO)
-      log_formatter(formatter_json)
-      log_layout(layout_json(fields = c("time", "msg")))
-      log_appender(appender_file(log_file_path))
+      private$connect(log_file_path = log_file_path)
     },
 
     #' @description Insert new data
@@ -412,17 +409,21 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
 
     # @name connect
     # Makes connection to database based on passed config data
-    # @param db_path string with path to file
+    # @param log_file_path string with path to file
 
-    connect = function(db_path) {
-      # Initialize connection with sqlite database
-      private$db_con <- odbc::dbConnect(RSQLite::SQLite(), dbname = db_path)
+    connect = function(log_file_path) {
+      # Sets up logger settings and specifies file to store logs
+      logger::log_formatter(formatter_json)
+      logger::log_layout(layout_json(fields = c("time", "msg")))
+      logger::log_appender(appender_file(log_file_path))
     },
 
-    # @description disconnect with sql database
+    # @description reverts logger settings to default
 
     close_connection = function() {
-      odbc::dbDisconnect(private$db_con)
+      logger::log_formatter(logger::formatter_glue)
+      logger::log_layout(logger::layout_simple)
+      logger::log_appender(logger::appender_console)
     },
     insert_checks = function(values, bucket, add_username) {
       checkmate::expect_string(bucket)
@@ -455,45 +456,6 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       values
     },
 
-    initialize_connection = function(username, table_schemes) {
-      table_schemes <- list(
-        user_log = c(
-          time = "TIMESTAMP",
-          session = "TEXT",
-          username = "TEXT",
-          action = "TEXT",
-          id = "TEXT",
-          value = "TEXT"
-        ),
-        session_details = c(
-          time = "TIMESTAMP", session = "TEXT", detail = "TEXT"
-        )
-      )
-
-      table_names <- names(table_schemes)
-
-      purrr::walk2(
-        table_names, table_schemes, private$create_table_from_schema
-      )
-      NULL
-    },
-    #
-    create_table_from_schema = function(table_name, table_scheme) {
-      if (!(table_name %in% odbc::dbListTables(private$db_con))) {
-        logger::log_debug("Creating table {table_name}")
-        create_table_query <- odbc::sqlCreateTable(
-          con = private$db_con,
-          table = table_name,
-          fields = table_scheme,
-          row.names = FALSE
-        )
-        res <- odbc::dbSendQuery(conn = private$db_con, create_table_query)
-        odbc::dbClearResult(res)
-      }
-      NULL
-    },
-    #
-    #
     write = function(values, bucket) {
       checkmate::expect_string(bucket)
       checkmate::expect_list(values)
