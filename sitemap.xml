@@ -16,6 +16,12 @@
     <loc>https://appsilon.github.io/shiny.telemetry/reference/AVAILABLE_DB_DRIVERS.html</loc>
   </url>
   <url>
+    <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorage.html</loc>
+  </url>
+  <url>
+    <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageRSQLite.html</loc>
+  </url>
+  <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/MAX_POSTGRES_CONNECTIONS.html</loc>
   </url>
   <url>

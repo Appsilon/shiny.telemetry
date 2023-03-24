@@ -22,7 +22,7 @@ activity. See more in Details section."><!-- mathjax --><script src="https://cdn
     
     <a class="navbar-brand me-2" href="../index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9003</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -86,33 +86,35 @@ activity. See more in <strong>Details</strong> section.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">log_input</span><span class="op">(</span></span>
-<span>  <span class="va">user_connection_data</span>,</span>
+<span>  <span class="va">data_storage</span>,</span>
 <span>  <span class="va">input</span>,</span>
 <span>  <span class="va">input_id</span>,</span>
 <span>  matching_values <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  input_type <span class="op">=</span> <span class="st">"text"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">log_button</span><span class="op">(</span><span class="va">user_connection_data</span>, <span class="va">input</span>, <span class="va">button_id</span><span class="op">)</span></span>
+<span><span class="fu">log_button</span><span class="op">(</span><span class="va">data_storage</span>, <span class="va">input</span>, <span class="va">button_id</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">log_custom_action</span><span class="op">(</span><span class="va">user_connection_data</span>, table_name <span class="op">=</span> <span class="st">"user_log"</span>, <span class="va">values</span><span class="op">)</span></span>
+<span><span class="fu">log_custom_action</span><span class="op">(</span><span class="va">data_storage</span>, <span class="va">values</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">log_action</span><span class="op">(</span><span class="va">user_connection_data</span>, <span class="va">action</span><span class="op">)</span></span>
+<span><span class="fu">log_custom_session</span><span class="op">(</span><span class="va">data_storage</span>, <span class="va">values</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">log_click</span><span class="op">(</span><span class="va">user_connection_data</span>, <span class="va">id</span><span class="op">)</span></span>
+<span><span class="fu">log_action</span><span class="op">(</span><span class="va">data_storage</span>, <span class="va">action</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">log_login</span><span class="op">(</span><span class="va">user_connection_data</span><span class="op">)</span></span>
+<span><span class="fu">log_click</span><span class="op">(</span><span class="va">data_storage</span>, <span class="va">id</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">log_logout</span><span class="op">(</span><span class="va">user_connection_data</span><span class="op">)</span></span>
+<span><span class="fu">log_login</span><span class="op">(</span><span class="va">data_storage</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">log_session_detail</span><span class="op">(</span><span class="va">user_connection_data</span>, <span class="va">detail</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">log_logout</span><span class="op">(</span><span class="va">data_storage</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">log_session_detail</span><span class="op">(</span><span class="va">data_storage</span>, <span class="va">detail</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>user_connection_data</dt>
-<dd><p>List with user session and DB connection.
-See <a href="initialize_connection.html">initialize_connection</a>.</p></dd>
+    <dl><dt>data_storage</dt>
+<dd><p>data_storage instance that will handle all backend read
+and writes.</p></dd>
 
 
 <dt>input</dt>
@@ -136,20 +138,16 @@ value from JSON format.</p></dd>
 <dd><p>id of registered button input control.</p></dd>
 
 
-<dt>table_name</dt>
-<dd><p>Specific table name to create or connect inside
-'path_to_db'.</p></dd>
-
-
 <dt>values</dt>
 <dd><p>Named list. Names of the list specify column names of
-<code>table_name</code> and list elements corresponding values that should be
-insert into the table. Column 'time' is filled automatically so
+<code>bucket</code> and list elements corresponding values that should be
+inserted. Columns 'time' and 'session' are filled automatically so
 you cannot pass it on you own.</p></dd>
 
 
 <dt>action</dt>
-<dd><p>Specified action value that should be added to 'user_log' table.</p></dd>
+<dd><p>Specified action value that should be added to 'user_log'
+bucket.</p></dd>
 
 
 <dt>id</dt>
@@ -165,8 +163,8 @@ you cannot pass it on you own.</p></dd>
     <p><code>log_input</code> and <code>log_button</code> observe selected input value
 and registers its insertion or change inside specified database.</p>
 <p>Each function (except <code>log_custom_action</code>) store logs inside
-'user_log' table.
-It is required to build admin panel (See <a href="prepare_admin_panel_components.html">prepare_admin_panel_components</a>).</p>
+'user_log' table. It is required to build admin panel
+(See <a href="prepare_admin_panel_components.html">prepare_admin_panel_components</a>).</p>
 <p><code>log_logout</code> should be used inside <code>observe</code> function.
 It is based on <code><a href="https://shiny.rstudio.com/reference/shiny/latest/onStop.html" class="external-link">shiny::onStop</a></code>.</p>
     </div>

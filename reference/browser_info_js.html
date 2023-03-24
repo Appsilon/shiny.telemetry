@@ -28,7 +28,7 @@ sqlite file."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
     
     <a class="navbar-brand me-2" href="../index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9003</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -94,24 +94,24 @@ sqlite file.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="va">browser_info_js</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">browser_info_js</span><span class="op">(</span>id <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">log_browser_version</span><span class="op">(</span><span class="va">input</span>, <span class="va">user_connection_data</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">log_browser_version</span><span class="op">(</span><span class="va">data_storage</span>, <span class="va">input</span><span class="op">)</span></span></code></pre></div>
     </div>
 
-    <div class="section level2">
-    <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>An object of class <code>html</code> (inherits from <code>character</code>) of length 1.</p>
-    </div>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>input</dt>
-<dd><p>input object inherited from server function.</p></dd>
+    <dl><dt>id</dt>
+<dd><p>string with namespace for use within moduleServer</p></dd>
 
 
-<dt>user_connection_data</dt>
-<dd><p>List with user session and DB connection.
-See <a href="initialize_connection.html">initialize_connection</a>.</p></dd>
+<dt>data_storage</dt>
+<dd><p>data_storage instance that will handle all backend read</p></dd>
+
+
+<dt>input</dt>
+<dd><p>input object inherited from server function.
+and writes.</p></dd>
 
 </dl></div>
 
