@@ -372,10 +372,10 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_user_data = function(date_from, date_to) {
-      db_data <- private$read_data("user_log", date_from, date_to)
+      log_data <- private$read_data(private$log_file_path, date_from, date_to)
 
       if (NROW(db_data) > 0) {
-        return(dplyr::mutate(db_data, date = as.Date(.data$time)))
+        return(dplyr::mutate(log_data, date = as.Date(.data$time)))
       }
       db_data
     },
@@ -484,7 +484,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       json_log_msg %>%
         jsonlite::fromJSON(json_log_msg) %>%
         as.data.frame(json_log_msg) %>%
-        dplyr::mutate(msg = jsonlite::fromJSON(msg), date = as.Date(time)) %>%
+        dplyr::mutate(msg = jsonlite::fromJSON(msg)) %>%
         tidyr::unnest(msg)
     }
   )
