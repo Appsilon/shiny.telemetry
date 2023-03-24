@@ -350,6 +350,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     username, session_id = NULL, log_file_path = "user_logs.json"
     ) {
       super$initialize(username, session_id)
+      # rlang::inform(glue::glue("path to file: {log_file_path}"))
       logger::log_info("path to file: {log_file_path}")
       private$log_file_path <- log_file_path
       private$connect(log_file_path = log_file_path)
@@ -413,17 +414,17 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
 
     connect = function(log_file_path) {
       # Sets up logger settings and specifies file to store logs
-      logger::log_formatter(formatter_json)
-      logger::log_layout(layout_json(fields = c("time", "msg")))
-      logger::log_appender(appender_file(log_file_path))
+      logger::log_formatter(formatter_json, namespace = "shinyapp")
+      logger::log_layout(layout_json(fields = c("time", "msg")), namespace = "shinyapp")
+      logger::log_appender(appender_file(log_file_path), namespace = "shinyapp")
     },
 
     # @description reverts logger settings to default
 
     close_connection = function() {
-      logger::log_formatter(logger::formatter_glue)
-      logger::log_layout(logger::layout_simple)
-      logger::log_appender(logger::appender_console)
+      logger::log_formatter(logger::formatter_glue, namespace = "shinyapp")
+      logger::log_layout(logger::layout_simple, namespace = "shinyapp")
+      logger::log_appender(logger::appender_console, namespace = "shinyapp")
     },
 
     insert_checks = function(values) {
@@ -459,7 +460,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     write = function(values) {
       checkmate::expect_list(values)
 
-      logger::log_info(values)
+      logger::log_level(level = logger::INFO, values, namespace = "shiny.app")
     },
 
     # @name read_data
@@ -471,7 +472,6 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       checkmate::expect_date(date_to)
 
       json_log_msg <- readLines(bucket)
-      json_log <- private$unnest_msg(json_log_msg)
       json_log <- dplyr::bind_rows(lapply(json_log_msg, unnest_msg))
       json_log %>%
         dplyr::filter(
