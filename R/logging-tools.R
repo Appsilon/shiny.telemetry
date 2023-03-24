@@ -203,7 +203,7 @@ log_session_detail <- function(data_storage, detail) {
 #' }
 #' @export
 browser_info_js <- function(id = "") {
-  checkmate::expect_string(id, null.ok = TRUE)
+  checkmate::assert_string(id, null.ok = TRUE)
   shiny_namespace <- ""
   if (id != "" && !is.null(id)) {
     shiny_namespace <- glue::glue("{id}-")

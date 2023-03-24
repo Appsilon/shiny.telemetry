@@ -16,8 +16,8 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' session$token from Shiny
 
     initialize = function(username, session_id = NULL) {
-      checkmate::expect_string(username)
-      checkmate::expect_string(session_id, null.ok = TRUE)
+      checkmate::assert_string(username)
+      checkmate::assert_string(session_id, null.ok = TRUE)
 
       private$.username <- username
       private$.session_id <- session_id
@@ -104,8 +104,8 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
       rlang::abort("Method not implemented.")
     },
     insert_checks = function(values, bucket, add_username) {
-      checkmate::expect_string(bucket)
-      checkmate::expect_list(values)
+      checkmate::assert_string(bucket)
+      checkmate::assert_list(values)
 
       if ("time" %in% names(values)) {
         rlang::abort(paste0(
@@ -174,7 +174,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     ) {
       super$initialize(username, session_id)
 
-      checkmate::expect_string(username)
+      checkmate::assert_string(username)
       logger::log_info("path to db: {db_path}")
       private$connect(db_path)
 
@@ -281,8 +281,8 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     },
 
     write = function(values, bucket) {
-      checkmate::expect_string(bucket)
-      checkmate::expect_list(values)
+      checkmate::assert_string(bucket)
+      checkmate::assert_list(values)
 
       send_query_df <- as.data.frame(values, stringsAsFactors = FALSE)
 
@@ -297,9 +297,9 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     },
 
     read_data = function(bucket, date_from, date_to) {
-      checkmate::expect_string(bucket)
-      checkmate::expect_date(date_from)
-      checkmate::expect_date(date_to)
+      checkmate::assert_string(bucket)
+      checkmate::assert_date(date_from)
+      checkmate::assert_date(date_to)
 
       query <- glue::glue(
         .sep = " ",
