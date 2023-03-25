@@ -17,6 +17,19 @@ test_common <- function(data_storage) {
     data_storage$insert(
       list(detail = "yada"), bucket = data_storage$session_bucket, add_username = FALSE
     )
+
+    # insert with custom session and username
+    data_storage$insert(
+      list(
+        action = "click", id = "id1", session = "s1", username = "u1"
+      ), force_params = FALSE, add_username = FALSE
+    )
+
+    data_storage$insert(
+      list(
+        action = "click", id = "id1", session = "s2", username = "u1"
+      ), force_params = FALSE, add_username = FALSE
+    )
   })
 
   date_from <- Sys.Date() - 365 * 10
@@ -28,7 +41,12 @@ test_common <- function(data_storage) {
   expect_true(checkmate::test_tibble(user_data))
   expect_true(checkmate::test_tibble(session_data))
 
-  expect_equal(NROW(user_data), 3)
+  expect_equal(NROW(user_data), 5)
+
+  user_data %>%
+    dplyr::filter(.data$username == "u1") %>%
+    NROW() %>%
+    expect_equal(2)
 
   # 1 result per session
   expect_equal(NROW(session_data), 1)

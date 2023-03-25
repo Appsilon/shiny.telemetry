@@ -36,8 +36,12 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' @param add_username boolean flag that indicates if line should include
     #' the username of the current session
 
-    insert = function(values, bucket = "user_log", add_username = TRUE) {
-      private$insert_checks(values, bucket, add_username)
+    insert = function(
+      values, bucket = "user_log", add_username = TRUE, force_params = TRUE
+    ) {
+      values <- private$insert_checks(
+        values, bucket, add_username, force_params
+      )
 
       rlang::abort("Method not implemented.")
     },
@@ -103,9 +107,11 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     close_connection = function() {
       rlang::abort("Method not implemented.")
     },
-    insert_checks = function(values, bucket, add_username) {
+    insert_checks = function(values, bucket, add_username, force_params) {
       checkmate::assert_string(bucket)
       checkmate::assert_list(values)
+      checkmate::assert_flag(add_username)
+      checkmate::assert_flag(force_params)
 
       if ("time" %in% names(values)) {
         rlang::abort(paste0(
@@ -114,22 +120,45 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
         ))
       }
 
-      if ("session" %in% names(values)) {
-        rlang::abort(paste0(
+      if (isTRUE(force_params) && "session" %in% names(values)) {
+        rlang::abort(glue::glue(
           "You must not pass 'session' value into database.",
           " It is set automatically."
         ))
       }
 
-      if ("username" %in% names(values)) {
-        rlang::abort(paste0(
+      if (isTRUE(force_params) && "username" %in% names(values)) {
+        rlang::abort(glue::glue(
           "You must not pass 'username' value into database.",
           " It is set automatically."
         ))
       }
 
       values$time <- as.character(Sys.time())
-      values$session <- private$.session_id
+
+      if (
+        isFALSE(force_params) && isFALSE(checkmate::test_string(values$session))
+      ) {
+        rlang::abort(glue::glue(
+          "When the argument 'force_params' is FALSE then 'values' list must",
+          " contain 'session.'"
+        ))
+      }
+
+      if (
+        isFALSE(add_username) &&
+        isFALSE(force_params) &&
+        isFALSE(checkmate::test_string(values$username))
+      ) {
+        rlang::abort(glue::glue(
+          "When the argument 'force_params' is FALSE then 'values' list must",
+          " contain 'username'."
+        ))
+      }
+
+      if (isFALSE(checkmate::test_string(values$session))) {
+        values$session <- private$.session_id
+      }
 
       if (isTRUE(add_username)) {
         values$username <- private$.username
@@ -175,7 +204,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
       super$initialize(username, session_id)
 
       checkmate::assert_string(username)
-      logger::log_info("path to db: {db_path}")
+      logger::log_debug("path to db: {db_path}", namespace = "shiny.telemetry")
       private$connect(db_path)
 
       private$initialize_connection(username)
@@ -187,8 +216,12 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param add_username boolean flag that indicates if line should include
     #' the username of the current session
 
-    insert = function(values, bucket = "user_log", add_username = TRUE) {
-      values <- private$insert_checks(values, bucket, add_username)
+    insert = function(
+      values, bucket = "user_log", add_username = TRUE, force_params = TRUE
+    ) {
+      values <- private$insert_checks(
+        values, bucket, add_username, force_params
+      )
 
       private$write(values, bucket)
     },
