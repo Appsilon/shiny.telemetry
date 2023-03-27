@@ -325,7 +325,8 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
 #' @examples
 #' data_storage <- DataStorageLogFile$new(
 #'   username = "test_user",
-#'   log_file_path = tempfile(pattern = "user_stats", fileext = ".json")
+#'   log_file_path = tempfile(pattern = "user_stats", fileext = ".json"),
+#'   session_file_path = tempfile(pattern = "session_details", fileext = ".json")
 #' )
 #' data_storage$insert(list(id = "an_id", action = "click"))
 #' data_storage$insert(list(id = "another_id", action = "click"))
@@ -344,7 +345,8 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' Initialize the data storage class
     #' @param username string with username of the current session
     #' @param session_id string with custom session id (should not be used)
-    #' @param log_file_path string with path to JSON log file
+    #' @param log_file_path string with path to JSON log file user actions
+    #' @param session_file_path string with path to JSON log file for the session detials
 
     initialize = function(
     username, session_id = NULL, log_file_path, session_file_path

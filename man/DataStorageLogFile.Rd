@@ -10,7 +10,8 @@ API for read/write operations
 \examples{
 data_storage <- DataStorageLogFile$new(
   username = "test_user",
-  log_file_path = tempfile(pattern = "user_stats", fileext = ".json")
+  log_file_path = tempfile(pattern = "user_stats", fileext = ".json"),
+  session_file_path = tempfile(pattern = "session_details", fileext = ".json")
 )
 data_storage$insert(list(id = "an_id", action = "click"))
 data_storage$insert(list(id = "another_id", action = "click"))
@@ -50,7 +51,8 @@ Initialize the data storage class
 \if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$new(
   username,
   session_id = NULL,
-  log_file_path = "user_logs.json"
+  log_file_path,
+  session_file_path
 )}\if{html}{\out{</div>}}
 }
 
@@ -61,7 +63,9 @@ Initialize the data storage class
 
 \item{\code{session_id}}{string with custom session id (should not be used)}
 
-\item{\code{log_file_path}}{string with path to JSON log file}
+\item{\code{log_file_path}}{string with path to JSON log file user actions}
+
+\item{\code{session_file_path}}{string with path to JSON log file for the session detials}
 }
 \if{html}{\out{</div>}}
 }
@@ -72,7 +76,11 @@ Initialize the data storage class
 \subsection{Method \code{insert()}}{
 Insert new data
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$insert(values, bucket = "user_log", add_username = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$insert(
+  values,
+  bucket = private$log_file_path,
+  add_username = TRUE
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -80,7 +88,7 @@ Insert new data
 \describe{
 \item{\code{values}}{list of values to write to database}
 
-\item{\code{bucket}}{name of table to write (not used)}
+\item{\code{bucket}}{path to log file; defaults to `log_file_path` used when initialized}
 
 \item{\code{add_username}}{boolean flag that indicates if line should include
 the username of the current session (not used)}
