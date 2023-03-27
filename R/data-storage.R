@@ -347,11 +347,11 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param log_file_path string with path to JSON log file
 
     initialize = function(
-    username, session_id = NULL, log_file_path = "user_logs.json"
+    username, session_id = NULL, log_file_path = "user_logs.json", session_file_path = NULL
     ) {
       super$initialize(username, session_id)
       logger::log_info("path to file: {log_file_path}")
-      private$connect(log_file_path = log_file_path)
+      private$connect(log_file_path = log_file_path, session_file_path = session_file_path)
     },
 
     #' @description Insert new data
@@ -384,7 +384,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_session_data = function(date_from, date_to) {
-      db_data <- private$read_data(active$session_bucket, date_from, date_to)
+      db_data <- private$read_data(self$session_bucket, date_from, date_to)
 
       db_data %>%
         dplyr::select("session", "detail") %>%
@@ -410,8 +410,8 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @field session_bucket string that identifies the bucket to store session
     #' details data
 
-    session_bucket = function(session_file_path) {
-      session_file_path
+    session_bucket = function() {
+      private$session_file_path
     }
   ),
   #
@@ -420,14 +420,17 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     # Private fields
     log_file_path = NULL,
 
+    session_file_path = NULL,
+
     # Private methods
 
     # @name connect
     # Makes connection to database based on passed config data
     # @param log_file_path string with path to file
 
-    connect = function(log_file_path) {
+    connect = function(log_file_path, session_file_path = NULL) {
       private$log_file_path <- log_file_path
+      private$session_file_path <- session_file_path
     },
 
     # @description reverts logger settings to default
