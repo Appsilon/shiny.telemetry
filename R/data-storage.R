@@ -356,14 +356,14 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
 
     #' @description Insert new data
     #' @param values list of values to write to database
-    #' @param bucket name of table to write (not used)
+    #' @param bucket name of table to write
     #' @param add_username boolean flag that indicates if line should include
     #' the username of the current session (not used)
 
-    insert = function(values, bucket = "user_log", add_username = TRUE) {
+    insert = function(values, bucket, add_username = TRUE) {
       values <- private$insert_checks(values)
 
-      private$write(values)
+      private$write(values, bucket)
     },
 
     #' @description read all user data from SQLite
@@ -469,10 +469,10 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       values
     },
 
-    write = function(values) {
+    write = function(values, bucket) {
       checkmate::expect_list(values)
 
-      cat(jsonlite::toJSON(values), file = private$log_file_path, sep = "\n", append = TRUE)
+      cat(jsonlite::toJSON(values), file = bucket, sep = "\n", append = TRUE)
     },
 
     # @name read_data
