@@ -113,7 +113,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_flag(add_username)
       checkmate::assert_flag(force_params)
 
-      if ("time" %in% names(values)) {
+      if (isTRUE(force_params) && "time" %in% names(values)) {
         rlang::abort(paste0(
           "You must not pass 'time' value into database.",
           " It is set automatically."

@@ -7,9 +7,12 @@
 #' @export
 #'
 #' @examples
-#' data_storage <- DataStorageRSQLite$new(
+#' data_storage <- DataStoragePlumber$new(
 #'   username = "test_user",
-#'   db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
+#'   hostname = "127.0.0.1",
+#'   port = 8087,
+#'   protocol = "http",
+#'   token = "9600bdee40db447fb372dd50e11e3f14"
 #' )
 #' data_storage$insert(list(id = "an_id", action = "click"))
 #' data_storage$insert(list(id = "another_id", action = "click"))
@@ -44,7 +47,8 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       private$port <- port
       private$protocol <- protocol
       private$token <- token
-      private$id <- digest::digest(token, algo = "sha256")
+      private$id <- digest::digest(token, algo = "sha256") %>%
+        stringr::str_sub(end = 8)
     },
 
     #' @description Insert new data
