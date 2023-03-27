@@ -347,7 +347,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param log_file_path string with path to JSON log file
 
     initialize = function(
-    username, session_id = NULL, log_file_path = "user_logs.json", session_file_path = NULL
+    username, session_id = NULL, log_file_path, session_file_path
     ) {
       super$initialize(username, session_id)
       logger::log_info("path to file: {log_file_path}")
@@ -356,11 +356,11 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
 
     #' @description Insert new data
     #' @param values list of values to write to database
-    #' @param bucket name of table to write
+    #' @param bucket path to log file; defaults to `log_file_path` used when initialized
     #' @param add_username boolean flag that indicates if line should include
     #' the username of the current session (not used)
 
-    insert = function(values, bucket, add_username = TRUE) {
+    insert = function(values, bucket = private$log_file_path, add_username = TRUE) {
       values <- private$insert_checks(values)
 
       private$write(values, bucket = bucket)
