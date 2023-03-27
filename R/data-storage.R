@@ -350,7 +350,6 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     username, session_id = NULL, log_file_path = "user_logs.json"
     ) {
       super$initialize(username, session_id)
-      # rlang::inform(glue::glue("path to file: {log_file_path}"))
       logger::log_info("path to file: {log_file_path}")
       private$connect(log_file_path = log_file_path)
     },
