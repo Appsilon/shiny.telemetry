@@ -386,7 +386,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_session_data = function(date_from, date_to) {
-      db_data <- private$read_data(self$session_bucket, date_from, date_to)
+      db_data <- private$read_data(private$session_file_path, date_from, date_to)
 
       db_data %>%
         dplyr::select("session", "detail") %>%
@@ -428,9 +428,10 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
 
     # @name connect
     # Makes connection to database based on passed config data
-    # @param log_file_path string with path to file
+    # @param log_file_path string with path to file for user actions
+    # @param session_file_path string with path to file for session details
 
-    connect = function(log_file_path, session_file_path = NULL) {
+    connect = function(log_file_path, session_file_path) {
       private$log_file_path <- log_file_path
       private$session_file_path <- session_file_path
     },
