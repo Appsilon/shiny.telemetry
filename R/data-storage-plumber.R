@@ -152,6 +152,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_string(bucket)
       checkmate::assert_date(date_from)
       checkmate::assert_date(date_to)
+
       url_path <- dplyr::case_when(
         bucket == "user_log" ~ "read_user_data",
         bucket == "session_details" ~ "read_session_data",
@@ -164,7 +165,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
       body <- httr2::request(private$build_url(url_path)) %>%
         httr2::req_url_query(
-          from = data_from,
+          from = date_from,
           to = date_to,
           token = private$build_token(list(from = date_from, to = date_to)),
           id = private$id
