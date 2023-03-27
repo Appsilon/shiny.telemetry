@@ -374,10 +374,10 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     read_user_data = function(date_from, date_to) {
       log_data <- private$read_data(private$log_file_path, date_from, date_to)
 
-      if (NROW(db_data) > 0) {
+      if (NROW(log_data) > 0) {
         return(dplyr::mutate(log_data, date = as.Date(.data$time)))
       }
-      db_data
+      log_data
     },
 
     #' @description read all session data from SQLite
@@ -385,7 +385,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_session_data = function(date_from, date_to) {
-      db_data <- private$read_data("session_details", date_from, date_to)
+      db_data <- private$read_data(active$session_bucket, date_from, date_to)
 
       db_data %>%
         dplyr::select("session", "detail") %>%
@@ -397,6 +397,22 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
 
     close = function() {
       private$close_connection()
+    }
+  ),
+  active = list(
+
+    #' @field action_bucket string that identifies the file path to store user
+    #' related and action data
+
+    action_bucket = function() {
+      private$log_file_path
+    },
+
+    #' @field session_bucket string that identifies the bucket to store session
+    #' details data
+
+    session_bucket = function(session_file_path) {
+      session_file_path
     }
   ),
   #
@@ -469,8 +485,8 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       json_log <- dplyr::bind_rows(lapply(json_log_msg, jsonlite::fromJSON))
       json_log %>%
         dplyr::filter(
-          date >=  date_from,
-          date <= date_to
+          time >=  date_from,
+          time <= date_to
         )
     }
   )

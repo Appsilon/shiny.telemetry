@@ -19,6 +19,17 @@ data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageLogFile}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{action_bucket}}{string that identifies the file path to store user
+related and action data}
+
+\item{\code{session_bucket}}{string that identifies the bucket to store session
+details data}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
