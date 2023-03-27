@@ -28,3 +28,19 @@ test_that("SQL Data storage inserts / reads", {
 
   test_common(data_storage)
 })
+
+test_that("DataStorageLogFile shoulb be able to insert and read", {
+  log_file_path <- tempfile(fileext = ".json")
+  session_file_path <- tempfile(fileext = ".json")
+  withr::defer(file.remove(log_file_path))
+  withr::defer(file.remove(session_file_path))
+
+  data_storage <-
+    DataStorageLogFile$new(
+      "sample_user_name",
+      log_file_path = log_file_path,
+      session_file_path = session_file_path
+    )
+
+  test_common(data_storage)
+})
