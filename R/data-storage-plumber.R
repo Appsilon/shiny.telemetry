@@ -72,7 +72,14 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_user_data = function(date_from, date_to) {
-      db_data <- private$read_data("user_log", date_from, date_to)
+      date_from <- private$check_date(date_from, .var.name = "date_from")
+      date_to <- private$check_date(date_to, .var.name = "date_to")
+
+      db_data <- private$read_data(
+        "user_log",
+        as.Date(date_from),
+        as.Date(date_to)
+      )
 
       if (NROW(db_data) > 0) {
         return(dplyr::mutate(db_data, date = as.Date(.data$time)))
@@ -85,7 +92,14 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_session_data = function(date_from, date_to) {
-      db_data <- private$read_data("session_details", date_from, date_to)
+      date_from <- private$check_date(date_from, .var.name = "date_from")
+      date_to <- private$check_date(date_to, .var.name = "date_to")
+
+      db_data <- private$read_data(
+        "session_details",
+        date_from,
+        date_to
+      )
 
       db_data %>%
         dplyr::select("session", "detail") %>%
@@ -146,6 +160,8 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
         ) %>%
         httr2::req_method("POST") %>%
         httr2::req_perform()
+
+      invisible(TRUE)
     },
 
     read_data = function(bucket, date_from, date_to) {

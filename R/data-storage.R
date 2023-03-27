@@ -95,6 +95,18 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
   private = list(
     .username = NULL,
     .session_id = NULL,
+    check_date = function(date_value, .var.name) {
+      if (checkmate::check_string(date_value)) {
+        date_value <- tryCatch(
+          as.Date(date_value),
+          error = function(err) {
+            date_value
+          }
+        )
+      }
+      checkmate::assert_date(date_value, .var.name = .var.name)
+      date_value
+    },
     generate_session_id = function() {
       paste(
         c(
