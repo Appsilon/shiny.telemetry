@@ -346,7 +346,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param username string with username of the current session
     #' @param session_id string with custom session id (should not be used)
     #' @param log_file_path string with path to JSON log file user actions
-    #' @param session_file_path string with path to JSON log file for the session detials
+    #' @param session_file_path string with path to JSON log file for the session details
 
     initialize = function(
     username, session_id = NULL, log_file_path, session_file_path

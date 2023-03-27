@@ -65,7 +65,7 @@ Initialize the data storage class
 
 \item{\code{log_file_path}}{string with path to JSON log file user actions}
 
-\item{\code{session_file_path}}{string with path to JSON log file for the session detials}
+\item{\code{session_file_path}}{string with path to JSON log file for the session details}
 }
 \if{html}{\out{</div>}}
 }
