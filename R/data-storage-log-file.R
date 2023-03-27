@@ -44,10 +44,14 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param values list of values to write to database
     #' @param bucket path to log file; defaults to `log_file_path` used when initialized
     #' @param add_username boolean flag that indicates if line should include
-    #' the username of the current session (not used)
+    #' the username of the current session
 
     insert = function(values, bucket = private$log_file_path, add_username = TRUE) {
-      values <- private$insert_checks(values)
+      checkmate::assert_list(values)
+      checkmate::assert_string(bucket)
+      checkmate::assert_logical(add_username)
+
+      values <- private$insert_checks(values, add_username = add_username)
 
       private$write(values, bucket = bucket)
     },
@@ -125,9 +129,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     close_connection = function() {
     },
 
-    insert_checks = function(values) {
-      checkmate::expect_list(values)
-
+    insert_checks = function(values, add_username) {
       if ("time" %in% names(values)) {
         rlang::abort(paste0(
           "You must not pass 'time' value into database.",
@@ -150,15 +152,16 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       }
 
       values$time <- Sys.time()
-      values$username <- private$.username
       values$session <- private$.session_id
+
+      if (add_username) {
+        values$username <- private$.username
+      }
 
       values
     },
 
     write = function(values, bucket) {
-      checkmate::expect_list(values)
-
       cat(jsonlite::toJSON(values), file = bucket, sep = "\n", append = TRUE)
     },
 
@@ -166,9 +169,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     # Reads the JSON log file
     # @param bucket string with path to file
     read_data = function(bucket, date_from, date_to) {
-      checkmate::expect_string(bucket)
-      checkmate::expect_date(date_from)
-      checkmate::expect_date(date_to)
+      checkmate::assert_string(bucket)
+      checkmate::assert_date(date_from)
+      checkmate::assert_date(date_to)
 
       json_log_msg <- readLines(bucket)
       json_log <- dplyr::bind_rows(lapply(json_log_msg, jsonlite::fromJSON))
