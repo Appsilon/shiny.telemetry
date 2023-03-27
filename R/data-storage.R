@@ -211,7 +211,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_session_data = function(date_from, date_to) {
-      db_data <- private$read_data("session_details", date_from, date_to)
+      db_data <- private$read_data(self$session_bucket, date_from, date_to)
 
       db_data %>%
         dplyr::select("session", "detail") %>%
@@ -363,7 +363,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     insert = function(values, bucket, add_username = TRUE) {
       values <- private$insert_checks(values)
 
-      private$write(values, bucket)
+      private$write(values, bucket = bucket)
     },
 
     #' @description read all user data from SQLite
