@@ -1,15 +1,3 @@
-segment <- function(title, ..., color = "blue") {
-  shiny::div(
-    class = "ui raised segment", style = "margin-bottom: 0.5em; width: 100%;",
-    shiny::tags$div(
-      style = "margin-bottom: 0.5em;",
-      class = paste("ui demo right ribbon label", color),
-      title
-    ),
-    ...
-  )
-}
-
 convert_hour <- function(time) {
   hour <- as.POSIXlt(time)$hour
   ifelse(
@@ -50,24 +38,12 @@ prepare_color_scale <- function(values, palette) {
 }
 
 prepare_date_axis_ticks <- function(date_sequence, quantile = 0.1) {
-  lct <- Sys.getlocale("LC_TIME")
+  locale_time <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", "en_US.UTF-8")
   date_range <- sort(date_sequence)
   n <- length(date_range)
-  tickvals <- date_range[unique(c(seq(1, n, by = max(1, floor(quantile * n))), n))]
-  ticktext <- c(format(tickvals[1], "%b %d<br />%Y"), format(tickvals[-1], "%b %d"))
-  Sys.setlocale("LC_TIME", lct)
-  list(tickvals = tickvals, ticktext = ticktext)
-}
-
-render_download_button <- function(output_id, label, style = NULL) {
-  shiny::a(
-    id = output_id,
-    class = "ui grey tiny basic button shiny-download-link",
-    style = style,
-    href = "",
-    target = "_blank",
-    download = NA,
-    label
-  )
+  tick_values <- date_range[unique(c(seq(1, n, by = max(1, floor(quantile * n))), n))]
+  tick_text <- c(format(tick_values[1], "%b %d<br />%Y"), format(tick_values[-1], "%b %d"))
+  Sys.setlocale("LC_TIME", locale_time)
+  list(tick_values = tick_values, tick_text = tick_text)
 }
