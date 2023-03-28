@@ -86,7 +86,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' @field session_bucket string that identifies the bucket to store session
     #' details data
 
-    session_bucket = function() "session_bucket"
+    session_bucket = function() "session_details"
   ),
   private = list(
     .username = NULL,
