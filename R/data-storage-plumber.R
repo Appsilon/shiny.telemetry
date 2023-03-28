@@ -80,7 +80,10 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       private$secret <- secret
       private$id <- build_id_from_secret(secret)
 
-      logger::log_debug("path: {private$build_url(\"health_check\")}", namespace = "shiny.telemetry")
+      logger::log_debug(
+        "path: {private$build_url(\"health_check\")}",
+        namespace = "shiny.telemetry"
+      )
     },
 
     #' @description Insert new data
