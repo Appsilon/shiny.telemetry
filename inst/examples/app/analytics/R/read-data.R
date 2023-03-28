@@ -6,39 +6,6 @@ get_user <- function(session) {
   return(username)
 }
 
-get_log_data <- function(db_credentials, date_from, date_to) {
-  db <- connect_to_db(db_credentials)
-  query <- sprintf(
-    "SELECT * FROM user_log WHERE date(time) >= '%s' AND date(time) <= '%s'",
-    date_from, date_to
-  )
-  selected_log_data <- odbc::dbGetQuery(db, query) %>%
-    (function(.dot) {
-      if (nrow(.dot) > 0) {
-        dplyr::mutate(.dot, date = as.Date(.data$time))
-      } else {
-        shiny::req(FALSE)
-      }
-    })()
-  odbc::dbDisconnect(db)
-  selected_log_data
-}
-
-reactive_session_details <- function(db_credentials, date_from, date_to) {
-  db <- connect_to_db(db_credentials)
-  query <- sprintf(
-    "SELECT * FROM session_details WHERE date(time) >= '%s' AND date(time) <= '%s'",
-    date_from, date_to
-  )
-  selected_session_details <- odbc::dbGetQuery(db, query) %>%
-    dplyr::select("session", "detail") %>%
-    dplyr::group_by(.data$session) %>%
-    dplyr::summarise(title = paste(.data$detail, collapse = " | "))
-
-  odbc::dbDisconnect(db)
-  selected_session_details
-}
-
 get_users_per_day <- function(log_data) {
   log_data %>%
     dplyr::select("date", "username") %>%
