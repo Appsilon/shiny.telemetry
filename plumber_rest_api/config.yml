@@ -1,0 +1,11 @@
+default:
+  log_level: "DEBUG"
+  tokens: !expr Sys.getenv("HASH_TOKENS")
+  allow_empty_tokens: true
+  storage_method:
+    driver: "sqlite"
+    params: !expr list(username = "plumber", db_path = file.path(here::here(), "telemetry.sqlite"))
+
+production:
+  log_level: "DEBUG"
+  allow_empty_tokens: false
