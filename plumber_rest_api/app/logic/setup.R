@@ -1,6 +1,8 @@
 box::use(
   config,
-  shiny.telemetry[DataStorageRSQLite, build_id_from_secret],
+  shiny.telemetry[
+    DataStorageRSQLite, DataStorageLogFile, build_id_from_secret,
+  ],
   rlang[abort],
   digest[digest],
   checkmate[test_string],
@@ -11,6 +13,7 @@ box::use(
 
 STORAGE_METHODS <- list(
   sqlite = DataStorageRSQLite,
+  logfile = DataStorageLogFile,
   .default = DataStorageRSQLite
 )
 

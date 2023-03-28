@@ -3,9 +3,19 @@ default:
   tokens: !expr Sys.getenv("HASH_TOKENS")
   allow_empty_tokens: true
   storage_method:
-    driver: "sqlite"
-    params: !expr list(username = "plumber", db_path = file.path(here::here(), "telemetry.sqlite"))
+    # # SQLite backend
+    # driver: "sqlite"
+    # params:
+    #   username: "plumber"
+    #   db_path: !expr file.path(here::here(), "telemetry.sqlite")
+    #
+    # # Logfile backend
+    driver: "logfile"
+    params:
+      username: "plumber"
+      log_file_path: "user_stats.txt"
+      session_file_path: "session_details.txt"
 
 production:
-  log_level: "DEBUG"
+  log_level: "INFO"
   allow_empty_tokens: false
