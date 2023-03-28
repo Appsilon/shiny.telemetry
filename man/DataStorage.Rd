@@ -71,16 +71,17 @@ Insert new data
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{values}}{list of values to write to storage provider}
+\item{\code{values}}{list of values to write to storage provider.}
 
 \item{\code{bucket}}{string with name of type of data to write (example, for
-SQL it should represent a table)}
+SQL it should represent a table).}
 
 \item{\code{add_username}}{boolean flag that indicates if line should include
-the username of the current session}
+the username of the current session.}
 
-\item{\code{force_params}}{boolean flag that indicates if parameters should
-be generated automatically}
+\item{\code{force_params}}{boolean flag that indicates if `session`,
+`username` and `time` parameters should be added automatically
+(the default behaviour).}
 }
 \if{html}{\out{</div>}}
 }

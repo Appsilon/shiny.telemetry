@@ -30,13 +30,14 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
 
     #' @description Insert new data
     #'
-    #' @param values list of values to write to storage provider
+    #' @param values list of values to write to storage provider.
     #' @param bucket string with name of type of data to write (example, for
-    #' SQL it should represent a table)
+    #' SQL it should represent a table).
     #' @param add_username boolean flag that indicates if line should include
-    #' the username of the current session
-    #' @param force_params boolean flag that indicates if parameters should
-    #' be generated automatically
+    #' the username of the current session.
+    #' @param force_params boolean flag that indicates if `session`,
+    #' `username` and `time` parameters should be added automatically
+    #' (the default behaviour).
 
     insert = function(
       values, bucket = "user_log", add_username = TRUE, force_params = TRUE
