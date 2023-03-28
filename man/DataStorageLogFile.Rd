@@ -103,8 +103,9 @@ Insert new data
 \item{\code{add_username}}{boolean flag that indicates if line should include
 the username of the current session}
 
-\item{\code{force_params}}{boolean flag that indicates if parameters should
-be generated automatically}
+\item{\code{force_params}}{boolean flag that indicates if `session`,
+`username` and `time` parameters should be added automatically
+(the default behaviour).}
 }
 \if{html}{\out{</div>}}
 }

@@ -54,8 +54,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param bucket path to log file; defaults to `log_file_path` used when initialized
     #' @param add_username boolean flag that indicates if line should include
     #' the username of the current session
-    #' @param force_params boolean flag that indicates if parameters should
-    #' be generated automatically
+    #' @param force_params boolean flag that indicates if `session`,
+    #' `username` and `time` parameters should be added automatically
+    #' (the default behaviour).
 
     insert = function(
       values,
