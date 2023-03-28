@@ -74,7 +74,7 @@ Initialize the data storage class
 instance}
 
 \item{\code{token}}{string with valid token to communicate with plumber (can
-be NULL for unvalidated communication)}
+be NULL for disabling communication validation)}
 }
 \if{html}{\out{</div>}}
 }

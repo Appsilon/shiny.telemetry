@@ -11,6 +11,7 @@ cloneable
 config
 configs
 css
+hostname
 json
 moduleServer
 postgres

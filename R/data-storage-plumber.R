@@ -43,7 +43,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' @param protocol string with protocol of the connection of the plumber
     #' instance
     #' @param token string with valid token to communicate with plumber (can
-    #' be NULL for unvalidated communication)
+    #' be NULL for disabling communication validation)
 
     initialize = function(
       username,
