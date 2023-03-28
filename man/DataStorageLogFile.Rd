@@ -152,7 +152,7 @@ read all session data from SQLite
 \if{latex}{\out{\hypertarget{method-DataStorageLogFile-close}{}}}
 \subsection{Method \code{close()}}{
 Does nothing, but needs to be kept here because log_logout calls this
-for database backends further discussion needed if closing connectiong
+for database backends further discussion needed if closing connecting
 is really necessary.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$close()}\if{html}{\out{</div>}}

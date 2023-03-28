@@ -133,22 +133,22 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' @field action_read_endpoint string field that returns read action
     #' endpoint
 
-    action_read_endpoint = function() { "read_user_data" },
+    action_read_endpoint = function() "read_user_data",
 
     #' @field session_read_endpoint string field that returns read session
     #' endpoint
 
-    session_read_endpoint = function() { "read_session_data" },
+    session_read_endpoint = function() "read_session_data",
 
     #' @field action_insert_endpoint string field that returns insert action
     #' endpoint
 
-    action_insert_endpoint = function() { "user_log" },
+    action_insert_endpoint = function() "user_log",
 
     #' @field session_insert_endpoint string field that returns insert session
     #' endpoint
 
-    session_insert_endpoint = function() { "session_details" }
+    session_insert_endpoint = function() "session_details"
   ),
   #
   # Private

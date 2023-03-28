@@ -108,7 +108,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
 
     #' @description
     #' Does nothing, but needs to be kept here because log_logout calls this
-    #' for database backends further discussion needed if closing connectiong
+    #' for database backends further discussion needed if closing connecting
     #' is really necessary.
     close = function() {
     }
