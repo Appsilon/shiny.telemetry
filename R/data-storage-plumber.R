@@ -13,7 +13,7 @@
 #'   hostname = "connect.appsilon.com",
 #'   path = "shiny_telemetry_plumber",
 #'   port = 80,
-#'   protocol = "http",
+#'   protocol = "https",
 #'   secret = "9600bdee40db447fb372dd50e11e3f14"
 #' )
 #'
