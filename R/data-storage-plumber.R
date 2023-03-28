@@ -17,6 +17,7 @@
 #'   path = "shiny_telemetry_plumber",
 #'   port = 443,
 #'   protocol = "https",
+#'   authorization = Sys.getenv("CONNECT_AUTHORIZATION_KEY"),
 #'   secret = Sys.getenv("PLUMBER_SECRET")
 #' )
 #'
@@ -59,6 +60,9 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' instance.
     #' @param secret string with secret to sign communication with plumber (can
     #' be NULL for disabling communication signing).
+    #' @param authorization string to use in HTTP headers for authorization
+    #' (for example: to authenticate to a plumber deployment behind a connect
+    #' server).
 
     initialize = function(
       username,
@@ -67,7 +71,8 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       port = 80,
       protocol = "http",
       path = NULL,
-      secret = NULL
+      secret = NULL,
+      authorization = NULL
     ) {
       super$initialize(username, session_id)
 
@@ -79,6 +84,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       private$protocol <- protocol
       private$secret <- secret
       private$id <- build_id_from_secret(secret)
+      private$authorization <- authorization
 
       logger::log_debug(
         "path: {private$build_url(\"health_check\")}",
@@ -181,6 +187,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     protocol = NULL,
     secret = NULL,
     id = NULL,
+    authorization = NULL,
 
     # Private methods
 
@@ -231,8 +238,16 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
       logger::log_debug("endpoint {private$build_url(endpoint)}")
 
-      httr2::request(private$build_url(endpoint)) %>%
-        httr2::req_headers("Accept" = "application/json") %>%
+      # httr2::request("https://connect.appsilon.com/shiny_telemetry_plumber/health_check") |>
+      #   httr2::req_headers(
+      #     "Authorization" = glue::glue("Key {Sys.getenv('CONNECT_AUTHORIZATION_KEY')}")
+      #   ) |>
+      #   httr2::req_perform()
+
+      request <- httr2::request(private$build_url(endpoint)) %>%
+        httr2::req_headers(
+          "Accept" = "application/json"
+        ) %>%
         httr2::req_body_json(
           list(
             id = private$id,
@@ -240,7 +255,18 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
             data = jsonlite::serializeJSON(values)
           )
         ) %>%
-        httr2::req_method("POST") %>%
+        httr2::req_method("POST")
+
+      # Adds authorization
+      if (!is.null(private$authorization)) {
+        request <- request %>%
+          httr2::req_headers(
+            "Authorization" = glue::glue("Key {private$authorization}")
+          )
+      }
+
+      # Perform the HTTP request
+      request %>%
         httr2::req_perform()
 
       invisible(TRUE)

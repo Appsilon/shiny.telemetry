@@ -18,6 +18,7 @@ data_storage <- DataStoragePlumber$new(
   path = "shiny_telemetry_plumber",
   port = 443,
   protocol = "https",
+  authorization = Sys.getenv("CONNECT_AUTHORIZATION_KEY"),
   secret = Sys.getenv("PLUMBER_SECRET")
 )
 
@@ -87,7 +88,8 @@ Initialize the data storage class
   port = 80,
   protocol = "http",
   path = NULL,
-  secret = NULL
+  secret = NULL,
+  authorization = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -109,6 +111,10 @@ instance.}
 
 \item{\code{secret}}{string with secret to sign communication with plumber (can
 be NULL for disabling communication signing).}
+
+\item{\code{authorization}}{string to use in HTTP headers for authorization
+(for example: to authenticate to a plumber deployment behind a connect
+server).}
 }
 \if{html}{\out{</div>}}
 }
