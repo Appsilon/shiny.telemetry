@@ -1,110 +1,38 @@
-date_filters <- function() {
-  shiny::tagList(
-    shiny::tags$div(
-      shiny::tags$div(shiny::HTML("From")),
-      shiny.semantic::date_input(
-        "date_from",
-        value = Sys.Date() - 30,
-        icon = NULL,
-        style = "width: 135px;"
-      )
-    ),
-    shiny::tags$div(
-      shiny::tags$div(shiny::HTML("To")),
-      shiny.semantic::date_input(
-        "date_to", value = Sys.Date(), icon = NULL, style = "width: 135px;"
-      )
+plot_daily_stats <- function(plot_data) {
+  n_plots <- length(unique(plot_data$id))
+  x_axis_ticks <- prepare_date_axis_ticks(unique(plot_data$date))
+  annote <- function(y, text) {
+    list(
+      y = y,
+      text = text,
+      showarrow = FALSE,
+      xref = "paper",
+      yref = "paper",
+      font = list(size = 16)
     )
-  )
-}
-
-get_users_per_day <- function(log_data) {
-  log_data %>%
-    dplyr::select("date", "username") %>%
-    dplyr::distinct() %>%
-    dplyr::select("date") %>%
-    dplyr::group_by(.data$date) %>%
-    dplyr::summarise(users = dplyr::n())
-}
-
-get_sessions_per_day <- function(log_data) {
-  log_data %>%
-    dplyr::select("date", "session") %>%
-    dplyr::distinct() %>%
-    dplyr::select("date") %>%
-    dplyr::group_by(.data$date) %>%
-    dplyr::summarise(sessions = dplyr::n())
-}
-
-get_time_per_day <- function(log_data) {
-  log_data %>%
-    dplyr::mutate(time = as.POSIXct(.data$time)) %>%
-    dplyr::group_by(.data$date, .data$session) %>%
-    dplyr::summarise(
-      time = round(
-        as.numeric(max(.data$time) - min(.data$time), units = "hours"),
-        2
+  }
+  plot_data %>%
+    plotly::plot_ly(
+      x = ~date, y = ~value, color = ~statistic,
+      colors = c("#fbbd08", "#b21e1e", "#00827c", "#1a69a4"),
+      yaxis = ~ paste0("y", id)
+    ) %>%
+    plotly::add_bars() %>%
+    plotly::subplot(nrows = n_plots, shareX = TRUE) %>%
+    plotly::layout(
+      legend = list(orientation = "h"),
+      xaxis = list(
+        title = "", hoverformat = "%b %d",
+        tick_values = x_axis_ticks$tick_values, tick_text = x_axis_ticks$tick_text
+      ),
+      margin = list(r = 20),
+      annotations = list(
+        annote(y = 1.03, text = "Unique users / opened sessions"),
+        annote(y = 0.65, text = "Average session time [hours]"),
+        annote(y = 0.29, text = "Total clicks and inputs")
       )
     ) %>%
-    dplyr::group_by(.data$date) %>%
-    dplyr::summarise(time = mean(.data$time))
-}
-
-get_actions_per_day <- function(log_data) {
-  log_data %>%
-    dplyr::filter(!(.data$action %in% c("login", "logout"))) %>%
-    dplyr::select("date", "action") %>%
-    dplyr::select("date") %>%
-    dplyr::group_by(.data$date) %>%
-    dplyr::summarise(action = dplyr::n())
-}
-
-get_per_day_data <- function(
-  users_per_day_data, sessions_per_day, time_per_day, actions_per_day
-) {
-  users_per_day_data %>%
-    dplyr::full_join(sessions_per_day, by = "date") %>%
-    dplyr::full_join(time_per_day, by = "date") %>%
-    dplyr::full_join(actions_per_day, by = "date")
-}
-
-get_time_daily <- function(log_data) {
-  log_data %>%
-    dplyr::mutate(time = as.POSIXct(.data$time)) %>%
-    dplyr::group_by(.data$session, .data$date) %>%
-    dplyr::summarise(
-      time_spent = difftime(max(.data$time), min(.data$time), units = "secs")
-    )
-}
-
-get_active_users <- function(log_data) {
-  log_data %>%
-    dplyr::select("time", "username", "date") %>%
-    dplyr::mutate(day_hour = convert_hour(.data$time)) %>%
-    dplyr::group_by(.data$date, .data$day_hour) %>%
-    dplyr::summarise(users = length(unique(.data$username))) %>%
-    dplyr::arrange(.data$date)
-}
-
-get_per_day_plot_data <- function(base, per_day) {
-  dplyr::left_join(base, per_day, by = "date") %>%
-    tidyr::pivot_longer(
-      c(-"date"), names_to = "statistic", values_to = "value"
-    ) %>%
-    dplyr::arrange(.data$date, .data$statistic, .data$value) %>%
-    tidyr::replace_na(list(value = 0)) %>%
-    dplyr::mutate(id = dplyr::case_when(
-      statistic == "users" ~ 3L,
-      statistic == "actions" ~ 1L,
-      statistic == "sessions" ~ 1L,
-      statistic == "time" ~ 2L
-    )) %>%
-    dplyr::mutate(statistic = dplyr::case_when(
-      statistic == "users" ~ "logged users (unique)",
-      statistic == "actions" ~ "total clicks and inputs",
-      statistic == "sessions" ~ "total opened sessions",
-      statistic == "time" ~ "avg session time (hours)"
-    ))
+    plotly::config(displayModeBar = FALSE)
 }
 
 #' prepare_admin_panel_components
@@ -115,8 +43,7 @@ get_per_day_plot_data <- function(base, per_day) {
 #' @param data_storage data_storage instance that will handle all backend read
 #' and writes.
 prepare_admin_panel_components <- function(
-  input, output, session, data_storage
-) {
+    input, output, session, data_storage) {
   hour_levels <- c("12am", paste0(1:11, "am"), "12pm", paste0(1:11, "pm"))
 
   log_data <- shiny::reactive({
@@ -174,43 +101,6 @@ prepare_admin_panel_components <- function(
     )
   })
 
-  plot_daily_stats <- function(plot_data) {
-    n_plots <- length(unique(plot_data$id))
-    x_axis_ticks <- prepare_date_axis_ticks(unique(plot_data$date))
-    annote <- function(y, text) {
-      list(
-        y = y,
-        text = text,
-        showarrow = FALSE,
-        xref = "paper",
-        yref = "paper",
-        font = list(size = 16)
-      )
-    }
-    plot_data %>%
-      plotly::plot_ly(
-        x = ~date, y = ~value, color = ~statistic,
-        colors = c("#fbbd08", "#b21e1e", "#00827c", "#1a69a4"),
-        yaxis = ~paste0("y", id)
-      ) %>%
-      plotly::add_bars() %>%
-      plotly::subplot(nrows = n_plots, shareX = TRUE) %>%
-      plotly::layout(
-        legend = list(orientation = "h"),
-        xaxis = list(
-          title = "", hoverformat = "%b %d",
-          tickvals = x_axis_ticks$tickvals, ticktext = x_axis_ticks$ticktext
-        ),
-        margin = list(r = 20),
-        annotations = list(
-          annote(y = 1.03, text = "Unique users / opened sessions"),
-          annote(y = 0.65, text = "Average session time [hours]"),
-          annote(y = 0.29, text = "Total clicks and inputs")
-        )
-      ) %>%
-      plotly::config(displayModeBar = FALSE)
-  }
-
   users_per_day <- shiny::reactive({
     get_users_per_day(selected_log_data())
   })
@@ -232,7 +122,8 @@ prepare_admin_panel_components <- function(
       users_per_day(),
       sessions_per_day(),
       time_per_day(),
-      actions_per_day())
+      actions_per_day()
+    )
   })
 
   per_day_plot_data <- shiny::reactive({
@@ -363,17 +254,17 @@ prepare_admin_panel_components <- function(
       dplyr::arrange(users_plot_data(), .data$date),
       x = ~date, y = ~new_users, color = I("#ff7f0e"),
       name = "New users logged", type = "bar",
-      hoverinfo = "text", text = ~paste("New users:", new_users)
+      hoverinfo = "text", text = ~ paste("New users:", new_users)
     ) %>%
       plotly::add_trace(
         y = ~previous_users, name = "Returning users logged", color = I("#1f77b4"),
-        hoverinfo = "text", text = ~paste("Returning users:", previous_users)
+        hoverinfo = "text", text = ~ paste("Returning users:", previous_users)
       ) %>%
       plotly::layout(
         yaxis = list(title = ""),
         xaxis = list(
           title = "", hoverformat = "%b %d",
-          tickvals = x_axis_ticks$tickvals, ticktext = x_axis_ticks$ticktext
+          tick_values = x_axis_ticks$tick_values, tick_text = x_axis_ticks$tick_text
         ),
         title = "Users logged each day", barmode = "stack"
       ) %>%
@@ -384,19 +275,19 @@ prepare_admin_panel_components <- function(
     colz <- prepare_color_scale(heatmap_data()$users, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(heatmap_data()$date))
     plotly::plot_ly(heatmap_data(),
-            x = ~date, y = ~day_hour, z = ~users,
-            type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-            text = ~paste(
-              "Date:", date,
-              "</br>Hour:", day_hour,
-              "</br>Users: ", users
-            )
+      x = ~date, y = ~day_hour, z = ~users,
+      type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
+      text = ~ paste(
+        "Date:", date,
+        "</br>Hour:", day_hour,
+        "</br>Users: ", users
+      )
     ) %>%
       plotly::layout(
         title = "Total users logged each hour", yaxis = list(title = ""),
         xaxis = list(
           title = "", hoverformat = "%b %d",
-          tickvals = x_axis_ticks$tickvals, ticktext = x_axis_ticks$ticktext
+          tick_values = x_axis_ticks$tick_values, tick_text = x_axis_ticks$tick_text
         )
       ) %>%
       plotly::config(displayModeBar = FALSE)
@@ -442,19 +333,19 @@ prepare_admin_panel_components <- function(
     colz <- prepare_color_scale(actions_per_users_data()$actions, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(actions_per_users_data()$date))
     plotly::plot_ly(actions_per_users_data(),
-            x = ~date, y = ~day_hour, z = ~actions,
-            type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-            text = ~paste(
-              "Date:", date,
-              "</br>Hour:", day_hour,
-              "</br>Actions: ", actions
-            )
+      x = ~date, y = ~day_hour, z = ~actions,
+      type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
+      text = ~ paste(
+        "Date:", date,
+        "</br>Hour:", day_hour,
+        "</br>Actions: ", actions
+      )
     ) %>%
       plotly::layout(
         yaxis = list(title = ""), title = "Operations performed by user each hour",
         xaxis = list(
           title = "", hoverformat = "%b %d",
-          tickvals = x_axis_ticks$tickvals, ticktext = x_axis_ticks$ticktext
+          tick_values = x_axis_ticks$tick_values, tick_text = x_axis_ticks$tick_text
         ),
         margin = list(r = 25, b = 50)
       ) %>%
@@ -574,19 +465,19 @@ prepare_admin_panel_components <- function(
     colz <- prepare_color_scale(global_action_data()$times, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(global_action_data()$date))
     plotly::plot_ly(global_action_data(),
-            x = ~date, y = ~action, z = ~times,
-            type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-            text = ~paste(
-              "Date:", date,
-              "</br>Action:", action,
-              "</br>Amount: ", times
-            )
+      x = ~date, y = ~action, z = ~times,
+      type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
+      text = ~ paste(
+        "Date:", date,
+        "</br>Action:", action,
+        "</br>Amount: ", times
+      )
     ) %>%
       plotly::layout(
         title = "Total actions performed each day", yaxis = list(title = ""),
         xaxis = list(
           title = "", hoverformat = "%b %d",
-          tickvals = x_axis_ticks$tickvals, ticktext = x_axis_ticks$ticktext
+          tick_values = x_axis_ticks$tick_values, tick_text = x_axis_ticks$tick_text
         )
       ) %>%
       plotly::config(displayModeBar = FALSE)
@@ -670,19 +561,19 @@ prepare_admin_panel_components <- function(
     colz <- prepare_color_scale(heatmap_data()$users, "Blues")
 
     plotly::plot_ly(id_data,
-            x = ~date, y = ~input_label, z = ~times,
-            type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-            text = ~paste(
-              "Date:", date,
-              "</br>Input ID:", id,
-              "</br>Amount: ", times
-            )
+      x = ~date, y = ~input_label, z = ~times,
+      type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
+      text = ~ paste(
+        "Date:", date,
+        "</br>Input ID:", id,
+        "</br>Amount: ", times
+      )
     ) %>%
       plotly::layout(
         title = "Actions executed each day", yaxis = list(title = ""),
         xaxis = list(
           title = "", hoverformat = "%b %d",
-          tickvals = x_axis_ticks$tickvals, ticktext = x_axis_ticks$ticktext
+          tick_values = x_axis_ticks$tick_values, tick_text = x_axis_ticks$tick_text
         ),
         margin = list(l = 150)
       ) %>%
@@ -721,18 +612,19 @@ prepare_admin_panel_components <- function(
     }
   })
 
-  output$input_id_table <- DT::renderDataTable({
-    shiny::validate(shiny::need(input$selected_action_id, "selected_action_id"))
-    selected_action_id_data() %>%
-      dplyr::group_by(.data$value) %>%
-      dplyr::summarise(times = dplyr::n()) %>%
-      dplyr::rename("Value of selected input" = "value", "Total Amount" = "times")
-  },
-  rownames = FALSE,
-  options = list(
-    lengthChange = FALSE,
-    searching = TRUE
-  )
+  output$input_id_table <- DT::renderDataTable(
+    {
+      shiny::validate(shiny::need(input$selected_action_id, "selected_action_id"))
+      selected_action_id_data() %>%
+        dplyr::group_by(.data$value) %>%
+        dplyr::summarise(times = dplyr::n()) %>%
+        dplyr::rename("Value of selected input" = "value", "Total Amount" = "times")
+    },
+    rownames = FALSE,
+    options = list(
+      lengthChange = FALSE,
+      searching = TRUE
+    )
   )
 
   output$action_id_stats <- shiny::renderUI({
