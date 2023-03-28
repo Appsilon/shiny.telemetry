@@ -238,12 +238,6 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
       logger::log_debug("endpoint {private$build_url(endpoint)}")
 
-      # httr2::request("https://connect.appsilon.com/shiny_telemetry_plumber/health_check") |>
-      #   httr2::req_headers(
-      #     "Authorization" = glue::glue("Key {Sys.getenv('CONNECT_AUTHORIZATION_KEY')}")
-      #   ) |>
-      #   httr2::req_perform()
-
       request <- httr2::request(private$build_url(endpoint)) %>%
         httr2::req_headers(
           "Accept" = "application/json"
@@ -288,7 +282,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
         rlang::abort("reading data from invalid bucket.")
       }
 
-      body <- httr2::request(private$build_url(endpoint)) %>%
+      request <- httr2::request(private$build_url(endpoint)) %>%
         httr2::req_url_query(
           from = date_from,
           to = date_to,
@@ -297,7 +291,17 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
             secret = private$secret
           ),
           id = private$id
-        ) %>%
+        )
+
+      # Adds authorization
+      if (!is.null(private$authorization)) {
+        request <- request %>%
+          httr2::req_headers(
+            "Authorization" = glue::glue("Key {private$authorization}")
+          )
+      }
+
+      body <- request %>%
         httr2::req_perform() %>%
         httr2::resp_body_json()
 
