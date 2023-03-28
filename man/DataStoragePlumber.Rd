@@ -11,7 +11,17 @@ API for read/write operations
 \dontrun{
 data_storage <- DataStoragePlumber$new(
   username = "test_user",
+  hostname = "connect.appsilon.com",
+  path = "shiny_telemetry_plumber",
+  port = 80,
+  protocol = "http",
+  secret = "9600bdee40db447fb372dd50e11e3f14"
+)
+
+data_storage <- DataStoragePlumber$new(
+  username = "test_user",
   hostname = "127.0.0.1",
+  path = NULL,
   port = 8087,
   protocol = "http",
   secret = "9600bdee40db447fb372dd50e11e3f14"
@@ -71,8 +81,9 @@ Initialize the data storage class
   username,
   session_id = NULL,
   hostname = "127.0.0.1",
-  port = 8087,
+  port = 80,
   protocol = "http",
+  path = NULL,
   secret = NULL
 )}\if{html}{\out{</div>}}
 }
@@ -80,19 +91,21 @@ Initialize the data storage class
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{username}}{string with username of the current session}
+\item{\code{username}}{string with username of the current session.}
 
-\item{\code{session_id}}{string with custom session id (should not be used)}
+\item{\code{session_id}}{string with custom session id (should not be used).}
 
-\item{\code{hostname}}{string with hostname of plumber instance}
+\item{\code{hostname}}{string with hostname of plumber instance,}
 
-\item{\code{port}}{numeric value with port number of plumber instance}
+\item{\code{port}}{numeric value with port number of plumber instance.}
 
 \item{\code{protocol}}{string with protocol of the connection of the plumber
-instance}
+instance.}
+
+\item{\code{path}}{string with sub-path of plumber deployment.}
 
 \item{\code{secret}}{string with secret to sign communication with plumber (can
-be NULL for disabling communication signing)}
+be NULL for disabling communication signing).}
 }
 \if{html}{\out{</div>}}
 }
@@ -123,7 +136,7 @@ the username of the current session}
 
 \item{\code{force_params}}{boolean flag that indicates if `session`,
 `username` and `time` parameters should be added automatically
-(the default behaviour).}
+(the default behavior).}
 }
 \if{html}{\out{</div>}}
 }

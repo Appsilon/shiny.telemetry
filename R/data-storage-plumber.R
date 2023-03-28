@@ -10,7 +10,17 @@
 #' \dontrun{
 #' data_storage <- DataStoragePlumber$new(
 #'   username = "test_user",
+#'   hostname = "connect.appsilon.com",
+#'   path = "shiny_telemetry_plumber",
+#'   port = 80,
+#'   protocol = "http",
+#'   secret = "9600bdee40db447fb372dd50e11e3f14"
+#' )
+#'
+#' data_storage <- DataStoragePlumber$new(
+#'   username = "test_user",
 #'   hostname = "127.0.0.1",
+#'   path = NULL,
 #'   port = 8087,
 #'   protocol = "http",
 #'   secret = "9600bdee40db447fb372dd50e11e3f14"
@@ -37,33 +47,37 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
     #' @description
     #' Initialize the data storage class
-    #' @param username string with username of the current session
-    #' @param session_id string with custom session id (should not be used)
-    #' @param hostname string with hostname of plumber instance
-    #' @param port numeric value with port number of plumber instance
+    #' @param username string with username of the current session.
+    #' @param session_id string with custom session id (should not be used).
+    #' @param hostname string with hostname of plumber instance,
+    #' @param port numeric value with port number of plumber instance.
+    #' @param path string with sub-path of plumber deployment.
     #' @param protocol string with protocol of the connection of the plumber
-    #' instance
+    #' instance.
     #' @param secret string with secret to sign communication with plumber (can
-    #' be NULL for disabling communication signing)
+    #' be NULL for disabling communication signing).
 
     initialize = function(
       username,
       session_id = NULL,
       hostname = "127.0.0.1",
-      port = 8087,
+      port = 80,
       protocol = "http",
+      path = NULL,
       secret = NULL
     ) {
       super$initialize(username, session_id)
 
       checkmate::assert_string(username)
-      logger::log_debug("path: {hostname}:{port}", namespace = "shiny.telemetry")
 
       private$hostname <- hostname
       private$port <- port
+      private$path <- path
       private$protocol <- protocol
       private$secret <- secret
       private$id <- build_id_from_secret(secret)
+
+      logger::log_info("path: {private$build_url(\"health_check\")}", namespace = "shiny.telemetry")
     },
 
     #' @description Insert new data
@@ -73,7 +87,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' the username of the current session
     #' @param force_params boolean flag that indicates if `session`,
     #' `username` and `time` parameters should be added automatically
-    #' (the default behaviour).
+    #' (the default behavior).
 
     insert = function(
       values,
@@ -156,7 +170,8 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
   private = list(
     # Private Fields
     hostname = NULL,
-    port = NULL,
+    port = 80,
+    path = NULL,
     protocol = NULL,
     secret = NULL,
     id = NULL,
@@ -164,8 +179,17 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     # Private methods
 
     build_url = function(path) {
+      if (is.null(private$path)) {
+        return(
+          glue::glue(
+            "{private$protocol}://{private$hostname}:{private$port}/{path}"
+          )
+        )
+      }
+
       glue::glue(
-        "{private$protocol}://{private$hostname}:{private$port}/{path}"
+        "{private$protocol}://{private$hostname}:{private$port}/",
+        "{private$path}/{path}"
       )
     },
 

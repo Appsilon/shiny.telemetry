@@ -82,7 +82,7 @@ the username of the current session}
 
 \item{\code{force_params}}{boolean flag that indicates if `session`,
 `username` and `time` parameters should be added automatically
-(the default behaviour).}
+(the default behavior).}
 }
 \if{html}{\out{</div>}}
 }

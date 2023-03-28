@@ -37,7 +37,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' the username of the current session.
     #' @param force_params boolean flag that indicates if `session`,
     #' `username` and `time` parameters should be added automatically
-    #' (the default behaviour).
+    #' (the default behavior).
 
     insert = function(
       values, bucket = "user_log", add_username = TRUE, force_params = TRUE
@@ -222,7 +222,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' the username of the current session
     #' @param force_params boolean flag that indicates if `session`,
     #' `username` and `time` parameters should be added automatically
-    #' (the default behaviour).
+    #' (the default behavior).
 
     insert = function(
       values, bucket = self$action_bucket, add_username = TRUE, force_params = TRUE
