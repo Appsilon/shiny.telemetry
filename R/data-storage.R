@@ -96,7 +96,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     .username = NULL,
     .session_id = NULL,
     check_date = function(date_value, .var.name) {
-      if (checkmate::check_string(date_value)) {
+      if (checkmate::test_string(date_value)) {
         date_value <- tryCatch(
           as.Date(date_value),
           error = function(err) {
@@ -154,17 +154,6 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
         rlang::abort(glue::glue(
           "When the argument 'force_params' is FALSE then 'values' list must",
           " contain 'session.'"
-        ))
-      }
-
-      if (
-        isFALSE(add_username) &&
-        isFALSE(force_params) &&
-        isFALSE(checkmate::test_string(values$username))
-      ) {
-        rlang::abort(glue::glue(
-          "When the argument 'force_params' is FALSE then 'values' list must",
-          " contain 'username'."
         ))
       }
 
@@ -256,7 +245,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_session_data = function(date_from, date_to) {
-      db_data <- private$read_data("session_details", date_from, date_to)
+      db_data <- private$read_data(self$session_bucket, date_from, date_to)
 
       db_data %>%
         dplyr::select("session", "detail") %>%

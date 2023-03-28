@@ -16,7 +16,15 @@
 #' )
 #' data_storage$insert(list(id = "an_id", action = "click"))
 #' data_storage$insert(list(id = "another_id", action = "click"))
-#' data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
+#'
+#' data_storage$insert(
+#'   list(detail = "a detail"),
+#'   add_username = FALSE,
+#'   bucket = data_storage$session_bucket
+#' )
+#'
+#' data_storage$read_user_data("2020-01-01", "2025-01-01")
+#' data_storage$read_session_data("2020-01-01", "2025-01-01")
 DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
   classname = "DataStoragePlumber",
   inherit = DataStorage,
@@ -95,16 +103,11 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       date_from <- private$check_date(date_from, .var.name = "date_from")
       date_to <- private$check_date(date_to, .var.name = "date_to")
 
-      db_data <- private$read_data(
+      private$read_data(
         "session_details",
         date_from,
         date_to
       )
-
-      db_data %>%
-        dplyr::select("session", "detail") %>%
-        dplyr::group_by(.data$session) %>%
-        dplyr::summarise(title = paste(.data$detail, collapse = " | "))
     },
 
     #' @description read all session data
@@ -149,7 +152,9 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_string(bucket)
       checkmate::assert_list(values)
 
-      httr2::request(private$build_url("user")) %>%
+      endpoint <- bucket
+
+      httr2::request(private$build_url(endpoint)) %>%
         httr2::req_headers("Accept" = "application/json") %>%
         httr2::req_body_json(
           list(
