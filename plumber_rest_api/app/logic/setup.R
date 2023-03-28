@@ -51,13 +51,13 @@ setup_storage <- function() {
 #
 setup_secrets <- function(tokens_raw) {
   if (!test_string(tokens_raw, null.ok = TRUE)) {
-   rlang::abort("HASH_TOKENS environmental variable must be a string")
+   rlang::abort("SECRET_TOKENS environmental variable must be a string")
   }
 
   if (is.null(tokens_raw) || str_trim(tokens_raw) == "") {
 
     if(!config$get("allow_empty_tokens")) {
-      rlang::abort("HASH_TOKENS environmental variable must be defined.")
+      rlang::abort("SECRET_TOKENS environmental variable must be defined.")
     }
 
     return(list())

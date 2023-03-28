@@ -12,7 +12,7 @@ tokens_raw <- UUIDgenerate() |> str_replace_all("-", "")
 
 # need with_envvar to control hash token
 with_envvar(
-  new = c("HASH_TOKENS" = tokens_raw),
+  new = c("SECRET_TOKENS" = tokens_raw),
   box::use(
     app/logic/setup[session_secrets],
     app/logic/token[...],

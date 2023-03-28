@@ -1,6 +1,6 @@
 default:
   log_level: "DEBUG"
-  tokens: !expr Sys.getenv("HASH_TOKENS")
+  tokens: !expr Sys.getenv("SECRET_TOKENS")
   allow_empty_tokens: true
   storage_method:
     # # SQLite backend
