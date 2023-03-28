@@ -82,10 +82,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
         dplyr::summarise(title = paste(.data$detail, collapse = " | "))
     },
 
-    #' @description read all session data
-
+    # Does nothing, but needs to be kept here because log_logout calls this for database backends
+    # further discussion needed if closing connectiong is really necessary.
     close = function() {
-      private$close_connection()
     }
   ),
   active = list(
@@ -122,11 +121,6 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     connect = function(log_file_path, session_file_path) {
       private$log_file_path <- log_file_path
       private$session_file_path <- session_file_path
-    },
-
-    # @description reverts logger settings to default
-
-    close_connection = function() {
     },
 
     insert_checks = function(values, add_username) {
