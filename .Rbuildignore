@@ -9,4 +9,4 @@ pkgdown
 \.Renviron$
 ^renovate\.json$
 ^\.whitesource$
-^plumber$
+^plumber-rest-api$
