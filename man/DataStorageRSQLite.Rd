@@ -61,7 +61,12 @@ Initialize the data storage class
 \subsection{Method \code{insert()}}{
 Insert new data
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageRSQLite$insert(values, bucket = "user_log", add_username = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorageRSQLite$insert(
+  values,
+  bucket = "user_log",
+  add_username = TRUE,
+  force_params = TRUE
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -73,6 +78,9 @@ Insert new data
 
 \item{\code{add_username}}{boolean flag that indicates if line should include
 the username of the current session}
+
+\item{\code{force_params}}{boolean flag that indicates if parameters should
+be generated automatically}
 }
 \if{html}{\out{</div>}}
 }

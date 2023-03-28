@@ -35,6 +35,8 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' SQL it should represent a table)
     #' @param add_username boolean flag that indicates if line should include
     #' the username of the current session
+    #' @param force_params boolean flag that indicates if parameters should
+    #' be generated automatically
 
     insert = function(
       values, bucket = "user_log", add_username = TRUE, force_params = TRUE
@@ -95,7 +97,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
   private = list(
     .username = NULL,
     .session_id = NULL,
-    check_date = function(date_value, .var.name) {
+    check_date = function(date_value, .var_name) {
       if (checkmate::test_string(date_value)) {
         date_value <- tryCatch(
           as.Date(date_value),
@@ -104,7 +106,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
           }
         )
       }
-      checkmate::assert_date(date_value, .var.name = .var.name)
+      checkmate::assert_date(date_value, .var.name = .var_name)
       date_value
     },
     generate_session_id = function() {
@@ -216,6 +218,8 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param bucket name of table to write
     #' @param add_username boolean flag that indicates if line should include
     #' the username of the current session
+    #' @param force_params boolean flag that indicates if parameters should
+    #' be generated automatically
 
     insert = function(
       values, bucket = "user_log", add_username = TRUE, force_params = TRUE

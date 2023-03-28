@@ -2,6 +2,7 @@
 
 export(AVAILABLE_DB_DRIVERS)
 export(DataStorageLogFile)
+export(DataStoragePlumber)
 export(DataStorageRSQLite)
 export(MAX_POSTGRES_CONNECTIONS)
 export(browser_info_js)

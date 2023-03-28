@@ -7,6 +7,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' data_storage <- DataStoragePlumber$new(
 #'   username = "test_user",
 #'   hostname = "127.0.0.1",
@@ -25,6 +26,7 @@
 #'
 #' data_storage$read_user_data("2020-01-01", "2025-01-01")
 #' data_storage$read_session_data("2020-01-01", "2025-01-01")
+#' }
 DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
   classname = "DataStoragePlumber",
   inherit = DataStorage,
@@ -36,7 +38,12 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' Initialize the data storage class
     #' @param username string with username of the current session
     #' @param session_id string with custom session id (should not be used)
-    #' @param db_path string with path to sqlfile
+    #' @param hostname string with hostname of plumber instance
+    #' @param port numeric value with port number of plumber instance
+    #' @param protocol string with protocol of the connection of the plumber
+    #' instance
+    #' @param token string with valid token to communicate with plumber (can
+    #' be NULL for unvalidated communication)
 
     initialize = function(
       username,
@@ -64,6 +71,8 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' @param bucket name of table to write
     #' @param add_username boolean flag that indicates if line should include
     #' the username of the current session
+    #' @param force_params boolean flag that indicates if parameters should
+    #' be generated automatically
 
     insert = function(
       values, bucket = "user_log", add_username = TRUE, force_params = TRUE
