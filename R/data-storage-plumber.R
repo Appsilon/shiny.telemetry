@@ -74,7 +74,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' be generated automatically
 
     insert = function(
-      values, bucket = "user_log", add_username = TRUE, force_params = TRUE
+      values, bucket = self$action_bucket, add_username = TRUE, force_params = TRUE
     ) {
       values <- private$insert_checks(
         values, bucket, add_username, force_params
@@ -92,7 +92,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       date_to <- private$check_date(date_to, .var_name = "date_to")
 
       db_data <- private$read_data(
-        "user_log",
+        self$action_bucket,
         as.Date(date_from),
         as.Date(date_to)
       )
@@ -112,7 +112,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       date_to <- private$check_date(date_to, .var_name = "date_to")
 
       private$read_data(
-        "session_details",
+        self$session_bucket,
         date_from,
         date_to
       )
@@ -123,6 +123,12 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     close = function() {
       private$close_connection()
     }
+  ),
+  active = list(
+    action_read_endpoint = function() { "read_user_data" },
+    session_read_endpoint = function() { "read_session_data" },
+    action_insert_endpoint = function() { "user_log" },
+    session_insert_endpoint = function() { "session_details" }
   ),
   #
   # Private
@@ -192,17 +198,18 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_date(date_from)
       checkmate::assert_date(date_to)
 
-      url_path <- dplyr::case_when(
-        bucket == "user_log" ~ "read_user_data",
-        bucket == "session_details" ~ "read_session_data",
+      endpoint <- dplyr::case_when(
+        # API endpoints
+        bucket == self$action_bucket ~ self$action_read_endpoint,
+        bucket == self$session_bucket ~ self$session_read_endpoint,
         .default = NULL
       )
 
-      if (is.null(url_path)) {
+      if (is.null(endpoint)) {
         rlang::abort("reading data from invalid bucket.")
       }
 
-      body <- httr2::request(private$build_url(url_path)) %>%
+      body <- httr2::request(private$build_url(endpoint)) %>%
         httr2::req_url_query(
           from = date_from,
           to = date_to,

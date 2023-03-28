@@ -188,6 +188,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
 #' data_storage$insert(list(id = "an_id", action = "click"))
 #' data_storage$insert(list(id = "another_id", action = "click"))
 #' data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
+#' data_storage$read_user_data("2020-01-01", "2025-01-01")
 DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageRSQLite",
   inherit = DataStorage,
@@ -202,7 +203,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param db_path string with path to sqlfile
 
     initialize = function(
-      username, session_id = NULL, db_path = "user_stats.sqlite"
+    username, session_id = NULL, db_path = "user_stats.sqlite"
     ) {
       super$initialize(username, session_id)
 
@@ -222,7 +223,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' be generated automatically
 
     insert = function(
-      values, bucket = "user_log", add_username = TRUE, force_params = TRUE
+    values, bucket = "user_log", add_username = TRUE, force_params = TRUE
     ) {
       values <- private$insert_checks(
         values, bucket, add_username, force_params
@@ -236,6 +237,9 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_user_data = function(date_from, date_to) {
+      date_from <- private$check_date(date_from, .var_name = "date_from")
+      date_to <- private$check_date(date_to, .var_name = "date_to")
+
       db_data <- private$read_data("user_log", date_from, date_to)
 
       if (NROW(db_data) > 0) {
