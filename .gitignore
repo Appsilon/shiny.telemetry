@@ -6,3 +6,4 @@
 user_stats.sqlite
 docs
 *.Rproj
+.Renviron

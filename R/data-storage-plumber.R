@@ -8,13 +8,16 @@
 #'
 #' @examples
 #' \dontrun{
+#' # Make sure the PLUMBER_SECRET environment variable is valid before
+#' # running these examples (NULL or a valid secret)
+#'
 #' data_storage <- DataStoragePlumber$new(
 #'   username = "test_user",
 #'   hostname = "connect.appsilon.com",
 #'   path = "shiny_telemetry_plumber",
 #'   port = 80,
 #'   protocol = "https",
-#'   secret = "9600bdee40db447fb372dd50e11e3f14"
+#'   secret = Sys.getenv("PLUMBER_SECRET")
 #' )
 #'
 #' data_storage <- DataStoragePlumber$new(
@@ -23,7 +26,7 @@
 #'   path = NULL,
 #'   port = 8087,
 #'   protocol = "http",
-#'   secret = "9600bdee40db447fb372dd50e11e3f14"
+#'   secret = Sys.getenv("PLUMBER_SECRET")
 #' )
 #'
 #' data_storage$insert(list(id = "an_id", action = "click"))
