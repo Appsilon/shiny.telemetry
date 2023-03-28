@@ -15,7 +15,7 @@
 #'   username = "test_user",
 #'   hostname = "connect.appsilon.com",
 #'   path = "shiny_telemetry_plumber",
-#'   port = 80,
+#'   port = 443,
 #'   protocol = "https",
 #'   secret = Sys.getenv("PLUMBER_SECRET")
 #' )
@@ -228,6 +228,8 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
         "secret: {substr(private$secret, start = 1, stop = 6)}..."
       )
       logger::log_debug("secret: {private$id}")
+
+      logger::log_debug("endpoint {private$build_url(endpoint)}")
 
       httr2::request(private$build_url(endpoint)) %>%
         httr2::req_headers("Accept" = "application/json") %>%

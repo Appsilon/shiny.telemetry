@@ -16,7 +16,7 @@ data_storage <- DataStoragePlumber$new(
   username = "test_user",
   hostname = "connect.appsilon.com",
   path = "shiny_telemetry_plumber",
-  port = 80,
+  port = 443,
   protocol = "https",
   secret = Sys.getenv("PLUMBER_SECRET")
 )
