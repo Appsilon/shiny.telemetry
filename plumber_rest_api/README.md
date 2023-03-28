@@ -1,8 +1,17 @@
 # Plumber REST API as a DataStorage provider for shiny.telemetry
 
-> REST API that receives write and read requests for telemetry data in `shiny.telemetry`
+> REST API that receives write and read requests for telemetry data from a Shiny Dashboard _(using `shiny.telemetry` R 📦)_
 
-This [plumber](https://www.rplumber.io/) REST API serves as a middleware between an application that is being monitored by `shiny.telemetry` and a DataStorage backend that write the logging information to persistent storage. 
+This [plumber](https://www.rplumber.io/) REST API serves as a middleware between a [Shiny](https://shiny.rstudio.com/) Application that is being monitored by `shiny.telemetry` and a data backend that write the logging information to persistent storage. 
+
+The data backend is provided by the `shiny.telemetry` R package.
+
+Features:
+
+* Supports all data storage backends available to `shiny.telemetry`
+    * Writes and reads information
+* Validates origin of messages by signing message _(see [section below](#setup-signature))_
+* Supports secure communication when API is deployed in a server that supports _Hypertext Transfer Protocol Secure (HTTPS)_
 
 ![Architecture](../inst/images/data_storage_plumber.svg)
 
