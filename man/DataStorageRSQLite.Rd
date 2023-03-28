@@ -15,6 +15,7 @@ data_storage <- DataStorageRSQLite$new(
 data_storage$insert(list(id = "an_id", action = "click"))
 data_storage$insert(list(id = "another_id", action = "click"))
 data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
+data_storage$read_user_data("2020-01-01", "2025-01-01")
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageRSQLite}
@@ -63,7 +64,7 @@ Insert new data
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataStorageRSQLite$insert(
   values,
-  bucket = "user_log",
+  bucket = self$action_bucket,
   add_username = TRUE,
   force_params = TRUE
 )}\if{html}{\out{</div>}}

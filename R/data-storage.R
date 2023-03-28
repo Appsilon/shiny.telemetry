@@ -223,7 +223,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' be generated automatically
 
     insert = function(
-    values, bucket = "user_log", add_username = TRUE, force_params = TRUE
+      values, bucket = self$action_bucket, add_username = TRUE, force_params = TRUE
     ) {
       values <- private$insert_checks(
         values, bucket, add_username, force_params

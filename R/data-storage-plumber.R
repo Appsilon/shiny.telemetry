@@ -15,6 +15,7 @@
 #'   protocol = "http",
 #'   secret = "9600bdee40db447fb372dd50e11e3f14"
 #' )
+#'
 #' data_storage$insert(list(id = "an_id", action = "click"))
 #' data_storage$insert(list(id = "another_id", action = "click"))
 #'
@@ -74,7 +75,10 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' be generated automatically
 
     insert = function(
-      values, bucket = self$action_bucket, add_username = TRUE, force_params = TRUE
+      values,
+      bucket = self$action_bucket,
+      add_username = TRUE,
+      force_params = TRUE
     ) {
       values <- private$insert_checks(
         values, bucket, add_username, force_params
@@ -125,9 +129,25 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     }
   ),
   active = list(
+
+    #' @field action_read_endpoint string field that returns read action
+    #' endpoint
+
     action_read_endpoint = function() { "read_user_data" },
+
+    #' @field session_read_endpoint string field that returns read session
+    #' endpoint
+
     session_read_endpoint = function() { "read_session_data" },
+
+    #' @field action_insert_endpoint string field that returns insert action
+    #' endpoint
+
     action_insert_endpoint = function() { "user_log" },
+
+    #' @field session_insert_endpoint string field that returns insert session
+    #' endpoint
+
     session_insert_endpoint = function() { "session_details" }
   ),
   #

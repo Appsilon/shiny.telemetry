@@ -14,8 +14,9 @@ data_storage <- DataStoragePlumber$new(
   hostname = "127.0.0.1",
   port = 8087,
   protocol = "http",
-  token = "9600bdee40db447fb372dd50e11e3f14"
+  secret = "9600bdee40db447fb372dd50e11e3f14"
 )
+
 data_storage$insert(list(id = "an_id", action = "click"))
 data_storage$insert(list(id = "another_id", action = "click"))
 
@@ -31,6 +32,23 @@ data_storage$read_session_data("2020-01-01", "2025-01-01")
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStoragePlumber}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{action_read_endpoint}}{string field that returns read action
+endpoint}
+
+\item{\code{session_read_endpoint}}{string field that returns read session
+endpoint}
+
+\item{\code{action_insert_endpoint}}{string field that returns insert action
+endpoint}
+
+\item{\code{session_insert_endpoint}}{string field that returns insert session
+endpoint}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -55,7 +73,7 @@ Initialize the data storage class
   hostname = "127.0.0.1",
   port = 8087,
   protocol = "http",
-  token = NULL
+  secret = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -73,8 +91,8 @@ Initialize the data storage class
 \item{\code{protocol}}{string with protocol of the connection of the plumber
 instance}
 
-\item{\code{token}}{string with valid token to communicate with plumber (can
-be NULL for disabling communication validation)}
+\item{\code{secret}}{string with secret to sign communication with plumber (can
+be NULL for disabling communication signing)}
 }
 \if{html}{\out{</div>}}
 }
@@ -87,7 +105,7 @@ Insert new data
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataStoragePlumber$insert(
   values,
-  bucket = "user_log",
+  bucket = self$action_bucket,
   add_username = TRUE,
   force_params = TRUE
 )}\if{html}{\out{</div>}}
