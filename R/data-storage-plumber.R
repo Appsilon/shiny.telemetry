@@ -13,7 +13,7 @@
 #'   hostname = "127.0.0.1",
 #'   port = 8087,
 #'   protocol = "http",
-#'   token = "9600bdee40db447fb372dd50e11e3f14"
+#'   secret = "9600bdee40db447fb372dd50e11e3f14"
 #' )
 #' data_storage$insert(list(id = "an_id", action = "click"))
 #' data_storage$insert(list(id = "another_id", action = "click"))
@@ -42,8 +42,8 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' @param port numeric value with port number of plumber instance
     #' @param protocol string with protocol of the connection of the plumber
     #' instance
-    #' @param token string with valid token to communicate with plumber (can
-    #' be NULL for disabling communication validation)
+    #' @param secret string with secret to sign communication with plumber (can
+    #' be NULL for disabling communication signing)
 
     initialize = function(
       username,
@@ -51,7 +51,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       hostname = "127.0.0.1",
       port = 8087,
       protocol = "http",
-      token = NULL
+      secret = NULL
     ) {
       super$initialize(username, session_id)
 
@@ -61,9 +61,8 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       private$hostname <- hostname
       private$port <- port
       private$protocol <- protocol
-      private$token <- token
-      private$id <- digest::digest(token, algo = "sha256") %>%
-        stringr::str_sub(end = 8)
+      private$secret <- secret
+      private$id <- build_id_from_secret(secret)
     },
 
     #' @description Insert new data
@@ -89,8 +88,8 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_user_data = function(date_from, date_to) {
-      date_from <- private$check_date(date_from, .var.name = "date_from")
-      date_to <- private$check_date(date_to, .var.name = "date_to")
+      date_from <- private$check_date(date_from, .var_name = "date_from")
+      date_to <- private$check_date(date_to, .var_name = "date_to")
 
       db_data <- private$read_data(
         "user_log",
@@ -109,8 +108,8 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_session_data = function(date_from, date_to) {
-      date_from <- private$check_date(date_from, .var.name = "date_from")
-      date_to <- private$check_date(date_to, .var.name = "date_to")
+      date_from <- private$check_date(date_from, .var_name = "date_from")
+      date_to <- private$check_date(date_to, .var_name = "date_to")
 
       private$read_data(
         "session_details",
@@ -132,24 +131,10 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     hostname = NULL,
     port = NULL,
     protocol = NULL,
-    token = NULL,
+    secret = NULL,
     id = NULL,
 
     # Private methods
-
-    build_token = function(...) {
-      params <- as.list(...)
-
-      if (is.null(private$id)) {
-        return(digest::digest(params, algo = "sha256"))
-      }
-
-      if (!checkmate::test_string(private$id)) {
-        rlang::abort("ID must be NULL or a string")
-      }
-
-      digest::digest(list(params, private$token), algo = "sha256")
-    },
 
     build_url = function(path) {
       glue::glue(
@@ -163,12 +148,36 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
       endpoint <- bucket
 
+      logger::log_debug(
+       "values (names): ({NROW(names(values))}) ",
+       "{names(values) |> paste(collapse = \",\")}"
+      )
+      logger::log_debug(
+        "values (class): ({NROW(values)}) ",
+        "{sapply(values, class) |> paste(collapse = \", \")}"
+      )
+      logger::log_debug(
+        "values (el hash): ({NROW(values)}) ",
+        "{",
+        "purrr::map(",
+        "  values,",
+        "  ~ substr(",
+        "    digest::digest(.x, algo = 'sha256'), start = 1, stop = 6)",
+        "  ) |> ",
+        "paste(collapse = \", \")",
+        "}"
+      )
+      logger::log_debug(
+        "secret: {substr(private$secret, start = 1, stop = 6)}..."
+      )
+      logger::log_debug("secret: {private$id}")
+
       httr2::request(private$build_url(endpoint)) %>%
         httr2::req_headers("Accept" = "application/json") %>%
         httr2::req_body_json(
           list(
             id = private$id,
-            token = private$build_token(values),
+            token = build_token(values, secret = private$secret),
             data = jsonlite::serializeJSON(values)
           )
         ) %>%
@@ -197,7 +206,10 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
         httr2::req_url_query(
           from = date_from,
           to = date_to,
-          token = private$build_token(list(from = date_from, to = date_to)),
+          token = build_token(
+            list(from = date_from, to = date_to),
+            secret = private$secret
+          ),
           id = private$id
         ) %>%
         httr2::req_perform() %>%

@@ -9,5 +9,4 @@ fake_function <- function() {
   RSQLite::SQLite
   digest::digest
   httr2::request
-  stringr::str_sub
 }
