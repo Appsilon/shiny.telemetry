@@ -6,4 +6,4 @@
 .github
 pkgdown
 .*\.sqlite
-.Renviron
+\.Renviron$
