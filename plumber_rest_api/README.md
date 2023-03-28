@@ -60,5 +60,34 @@ data_storage$read_session_data("2020-01-01", "2035-01-01")
 
 ## Communication signature & validation
 
-To make sure th
+As a security feature, it is possible to sign the messages exchanged between `shiny.telemetry` and this API so that we can guarantee that only un-modified information from known sources are stored.
 
+The method uses a secret token that is defined as an environment variable on both the Shiny application and in the deployed API. The API can support multiple tokens and by default it uses no signature, so this feature is disabled.
+
+In technical terms, the parameters of the requests are transmitted in plain text with the signature _(of the parameters)_ and an unique identifier of the secret that is being used.
+
+Note that, the data in the message being transmitted via the HTTP protocol is not encrypted _(consider using https for this purpose)_.
+
+### Setup Signature
+
+To setup the message signature it is required to define:
+
+* In the Plumber API Environment: `SECRET_TOKENS="<string-token-a> <string-token-b>`
+* In the Shiny Application instrumented by `shiny.telemetry`: `PLUMBER_SECRET=<string-token-a`
+    * In this case, for "Shiny Application A"
+    
+ℹ️ Important: the different tokens defined in the API are separated by spaces.
+
+## Appsilon
+
+<img src="https://avatars0.githubusercontent.com/u/6096772" align="right" alt="" width="6%" />
+
+Appsilon is a **Posit (formerly RStudio) Full Service Certified Partner**.<br/>
+Learn more
+at [appsilon.com](https://appsilon.com).
+
+Get in touch [opensource@appsilon.com](mailto:opensource@appsilon.com)
+
+Check our [Open Source tools](https://shiny.tools).
+
+<a href = "https://appsilon.com/careers/" target="_blank"><img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!"/></a>
