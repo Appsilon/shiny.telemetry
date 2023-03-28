@@ -1,4 +1,5 @@
 library(shiny)
+library(dplyr) # necessary to import %>%
 library(RSQLite)
 # please install shiny.telemetry with all dependencies
 # install.packages("shiny.telemetry", dependencies = TRUE)
