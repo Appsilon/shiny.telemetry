@@ -53,9 +53,14 @@ prepare_admin_panel_components <- function(
   })
 
   session_details <- shiny::reactive({
-    data_storage$read_session_data(
-      as.Date(input$date_from), as.Date(input$date_to)
-    )
+    tryCatch({
+      data_storage$read_session_data(
+        as.Date(input$date_from), as.Date(input$date_to)
+      )
+    },
+    error = function(e) {
+      return(NULL)
+    })
   })
 
   output$filters <- shiny::renderUI(date_filters())
@@ -644,6 +649,7 @@ prepare_admin_panel_components <- function(
   # sessions stats
 
   sessions_data <- shiny::reactive({
+    shiny::req(!is.null(session_details()))
     selected_log_data() %>%
       dplyr::select("time", "session", "action") %>%
       dplyr::filter(.data$action %in% c("login", "logout", "input", "click")) %>%
