@@ -15,6 +15,3 @@ library(glue)
 library(shiny.telemetry)
 
 library(checkmate)
-
-library(future)
-library(promises)

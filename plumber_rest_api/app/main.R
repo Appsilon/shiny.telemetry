@@ -21,8 +21,6 @@ box::use(
 log_threshold(config$get("log_level"))
 log_layout(layout_glue_colors)
 
-plan("multisession") # a worker for each core
-
 #' Example
 #' @get /health_check
 #' @serializer json
