@@ -15,7 +15,7 @@ box::use(
 #' @export
 handler <- function(data, token, id, bucket){
 
-  log_debug('@post /insert {bucket} triggered')
+  log_debug('@post /{bucket} triggered')
 
   values <- tryCatch ({
     unserializeJSON(data)

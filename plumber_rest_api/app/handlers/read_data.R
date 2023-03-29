@@ -16,8 +16,6 @@ handler <- function(from, to, token, id, FUN) {
     list(from = as.Date(from), to = as.Date(to)), token, id
   )
 
-  log_debug("Token is valid: {is_token_valid}")
-
   if (isFALSE(is_token_valid)) {
     msg <- glue("Invalid token at {Sys.time()}")
     my_token <- build_token(list(from = from, to = to), secret = id)
