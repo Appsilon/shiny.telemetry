@@ -99,16 +99,20 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     .username = NULL,
     .session_id = NULL,
     check_date = function(date_value, .var_name) {
-      if (checkmate::test_string(date_value)) {
-        date_value <- tryCatch(
-          as.Date(date_value),
-          error = function(err) {
-            date_value
-          }
-        )
-      }
-      checkmate::assert_date(date_value, .var.name = .var_name)
-      date_value
+      # required parameter
+      checkmate::assert_string(.var_name)
+
+      tryCatch({
+        date_value <- as.Date(date_value)
+        checkmate::assert_date(date_value, .var.name = .var_name)
+        date_value
+      }, error = function(err) {
+        date_value
+        rlang::abort(glue::glue(
+          "Assertion on '{.var_name}' failed: Must be of class 'Date' ",
+          "or a valid date format of class 'String' ('yyyy-mm-dd')."
+        ))
+      })
     },
     generate_session_id = function() {
       paste(
