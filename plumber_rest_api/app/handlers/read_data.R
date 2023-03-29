@@ -10,6 +10,14 @@ box::use(
   app/logic/token[validate_token],
 )
 
+#' Handler to read data from data storage provider
+#'
+#' @param from string with starting date that can be converted to a Date class
+#' @param to string with ending date that can be converted to a Date class
+#' @param token string with signature of the message
+#' @param id string with identification of which secret to use
+#' @param FUN function to call to read data
+#' (read_user_data or read_session_data)
 #' @export
 handler <- function(from, to, token, id, FUN) {
   is_token_valid <- validate_token(

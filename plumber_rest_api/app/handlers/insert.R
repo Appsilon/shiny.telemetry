@@ -12,6 +12,12 @@ box::use(
   app/logic/token[validate_token, get_secret],
 )
 
+#' Handler to insert data to the data storage provider
+#'
+#' @param data seriealizedJSON with an R list object
+#' @param token string with signature of the message
+#' @param id string with identification of which secret to use
+#' @param bucket string that identifies which bucket to save data to
 #' @export
 handler <- function(data, token, id, bucket){
 
