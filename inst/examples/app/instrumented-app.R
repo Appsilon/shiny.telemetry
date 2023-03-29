@@ -29,8 +29,14 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   # Connecting to a SQLite data storage backend
-  data_storage <- DataStorageRSQLite$new(
-    username = get_user(session), db_path = "user_stats.sqlite"
+  data_storage <- DataStoragePlumber$new(
+    username = "test_user",
+    hostname = "connect.appsilon.com",
+    path = "shiny_telemetry_plumber",
+    port = 443,
+    protocol = "https",
+    authorization = Sys.getenv("CONNECT_AUTHORIZATION_KEY"),
+    secret = Sys.getenv("PLUMBER_SECRET")
   )
 
   log_browser_version(data_storage, input)

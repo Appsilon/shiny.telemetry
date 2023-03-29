@@ -5,8 +5,15 @@ library(RSQLite)
 # install.packages("shiny.telemetry", dependencies = TRUE)
 library(shiny.telemetry)
 
-data_storage <- DataStorageRSQLite$new(
-  username = "viewer", db_path = "user_stats.sqlite"
+# Connecting to a SQLite data storage backend
+data_storage <- DataStoragePlumber$new(
+  username = "test_user",
+  hostname = "connect.appsilon.com",
+  path = "shiny_telemetry_plumber",
+  port = 443,
+  protocol = "https",
+  authorization = Sys.getenv("CONNECT_AUTHORIZATION_KEY"),
+  secret = Sys.getenv("PLUMBER_SECRET")
 )
 
 run_analytics_dashboard(data_storage)
