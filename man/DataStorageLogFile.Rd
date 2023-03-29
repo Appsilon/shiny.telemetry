@@ -153,6 +153,9 @@ read all session data from SQLite
 Does nothing, but needs to be kept here because log_logout calls this
 for database backends further discussion needed if closing connecting
 is really necessary.
+
+
+does nothing, defined for API consistency
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$close()}\if{html}{\out{</div>}}
 }
