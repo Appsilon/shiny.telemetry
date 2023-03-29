@@ -3,7 +3,10 @@ library(shiny.telemetry)
 library(RSQLite)
 
 get_user <- function(session) {
-  parseQueryString(isolate(session$clientData$url_search))$username
+  username <- shiny::isolate(shiny::parseQueryString(session$clientData$url_search)$username)
+  if (is.null(username)) username <- "unknownUser"
+  shiny::req(username)
+  return(username)
 }
 
 ui <- fluidPage(
@@ -28,6 +31,8 @@ server <- function(input, output, session) {
   data_storage <- DataStorageRSQLite$new(
     username = get_user(session), db_path = "user_stats.sqlite"
   )
+
+  log_browser_version(data_storage, input)
 
   # registering login
   log_login(data_storage)
