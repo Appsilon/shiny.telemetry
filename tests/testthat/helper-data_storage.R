@@ -8,14 +8,35 @@ test_common <- function(data_storage) {
   expect_error(data_storage$insert("some value"), "Must be of type 'list'")
 
   expect_silent({
-    data_storage$insert(values = list(action = "logout"), bucket = data_storage$action_bucket)
+    data_storage$insert(
+      values = list(action = "logout"), bucket = data_storage$action_bucket
+    )
     data_storage$insert(list(action = "click", id = "some_button_id"))
     data_storage$insert(list(action = "click", id = "some_button_id_2"))
     data_storage$insert(
-      list(detail = "bla"), bucket = data_storage$session_bucket, add_username = FALSE
+      list(detail = "bla"),
+      bucket = data_storage$session_bucket,
+      add_username = FALSE
     )
     data_storage$insert(
-      list(detail = "yada"), bucket = data_storage$session_bucket, add_username = FALSE
+      list(detail = "yada"),
+      bucket = data_storage$session_bucket,
+      add_username = FALSE
+    )
+
+    # insert with custom session and username
+    data_storage$insert(
+      list(
+        action = "click", id = "id1", session = "s1", username = "u1"
+      ),
+      force_params = FALSE, add_username = FALSE
+    )
+
+    data_storage$insert(
+      list(
+        action = "click", id = "id1", session = "s2", username = "u1"
+      ),
+      force_params = FALSE, add_username = FALSE
     )
   })
 
@@ -28,7 +49,12 @@ test_common <- function(data_storage) {
   expect_true(checkmate::test_tibble(user_data))
   expect_true(checkmate::test_tibble(session_data))
 
-  expect_equal(NROW(user_data), 3)
+  expect_equal(NROW(user_data), 5)
+
+  user_data %>%
+    dplyr::filter(.data$username == "u1") %>%
+    NROW() %>%
+    expect_equal(2)
 
   # 1 result per session
   expect_equal(NROW(session_data), 1)

@@ -7,4 +7,6 @@ fake_function <- function() {
   glue::glue
   logger::log_debug
   RSQLite::SQLite
+  digest::digest
+  httr2::request
 }

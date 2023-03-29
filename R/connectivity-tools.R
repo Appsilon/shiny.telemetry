@@ -1,6 +1,6 @@
 #' get users data
 #'
-#' @param users_credentials_db_config Named vector with environmental variables
+#' @param users_credentials_db_config Named vector with environment variables
 #' concerning db connection.
 #'
 #' @export
@@ -19,7 +19,7 @@ get_users_data <- function(users_credentials_db_config) {
 #' @param path path to Renviron file
 #' @param variable_name name of variable to return with the function
 #'
-#' @return environmental variable
+#' @return environment variable
 #'
 #' @export
 source_renviron <- function(path, variable_name) {
@@ -180,7 +180,7 @@ create_users_table <- function(db_connection) {
 #' DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DRV - respective parameters
 #'  of RPostgreSQL.
 #'
-#' @param config_variables Named vector with environmental variables concerning
+#' @param config_variables Named vector with environment variables concerning
 #' db connection.
 #'
 #' @return Return data.frame with passed parameters and its values.

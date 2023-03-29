@@ -15,6 +15,7 @@ data_storage <- DataStorageRSQLite$new(
 data_storage$insert(list(id = "an_id", action = "click"))
 data_storage$insert(list(id = "another_id", action = "click"))
 data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
+data_storage$read_user_data("2020-01-01", "2025-01-01")
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageRSQLite}
@@ -61,7 +62,12 @@ Initialize the data storage class
 \subsection{Method \code{insert()}}{
 Insert new data
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageRSQLite$insert(values, bucket = "user_log", add_username = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorageRSQLite$insert(
+  values,
+  bucket = self$action_bucket,
+  add_username = TRUE,
+  force_params = TRUE
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -73,6 +79,10 @@ Insert new data
 
 \item{\code{add_username}}{boolean flag that indicates if line should include
 the username of the current session}
+
+\item{\code{force_params}}{boolean flag that indicates if `session`,
+`username` and `time` parameters should be added automatically
+(the default behavior).}
 }
 \if{html}{\out{</div>}}
 }

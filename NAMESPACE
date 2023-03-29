@@ -2,9 +2,12 @@
 
 export(AVAILABLE_DB_DRIVERS)
 export(DataStorageLogFile)
+export(DataStoragePlumber)
 export(DataStorageRSQLite)
 export(MAX_POSTGRES_CONNECTIONS)
 export(browser_info_js)
+export(build_id_from_secret)
+export(build_token)
 export(connect_to_db)
 export(get_config)
 export(get_users_data)

@@ -7,7 +7,7 @@
 get_config(config_variables)
 }
 \arguments{
-\item{config_variables}{Named vector with environmental variables concerning
+\item{config_variables}{Named vector with environment variables concerning
 db connection.}
 }
 \value{

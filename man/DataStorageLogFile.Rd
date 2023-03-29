@@ -13,9 +13,18 @@ data_storage <- DataStorageLogFile$new(
   log_file_path = tempfile(pattern = "user_stats", fileext = ".json"),
   session_file_path = tempfile(pattern = "session_details", fileext = ".json")
 )
+
 data_storage$insert(list(id = "an_id", action = "click"))
 data_storage$insert(list(id = "another_id", action = "click"))
-data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
+
+data_storage$insert(
+  list(detail = "a detail"),
+  add_username = FALSE,
+  bucket = data_storage$session_bucket
+)
+
+data_storage$read_user_data("2020-01-01", "2025-01-01")
+data_storage$read_session_data("2020-01-01", "2025-01-01")
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageLogFile}
@@ -79,7 +88,8 @@ Insert new data
 \if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$insert(
   values,
   bucket = private$log_file_path,
-  add_username = TRUE
+  add_username = TRUE,
+  force_params = TRUE
 )}\if{html}{\out{</div>}}
 }
 
@@ -92,6 +102,10 @@ Insert new data
 
 \item{\code{add_username}}{boolean flag that indicates if line should include
 the username of the current session}
+
+\item{\code{force_params}}{boolean flag that indicates if `session`,
+`username` and `time` parameters should be added automatically
+(the default behavior).}
 }
 \if{html}{\out{</div>}}
 }
@@ -138,7 +152,9 @@ read all session data from SQLite
 \if{html}{\out{<a id="method-DataStorageLogFile-close"></a>}}
 \if{latex}{\out{\hypertarget{method-DataStorageLogFile-close}{}}}
 \subsection{Method \code{close()}}{
-read all session data
+Does nothing, but needs to be kept here because log_logout calls this
+for database backends further discussion needed if closing connecting
+is really necessary.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$close()}\if{html}{\out{</div>}}
 }

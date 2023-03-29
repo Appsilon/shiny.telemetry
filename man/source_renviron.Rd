@@ -12,7 +12,7 @@ source_renviron(path, variable_name)
 \item{variable_name}{name of variable to return with the function}
 }
 \value{
-environmental variable
+environment variable
 }
 \description{
 Source renviron from file

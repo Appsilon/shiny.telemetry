@@ -12,9 +12,18 @@
 #'   log_file_path = tempfile(pattern = "user_stats", fileext = ".json"),
 #'   session_file_path = tempfile(pattern = "session_details", fileext = ".json")
 #' )
+#'
 #' data_storage$insert(list(id = "an_id", action = "click"))
 #' data_storage$insert(list(id = "another_id", action = "click"))
-#' data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
+#'
+#' data_storage$insert(
+#'   list(detail = "a detail"),
+#'   add_username = FALSE,
+#'   bucket = data_storage$session_bucket
+#' )
+#'
+#' data_storage$read_user_data("2020-01-01", "2025-01-01")
+#' data_storage$read_session_data("2020-01-01", "2025-01-01")
 DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageLogFile",
   inherit = DataStorage,
@@ -36,7 +45,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     username, session_id = NULL, log_file_path, session_file_path
     ) {
       super$initialize(username, session_id)
-      logger::log_info("path to file: {log_file_path}")
+      logger::log_debug("path to file: {log_file_path}")
       private$connect(log_file_path = log_file_path, session_file_path = session_file_path)
     },
 
@@ -45,13 +54,23 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param bucket path to log file; defaults to `log_file_path` used when initialized
     #' @param add_username boolean flag that indicates if line should include
     #' the username of the current session
+    #' @param force_params boolean flag that indicates if `session`,
+    #' `username` and `time` parameters should be added automatically
+    #' (the default behavior).
 
-    insert = function(values, bucket = private$log_file_path, add_username = TRUE) {
+    insert = function(
+      values,
+      bucket = private$log_file_path,
+      add_username = TRUE,
+      force_params = TRUE
+    ) {
       checkmate::assert_list(values)
       checkmate::assert_string(bucket)
       checkmate::assert_logical(add_username)
 
-      values <- private$insert_checks(values, add_username = add_username)
+      values <- private$insert_checks(
+        values, bucket = bucket, add_username = add_username, force_params = force_params
+      )
 
       private$write(values, bucket = bucket)
     },
@@ -61,6 +80,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_user_data = function(date_from, date_to) {
+      date_from <- private$check_date(date_from, .var_name = "date_from")
+      date_to <- private$check_date(date_to, .var_name = "date_to")
+
       log_data <- private$read_data(private$log_file_path, date_from, date_to)
 
       if (NROW(log_data) > 0) {
@@ -74,6 +96,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_session_data = function(date_from, date_to) {
+      date_from <- private$check_date(date_from, .var_name = "date_from")
+      date_to <- private$check_date(date_to, .var_name = "date_to")
+
       db_data <- private$read_data(private$session_file_path, date_from, date_to)
 
       db_data %>%
@@ -82,8 +107,10 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
         dplyr::summarise(title = paste(.data$detail, collapse = " | "))
     },
 
-    # Does nothing, but needs to be kept here because log_logout calls this for database backends
-    # further discussion needed if closing connectiong is really necessary.
+    #' @description
+    #' Does nothing, but needs to be kept here because log_logout calls this
+    #' for database backends further discussion needed if closing connecting
+    #' is really necessary.
     close = function() {
     }
   ),
@@ -121,38 +148,6 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     connect = function(log_file_path, session_file_path) {
       private$log_file_path <- log_file_path
       private$session_file_path <- session_file_path
-    },
-
-    insert_checks = function(values, add_username) {
-      if ("time" %in% names(values)) {
-        rlang::abort(paste0(
-          "You must not pass 'time' value into database.",
-          " It is set automatically."
-        ))
-      }
-
-      if ("session" %in% names(values)) {
-        rlang::abort(paste0(
-          "You must not pass 'session' value into database.",
-          " It is set automatically."
-        ))
-      }
-
-      if ("username" %in% names(values)) {
-        rlang::abort(paste0(
-          "You must not pass 'username' value into database.",
-          " It is set automatically."
-        ))
-      }
-
-      values$time <- Sys.time()
-      values$session <- private$.session_id
-
-      if (add_username) {
-        values$username <- private$.username
-      }
-
-      values
     },
 
     write = function(values, bucket) {

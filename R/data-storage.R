@@ -30,14 +30,21 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
 
     #' @description Insert new data
     #'
-    #' @param values list of values to write to storage provider
+    #' @param values list of values to write to storage provider.
     #' @param bucket string with name of type of data to write (example, for
-    #' SQL it should represent a table)
+    #' SQL it should represent a table).
     #' @param add_username boolean flag that indicates if line should include
-    #' the username of the current session
+    #' the username of the current session.
+    #' @param force_params boolean flag that indicates if `session`,
+    #' `username` and `time` parameters should be added automatically
+    #' (the default behavior).
 
-    insert = function(values, bucket = "user_log", add_username = TRUE) {
-      private$insert_checks(values, bucket, add_username)
+    insert = function(
+      values, bucket = "user_log", add_username = TRUE, force_params = TRUE
+    ) {
+      values <- private$insert_checks(
+        values, bucket, add_username, force_params
+      )
 
       rlang::abort("Method not implemented.")
     },
@@ -91,6 +98,22 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
   private = list(
     .username = NULL,
     .session_id = NULL,
+    check_date = function(date_value, .var_name) {
+      # required parameter
+      checkmate::assert_string(.var_name)
+
+      tryCatch({
+        date_value <- as.Date(date_value)
+        checkmate::assert_date(date_value, .var.name = .var_name)
+        date_value
+      }, error = function(err) {
+        date_value
+        rlang::abort(glue::glue(
+          "Assertion on '{.var_name}' failed: Must be of class 'Date' ",
+          "or a valid date format of class 'String' ('yyyy-mm-dd')."
+        ))
+      })
+    },
     generate_session_id = function() {
       paste(
         c(
@@ -103,33 +126,47 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     close_connection = function() {
       rlang::abort("Method not implemented.")
     },
-    insert_checks = function(values, bucket, add_username) {
+    insert_checks = function(values, bucket, add_username, force_params) {
       checkmate::assert_string(bucket)
       checkmate::assert_list(values)
+      checkmate::assert_flag(add_username)
+      checkmate::assert_flag(force_params)
 
-      if ("time" %in% names(values)) {
+      if (isTRUE(force_params) && "time" %in% names(values)) {
         rlang::abort(paste0(
           "You must not pass 'time' value into database.",
           " It is set automatically."
         ))
       }
 
-      if ("session" %in% names(values)) {
-        rlang::abort(paste0(
+      if (isTRUE(force_params) && "session" %in% names(values)) {
+        rlang::abort(glue::glue(
           "You must not pass 'session' value into database.",
           " It is set automatically."
         ))
       }
 
-      if ("username" %in% names(values)) {
-        rlang::abort(paste0(
+      if (isTRUE(force_params) && "username" %in% names(values)) {
+        rlang::abort(glue::glue(
           "You must not pass 'username' value into database.",
           " It is set automatically."
         ))
       }
 
       values$time <- as.character(Sys.time())
-      values$session <- private$.session_id
+
+      if (
+        isFALSE(force_params) && isFALSE(checkmate::test_string(values$session))
+      ) {
+        rlang::abort(glue::glue(
+          "When the argument 'force_params' is FALSE then 'values' list must",
+          " contain 'session.'"
+        ))
+      }
+
+      if (isFALSE(checkmate::test_string(values$session))) {
+        values$session <- private$.session_id
+      }
 
       if (isTRUE(add_username)) {
         values$username <- private$.username
@@ -156,6 +193,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
 #' data_storage$insert(list(id = "an_id", action = "click"))
 #' data_storage$insert(list(id = "another_id", action = "click"))
 #' data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
+#' data_storage$read_user_data("2020-01-01", "2025-01-01")
 DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageRSQLite",
   inherit = DataStorage,
@@ -170,12 +208,12 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param db_path string with path to sqlfile
 
     initialize = function(
-      username, session_id = NULL, db_path = "user_stats.sqlite"
+    username, session_id = NULL, db_path = "user_stats.sqlite"
     ) {
       super$initialize(username, session_id)
 
       checkmate::assert_string(username)
-      logger::log_info("path to db: {db_path}")
+      logger::log_debug("path to db: {db_path}", namespace = "shiny.telemetry")
       private$connect(db_path)
 
       private$initialize_connection(username)
@@ -186,9 +224,16 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param bucket name of table to write
     #' @param add_username boolean flag that indicates if line should include
     #' the username of the current session
+    #' @param force_params boolean flag that indicates if `session`,
+    #' `username` and `time` parameters should be added automatically
+    #' (the default behavior).
 
-    insert = function(values, bucket = "user_log", add_username = TRUE) {
-      values <- private$insert_checks(values, bucket, add_username)
+    insert = function(
+      values, bucket = self$action_bucket, add_username = TRUE, force_params = TRUE
+    ) {
+      values <- private$insert_checks(
+        values, bucket, add_username, force_params
+      )
 
       private$write(values, bucket)
     },
@@ -198,6 +243,9 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_user_data = function(date_from, date_to) {
+      date_from <- private$check_date(date_from, .var_name = "date_from")
+      date_to <- private$check_date(date_to, .var_name = "date_to")
+
       db_data <- private$read_data("user_log", date_from, date_to)
 
       if (NROW(db_data) > 0) {
@@ -211,7 +259,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_session_data = function(date_from, date_to) {
-      db_data <- private$read_data("session_details", date_from, date_to)
+      db_data <- private$read_data(self$session_bucket, date_from, date_to)
 
       db_data %>%
         dplyr::select("session", "detail") %>%
