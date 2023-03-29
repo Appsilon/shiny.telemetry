@@ -22,7 +22,7 @@ API for read/write operations"><!-- mathjax --><script src="https://cdnjs.cloudf
     
     <a class="navbar-brand me-2" href="../index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9005</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -132,7 +132,12 @@ API for read/write operations</p>
 <h3 id="method-insert-">Method <code>insert()</code><a class="anchor" aria-label="anchor" href="#method-insert-"></a></h3>
 <p>Insert new data</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorageRSQLite</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span><span class="va">values</span>, bucket <span class="op">=</span> <span class="st">"user_log"</span>, add_username <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorageRSQLite</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span></span>
+<span>  <span class="va">values</span>,</span>
+<span>  bucket <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">action_bucket</span>,</span>
+<span>  add_username <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  force_params <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -148,6 +153,12 @@ API for read/write operations</p>
 <dt><code>add_username</code></dt>
 <dd><p>boolean flag that indicates if line should include
 the username of the current session</p></dd>
+
+
+<dt><code>force_params</code></dt>
+<dd><p>boolean flag that indicates if `session`,
+`username` and `time` parameters should be added automatically
+(the default behavior).</p></dd>
 
 
 </dl><p></p></div>
@@ -233,8 +244,14 @@ the username of the current session</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   time                session             username action id    value date      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2023-03-28 03:05:02 dMmpP7ur6B20232803… test_us… click  an_id <span style="color: #BB0000;">NA</span>    2023-03-28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2023-03-28 03:05:02 dMmpP7ur6B20232803… test_us… click  anot… <span style="color: #BB0000;">NA</span>    2023-03-28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2023-03-29 08:01:17 JKIW90tNvu20232903… test_us… click  an_id <span style="color: #BB0000;">NA</span>    2023-03-29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2023-03-29 08:01:17 JKIW90tNvu20232903… test_us… click  anot… <span style="color: #BB0000;">NA</span>    2023-03-29</span>
+<span class="r-in"><span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_user_data</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2025-01-01"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   time                session             username action id    value date      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2023-03-29 08:01:17 JKIW90tNvu20232903… test_us… click  an_id <span style="color: #BB0000;">NA</span>    2023-03-29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2023-03-29 08:01:17 JKIW90tNvu20232903… test_us… click  anot… <span style="color: #BB0000;">NA</span>    2023-03-29</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
