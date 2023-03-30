@@ -7,5 +7,5 @@
 pkgdown
 .*\.sqlite
 \.Renviron$
-renovate.json
+^renovate\.json$
 
