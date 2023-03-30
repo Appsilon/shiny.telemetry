@@ -1,6 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
-  ]
+    "config:base",
+    "group:allNonMajor",
+    "schedule:weekly"
+  ],
+  "major": {
+    "dependencyDashboardApproval": true
+  }
 }
+
