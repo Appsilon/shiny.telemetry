@@ -83,7 +83,19 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       date_from <- private$check_date(date_from, .var_name = "date_from")
       date_to <- private$check_date(date_to, .var_name = "date_to")
 
-      log_data <- private$read_data(private$log_file_path, date_from, date_to)
+      log_data <- private$read_data(
+        private$log_file_path,
+        date_from,
+        date_to,
+        empty_template = dplyr::tibble(
+          time = character(),
+          session = character(),
+          username = character(),
+          action = character(),
+          id = character(),
+          value = character()
+        )
+      )
 
       if (NROW(log_data) > 0) {
         return(dplyr::mutate(log_data, date = as.Date(.data$time)))
@@ -99,7 +111,16 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       date_from <- private$check_date(date_from, .var_name = "date_from")
       date_to <- private$check_date(date_to, .var_name = "date_to")
 
-      db_data <- private$read_data(private$session_file_path, date_from, date_to)
+      db_data <- private$read_data(
+        private$session_file_path,
+        date_from,
+        date_to,
+        empty_template = dplyr::tibble(
+          time = character(),
+          session = character(),
+          detail = character()
+        )
+      )
 
       db_data %>%
         dplyr::select("session", "detail") %>%
@@ -157,18 +178,38 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     # @name read_data
     # Reads the JSON log file
     # @param bucket string with path to file
-    read_data = function(bucket, date_from, date_to) {
+    read_data = function(
+      bucket, date_from, date_to, empty_template = dplyr::tibble()
+    ) {
       checkmate::assert_string(bucket)
       checkmate::assert_date(date_from)
       checkmate::assert_date(date_to)
 
-      json_log_msg <- readLines(bucket)
-      json_log <- dplyr::bind_rows(lapply(json_log_msg, jsonlite::fromJSON))
-      json_log %>%
-        dplyr::filter(
-          time >=  date_from,
-          time <= date_to
+      tryCatch({
+        withCallingHandlers({
+          readLines(bucket) %>%
+            lapply(jsonlite::fromJSON) %>%
+            dplyr::bind_rows() %>%
+            dplyr::filter(
+              time >=  date_from,
+              time <= date_to
+            )
+        },
+          # Catch the warning so that it's silent
+          warning = function(warn_param) {
+            if (!grepl("cannot open file", warn_param)) {
+              warning(warn_param)
+            }
+            invokeRestart("muffleWarning")
+          }
         )
+      } , error = function(err) {
+        # Catch error so that it's silent
+        if (grepl("cannot open the connection", err$message)) {
+          return(empty_template)
+        }
+        rlang::abort(message = err$message, call = err$call)
+      })
     }
   )
 )
