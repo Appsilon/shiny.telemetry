@@ -1,5 +1,5 @@
 # Obtain data_storage object from global environment
-shiny::getShinyOption("data_storage")
+getOption("data_storage")
 
 function(input, output, session) {
   session$user <- get_user(session)
