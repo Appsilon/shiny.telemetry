@@ -30,14 +30,12 @@
 #'   secret = Sys.getenv("PLUMBER_SECRET")
 #' )
 #'
-#' data_storage$insert(list(id = "an_id", action = "click"))
-#' data_storage$insert(list(id = "another_id", action = "click"))
+#' log_login(data_storage)
 #'
-#' data_storage$insert(
-#'   list(detail = "a detail"),
-#'   add_username = FALSE,
-#'   bucket = data_storage$session_bucket
-#' )
+#' log_click(data_storage, "an_id")
+#' log_click(data_storage, "a_different_id")
+#'
+#' log_session_detail(data_storage, detail = "some detail")
 #'
 #' data_storage$read_user_data("2020-01-01", "2025-01-01")
 #' data_storage$read_session_data("2020-01-01", "2025-01-01")
