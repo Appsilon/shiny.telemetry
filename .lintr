@@ -7,7 +7,7 @@ exclusions:
   list(
     "R/constants.R" = 15,
     "vignettes",
-    "inst/examples/app/analytics/app.R" = 5,
+    "inst/examples/app/analytics/app.R" = 12,
     "inst/templates/app/analytics/R" = list(
       object_usage_linter
     )
