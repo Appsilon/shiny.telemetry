@@ -1,6 +1,3 @@
-# Obtain data_storage object from global environment
-getOption("data_storage")
-
 function(input, output, session) {
   session$user <- get_user(session)
 
