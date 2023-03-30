@@ -8,4 +8,4 @@ pkgdown
 .*\.sqlite
 \.Renviron$
 ^renovate\.json$
-
+^\.whitesource$
