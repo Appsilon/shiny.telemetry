@@ -2593,7 +2593,7 @@
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
       "GithubRef": "feat/deploy-example-with-plumber",
-      "GithubSha1": "dbcd3c51a6ae3606724608ca9ddfeea04053771f",
+      "GithubSha1": "4d0abf3224faf0c4c472afe88e5439c3283afa9d",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2614,14 +2614,14 @@
         "RemoteRepo": "shiny.telemetry",
         "RemoteUsername": "appsilon",
         "RemoteRef": "feat/deploy-example-with-plumber",
-        "RemoteSha": "dbcd3c51a6ae3606724608ca9ddfeea04053771f",
+        "RemoteSha": "4d0abf3224faf0c4c472afe88e5439c3283afa9d",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
         "GithubRef": "feat/deploy-example-with-plumber",
-        "GithubSHA1": "dbcd3c51a6ae3606724608ca9ddfeea04053771f",
+        "GithubSHA1": "4d0abf3224faf0c4c472afe88e5439c3283afa9d",
         "NeedsCompilation": "no",
-        "Packaged": "2023-03-30 05:53:29 UTC; Recle E. Vibal",
-        "Built": "R 4.2.2; ; 2023-03-30 05:53:30 UTC; windows"
+        "Packaged": "2023-03-30 06:13:46 UTC; Recle E. Vibal",
+        "Built": "R 4.2.2; ; 2023-03-30 06:13:47 UTC; windows"
       }
     },
     "shinyjs": {
