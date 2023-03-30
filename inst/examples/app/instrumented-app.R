@@ -10,6 +10,7 @@ get_user <- function(session) {
 }
 
 ui <- fluidPage(
+  tags$head(browser_info_js()),
   titlePanel("Old Faithful Geyser Data"),
   sidebarLayout(
     sidebarPanel(
