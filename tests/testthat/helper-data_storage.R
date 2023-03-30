@@ -1,9 +1,32 @@
 test_common <- function(data_storage) {
   require(testthat)
 
-  expect_true(checkmate::test_string(data_storage$username))
+  #
+  # Necessary constants for the tests
 
+  date_from <- Sys.Date() - 365 * 10
+  date_to <- Sys.Date() + 10
+
+  #
+  # check for username and session
+
+  expect_true(checkmate::test_string(data_storage$username))
   expect_true(checkmate::test_string(data_storage$session_id))
+
+  #
+  # Empty results should be allowed to run smoothly and without problems
+
+  user_data_empty <- data_storage$read_user_data(date_from, date_to)
+  session_data_empty <- data_storage$read_session_data(date_from, date_to)
+
+  expect_true(checkmate::test_tibble(user_data_empty))
+  expect_true(checkmate::test_tibble(session_data_empty))
+
+  expect_equal(NROW(user_data_empty), 0)
+  expect_equal(NROW(session_data_empty), 0)
+
+  #
+  # Write and read data
 
   expect_error(data_storage$insert("some value"), "Must be of type 'list'")
 
@@ -39,9 +62,6 @@ test_common <- function(data_storage) {
       force_params = FALSE, add_username = FALSE
     )
   })
-
-  date_from <- Sys.Date() - 365 * 10
-  date_to <- Sys.Date() + 10
 
   user_data <- data_storage$read_user_data(date_from, date_to)
   session_data <- data_storage$read_session_data(date_from, date_to)
