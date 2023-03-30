@@ -12,7 +12,7 @@ library(DT)
 # install.packages("shiny.telemetry", dependencies = TRUE)
 library(shiny.telemetry)
 
-# Connecting to a SQLite data storage backend
+# Connecting to a plumber API data storage backend
 data_storage <- DataStoragePlumber$new(
   username = "test_user",
   hostname = "connect.appsilon.com",
