@@ -9,7 +9,6 @@ The data backend is provided by the `shiny.telemetry` R package.
 Features:
 
 * Supports all data storage backends available to `shiny.telemetry`
-    * Writes and reads information
 * Validates origin of messages by signing message _(see [section below](#setup-signature))_
 * Supports secure communication when API is deployed in a server that supports _Hypertext Transfer Protocol Secure (HTTPS)_
 
@@ -82,7 +81,7 @@ Note that, the data in the message being transmitted via the HTTP protocol is no
 To setup the message signature it is required to define:
 
 * In the Plumber API Environment: `SECRET_TOKENS="<string-token-a> <string-token-b>`
-* In the Shiny Application instrumented by `shiny.telemetry`: `PLUMBER_SECRET=<string-token-a`
+* In the Shiny Application instrumented by `shiny.telemetry`: `PLUMBER_SECRET=<string-token-a>`
     * In this case, for "Shiny Application A"
     
 ℹ️ Important: the different tokens defined in the API are separated by spaces.
