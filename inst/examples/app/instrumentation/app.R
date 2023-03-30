@@ -30,7 +30,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   # Connecting to a SQLite data storage backend
   data_storage <- DataStoragePlumber$new(
-    username = "test_user",
+    username = get_user(session),
     hostname = "connect.appsilon.com",
     path = "shiny_telemetry_plumber",
     port = 443,
