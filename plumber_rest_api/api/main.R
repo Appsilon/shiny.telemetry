@@ -10,9 +10,9 @@ box::use(
 )
 
 box::use(
-  app/handlers/insert,
-  app/handlers/read_data,
-  app/logic/setup[data_storage],
+  api/handlers/insert,
+  api/handlers/read_data,
+  api/logic/setup[data_storage],
 )
 
 # Setup

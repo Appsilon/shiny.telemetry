@@ -14,8 +14,8 @@ tokens_raw <- UUIDgenerate() |> str_replace_all("-", "")
 with_envvar(
   new = c("SECRET_TOKENS" = tokens_raw),
   box::use(
-    app/logic/setup[session_secrets],
-    app/logic/token[...],
+    api/logic/setup[session_secrets],
+    api/logic/token[...],
   )
 )
 

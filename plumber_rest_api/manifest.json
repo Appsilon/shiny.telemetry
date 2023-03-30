@@ -2914,46 +2914,58 @@
   },
   "files": {
     ".Renviron": {
-      "checksum": "3e7be51f586844ee1350b3fbffc17178"
+      "checksum": "73ad9b1933436d6cd29febed6e3f5edf"
     },
     ".Rprofile": {
-      "checksum": "0244aeef5b2c2c68153167d3fd7f334d"
+      "checksum": "d43f29ec2e7ad900d9fd0a673944d42a"
     },
-    "app/handlers/insert.R": {
-      "checksum": "93d9cbec6d1e1c96b430b644bf1ad4ad"
+    "api/handlers/insert.R": {
+      "checksum": "e903f0e5ed5db983c9a326eaf04d21d7"
     },
-    "app/handlers/read_data.R": {
-      "checksum": "ac231b9285cd3e1f892d68a4bdca11a0"
+    "api/handlers/read_data.R": {
+      "checksum": "6f84c639bf3d9fff1e246a844ba69005"
     },
-    "app/logic/__tests__/__init__.R": {
+    "api/logic/__tests__/__init__.R": {
       "checksum": "ffd52525921d49ecc9f2cfdaed6144f6"
     },
-    "app/logic/__tests__/test-tokens.R": {
-      "checksum": "89c704f388ff2dbc094047dfbaa26cbc"
+    "api/logic/__tests__/test-tokens.R": {
+      "checksum": "2f5c41c4c28ade6e9e539ea53e78bdac"
     },
-    "app/logic/setup.R": {
-      "checksum": "1eba6adf1cea7ce901ed1977cf0e9666"
+    "api/logic/setup.R": {
+      "checksum": "ba666f32e684c484f28cac9bfe07c2fa"
     },
-    "app/logic/token.R": {
-      "checksum": "e38cd5cbebff3484aa73e5ea128761c3"
+    "api/logic/token.R": {
+      "checksum": "c457c2fe17982b29099258430c66a47b"
     },
-    "app/main.R": {
-      "checksum": "cc5fa8a75b267764ce6cb1b543f06b41"
+    "api/main.R": {
+      "checksum": "c7f676c16f136308f2b1c3182a67f69a"
+    },
+    "api/session_details.txt": {
+      "checksum": "b531cd55ce8e9cd9f079bc2c1cf4bd15"
+    },
+    "api/user_stats.txt": {
+      "checksum": "e50823aaa6c542ca46b62e72e04b512f"
     },
     "config.yml": {
-      "checksum": "eb129e91d267d53aefa2ca884a77158d"
+      "checksum": "7758d89fba08901693d121f2f7a4c308"
     },
     "dependencies.R": {
-      "checksum": "53069b3c73b689317aada38cb52d688f"
+      "checksum": "8a24e128bd1e069b5310d39c6f104502"
     },
     "entrypoint.R": {
-      "checksum": "9d19840d79a5aff20a52360d552c3e96"
+      "checksum": "d49f04d6e7a565f1fde5dfd2322c47a4"
     },
     "plumber.R": {
-      "checksum": "c074868f362b87cf8a99eb79edff843e"
+      "checksum": "8da5b0b29749699c9185621b47504429"
+    },
+    "README.html": {
+      "checksum": "33ed4dc61ade34af45a474daf7a12bd2"
     },
     "README.md": {
-      "checksum": "d41d8cd98f00b204e9800998ecf8427e"
+      "checksum": "66b18c9af200ab0ef0914b0d72cfd8f4"
+    },
+    "telemetry.sqlite": {
+      "checksum": "33fdda2762bdbcf162c7d04526848cb8"
     }
   },
   "users": null

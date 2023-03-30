@@ -1,4 +1,4 @@
 
 plumber::plumb(
-  file = "app/main.R"
+  file = "api/main.R"
 )

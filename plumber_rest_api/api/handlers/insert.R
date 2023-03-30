@@ -8,8 +8,8 @@ box::use(
 )
 
 box::use(
-  app/logic/setup[data_storage],
-  app/logic/token[validate_token, get_secret],
+  api/logic/setup[data_storage],
+  api/logic/token[validate_token, get_secret],
 )
 
 #' Handler to insert data to the data storage provider

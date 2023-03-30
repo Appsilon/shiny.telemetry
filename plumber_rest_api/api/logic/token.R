@@ -8,7 +8,7 @@ box::use(
 )
 
 box::use(
-  app/logic/setup[session_secrets],
+  api/logic/setup[session_secrets],
 )
 
 #' Get secret from list of session secrets
@@ -34,5 +34,5 @@ validate_token <- function(values, token, id) {
 }
 
 if (is.null(box::name())) {
-  box::use(app/logic/`__tests__`)
+  box::use(api/logic/`__tests__`)
 }

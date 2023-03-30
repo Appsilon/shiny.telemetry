@@ -6,8 +6,8 @@ box::use(
 )
 
 box::use(
-  app/logic/setup[data_storage],
-  app/logic/token[validate_token],
+  api/logic/setup[data_storage],
+  api/logic/token[validate_token],
 )
 
 #' Handler to read data from data storage provider
