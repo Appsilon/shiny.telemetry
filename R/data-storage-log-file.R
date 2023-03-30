@@ -70,6 +70,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
         values, bucket = bucket, add_username = add_username, force_params = force_params
       )
 
+      if (!is.null(values$value))
+        values$value <- as.character(values$value)
+
       private$write(values, bucket = bucket)
     },
 
@@ -194,11 +197,6 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
           time >=  date_from,
           time <= date_to
         )
-    },
-    convert_value_to_string = function(log_list) {
-      if (!is.null(log_list$value))
-        log_list$value <- as.character(log_list$value)
-      log_list
     }
   )
 )
