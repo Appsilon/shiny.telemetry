@@ -5,6 +5,6 @@
 #'
 #' @export
 run_analytics_dashboard <- function(data_storage) {
-  shiny::shinyOptions(data_storage = data_storage)
+  options(data_storage = data_storage)
   shiny::shinyAppDir(appDir = system.file("templates/app/analytics", package = "shiny.telemetry"))
 }
