@@ -194,6 +194,11 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
           time >=  date_from,
           time <= date_to
         )
+    },
+    convert_value_to_string = function(log_list) {
+      if (!is.null(log_list$value))
+        log_list$value <- as.character(log_list$value)
+      log_list
     }
   )
 )
