@@ -185,31 +185,16 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_date(date_from)
       checkmate::assert_date(date_to)
 
-      tryCatch({
-        withCallingHandlers({
-          readLines(bucket) %>%
-            lapply(jsonlite::fromJSON) %>%
-            dplyr::bind_rows() %>%
-            dplyr::filter(
-              time >=  date_from,
-              time <= date_to
-            )
-        },
-          # Catch the warning so that it's silent
-          warning = function(warn_param) {
-            if (!grepl("cannot open file", warn_param)) {
-              warning(warn_param)
-            }
-            invokeRestart("muffleWarning")
-          }
+      if (!file.exists(bucket)) {
+        return(empty_template)
+      }
+      readLines(bucket) %>%
+        lapply(jsonlite::fromJSON) %>%
+        dplyr::bind_rows() %>%
+        dplyr::filter(
+          time >=  date_from,
+          time <= date_to
         )
-      } , error = function(err) {
-        # Catch error so that it's silent
-        if (grepl("cannot open the connection", err$message)) {
-          return(empty_template)
-        }
-        rlang::abort(message = err$message, call = err$call)
-      })
     }
   )
 )
