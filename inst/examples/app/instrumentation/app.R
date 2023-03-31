@@ -1,6 +1,5 @@
 library(shiny)
 library(shiny.telemetry)
-library(RSQLite)
 
 get_user <- function(session) {
   username <- shiny::isolate(shiny::parseQueryString(session$clientData$url_search)$username)
@@ -14,11 +13,9 @@ ui <- fluidPage(
   titlePanel("Old Faithful Geyser Data"),
   sidebarLayout(
     sidebarPanel(
-      sliderInput("bins",
-                  "Number of bins:",
-                  min = 1,
-                  max = 50,
-                  value = 30),
+      sliderInput(
+        "bins", "Number of bins:", min = 1, max = 50, value = 30
+      ),
       actionButton("apply_slider", "Apply")
     ),
     mainPanel(

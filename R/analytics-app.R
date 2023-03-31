@@ -191,7 +191,7 @@ analytics_server <- function(data_storage) {
   shiny::shinyServer(function(input, output, session) {
     session$user <- get_user(session)
 
-    data_storage <- data_storage
+    # data_storage <- data_storage
 
     prepare_admin_panel_components(input, output, session, data_storage = data_storage)
   })

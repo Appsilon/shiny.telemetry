@@ -1,16 +1,17 @@
 library(shiny)
+# please install shiny.telemetry with all dependencies
+# install.packages("shiny.telemetry", dependencies = TRUE)
+library(shiny.telemetry)
+
 library(shiny.semantic)
 library(semantic.dashboard)
 library(shinyjs)
 library(tidyr)
-library(dplyr) # necessary to import %>%
+library(dplyr)
 library(purrr)
 library(plotly)
 library(timevis)
 library(DT)
-# please install shiny.telemetry with all dependencies
-# install.packages("shiny.telemetry", dependencies = TRUE)
-library(shiny.telemetry)
 
 # Connecting to a plumber API data storage backend
 data_storage <- DataStoragePlumber$new(
