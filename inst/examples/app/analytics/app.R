@@ -13,15 +13,13 @@ library(plotly)
 library(timevis)
 library(DT)
 
-# Connecting to a plumber API data storage backend
-data_storage <- DataStoragePlumber$new(
+data_storage <- DataStorageLogFile$new(
   username = "test_user",
-  hostname = "connect.appsilon.com",
-  path = "shiny_telemetry_plumber",
-  port = 443,
-  protocol = "https",
-  authorization = Sys.getenv("CONNECT_AUTHORIZATION_KEY"),
-  secret = Sys.getenv("PLUMBER_SECRET")
+  log_file_path = file.path(getwd(), "user_stats.txt"),
+  session_file_path = file.path(getwd(), "session_details.txt")
 )
+
+# Used for package deployment of test application on connect
+if (Sys.getenv("FORCE_PLUMBER_CONFIG") == "1") source("force_plumber_ds.R")
 
 analytics_app(data_storage = data_storage)

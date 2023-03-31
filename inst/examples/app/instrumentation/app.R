@@ -25,16 +25,15 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  # Connecting to a SQLite data storage backend
-  data_storage <- DataStoragePlumber$new(
-    username = get_user(session),
-    hostname = "connect.appsilon.com",
-    path = "shiny_telemetry_plumber",
-    port = 443,
-    protocol = "https",
-    authorization = Sys.getenv("CONNECT_AUTHORIZATION_KEY"),
-    secret = Sys.getenv("PLUMBER_SECRET")
+
+  data_storage <- DataStorageLogFile$new(
+    username = "test_user",
+    log_file_path = file.path(getwd(), "user_stats.txt"),
+    session_file_path = file.path(getwd(), "session_details.txt")
   )
+
+  # Used for package deployment of test application on connect
+  if (Sys.getenv("FORCE_PLUMBER_CONFIG") == "1") source("force_plumber_ds.R")
 
   log_browser_version(data_storage, input)
 
