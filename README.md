@@ -1,115 +1,80 @@
-shiny.telemetry
-============
+# shiny.telemetry
 
-Easy way for logging users activity and adding statistics panel to your Shiny app.
+> Easy way for logging users activity and adding statistics panel to your Shiny app
 
-## Prerequisites
 
-Remote DB. Can be PostgreSQL DB or simple sqlite file.
+## Data providers
 
-## How to register user's action?
+There are 3 different types of data providers that can range from local filesystem storage to a remote plumber REST API instance.
 
-1. Prepare DB to store results (here we use SQLite, but PostgreSQL is possible as well).
+* SQLite using `DataStorageRSQLite` class
+* Logfile using `DataStorageLogFile` class
+* Plumber REST API using one of the providers above as backend using `DataStoragePlumber` class
+
+The setup for plumber requires a valid Plumber instance running on the network and the communication can be protected. See Plumber deployment documentation for more information.
+
+## How to use in  a Shiny Dashboard?
+
+This package can be used with a minimal setup that keeps track of. 
+
+* Global `Telemetry` object that is across the different sessions
+* In the UI a `use_telemetry()` call is required to add package-related javascript
+* The server can be initialized with the method `start_session` of the `Telemetry object 
+    * for example: `telemetry$start_session(input)`
+
+The default `shinyApp` can be modified to add telemetry as it's shown below.
+
+There isn't anything different from the user's perspective, but the data that is being tracked is available to read by:
 
 ```
-# run only once
-connection <- DBI::dbConnect(RSQLite::SQLite(), dbname = "user_stats.sqlite")
-DBI::dbDisconnect(connection)
+# After running the app
+Telemetry$new()$telemetry$read_events("2020-01-01", "2050-01-01")
 ```
 
-2. Depending on your authentication approach, define function to extract username.
-In this example we just extract username from url `username` parameter.
-```
-get_user <- function(session) {
-  parseQueryString(isolate(session$clientData$url_search))$username
-}
-```
-3. Structure your main app to register user's actions.
+Sample Shiny app:
 
 ```
 library(shiny)
 library(shiny.telemetry)
-library(RSQLite)
 
-ui <- fluidPage(
-  titlePanel("Old Faithful Geyser Data"),
-  sidebarLayout(
-    sidebarPanel(
-      sliderInput("bins",
-                  "Number of bins:",
-                  min = 1,
-                  max = 50,
-                  value = 30),
-      actionButton("apply_slider", "Apply")
-    ),
-    mainPanel(
-      plotOutput("distPlot")
-    )
-  )
+telemetry <- Telemetry$new() # Object to manage telemetry, by default it 
+                             # will use a SQLite in the local filesystem
+
+shinyApp(
+  ui = fluidPage(
+    numericInput("n", "n", 1),
+    plotOutput("plot"),
+    use_telemetry() # shiny.telemetry UI element
+  ),
+  server = function(input, output) {
+    output$plot <- renderPlot( plot(head(cars, input$n)) )
+  }
 )
 
-server <- function(input, output, session) {
-  connection <- odbc::dbConnect(RSQLite::SQLite(), dbname = "user_stats.sqlite")
+shinyAppDir(system.file("examples/01_hello", package="shiny"))
 
-  # creating user connection list and making sure required tables exist in DB
-  user_connection <- initialize_connection(connection, username = get_user(session))
 
-  # registering login
-  log_login(user_connection)
+# The object can be passed to runApp()
+app <- shinyApp(
+  ui = fluidPage(
+    numericInput("n", "n", 1),
+    plotOutput("plot")
+  ),
+  server = function(input, output) {
+    telemetry$start_session(input)
+    output$plot <- renderPlot( plot(head(cars, input$n)) )
+  }
+)
 
-  # selecting registered actions to watch
-  log_click(user_connection, id = "apply_slider")
-  log_input(user_connection, input, input_id = "bins")
-
-  # server code
-  output$distPlot <- renderPlot({
-    input$apply_slider
-    x <- faithful[, 2]
-    bins <- seq(min(x), max(x), length.out = isolate(input$bins) + 1)
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-  })
-
-  # registering logout (this also disconnects connection object, if not used take care of it on your own)
-  log_logout(user_connection)
-}
-```
-
-4. Run and play with your app at `http://localhost:8888/?username=<username>`.
-```
-shinyApp(ui = ui, server = server, options = list(port = 8888, launch.browser = FALSE))
+runApp(app)
 ```
 
 ## How to display users' stats?
 
 1. Create the following app.
-```
-library(shiny)
-library(RSQLite)
-# please install shiny.telemetry with all dependencies
-# install.packages("shiny.telemetry", dependencies = TRUE)
-library(shiny.telemetry)
 
-# prepare credentials list to access logs:
-db_credentials <- list(
-  DB_NAME = "user_stats.sqlite",
-  DB_DRIVER = "SQLite"
-)
-
-# define function hot to get username
-get_user <- function(session) {
-  username <- isolate(parseQueryString(session$clientData$url_search)$username)
-  req(username)
-  return(username)
-}
-
-# define ui and server
-ui <- shiny_stats_ui()
-server <- shiny_stats_server(get_user, db_credentials = db_credentials)
 ```
 
-2. Run the app and see usage statistics at `http://localhost:8887/?username=<username>`.
-```
-shinyApp(ui = ui, server = server, options = list(port = 8887, launch.browser = FALSE))
 ```
 
 ## Appsilon

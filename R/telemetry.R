@@ -133,6 +133,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       invisible(self)
     },
 
+    read_events = function(from_date, to_date) {
+      private$.data_storage$read_user_data(from_date, to_date)
+    },
+
     # ###############################################################
     #
     #   _                __                  _   _
