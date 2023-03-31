@@ -23,4 +23,4 @@ data_storage <- DataStoragePlumber$new(
   secret = Sys.getenv("PLUMBER_SECRET")
 )
 
-shiny::shinyAppDir(appDir = system.file("templates/app/analytics", package = "shiny.telemetry"))
+run_analytics_dashboard(data_storage = data_storage)
