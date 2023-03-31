@@ -37,19 +37,20 @@ Imports: purrr,
     DBI,
     digest,
     dplyr,
-    glue,
-    httr2,
+    odbc,
+    DBI,
     jsonlite,
     logger,
-    odbc,
-    purrr,
     R6,
-    rlang,
     RSQLite,
+    rlang,
+    bcrypt,
+    checkmate,
+    glue,
     shiny,
-    stats,
-    tidyr,
-    utils
+    semantic.dashboard (>= 0.1.1),
+    httr2,
+    digest
 RoxygenNote: 7.2.3
 Config/testthat/edition: 3
 Language: en-US
