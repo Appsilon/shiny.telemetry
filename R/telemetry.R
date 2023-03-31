@@ -1,4 +1,4 @@
-# REMOVE ME!!
+# TODO: REMOVE ME!!
 logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
 
 #' Telemetry class to manage analytics gathering at a global level
@@ -25,6 +25,17 @@ logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
 #'
 #' mock_session <- list(clientData = list(url_search = ""))
 #' telemetry$start_session(mock_session, logout = FALSE)
+#'
+#' telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
+#'
+#' telemetry <- Telemetry$new(
+#'   data_storage = DataStorageLogFile$new(
+#'     log_file_path = tempfile(pattern = "user_stats", fileext = ".txt"),
+#'     session_file_path = tempfile(pattern = "session_details", fileext = ".txt")
+#'   )
+#' )
+#'
+#' telemetry$start_session(shiny::reactiveValues(), logout = FALSE)
 #'
 #' telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 Telemetry <- R6::R6Class( # nolint object_name_linter
@@ -304,40 +315,43 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       shiny::observe({
         old_input_values <- input_values
         new_input_values <- shiny::reactiveValuesToList(input)
-        names <- unique(c(names(old_input_values), names(new_input_values)))
-        names <- setdiff(names, excluded_inputs)
-        for (name in names) {
-          old <- old_input_values[name]
-          new <- new_input_values[name]
-          if (!identical(old, new)) {
-            if (isTRUE(track_values)) {
-              logger::log_debug(
-                "Shiny input change detected on {name} ",
-                "{old[[name]]} -> {new[[name]]}",
-                namespace = "shiny.telemetry"
-              )
-            } else {
-              logger::log_debug(
-                "Shiny input change detected on {name} (no value tracking) ",
-                "{old[[name]]} -> {new[[name]]}",
-                namespace = "shiny.telemetry"
-              )
-            }
 
-            if (isTRUE(track_values)) {
+        if (NROW(new_input_values) != 0) {
+          names <- unique(c(names(old_input_values), names(new_input_values)))
+          names <- setdiff(names, excluded_inputs)
+          for (name in names) {
+            old <- old_input_values[name]
+            new <- new_input_values[name]
+            if (!identical(old, new)) {
+              if (isTRUE(track_values)) {
+                logger::log_debug(
+                  "Shiny input change detected on {name} ",
+                  "{old[[name]]} -> {new[[name]]}",
+                  namespace = "shiny.telemetry"
+                )
+              } else {
+                logger::log_debug(
+                  "Shiny input change detected on {name} (no value tracking) ",
+                  "{old[[name]]} -> {new[[name]]}",
+                  namespace = "shiny.telemetry"
+                )
+              }
+
+              if (isTRUE(track_values)) {
+                private$log_action(
+                  event = "input",
+                  id = name,
+                  value = new[[name]],
+                  session = session
+                )
+                next
+              }
               private$log_action(
                 event = "input",
                 id = name,
-                value = new[[name]],
                 session = session
               )
-              next
             }
-            private$log_action(
-              event = "input",
-              id = name,
-              session = session
-            )
           }
         }
         input_values <- new_input_values
@@ -441,38 +455,45 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
       checkmate::assert_r6(session, classes = "ShinySession", null.ok = TRUE)
 
+      payload <- list(
+        dashboard = self$dashboard,
+        version = self$version
+      )
+
       session_token <- NULL
       if (!is.null(session)) {
-        session_token <- session$token
+        payload$session <- session$token
       }
 
       if (checkmate::test_list(value)) {
         value <- jsonlite::toJSON(value)
       }
 
-      payload <- list(
-        session = session_token,
-        dashboard = self$dashboard,
-        version = self$version,
-        action = event,
-        id = id
-      )
+      if (!is.null(event)) {
+        payload$action <- event
+      }
+
+      if (!is.null(id)) {
+        payload$id <- id
+      }
 
       if (isTRUE(add_username)) {
         if (!is.null(session)) {
           username <- shiny::isolate(
             shiny::parseQueryString(session$clientData$url_search)$username
           )
-          if (is.null(username)) username <- "unknownUser"
+          if (is.null(username)) username <- "anonymous"
           shiny::req(username)
           payload$username <- username
         }
       }
 
-      if (isTRUE(use_detail)) {
-        payload$detail <- value
-      } else {
-        payload$value <- value
+      if (!is.null(value)) {
+        if (isTRUE(use_detail)) {
+          payload$detail <- value
+        } else {
+          payload$value <- value
+        }
       }
 
       self$data_storage$insert(

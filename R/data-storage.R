@@ -116,10 +116,6 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
         ))
       }
 
-      if (!"session" %in% names(values)) {
-        rlang::abort("You must pass 'session' value into database.")
-      }
-
       values$time <- as.character(Sys.time())
 
       values

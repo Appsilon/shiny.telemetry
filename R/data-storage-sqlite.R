@@ -48,10 +48,8 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     insert = function(values, bucket = self$action_bucket) {
       values <- private$insert_checks(values, bucket)
 
-      checkmate::assert_string(
-        bucket,
-        pattern = c(self$action_bucket, self$session_bucket) %>%
-          paste(collapse = "|")
+      checkmate::assert_choice(
+        bucket, c(self$action_bucket, self$session_bucket)
       )
 
       private$write(values, bucket)
