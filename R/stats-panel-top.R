@@ -1,9 +1,7 @@
 #' Stats Shiny UI
 #'
 #' @param custom_css_path path to custom css
-#'
-#' @export
-shiny_stats_ui <- function(custom_css_path = NULL) {
+analytics_ui <- function(custom_css_path = NULL) {
   # Dashboard header carrying the title of the dashboard
   header <- semantic.dashboard::dashboardHeader(
     shinyjs::useShinyjs(),
@@ -192,9 +190,7 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
 #' @param get_user function to retrieve user name
 #' @param allow_admin_rule function that asserts if user is administrator
 #' @param db_credentials data.frame with database config parameters
-#'
-#' @export
-shiny_stats_server <- function(
+analytics_server <- function(
   get_user, allow_admin_rule = function(session) TRUE, db_credentials
 ) {
   shiny::shinyServer(function(input, output, session) {
@@ -208,3 +204,19 @@ shiny_stats_server <- function(
     prepare_admin_panel_components(input, output, session, data_storage)
   })
 }
+
+#' Run example telemetry analytics dashboard
+#'
+#' @param get_user test
+#' @param allow_admin_rule test
+#' @param db_credentials test
+#'
+#' @export
+analytics_app <- function(get_user, allow_admin_rule = function(session) TRUE, db_credentials) {
+  shiny::shinyApp(
+    ui = analytics_ui(),
+    server = analytics_server(get_user, allow_admin_rule = function(session) TRUE, db_credentials)
+  )
+}
+
+
