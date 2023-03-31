@@ -527,7 +527,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       }
 
       if (!is.null(matching_values) && input_type == "json") {
-        input_value <- parse_val(input_value)
+        # Used to be parse_val() function
+        input_value <- jsonlite::fromJSON(
+          ifelse(is.null(input_value), "\"\"", input_value)
+        )
       }
 
       if (
