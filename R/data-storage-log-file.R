@@ -43,7 +43,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       username, session_id = NULL, log_file_path, session_file_path
     ) {
       super$initialize(username, session_id)
-      logger::log_debug("path to file: {log_file_path}")
+      logger::log_debug("path to file: {log_file_path}", namespace = "shiny.telemetry")
       private$connect(log_file_path = log_file_path, session_file_path = session_file_path)
     },
 

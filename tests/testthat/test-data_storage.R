@@ -1,4 +1,4 @@
-logger::log_threshold("ERROR")
+logger::log_threshold("ERROR", namespace = "shiny.telemetry")
 
 test_that("Data storage initializes a dummy class", {
   data_storage <- DataStorage$new("sample_user_name")
