@@ -13,6 +13,8 @@ library(plotly)
 library(timevis)
 library(DT)
 
+logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
+
 data_storage <- DataStorageLogFile$new(
   username = "test_user",
   log_file_path = file.path(getwd(), "user_stats.txt"),

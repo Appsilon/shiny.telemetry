@@ -2,6 +2,8 @@ library(shiny)
 library(shiny.telemetry)
 library(dplyr)
 
+logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
+
 get_user <- function(session) {
   username <- shiny::isolate(shiny::parseQueryString(session$clientData$url_search)$username)
   if (is.null(username)) username <- "unknownUser"
