@@ -28,18 +28,6 @@ header_telemetry <- function(css_path = NULL) {
 
 # Sidebar -------------------------------------------------------------------------------------
 
-render_download_button <- function(output_id, label, style = NULL) {
-  shiny::a(
-    id = output_id,
-    class = "ui grey tiny basic button shiny-download-link",
-    style = style,
-    href = "",
-    target = "_blank",
-    download = NA,
-    label
-  )
-}
-
 sidebar_telemetry <- semantic.dashboard::dashboardSidebar(
   size = "",
   semantic.dashboard::sidebarMenu(
