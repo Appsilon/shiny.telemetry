@@ -2,26 +2,28 @@
 
 # Header --------------------------------------------------------------------------------------
 
-header_telemetry <- semantic.dashboard::dashboardHeader(
-  shinyjs::useShinyjs(),
-  shiny::suppressDependencies("bootstrap"),
-  shiny::suppressDependencies("plotlyjs"),
-  style = "min-height: 100%;",
-  shiny::tags$head(
-    shiny::tags$link(rel = "stylesheet", href = "www/styles.css"),
-    shiny::tags$script(src = "https://cdn.plot.ly/plotly-1.20.2.min.js"),
-    shiny::tags$script(
-      src = "https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js"
-    )
-  ),
-  shiny::tags$div(
-    class = "right menu",
-    shiny::tags$a(
-      class = "icon item", href = "../../logout",
-      semantic.dashboard::icon("power off")
+header_telemetry <- function(css_path = NULL) {
+  semantic.dashboard::dashboardHeader(
+    shinyjs::useShinyjs(),
+    shiny::suppressDependencies("bootstrap"),
+    shiny::suppressDependencies("plotlyjs"),
+    style = "min-height: 100%;",
+    shiny::tags$head(
+      shiny::tags$link(rel = "stylesheet", href = "www/styles.css"),
+      shiny::tags$script(src = "https://cdn.plot.ly/plotly-1.20.2.min.js"),
+      shiny::tags$script(
+        src = "https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js"
+      )
+    ),
+    shiny::tags$div(
+      class = "right menu",
+      shiny::tags$a(
+        class = "icon item", href = "../../logout",
+        semantic.dashboard::icon("power off")
+      )
     )
   )
-)
+}
 
 
 # Sidebar -------------------------------------------------------------------------------------
