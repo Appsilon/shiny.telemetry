@@ -2,16 +2,13 @@
 
 > Easy way for logging users activity and adding statistics panel to your Shiny app
 
+## Install
 
-## Data providers
+Shiny.telemetry can be installed from github by using the remotes package:
 
-There are 3 different types of data providers that can range from local filesystem storage to a remote plumber REST API instance.
-
-* SQLite using `DataStorageRSQLite` class
-* Logfile using `DataStorageLogFile` class
-* Plumber REST API using one of the providers above as backend using `DataStoragePlumber` class
-
-The setup for plumber requires a valid Plumber instance running on the network and the communication can be protected. See Plumber deployment documentation for more information.
+```
+remotes::install_github("Appsilon/shiny.telemetry")
+```
 
 ## How to use in  a Shiny Dashboard?
 
@@ -71,11 +68,32 @@ runApp(app)
 
 ## How to display users' stats?
 
-1. Create the following app.
+The 
 
 ```
+library(shiny)
+# please install shiny.telemetry with all dependencies
+# > install.packages("shiny.telemetry", dependencies = TRUE)
+library(shiny.telemetry)
 
+telemetry <- Telemetry$new()
+
+# define ui and server
+ui <- shiny_stats_ui()
+
+server <- shiny_stats_server(data_storage = telemetry$data_storage)
+shinyApp(ui = ui, server = server, options = list(port = 8887, launch.browser = TRUE))
 ```
+
+## Data providers
+
+There are 3 different types of data providers that can range from local filesystem storage to a remote plumber REST API instance.
+
+* SQLite using `DataStorageRSQLite` class
+* Logfile using `DataStorageLogFile` class
+* Plumber REST API using one of the providers above as backend using `DataStoragePlumber` class
+
+The setup for plumber requires a valid Plumber instance running on the network and the communication can be protected. See Plumber deployment documentation for more information.
 
 ## Appsilon
 
