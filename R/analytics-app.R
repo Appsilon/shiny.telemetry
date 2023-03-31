@@ -1,4 +1,4 @@
-analytics_ui <- function(css_path) {
+analytics_ui <- function(css_path = NULL) {
   semantic.dashboard::dashboardPage(
     title = "App usage statistics",
     header = analytics_header(css_path = css_path),
@@ -8,10 +8,12 @@ analytics_ui <- function(css_path) {
 }
 
 analytics_server <- function(data_storage) {
-  shiny::shinyServer(function(input, output, session, data_storage) {
+  shiny::shinyServer(function(input, output, session) {
     session$user <- get_user(session)
 
-    prepare_admin_panel_components(input, output, session, data_storage)
+    data_storage <- data_storage
+
+    prepare_admin_panel_components(input, output, session, data_storage = data_storage)
   })
 }
 
