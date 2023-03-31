@@ -32,3 +32,15 @@ date_filters <- function() {
     )
   )
 }
+
+render_download_button <- function(output_id, label, style = NULL) {
+  shiny::a(
+    id = output_id,
+    class = "ui grey tiny basic button shiny-download-link",
+    style = style,
+    href = "",
+    target = "_blank",
+    download = NA,
+    label
+  )
+}
