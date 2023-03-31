@@ -257,3 +257,7 @@ log_browser_version <- function(data_storage, input) {
     )
   })
 }
+
+parse_val <- function(val) {
+  jsonlite::fromJSON(ifelse(is.null(val), "\"\"", val))
+}
