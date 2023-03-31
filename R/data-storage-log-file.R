@@ -69,8 +69,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       log_data <- private$read_data(
         private$log_file_path,
         date_from,
-        date_to,
-        empty_template = dplyr::tibble(
+        date_to
+      ) %>%
+        dplyr::bind_rows(dplyr::tibble(
           time = character(),
           dashboard = character(),
           version = character(),
@@ -79,8 +80,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
           action = character(),
           id = character(),
           value = character()
-        )
-      )
+        ))
 
       if (NROW(log_data) > 0) {
         return(dplyr::mutate(log_data, date = as.Date(.data$time)))
@@ -99,15 +99,15 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       db_data <- private$read_data(
         private$session_file_path,
         date_from,
-        date_to,
-        empty_template = dplyr::tibble(
+        date_to
+      ) %>%
+        dplyr::bind_rows(dplyr::tibble(
           time = character(),
           dashboard = character(),
           version = character(),
           session = character(),
           detail = character()
-        )
-      )
+        ))
 
       db_data %>%
         dplyr::select("session", "detail") %>%
@@ -166,16 +166,14 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     # @name read_data
     # Reads the JSON log file
     # @param bucket string with path to file
-    read_data = function(
-      bucket, date_from, date_to, empty_template = dplyr::tibble()
-    ) {
+    read_data = function(bucket, date_from, date_to) {
 
       checkmate::assert_string(bucket)
       checkmate::assert_date(date_from)
       checkmate::assert_date(date_to)
 
       if (!file.exists(bucket)) {
-        return(empty_template)
+        return(dplyr::tibble())
       }
 
       readLines(bucket) %>%

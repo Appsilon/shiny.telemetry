@@ -25,6 +25,17 @@ mock_session <- list(clientData = list(url_search = ""))
 telemetry$start_session(mock_session, logout = FALSE)
 
 telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
+
+telemetry <- Telemetry$new(
+  data_storage = DataStorageLogFile$new(
+    log_file_path = tempfile(pattern = "user_stats", fileext = ".txt"),
+    session_file_path = tempfile(pattern = "session_details", fileext = ".txt")
+  )
+)
+
+telemetry$start_session(shiny::reactiveValues(), logout = FALSE)
+
+telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 }
 \seealso{
 [shiny.telemetry::DataStorage] which this function wraps.

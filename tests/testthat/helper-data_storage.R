@@ -8,12 +8,6 @@ test_common <- function(data_storage) {
   date_to <- Sys.Date() + 10
 
   #
-  # check for username and session
-
-  expect_true(checkmate::test_string(data_storage$username))
-  expect_true(checkmate::test_string(data_storage$session_id))
-
-  #
   # Empty results should be allowed to run smoothly and without problems
 
   user_data_empty <- data_storage$read_user_data(date_from, date_to)
@@ -37,29 +31,23 @@ test_common <- function(data_storage) {
     data_storage$insert(list(action = "click", id = "some_button_id"))
     data_storage$insert(list(action = "click", id = "some_button_id_2"))
     data_storage$insert(
-      list(detail = "bla"),
-      bucket = data_storage$session_bucket,
-      add_username = FALSE
+      list(detail = "bla"), bucket = data_storage$session_bucket
     )
     data_storage$insert(
-      list(detail = "yada"),
-      bucket = data_storage$session_bucket,
-      add_username = FALSE
+      list(detail = "yada"), bucket = data_storage$session_bucket
     )
 
     # insert with custom session and username
     data_storage$insert(
       list(
         action = "click", id = "id1", session = "s1", username = "u1"
-      ),
-      force_params = FALSE, add_username = FALSE
+      )
     )
 
     data_storage$insert(
       list(
         action = "click", id = "id1", session = "s2", username = "u1"
-      ),
-      force_params = FALSE, add_username = FALSE
+      )
     )
   })
 
