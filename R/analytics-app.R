@@ -1,7 +1,7 @@
-analytics_ui <- function(css_path = NULL) {
+analytics_ui <- function() {
   semantic.dashboard::dashboardPage(
     title = "App usage statistics",
-    header = analytics_header(css_path = css_path),
+    header = analytics_header,
     sidebar = analytics_sidebar,
     body = analytics_body
   )
@@ -21,12 +21,11 @@ analytics_server <- function(data_storage) {
 #'
 #' @param data_storage data_storage instance that will handle all backend read
 #' and writes.
-#' @param css_path string path to css file
 #'
 #' @export
-analytics_app <- function(data_storage, css_path = NULL) {
+analytics_app <- function(data_storage) {
   shiny::shinyApp(
-    ui = analytics_ui(css_path = NULL),
+    ui = analytics_ui(),
     server = analytics_server(data_storage = data_storage)
   )
 }
