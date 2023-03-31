@@ -2,13 +2,11 @@ library(shiny)
 library(shiny.telemetry)
 library(dplyr)
 
-logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
-
 get_user <- function(session) {
   username <- shiny::isolate(shiny::parseQueryString(session$clientData$url_search)$username)
   if (is.null(username)) username <- "unknownUser"
   shiny::req(username)
-  return(username)
+  username
 }
 
 ui <- fluidPage(
@@ -24,19 +22,38 @@ ui <- fluidPage(
     mainPanel(
       plotOutput("distPlot")
     )
+  ),
+  tags$hr(),
+  tags$div(
+    tags$h3("Sample application instrumented by Shiny.telemetry"),
+    tags$p(glue::glue("Note: using {config::get('data_storage')$class_name} as data backend.")),
+    tags$p("Information logged:"),
+    tags$ul(
+      tags$li("Start of session"),
+      tags$li("Every time slider changes"),
+      tags$li("Click of 'Apply' button")
+    )
   )
 )
 
 server <- function(input, output, session) {
 
+  # Default storage backend using LogFile
   data_storage <- DataStorageLogFile$new(
-    username = "test_user",
+    username = get_user(session),
     log_file_path = file.path(getwd(), "user_stats.txt"),
     session_file_path = file.path(getwd(), "session_details.txt")
   )
 
-  # Used for package deployment of test application on connect
-  if (Sys.getenv("FORCE_PLUMBER_CONFIG") == "1") source("force_plumber_ds.R")
+  # This sample application includes a configuration for RSConnect deployments,
+  # that uses parameters in `config.yml` file to define Data Storage backend
+  if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
+    data_storage <- do.call(
+      config::get("data_storage")$class$new,
+      config::get("data_storage")$params %>%
+        purrr::assign_in("username", get_user(session))
+    )
+  }
 
   log_browser_version(data_storage, input)
 
@@ -62,4 +79,4 @@ server <- function(input, output, session) {
   log_logout(data_storage)
 }
 
-shinyApp(ui = ui, server = server, options = list(port = 8888, launch.browser = FALSE))
+shinyApp(ui = ui, server = server)

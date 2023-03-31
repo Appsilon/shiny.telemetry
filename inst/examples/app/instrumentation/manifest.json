@@ -486,6 +486,38 @@
         "Built": "R 4.2.2; x86_64-pc-linux-gnu; 2023-03-07 23:32:31 UTC; unix"
       }
     },
+    "config": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "config",
+        "Type": "Package",
+        "Title": "Manage Environment Specific Configuration Values",
+        "Version": "0.3.1",
+        "Authors@R": "c(\n  person(\"JJ\", \"Allaire\", role = c(\"aut\"), email = \"jj@rstudio.com\"),\n  person(\"Andrie\", \"de Vries\", role = \"cre\", email = \"apdevries@gmail.com\"),\n  person(\"RStudio\", role = c(\"cph\", \"fnd\")))",
+        "Imports": "yaml (>= 2.1.19)",
+        "Suggests": "testthat, knitr, rmarkdown, covr, spelling",
+        "Description": "Manage configuration values across multiple environments (e.g.\n  development, test, production). Read values using a function that determines\n  the current environment and returns the appropriate value.",
+        "License": "GPL-3",
+        "URL": "https://github.com/rstudio/config",
+        "BugReports": "https://github.com/rstudio/config/issues",
+        "RoxygenNote": "7.1.1",
+        "VignetteBuilder": "knitr",
+        "Encoding": "UTF-8",
+        "Language": "en-US",
+        "NeedsCompilation": "no",
+        "Packaged": "2020-12-15 13:05:30 UTC; apdev",
+        "Author": "JJ Allaire [aut],\n  Andrie de Vries [cre],\n  RStudio [cph, fnd]",
+        "Maintainer": "Andrie de Vries <apdevries@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2020-12-17 11:00:06 UTC",
+        "Built": "R 4.2.2; ; 2023-03-07 23:32:37 UTC; unix"
+      }
+    },
     "cpp11": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -2018,17 +2050,53 @@
         "Date/Publication": "2019-04-21 12:20:03 UTC",
         "Built": "R 4.2.2; ; 2023-03-07 23:37:08 UTC; unix"
       }
+    },
+    "yaml": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "GithubRepo": null,
+      "GithubUsername": null,
+      "GithubRef": null,
+      "GithubSha1": null,
+      "description": {
+        "Package": "yaml",
+        "Type": "Package",
+        "Title": "Methods to Convert R Data to YAML and Back",
+        "Date": "2023-01-18",
+        "Version": "2.3.7",
+        "Suggests": "RUnit",
+        "Author": "Shawn P Garbett [aut], Jeremy Stephens [aut, cre], Kirill Simonov [aut], Yihui Xie [ctb],\n  Zhuoer Dong [ctb], Hadley Wickham [ctb], Jeffrey Horner [ctb], reikoch [ctb],\n  Will Beasley [ctb], Brendan O'Connor [ctb], Gregory R. Warnes [ctb],\n  Michael Quinn [ctb], Zhian N. Kamvar [ctb]",
+        "Maintainer": "Shawn Garbett <shawn.garbett@vumc.org>",
+        "License": "BSD_3_clause + file LICENSE",
+        "Description": "Implements the 'libyaml' 'YAML' 1.1 parser and emitter\n  (<https://pyyaml.org/wiki/LibYAML>) for R.",
+        "URL": "https://github.com/vubiostat/r-yaml/",
+        "BugReports": "https://github.com/vubiostat/r-yaml/issues",
+        "NeedsCompilation": "yes",
+        "Packaged": "2023-01-18 17:20:16 UTC; garbetsp",
+        "Repository": "CRAN",
+        "Date/Publication": "2023-01-23 18:40:02 UTC",
+        "Built": "R 4.2.2; x86_64-pc-linux-gnu; 2023-03-07 23:18:12 UTC; unix"
+      }
     }
   },
   "files": {
+    ".Renviron": {
+      "checksum": "3274e778ab0039eaec453dc82a891f40"
+    },
     ".Rprofile": {
-      "checksum": "fdfcb9ee3160482539f6db61207d0fee"
+      "checksum": "aaaca1c1cd0dae4b4522140ad7eaeaa1"
     },
     "analytics.sqlite": {
       "checksum": "81f15e5a7feffed94d74ba68220fb6e4"
     },
     "app.R": {
-      "checksum": "18608acbbc74f4c49d6a4405cf983bd6"
+      "checksum": "d5c105b7b90eeba344a5ee42cf1be80f"
+    },
+    "config.yml": {
+      "checksum": "181410c62065e5c89698c4171aa51502"
+    },
+    "user_stats.txt": {
+      "checksum": "519945dc537698fa7fa86a41f3f9b95d"
     }
   },
   "users": null
