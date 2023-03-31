@@ -13,9 +13,6 @@
     <loc>https://appsilon.github.io/shiny.telemetry/index.html</loc>
   </url>
   <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/AVAILABLE_DB_DRIVERS.html</loc>
-  </url>
-  <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorage.html</loc>
   </url>
   <url>
@@ -28,9 +25,6 @@
     <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageRSQLite.html</loc>
   </url>
   <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/MAX_POSTGRES_CONNECTIONS.html</loc>
-  </url>
-  <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/browser_info_js.html</loc>
   </url>
   <url>
@@ -40,34 +34,13 @@
     <loc>https://appsilon.github.io/shiny.telemetry/reference/build_token.html</loc>
   </url>
   <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/connect_to_db.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/get_config.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/get_users_data.html</loc>
-  </url>
-  <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/initialize_connection.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/list_stats_targets.html</loc>
   </url>
   <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/log_input.html</loc>
   </url>
   <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/prepare_admin_panel_components.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/register_user.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/retrieve_users.html</loc>
   </url>
   <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/shiny.telemetry-package.html</loc>
@@ -77,8 +50,5 @@
   </url>
   <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/shiny_stats_ui.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/source_renviron.html</loc>
   </url>
 </urlset>
