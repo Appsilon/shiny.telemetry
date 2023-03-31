@@ -1,4 +1,13 @@
 library(shiny)
+library(shiny.semantic)
+library(semantic.dashboard)
+library(shinyjs)
+library(tidyr)
+library(dplyr)
+library(purrr)
+library(plotly)
+library(timevis)
+library(DT)
 
 # please install shiny.telemetry with all dependencies
 # install.packages("shiny.telemetry", dependencies = TRUE)
