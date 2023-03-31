@@ -1,26 +1,38 @@
 # REMOVE ME!!
 logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
 
-#' Telemetry class to manage telemetry at a global level (outside a session)
+#' Telemetry class to manage analytics gathering at a global level
 #'
 #' @description
+#' An instance of this class will define metadata and data storage provider
+#' for gathering telemetry analytics of a Shiny dashboard.
 #'
 #'
+#' The `name` and `version` parameters will describe the dashboard name and
+#' version to track using analytics, allowing to store the analytics data from
+#' multiple dashboards in the same data storage provider. As well as
+#' discriminate different versions of the dashboard.
+#'
+#'
+#' The default data storage provider uses a local SQLite database, but this
+#' can be customizable when instanciating the class, by using another one of
+#' the supported providers (see [DataStorage]).
+#'
+#' @seealso [shiny.telemetry::DataStorage] which this function wraps.
 #' @export
 #' @examples
 #' telemetry <- Telemetry$new()
 #'
 #' mock_session <- list(clientData = list(url_search = ""))
-#' ts <- telemetry$start_session(mock_session, track_inputs = FALSE, logout = FALSE)
+#' telemetry$start_session(mock_session, logout = FALSE)
 #'
 #' telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 Telemetry <- R6::R6Class( # nolint object_name_linter
   classname = "Telemetry",
   public = list(
 
-    data_storage = NULL,
-
     #' @description
+    #' Constructor that initialize Telemetry instance with parameters.
     #'
     #' @param name (optional) string that identifies the name of the dashboard.
     #' By default it will store data with `(dashboard)`.
@@ -39,7 +51,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         db_path = file.path("telemetry.sqlite")
       )
     ) {
-      self$data_storage <- data_storage
+      checkmate::assert_string(name)
+      checkmate::assert_string(version)
+
+      private$.data_storage <- data_storage
+
       private$.name <- name
       private$.version <- version
     },
@@ -47,7 +63,23 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @description
     #' Setup basic telemetry
     #'
-    #' @param session
+    #' @param input [shiny::reactiveValues] object containing the inputs for
+    #' a Shiny dashboard.
+    #' @param track_inputs flag that indicates if the basic telemetry should
+    #' track the inputs that change version. `TRUE` by default
+    #' @param track_values flag that indicates if the basic telemetry should
+    #' track the values of the inputs that are changing. `FALSE` by default.
+    #' This parameter is ignored if `track_inputs` is `FALSE`
+    #' @param login flag that indicates if the basic telemetry should
+    #' track when a session starts. `TRUE` by default.
+    #' @param logout flag that indicates if the basic telemetry should
+    #' track when the session ends. `TRUE` by default.
+    #' @param browser_version flag that indicates if the basic telemetry should
+    #' track the browser version. `TRUE` by default.
+    #' @param save_in_session flag that indicates if the telemetry instance
+    #' should be stored in the current session `userData`.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
 
     start_session = function(
       input,
@@ -107,6 +139,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @description
     #' Log when session starts
     #'
+    #' @param username string with username from current session
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
 
     log_login = function(
       username = NULL, session = shiny::getDefaultReactiveDomain()
@@ -123,6 +158,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @description
     #' Log when session ends
     #'
+    #' @param username string with username from current session
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
 
     log_logout = function(
       username = NULL, session = shiny::getDefaultReactiveDomain()
@@ -137,11 +175,13 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         )
 
         # TODO: remove me
-
+        logger::log_debug("", namespace = "shiny.telemetry")
+        logger::log_debug("Printing the last 10 rows before quiting", namespace = "shiny.telemetry")
         print(
-          telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |>
-            tail()
+          self$data_storage$read_user_data("2020-01-01", "2025-01-01") |>
+            tail(n = 10)
         )
+        logger::log_debug("Only showing last 10 rows", namespace = "shiny.telemetry")
 
         # private$.telemetry$data_storage$close()
       }, session)
@@ -150,6 +190,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @description
     #' Log an action click
     #'
+    #' @param id string that identifies a manual click to the dashboard.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
 
     log_click = function(id, session = shiny::getDefaultReactiveDomain()) {
       checkmate::assert_string(id)
@@ -164,8 +207,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     },
 
     #' @description
-    #' A short description...
+    #' Log the browser version
     #'
+    #' @param input [shiny::reactiveValues] object containing the inputs for
+    #' a Shiny dashboard.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
 
     log_browser_version = function(
       input, session = shiny::getDefaultReactiveDomain()
@@ -188,8 +235,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     },
 
     #' @description
-    #' A short description...
+    #' Log session details
     #'
+    #' @param detail string with details about the session.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
 
     log_session_details = function(
       detail, session = shiny::getDefaultReactiveDomain()
@@ -199,14 +249,21 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       logger::log_debug("session_details: {detail}", namespace = "shiny.telemetry")
 
       private$log_session(
-        value = detail,
+        event = detail,
         session = session
       )
     },
 
     #' @description
-    #' A short description...
+    #' Track a button and track changes to this input (without storing the
+    #' values)
     #'
+    #' @param input [shiny::reactiveValues] object containing the inputs for
+    #' a Shiny dashboard.
+    #' @param input_id string that identifies the button in the Shiny
+    #' application so that the function can track and log changes to it.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
 
     log_button = function(
       input, input_id, session = shiny::getDefaultReactiveDomain()
@@ -217,6 +274,16 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @description
     #' A short description...
     #'
+    #' @param input [shiny::reactiveValues] object containing the inputs for
+    #' a Shiny dashboard.
+    #' @param track_values flag that indicates if the basic telemetry should
+    #' track the values of the inputs that are changing. `FALSE` by default.
+    #' This parameter is ignored if `track_inputs` is `FALSE`.
+    #' @param excluded_inputs vector of input_ids that should not be tracked.
+    #' By default it doesn't track browser version, which is added by this
+    #' package.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
 
     log_all_inputs = function(
       input,
@@ -279,7 +346,17 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
     #' @description
     #' A short description...
-    #'
+    #' @param input [shiny::reactiveValues] object containing the inputs for
+    #' a Shiny dashboard.
+    #' @param input_id string that identifies the generic input in the Shiny
+    #' application so that the function can track and log changes to it.
+    #' @param track_value flag that indicates if the basic telemetry should
+    #' track the value of the input that are changing. `FALSE` by default.
+    #' @param matching_values An object specified possible values to register.
+    #' @param input_type 'text' to registered bare input value, 'json' to parse
+    #' value from JSON format.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
 
     log_input = function(
       input,
@@ -323,13 +400,26 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
   ),
   active = list(
+
+    #' @field data_storage instance of a class that inherits from
+    #' [DataStorage]. See the documentation on that class for more information.
+
+    data_storage = function() private$.data_storage,
+
+    #' @field dashboard string with name of dashboard
+
     dashboard = function() private$.name,
+
+    #' @field version string with version of the dashboard
+
     version = function() private$.version
   ),
   private = list(
+
     track_all_inputs_flag = FALSE,
     .name = NULL,
     .version = NULL,
+    .data_storage = NULL,
 
     # Methods
 
@@ -370,7 +460,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       if (isTRUE(add_username)) {
         if (!is.null(session)) {
-          username <- shiny::isolate(shiny::parseQueryString(session$clientData$url_search)$username)
+          username <- shiny::isolate(
+            shiny::parseQueryString(session$clientData$url_search)$username
+          )
           if (is.null(username)) username <- "unknownUser"
           shiny::req(username)
           payload$username <- username

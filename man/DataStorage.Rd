@@ -38,21 +38,11 @@ details data}
 \if{html}{\out{<a id="method-DataStorage-new"></a>}}
 \if{latex}{\out{\hypertarget{method-DataStorage-new}{}}}
 \subsection{Method \code{new()}}{
-initialize data storage object
+initialize data storage object common with all providers
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorage$new(username, session_id = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorage$new()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{username}}{string with username of the current session}
-
-\item{\code{session_id}}{string with custom session id. We recommend using the
-session$token from Shiny}
-}
-\if{html}{\out{</div>}}
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataStorage-insert"></a>}}
@@ -60,12 +50,7 @@ session$token from Shiny}
 \subsection{Method \code{insert()}}{
 Insert new data
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorage$insert(
-  values,
-  bucket = "user_log",
-  add_username = TRUE,
-  force_params = TRUE
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorage$insert(values, bucket = self$action_bucket)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -75,13 +60,6 @@ Insert new data
 
 \item{\code{bucket}}{string with name of type of data to write (example, for
 SQL it should represent a table).}
-
-\item{\code{add_username}}{boolean flag that indicates if line should include
-the username of the current session.}
-
-\item{\code{force_params}}{boolean flag that indicates if `session`,
-`username` and `time` parameters should be added automatically
-(the default behavior).}
 }
 \if{html}{\out{</div>}}
 }

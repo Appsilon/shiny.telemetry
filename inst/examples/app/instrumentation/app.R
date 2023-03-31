@@ -11,7 +11,7 @@ get_user <- function(session) {
 }
 
 ui <- fluidPage(
-  tags$head(browser_info_js()),
+  use_telemetry(),
   titlePanel("Old Faithful Geyser Data"),
   sidebarLayout(
     sidebarPanel(
@@ -37,35 +37,33 @@ ui <- fluidPage(
   )
 )
 
-server <- function(input, output, session) {
-
-  # Default storage backend using LogFile
-  data_storage <- DataStorageLogFile$new(
+# Default Telemetry with data storage backend using LogFile
+telemetry <- Telemetry$new(
+  name = "demo",
+  version = "v0.0.9007",
+  data_storage = DataStorageLogFile$new(
     username = get_user(session),
     log_file_path = file.path(getwd(), "user_stats.txt"),
     session_file_path = file.path(getwd(), "session_details.txt")
   )
+)
 
-  # This sample application includes a configuration for RSConnect deployments,
-  # that uses parameters in `config.yml` file to define Data Storage backend
-  if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
-    data_storage <- do.call(
+# This sample application includes a configuration for RSConnect deployments,
+# that uses parameters in `config.yml` file to define Data Storage backend
+if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
+  telemetry <- Telemetry$new(
+    name = "demo",
+    version = "v0.0.9007",
+    data_storage = do.call(
       config::get("data_storage")$class$new,
       config::get("data_storage")$params %>%
         purrr::assign_in("username", get_user(session))
     )
-  }
+  )
+}
 
-  log_browser_version(data_storage, input)
-
-  # registering login
-  log_login(data_storage)
-
-  log_click(data_storage, id = "random_click_with_init")
-
-  # selecting registered actions to watch
-  log_button(data_storage, input, button_id = "apply_slider")
-  log_input(data_storage, input, input_id = "bins")
+server <- function(input, output, session) {
+  t2 <- telemetry$start_session(input)
 
   # server code
   output$distPlot <- renderPlot({
@@ -75,9 +73,15 @@ server <- function(input, output, session) {
     hist(x, breaks = bins, col = "darkgray", border = "white")
   })
 
-  # registering logout (this also disconnects connection object, if not used
-  #  take care of it on your own)
-  log_logout(data_storage)
+  telemetry$log_click("another click")
+
+  # or
+
+  session$userData$telemetry$log_click("some_id_click")
+
+  # or
+
+  t2$log_click("another click")
 }
 
 shinyApp(ui = ui, server = server)
