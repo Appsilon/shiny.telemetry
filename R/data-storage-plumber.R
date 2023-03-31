@@ -12,7 +12,6 @@
 #' # running these examples (NULL or a valid secret)
 #'
 #' data_storage <- DataStoragePlumber$new(
-#'   username = "test_user",
 #'   hostname = "connect.appsilon.com",
 #'   path = "shiny_telemetry_plumber",
 #'   port = 443,
@@ -22,7 +21,6 @@
 #' )
 #'
 #' data_storage <- DataStoragePlumber$new(
-#'   username = "test_user",
 #'   hostname = "127.0.0.1",
 #'   path = NULL,
 #'   port = 8087,
@@ -30,12 +28,13 @@
 #'   secret = Sys.getenv("PLUMBER_SECRET")
 #' )
 #'
-#' log_login(data_storage)
+#' telemetry <- Telemetry$new(data_storage = data_storage)
+#' telemetry$log_login()
 #'
-#' log_click(data_storage, "an_id")
-#' log_click(data_storage, "a_different_id")
+#' telemetry$log_click("an_id")
+#' telemetry$log_click("a_different_id")
 #'
-#' log_session_detail(data_storage, detail = "some detail")
+#' telemetry$log_session(detail = "some detail")
 #'
 #' data_storage$read_user_data("2020-01-01", "2025-01-01")
 #' data_storage$read_session_data("2020-01-01", "2025-01-01")
@@ -49,8 +48,6 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
     #' @description
     #' Initialize the data storage class
-    #' @param username string with username of the current session.
-    #' @param session_id string with custom session id (should not be used).
     #' @param hostname string with hostname of plumber instance,
     #' @param port numeric value with port number of plumber instance.
     #' @param path string with sub-path of plumber deployment.
@@ -63,8 +60,6 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' server).
 
     initialize = function(
-      username,
-      session_id = NULL,
       hostname = "127.0.0.1",
       port = 80,
       protocol = "http",
@@ -72,9 +67,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       secret = NULL,
       authorization = NULL
     ) {
-      super$initialize(username, session_id)
-
-      checkmate::assert_string(username)
+      super$initialize()
 
       private$hostname <- hostname
       private$port <- port
@@ -93,21 +86,9 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' @description Insert new data
     #' @param values list of values to write to database
     #' @param bucket name of table to write
-    #' @param add_username boolean flag that indicates if line should include
-    #' the username of the current session
-    #' @param force_params boolean flag that indicates if `session`,
-    #' `username` and `time` parameters should be added automatically
-    #' (the default behavior).
 
-    insert = function(
-      values,
-      bucket = self$action_bucket,
-      add_username = TRUE,
-      force_params = TRUE
-    ) {
-      values <- private$insert_checks(
-        values, bucket, add_username, force_params
-      )
+    insert = function(values, bucket = self$action_bucket) {
+      values <- private$insert_checks(values, bucket)
 
       private$write(values, bucket)
     },

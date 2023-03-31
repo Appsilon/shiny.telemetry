@@ -1,5 +1,6 @@
 test_common <- function(data_storage) {
   require(testthat)
+  withr::defer(data_storage$close())
 
   #
   # Necessary constants for the tests

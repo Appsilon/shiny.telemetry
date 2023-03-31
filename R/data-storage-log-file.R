@@ -12,12 +12,13 @@
 #'   session_file_path = tempfile(pattern = "session_details", fileext = ".json")
 #' )
 #'
-#' log_login(data_storage)
+#' telemetry <- Telemetry$new(data_storage = data_storage)
+#' telemetry$log_login()
 #'
-#' log_click(data_storage, "an_id")
-#' log_click(data_storage, "a_different_id")
+#' telemetry$log_click("an_id")
+#' telemetry$log_click("a_different_id")
 #'
-#' log_session_detail(data_storage, detail = "some detail")
+#' telemetry$log_session(detail = "some detail")
 #'
 #' data_storage$read_user_data("2020-01-01", "2025-01-01")
 #' data_storage$read_session_data("2020-01-01", "2025-01-01")

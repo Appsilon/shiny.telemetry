@@ -11,15 +11,17 @@ API for read/write operations
 data_storage <- DataStorageRSQLite$new(
   db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
 )
-log_login(data_storage)
 
-log_click(data_storage, "an_id")
-log_click(data_storage, "a_different_id")
+telemetry <- Telemetry$new(data_storage = data_storage)
+telemetry$log_login()
 
-log_session_detail(data_storage, detail = "some detail")
+telemetry$log_click("an_id")
+telemetry$log_click("a_different_id")
 
-data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
+telemetry$log_session(detail = "some detail")
+
 data_storage$read_user_data("2020-01-01", "2025-01-01")
+data_storage$read_session_data("2020-01-01", "2025-01-01")
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageRSQLite}

@@ -10,15 +10,17 @@
 #' data_storage <- DataStorageRSQLite$new(
 #'   db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
 #' )
-#' log_login(data_storage)
 #'
-#' log_click(data_storage, "an_id")
-#' log_click(data_storage, "a_different_id")
+#' telemetry <- Telemetry$new(data_storage = data_storage)
+#' telemetry$log_login()
 #'
-#' log_session_detail(data_storage, detail = "some detail")
+#' telemetry$log_click("an_id")
+#' telemetry$log_click("a_different_id")
 #'
-#' data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
+#' telemetry$log_session(detail = "some detail")
+#'
 #' data_storage$read_user_data("2020-01-01", "2025-01-01")
+#' data_storage$read_session_data("2020-01-01", "2025-01-01")
 DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageRSQLite",
   inherit = DataStorage,
@@ -76,6 +78,9 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_session_data = function(date_from, date_to) {
+      date_from <- private$check_date(date_from, .var_name = "date_from")
+      date_to <- private$check_date(date_to, .var_name = "date_to")
+
       db_data <- private$read_data(self$session_bucket, date_from, date_to)
 
       db_data %>%

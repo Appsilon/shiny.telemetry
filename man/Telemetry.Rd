@@ -15,14 +15,13 @@ discriminate different versions of the dashboard.
 
 
 The default data storage provider uses a local SQLite database, but this
-can be customizable when instanciating the class, by using another one of
+can be customizable when instantiating the class, by using another one of
 the supported providers (see [DataStorage]).
 }
 \examples{
 telemetry <- Telemetry$new()
 
-mock_session <- list(clientData = list(url_search = ""))
-telemetry$start_session(mock_session, logout = FALSE)
+telemetry$start_session(input = shiny::reactiveValues(), logout = FALSE)
 
 telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 
@@ -61,7 +60,7 @@ telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 \item \href{#method-Telemetry-log_logout}{\code{Telemetry$log_logout()}}
 \item \href{#method-Telemetry-log_click}{\code{Telemetry$log_click()}}
 \item \href{#method-Telemetry-log_browser_version}{\code{Telemetry$log_browser_version()}}
-\item \href{#method-Telemetry-log_session_details}{\code{Telemetry$log_session_details()}}
+\item \href{#method-Telemetry-log_session}{\code{Telemetry$log_session()}}
 \item \href{#method-Telemetry-log_button}{\code{Telemetry$log_button()}}
 \item \href{#method-Telemetry-log_all_inputs}{\code{Telemetry$log_all_inputs()}}
 \item \href{#method-Telemetry-log_input}{\code{Telemetry$log_input()}}
@@ -239,15 +238,12 @@ Shiny session.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Telemetry-log_session_details"></a>}}
-\if{latex}{\out{\hypertarget{method-Telemetry-log_session_details}{}}}
-\subsection{Method \code{log_session_details()}}{
+\if{html}{\out{<a id="method-Telemetry-log_session"></a>}}
+\if{latex}{\out{\hypertarget{method-Telemetry-log_session}{}}}
+\subsection{Method \code{log_session()}}{
 Log session details
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_session_details(
-  detail,
-  session = shiny::getDefaultReactiveDomain()
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_session(detail, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

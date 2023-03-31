@@ -1,5 +1,3 @@
-# TODO: REMOVE ME!!
-logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
 
 #' Telemetry class to manage analytics gathering at a global level
 #'
@@ -15,7 +13,7 @@ logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
 #'
 #'
 #' The default data storage provider uses a local SQLite database, but this
-#' can be customizable when instanciating the class, by using another one of
+#' can be customizable when instantiating the class, by using another one of
 #' the supported providers (see [DataStorage]).
 #'
 #' @seealso [shiny.telemetry::DataStorage] which this function wraps.
@@ -23,8 +21,7 @@ logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
 #' @examples
 #' telemetry <- Telemetry$new()
 #'
-#' mock_session <- list(clientData = list(url_search = ""))
-#' telemetry$start_session(mock_session, logout = FALSE)
+#' telemetry$start_session(input = shiny::reactiveValues(), logout = FALSE)
 #'
 #' telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 #'
@@ -159,7 +156,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       logger::log_debug("login", namespace = "shiny.telemetry")
 
-      private$log_action(
+      private$.log_event(
         event = "login user",
         value = username,
         session = session
@@ -179,22 +176,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       shiny::onSessionEnded(function() {
         logger::log_debug("logout", namespace = "shiny.telemetry")
 
-        private$log_action(
+        private$.log_event(
           event = "logout user",
           value = username,
           session = session
         )
-
-        # TODO: remove me
-        logger::log_debug("", namespace = "shiny.telemetry")
-        logger::log_debug("Printing the last 10 rows before quiting", namespace = "shiny.telemetry")
-        print(
-          self$data_storage$read_user_data("2020-01-01", "2025-01-01") |>
-            tail(n = 10)
-        )
-        logger::log_debug("Only showing last 10 rows", namespace = "shiny.telemetry")
-
-        # private$.telemetry$data_storage$close()
       }, session)
     },
 
@@ -210,7 +196,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       logger::log_debug("click: {id}", namespace = "shiny.telemetry")
 
-      private$log_action(
+      private$.log_event(
         event = "click",
         id = id,
         session = session
@@ -237,7 +223,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
           "browser_version: {browser}", namespace = "shiny.telemetry"
         )
 
-        private$log_action(
+        private$.log_event(
           event = "browser",
           value = browser,
           session = session
@@ -252,15 +238,15 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
 
-    log_session_details = function(
+    log_session = function(
       detail, session = shiny::getDefaultReactiveDomain()
     ) {
       checkmate::assert_string(detail)
 
       logger::log_debug("session_details: {detail}", namespace = "shiny.telemetry")
 
-      private$log_session(
-        event = detail,
+      private$.log_session(
+        detail = detail,
         session = session
       )
     },
@@ -338,7 +324,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
               }
 
               if (isTRUE(track_values)) {
-                private$log_action(
+                private$.log_event(
                   event = "input",
                   id = name,
                   value = new[[name]],
@@ -346,7 +332,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
                 )
                 next
               }
-              private$log_action(
+              private$.log_event(
                 event = "input",
                 id = name,
                 session = session
@@ -402,7 +388,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             ))
           }
 
-          private$log_action(
+          private$.log_event(
             event = "input", id = input_id, session = session
           )
 
@@ -446,7 +432,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       use_detail = FALSE,
       bucket = NULL
     ) {
-      checkmate::assert_string(event)
+      checkmate::assert_string(event, null.ok = TRUE)
       checkmate::assert_string(id, null.ok = TRUE)
       checkmate::assert(
         .combine = "or",
@@ -502,7 +488,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
     },
 
-    log_action = function(
+    .log_event = function(
       event = NULL, id = NULL, value = NULL, session = NULL
     ) {
       private$log_generic(
@@ -515,15 +501,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
     },
 
-    log_session = function(
-      event = NULL, id = NULL, value = NULL, session = NULL
-    ) {
+    .log_session = function(detail = NULL, session = NULL) {
       private$log_generic(
-        event = event,
-        id = id,
-        value = value,
+        value = detail,
         session = session,
         add_username = FALSE,
+        use_detail = TRUE,
         bucket = self$data_storage$session_bucket
       )
     },
@@ -557,7 +540,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         purrr::walk2(
           input_value,
           input_ids,
-          ~ private$log_action(
+          ~ private$.log_event(
             event = "input",
             id = .y,
             value = .x,
