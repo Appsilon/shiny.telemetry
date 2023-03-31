@@ -1,7 +1,11 @@
 analytics_ui <- function() {
   semantic.dashboard::dashboardPage(
     title = "App usage statistics",
-    header = analytics_header,
+    header = analytics_header(
+      css_path = system.file(
+        "examples", "app", "analytics", "www", "styles.css", package = "shiny.telemetry"
+      )
+    ),
     sidebar = analytics_sidebar,
     body = analytics_body
   )
