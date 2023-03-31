@@ -159,7 +159,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_string(bucket)
       checkmate::assert_list(values)
 
-      send_query_df <- as.data.frame(values, stringsAsFactors = FALSE)
+      send_query_df <- dplyr::bind_rows(values)
 
       odbc::dbWriteTable(
         private$db_con,
