@@ -9,6 +9,8 @@ analytics_app(data_storage, css_path = NULL)
 \arguments{
 \item{data_storage}{data_storage instance that will handle all backend read
 and writes.}
+
+\item{css_path}{string path to css file}
 }
 \description{
 Run example telemetry analytics dashboard
