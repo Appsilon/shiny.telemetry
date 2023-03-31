@@ -1,13 +1,13 @@
-telemetry_ui <- function(css_path) {
+analytics_ui <- function(css_path) {
   semantic.dashboard::dashboardPage(
     title = "App usage statistics",
-    header = header_telemetry(css_path = css_path),
-    sidebar = sidebar_telemetry,
-    body = body_telemetry
+    header = analytics_header(css_path = css_path),
+    sidebar = analytics_sidebar,
+    body = analytic_body
   )
 }
 
-telemetry_server <- function(input, output, session, data_storage) {
+analytics_server <- function(input, output, session, data_storage) {
   session$user <- get_user(session)
 
   prepare_admin_panel_components(input, output, session, data_storage = data_storage)
@@ -19,9 +19,9 @@ telemetry_server <- function(input, output, session, data_storage) {
 #' and writes.
 #'
 #' @export
-run_analytics_dashboard <- function(data_storage, css_path = NULL) {
+analytics_app <- function(data_storage, css_path = NULL) {
   shiny::shinyApp(
-    ui = telemetry_ui(css_path = NULL),
-    server = telemetry_server(input, output, session, data_storage = data_storage)
+    ui = analytics_ui(css_path = NULL),
+    server = analytics_server(input, output, session, data_storage = data_storage)
   )
 }

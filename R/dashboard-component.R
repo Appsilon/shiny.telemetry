@@ -2,14 +2,14 @@
 
 # Header --------------------------------------------------------------------------------------
 
-header_telemetry <- function(css_path = NULL) {
+analytics_header <- function(css_path = NULL) {
   semantic.dashboard::dashboardHeader(
     shinyjs::useShinyjs(),
     shiny::suppressDependencies("bootstrap"),
     shiny::suppressDependencies("plotlyjs"),
     style = "min-height: 100%;",
     shiny::tags$head(
-      shiny::tags$link(rel = "stylesheet", href = "www/styles.css"),
+      shiny::tags$link(rel = "stylesheet", href = css_path),
       shiny::tags$script(src = "https://cdn.plot.ly/plotly-1.20.2.min.js"),
       shiny::tags$script(
         src = "https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js"
@@ -28,7 +28,7 @@ header_telemetry <- function(css_path = NULL) {
 
 # Sidebar -------------------------------------------------------------------------------------
 
-sidebar_telemetry <- semantic.dashboard::dashboardSidebar(
+analytics_sidebar <- semantic.dashboard::dashboardSidebar(
   size = "",
   semantic.dashboard::sidebarMenu(
     semantic.dashboard::menuItem(
@@ -158,7 +158,7 @@ session_specific_stats <- shiny.semantic::segment(
 # **Main body ---------------------------------------------------------------------------------
 
 # combine the two fluid rows to make the body
-body_telemetry <- semantic.dashboard::dashboardBody(
+analytics_body <- semantic.dashboard::dashboardBody(
   shiny::tags$head(
     shiny::tags$style(
       shiny::HTML(paste0(
