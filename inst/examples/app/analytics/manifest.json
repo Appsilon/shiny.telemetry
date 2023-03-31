@@ -2593,7 +2593,7 @@
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "Appsilon",
       "GithubRef": "feat/deploy-demo-analytics",
-      "GithubSha1": "0c323e1934cceb16f2377ce8b136b85338e3aca6",
+      "GithubSha1": "3bd5e3111ac9b0e462b0d3b06cd5d58871acdf16",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2604,8 +2604,8 @@
         "Description": "Easy way for logging users activity and adding statistics panel to your Shiny app.",
         "License": "MIT + file LICENSE",
         "Encoding": "UTF-8",
-        "Suggests": "testthat (>= 3.0.0), mockery, withr, lintr, spelling,\nrcmdcheck, RPostgreSQL, RColorBrewer",
-        "Imports": "bcrypt, checkmate, DBI, digest, dplyr, DT, glue, httr2,\njsonlite, logger, odbc, plotly, purrr, R6, rlang, RSQLite,\nscales, semantic.dashboard (>= 0.1.1), shiny, shiny.semantic,\nshinyjs, stats, tidyr, timevis, utils",
+        "Suggests": "testthat (>= 3.0.0), mockery, withr, lintr, spelling,\nrcmdcheck, RPostgreSQL, timevis, RColorBrewer, plotly, DT,\nshinyjs, scales, semantic.dashboard (>= 0.1.1), shiny.semantic\n(>= 0.2.0)",
+        "Imports": "purrr, tidyr, dplyr, odbc, DBI, jsonlite, logger, R6, RSQLite,\nrlang, bcrypt, checkmate, glue, shiny, httr2, digest",
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
@@ -2614,14 +2614,14 @@
         "RemoteRepo": "shiny.telemetry",
         "RemoteUsername": "Appsilon",
         "RemoteRef": "feat/deploy-demo-analytics",
-        "RemoteSha": "0c323e1934cceb16f2377ce8b136b85338e3aca6",
+        "RemoteSha": "3bd5e3111ac9b0e462b0d3b06cd5d58871acdf16",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "Appsilon",
         "GithubRef": "feat/deploy-demo-analytics",
-        "GithubSHA1": "0c323e1934cceb16f2377ce8b136b85338e3aca6",
+        "GithubSHA1": "3bd5e3111ac9b0e462b0d3b06cd5d58871acdf16",
         "NeedsCompilation": "no",
-        "Packaged": "2023-03-31 05:59:50 UTC; Recle E. Vibal",
-        "Built": "R 4.2.2; ; 2023-03-31 05:59:51 UTC; windows"
+        "Packaged": "2023-03-31 12:08:56 UTC; Recle E. Vibal",
+        "Built": "R 4.2.2; ; 2023-03-31 12:08:57 UTC; windows"
       }
     },
     "shinyjs": {
@@ -3187,6 +3187,9 @@
   "files": {
     "app.R": {
       "checksum": "a42bd3048414a22367d2d6e40f5153dc"
+    },
+    "www/styles.css": {
+      "checksum": "d41d8cd98f00b204e9800998ecf8427e"
     }
   },
   "users": null
