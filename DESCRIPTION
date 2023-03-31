@@ -18,7 +18,6 @@ Suggests:
     RPostgreSQL,
     timevis,
     RColorBrewer,
-    plotly,
     DT,
     tidyr,
     shinyjs,
@@ -49,6 +48,7 @@ Imports: purrr,
     glue,
     shiny,
     semantic.dashboard (>= 0.1.1),
+    plotly,
     httr2,
     digest
 RoxygenNote: 7.2.3
