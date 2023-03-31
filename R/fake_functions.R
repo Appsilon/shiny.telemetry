@@ -9,4 +9,5 @@ fake_function <- function() {
   RSQLite::SQLite
   digest::digest
   httr2::request
+  odbc::dbConnect
 }
