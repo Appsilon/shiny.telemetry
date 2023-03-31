@@ -23,4 +23,4 @@ data_storage <- DataStoragePlumber$new(
   secret = Sys.getenv("PLUMBER_SECRET")
 )
 
-run_analytics_dashboard(data_storage = data_storage)
+analytics_app(data_storage = data_storage)
