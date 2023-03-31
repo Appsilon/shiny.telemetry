@@ -19,7 +19,11 @@
 #' @seealso [shiny.telemetry::DataStorage] which this function wraps.
 #' @export
 #' @examples
-#' telemetry <- Telemetry$new()
+#' telemetry <- Telemetry$new(
+#'   data_storage = DataStorageRSQLite$new(
+#'     db_path = tempfile(pattern = "telemetry", fileext = ".sqlite")
+#'   )
+#' )
 #'
 #' telemetry$start_session(input = shiny::reactiveValues(), logout = FALSE)
 #'

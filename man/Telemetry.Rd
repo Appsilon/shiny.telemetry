@@ -19,7 +19,11 @@ can be customizable when instantiating the class, by using another one of
 the supported providers (see [DataStorage]).
 }
 \examples{
-telemetry <- Telemetry$new()
+telemetry <- Telemetry$new(
+  data_storage = DataStorageRSQLite$new(
+    db_path = tempfile(pattern = "telemetry", fileext = ".sqlite")
+  )
+)
 
 telemetry$start_session(input = shiny::reactiveValues(), logout = FALSE)
 
