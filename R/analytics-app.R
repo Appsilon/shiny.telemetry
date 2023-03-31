@@ -3,7 +3,7 @@ analytics_ui <- function(css_path) {
     title = "App usage statistics",
     header = analytics_header(css_path = css_path),
     sidebar = analytics_sidebar,
-    body = analytic_body
+    body = analytics_body
   )
 }
 
@@ -22,6 +22,9 @@ analytics_server <- function(input, output, session, data_storage) {
 analytics_app <- function(data_storage, css_path = NULL) {
   shiny::shinyApp(
     ui = analytics_ui(css_path = NULL),
-    server = analytics_server(input, output, session, data_storage = data_storage)
+    server = analytics_server(
+      input, output, session, # nolint: object_usage_linter
+      data_storage = data_storage
+    )
   )
 }
