@@ -114,7 +114,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       logger::log_debug("login", namespace = "shiny.telemetry")
 
       private$log_action(
-        action = "login user",
+        event = "login user",
         value = username,
         session = session
       )
@@ -131,7 +131,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         logger::log_debug("logout", namespace = "shiny.telemetry")
 
         private$log_action(
-          action = "logout user",
+          event = "logout user",
           value = username,
           session = session
         )
@@ -157,7 +157,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       logger::log_debug("click: {id}", namespace = "shiny.telemetry")
 
       private$log_action(
-        action = "click",
+        event = "click",
         id = id,
         session = session
       )
@@ -180,7 +180,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         )
 
         private$log_action(
-          action = "browser",
+          event = "browser",
           value = browser,
           session = session
         )
@@ -259,7 +259,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
             if (isTRUE(track_values)) {
               private$log_action(
-                action = "input",
+                event = "input",
                 id = name,
                 value = new[[name]],
                 session = session
@@ -267,7 +267,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
               next
             }
             private$log_action(
-              action = "input",
+              event = "input",
               id = name,
               session = session
             )
@@ -303,12 +303,16 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
           if (isTRUE(track_value)) {
             return(private$log_input_value(
-              input_id, input_value, matching_values, input_type
+              input_id,
+              input_value,
+              matching_values,
+              input_type,
+              session = session
             ))
           }
 
           private$log_action(
-            action = "input", id = input_id, session = session
+            event = "input", id = input_id, session = session
           )
 
         },
@@ -330,7 +334,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     # Methods
 
     log_generic = function(
-      action = NULL,
+      event = NULL,
       id = NULL,
       value = NULL,
       session = NULL,
@@ -338,7 +342,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       use_detail = FALSE,
       bucket = NULL
     ) {
-      checkmate::assert_string(action)
+      checkmate::assert_string(event)
       checkmate::assert_string(id, null.ok = TRUE)
       checkmate::assert(
         .combine = "or",
@@ -356,11 +360,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         value <- jsonlite::toJSON(value)
       }
 
-      values <- list(
+      payload <- list(
         session = session_token,
         dashboard = self$dashboard,
         version = self$version,
-        action = action,
+        action = event,
         id = id
       )
 
@@ -369,27 +373,27 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
           username <- shiny::isolate(shiny::parseQueryString(session$clientData$url_search)$username)
           if (is.null(username)) username <- "unknownUser"
           shiny::req(username)
-          values$username <- username
+          payload$username <- username
         }
       }
 
       if (isTRUE(use_detail)) {
-        values$detail <- value
+        payload$detail <- value
       } else {
-        values$value <- value
+        payload$value <- value
       }
 
       self$data_storage$insert(
-        values = values,
+        values = payload,
         bucket = bucket
       )
     },
 
     log_action = function(
-      action = NULL, id = NULL, value = NULL, session = NULL
+      event = NULL, id = NULL, value = NULL, session = NULL
     ) {
       private$log_generic(
-        action = action,
+        event = event,
         id = id,
         value = value,
         session = session,
@@ -399,10 +403,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     },
 
     log_session = function(
-      action = NULL, id = NULL, value = NULL, session = NULL
+      event = NULL, id = NULL, value = NULL, session = NULL
     ) {
       private$log_generic(
-        action = action,
+        event = event,
         id = id,
         value = value,
         session = session,
@@ -441,7 +445,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
           input_value,
           input_ids,
           ~ private$log_action(
-            values = list(action = "input", id = .y, value = .x)
+            event = "input",
+            id = .y,
+            value = .x,
+            session = session
           )
         )
       }
