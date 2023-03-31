@@ -25,7 +25,4 @@ if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
   )
 }
 
-# Used for package deployment of test application on connect
-if (Sys.getenv("FORCE_PLUMBER_CONFIG") == "1") source("force_plumber_ds.R")
-
 analytics_app(data_storage = data_storage)
