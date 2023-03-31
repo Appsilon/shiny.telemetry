@@ -218,5 +218,3 @@ analytics_app <- function(get_user, allow_admin_rule = function(session) TRUE, d
     server = analytics_server(get_user, allow_admin_rule = function(session) TRUE, db_credentials)
   )
 }
-
-
