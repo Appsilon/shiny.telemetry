@@ -34,7 +34,7 @@ jobs:
         run: |
           git switch bot/deploy 2>/dev/null || git switch -c bot/deploy
           rm -rf R README.md man DESCRIPTION NAMESPACE .Rbuildignore LICENSE tests
-          git checkout main -- inst/examples
+          git checkout ${{ github.sha }} -- inst/examples
 
       - name: Prepare Analytics App
         if : always()
