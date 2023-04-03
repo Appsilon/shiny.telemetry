@@ -52,6 +52,12 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
+      - name: Git verbose
+        run: |
+          git describe ${{ github.sha }}
+          git log
+          ls -ln
+
       - name: Cleanup unnecesary files (only passes if branch does not exist)
         continue-on-error: true
         run: |
@@ -65,6 +71,8 @@ jobs:
           git switch $BRANCH_DEPLOY 2>/dev/null || git switch -c $BRANCH_DEPLOY
           git fetch --unshallow
           git checkout ${{ github.sha }} -- inst/examples/app
+
+          ls -ln
 
           git mv inst/examples/app/analytics analytics
           git mv inst/examples/app/instrumentation instrumentation
