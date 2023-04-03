@@ -13,7 +13,13 @@ jobs:
   main:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      SHA: ${{ github.sha }}
     steps:
+      - name: Env step
+        run: |
+          print(paste("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
+
       - name: Setup system dependencies
         run: >
           sudo apt-get update && sudo apt-get install --yes
@@ -86,7 +92,7 @@ jobs:
         run: |
           setwd("analytics")
           renv::init()
-          renv::install("appsilon/shiny.telemetry")
+          renv::install(paste0("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
           renv::install("rsconnect")
           rsconnect::writeManifest()
 
@@ -96,7 +102,7 @@ jobs:
         run: |
           setwd("instrumentation")
           renv::init()
-          renv::install("appsilon/shiny.telemetry")
+          renv::install(paste0("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
           renv::install("rsconnect")
           rsconnect::writeManifest()
 
@@ -106,7 +112,7 @@ jobs:
         run: |
           setwd("plumber_rest_api")
           renv::restore()
-          renv::install("appsilon/shiny.telemetry")
+          renv::install(paste0("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
           renv::install("rsconnect")
           rsconnect::writeManifest()
 
