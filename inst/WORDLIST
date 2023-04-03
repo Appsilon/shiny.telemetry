@@ -1,5 +1,6 @@
 DataStorage
 JSON
+Logfile
 RStudio
 Rhinoverse
 ShinySession
@@ -8,9 +9,11 @@ analytics
 appsilon
 cloneable
 customizable
+filesystem
+github
 hostname
+javascript
 json
-moduleServer
 reactiveValues
 sqlfile
 sqlite

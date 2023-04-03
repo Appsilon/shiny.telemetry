@@ -376,10 +376,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       checkmate::assert_string(input_id)
       checkmate::assert_flag(track_value)
-      checkmate::assert_character(matching_values)
+      checkmate::assert_character(matching_values, null.ok = TRUE)
       checkmate::assert_string(input_type)
       checkmate::assert_choice(input_type, c("text", "json"))
-
 
       shiny::observeEvent(
         input[[input_id]],
@@ -388,10 +387,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
           if (isTRUE(track_value)) {
             return(private$log_input_value(
-              input_id,
-              input_value,
-              matching_values,
-              input_type,
+              input_id = input_id,
+              input_value = input_value,
+              matching_values = matching_values,
+              input_type = input_type,
               session = session
             ))
           }
@@ -520,7 +519,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     },
 
     log_input_value = function(
-      input_id, input_value, matching_values, input_type
+      input_id, input_value, matching_values, input_type, session
     ) {
       if (is.null(input_value)) {
         return(NULL)

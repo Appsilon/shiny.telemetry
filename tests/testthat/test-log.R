@@ -1,13 +1,19 @@
 test_that("log_input", {
   data_storage <- list(
     insert = function(values, bucket) {
-      message(glue::glue("Writing to {bucket} value: {values$value} id: {values$id}"))
+      if (!is.null(values$value)) {
+        message(glue::glue("Writing to {bucket} value: {values$value} id: {values$id}"))
+      } else {
+        message(glue::glue("Writing to {bucket} value change with id: {values$id}"))
+      }
     },
     action_bucket = "user_log"
   )
 
+  telemetry <- Telemetry$new(data_storage = data_storage)
+
   mockery::stub(
-    log_input,
+    telemetry$log_input,
     "shiny::observeEvent",
     function(eventExpr, handlerExpr, ...) { # nolint object_name_linter
       handlerExpr
@@ -16,11 +22,11 @@ test_that("log_input", {
 
   # Test simple usage of log_input
   expect_message(
-    log_input(
-      data_storage,
-      list(sample = 53, sample2 = 31),
-      "sample",
+    telemetry$log_input(
+      input = list(sample = 53, sample2 = 31),
+      input_id = "sample",
       matching_values = NULL,
+      track_value = TRUE,
       input_type = "text"
     ),
     "Writing to user_log value: 53 id: sample"
