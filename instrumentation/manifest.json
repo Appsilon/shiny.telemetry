@@ -1659,8 +1659,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "9c5acc1e95cfe274df862050ae72364a275559d3",
-      "GithubSha1": "9c5acc1e95cfe274df862050ae72364a275559d3",
+      "GithubRef": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6",
+      "GithubSha1": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -1677,18 +1677,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-03 14:27:50 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-03 14:59:14 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "9c5acc1e95cfe274df862050ae72364a275559d3",
-        "RemoteSha": "9c5acc1e95cfe274df862050ae72364a275559d3",
+        "RemoteRef": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6",
+        "RemoteSha": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "9c5acc1e95cfe274df862050ae72364a275559d3",
-        "GithubSHA1": "9c5acc1e95cfe274df862050ae72364a275559d3"
+        "GithubRef": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6",
+        "GithubSHA1": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6"
       }
     },
     "sourcetools": {
@@ -2082,13 +2082,22 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "4fb1e18c36a99beaf6235453687df41d"
+      "checksum": "bf8c2201bd82117e131579ebe403a899"
     },
     "app.R": {
       "checksum": "0e975220fb8a19a0c0514251906d6ebc"
     },
     "config.yml": {
       "checksum": "2c8fcf3c29e18ff1277d16035a31f0b2"
+    },
+    "instrumentation/app.R": {
+      "checksum": "0e975220fb8a19a0c0514251906d6ebc"
+    },
+    "instrumentation/config.yml": {
+      "checksum": "2c8fcf3c29e18ff1277d16035a31f0b2"
+    },
+    "instrumentation/manifest.json": {
+      "checksum": "638bd3a9cf91ea1f11b73101b6e3a6f7"
     }
   },
   "users": null
