@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - tmp/deployment
+      - main
 
 name: Prepare Connect Deployment
 
