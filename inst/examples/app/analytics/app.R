@@ -12,8 +12,8 @@ library(mgcv)
 library(config)
 library(DT)
 
-# please install shiny.telemetry with all dependencies
-# install.packages("shiny.telemetry", dependencies = TRUE)
+# Please install shiny.telemetry with all dependencies
+# remotes::install_github("Appsilon/shiny.telemetry", dependencies = TRUE)
 library(shiny.telemetry)
 
 # Default storage backend using LogFile
