@@ -438,7 +438,7 @@
     },
     "ggplot2": {
       "Package": "ggplot2",
-      "Version": "3.4.2",
+      "Version": "3.4.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -459,7 +459,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "3a147ee02e85a8941aad9909f1b43b7b"
+      "Hash": "d494daf77c4aa7f084dbbe6ca5dcaca7"
     },
     "glue": {
       "Package": "glue",
