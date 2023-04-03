@@ -8,6 +8,7 @@ library(purrr)
 library(plotly)
 library(timevis)
 library(ggplot2)
+library(mgcv)
 library(config)
 library(DT)
 

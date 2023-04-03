@@ -58,7 +58,6 @@ jobs:
         shell: Rscript {0}
         run: |
           setwd("inst/examples/app/analytics")
-          renv::install("mgcv")
           renv::init()
           renv::install("appsilon/shiny.telemetry")
           renv::install("rsconnect")
@@ -69,7 +68,6 @@ jobs:
         shell: Rscript {0}
         run: |
           setwd("inst/examples/app/instrumentation")
-          renv::install("mgcv")
           renv::init()
           renv::install("appsilon/shiny.telemetry")
           renv::install("rsconnect")
@@ -80,7 +78,6 @@ jobs:
         shell: Rscript {0}
         run: |
           setwd("plumber_rest_api")
-          renv::install("mgcv")
           renv::restore()
           renv::install("appsilon/shiny.telemetry")
           renv::install("rsconnect")
