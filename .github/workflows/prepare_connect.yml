@@ -54,7 +54,7 @@ jobs:
       - name: Cleanup unnecesary files (only passes if branch does not exist)
         continue-on-error: true
         run: |
-          git rm rm -rf R man tests pkgdown
+          git rm -rf R man tests pkgdown
           git rm -f DESCRIPTION NAMESPACE .Rbuildignore LICENSE
           git rm -f .lintr renovate.json .whitesource README.md
           git rm -rf inst
