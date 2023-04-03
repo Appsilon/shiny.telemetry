@@ -69,14 +69,11 @@ jobs:
         run: |
           git switch $BRANCH_DEPLOY 2>/dev/null || git switch -c $BRANCH_DEPLOY
 
-          git checkout ${{ github.sha }} -- inst/examples/app
-
-          ls -ln
+          git checkout ${{ github.sha }} -- inst/examples/app/analytics
+          git checkout ${{ github.sha }} -- inst/examples/app/instrumentation
 
           git mv inst/examples/app/analytics analytics
           git mv inst/examples/app/instrumentation instrumentation
-
-          git rm -rf inst
 
           git add analytics
           git add instrumentation
