@@ -1,0 +1,143 @@
+on:
+  push:
+    branches:
+      - main
+
+name: Prepare Connect Deployment
+
+env:
+  RENV_PATHS_ROOT: ~/.local/share/renv
+  BRANCH_DEPLOY: bot/deploy
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SHA: ${{ github.sha }}
+    steps:
+      - name: Setup system dependencies
+        run: >
+          sudo apt-get update && sudo apt-get install --yes
+          libcurl4-openssl-dev
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Declare some variables
+        id: vars
+        shell: bash
+        run: |
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - name: Cache packages
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-renv-
+
+      - name: Install renv and box
+        if : always()
+        shell: Rscript {0}
+        run: |
+          install.packages(c("renv", "box"))
+
+      - name: Setup git config
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+
+      - name: Fetch branch if exists
+        continue-on-error: true
+        run: |
+          git fetch origin $BRANCH_DEPLOY
+
+      - name: Checkout branch and cleanup (setup orphan if no branch exists)
+        run: |
+          if [ `git rev-parse --verify origin/$BRANCH_DEPLOY 2>/dev/null` ]
+          then
+             git checkout origin/$BRANCH_DEPLOY -b $BRANCH_DEPLOY
+          else
+            git switch --orphan $BRANCH_DEPLOY
+            git rm -rf .
+          fi
+
+      - name: Checkout Apps
+        run: |
+          # Remove directories if they exist
+          [ ! -d "analytics" ] || git rm -rf analytics
+          [ ! -d "instrumentation" ] || git rm -rf instrumentation
+          [ ! -d "plumber_rest_api" ] || git rm -rf plumber_rest_api
+
+          # check out recent versions
+          git checkout ${{ github.sha }} -- inst/examples/app/analytics
+          git checkout ${{ github.sha }} -- inst/examples/app/instrumentation
+          git checkout ${{ github.sha }} -- plumber_rest_api
+
+          # move to correct directory (root)
+          git mv inst/examples/app/analytics analytics
+          git mv inst/examples/app/instrumentation instrumentation
+
+          # add changes
+          git add analytics
+          git add instrumentation
+          git add plumber_rest_api
+
+      - name: Prepare Analytics App
+        if : always()
+        shell: Rscript {0}
+        run: |
+          setwd("analytics")
+          renv::init()
+          renv::install(paste0("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
+          renv::install("rsconnect")
+          rsconnect::writeManifest()
+
+      - name: Prepare Instrumentation App
+        if : always()
+        shell: Rscript {0}
+        run: |
+          setwd("instrumentation")
+          renv::init()
+          renv::install(paste0("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
+          renv::install("rsconnect")
+          rsconnect::writeManifest()
+
+      - name: Prepare Plumber API
+        if : always()
+        shell: Rscript {0}
+        run: |
+          setwd("plumber_rest_api")
+          renv::restore()
+          renv::install(paste0("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
+          renv::install("rsconnect")
+          rsconnect::writeManifest()
+
+      - name: Commit changes
+        run: |
+          git add instrumentation/manifest.json
+          git add instrumentation/renv.lock
+          git add instrumentation/renv
+          git add instrumentation/.Rprofile
+
+          git add analytics/manifest.json
+          git add analytics/renv.lock
+          git add analytics/renv
+          git add analytics/.Rprofile
+
+          git add plumber_rest_api/manifest.json
+
+          git commit -m "Update deployed apps @${{ env.sha_short }}"
+          git status
+          git describe --all
+          git log
+      - name: Push to branch
+        run: |
+          git push origin $BRANCH_DEPLOY

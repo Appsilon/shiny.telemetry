@@ -23,7 +23,8 @@ Suggests:
     shinyjs,
     scales,
     semantic.dashboard (>= 0.1.1),
-    shiny.semantic (>= 0.2.0)
+    shiny.semantic (>= 0.2.0),
+    config
 Imports: purrr,
     tidyr,
     dplyr,

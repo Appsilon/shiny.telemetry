@@ -75,16 +75,6 @@
       "Hash": "543776ae6848fde2f48ff3816d0628bc",
       "Requirements": []
     },
-    "bcrypt": {
-      "Package": "bcrypt",
-      "Version": "1.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "3bd1e91cb5653fbea65b5dfd41413d49",
-      "Requirements": [
-        "openssl"
-      ]
-    },
     "bit": {
       "Package": "bit",
       "Version": "4.0.5",
@@ -789,20 +779,18 @@
     },
     "shiny.telemetry": {
       "Package": "shiny.telemetry",
-      "Version": "0.0.9005",
+      "Version": "0.0.9006",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "appsilon",
       "RemoteRepo": "shiny.telemetry",
-      "RemoteRef": "add-plumber",
-      "RemoteSha": "3d5c336bdc5e688b1addb27a5ede184bb4e4038f",
-      "Hash": "b8979275685e4c59ae4752bb45555c16",
+      "RemoteRef": "main",
+      "RemoteSha": "5797e2dbffec364d913fea286d715ed2b69664b8",
+      "Hash": "78907c8060d66d551765dac83a5d566b",
       "Requirements": [
-        "DBI",
         "R6",
         "RSQLite",
-        "bcrypt",
         "checkmate",
         "digest",
         "dplyr",

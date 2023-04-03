@@ -3,24 +3,34 @@ library(shiny.semantic)
 library(semantic.dashboard)
 library(shinyjs)
 library(tidyr)
-library(dplyr) # necessary to import %>%
+library(dplyr)
 library(purrr)
 library(plotly)
 library(timevis)
+library(ggplot2)
+library(mgcv)
+library(config)
 library(DT)
-# please install shiny.telemetry with all dependencies
-# install.packages("shiny.telemetry", dependencies = TRUE)
+
+# Please install shiny.telemetry with all dependencies
+# remotes::install_github("Appsilon/shiny.telemetry", dependencies = TRUE)
 library(shiny.telemetry)
 
-# Connecting to a plumber API data storage backend
-data_storage <- DataStoragePlumber$new(
+# Default storage backend using LogFile
+data_storage <- DataStorageLogFile$new(
   username = "test_user",
-  hostname = "connect.appsilon.com",
-  path = "shiny_telemetry_plumber",
-  port = 443,
-  protocol = "https",
-  authorization = Sys.getenv("CONNECT_AUTHORIZATION_KEY"),
-  secret = Sys.getenv("PLUMBER_SECRET")
+  log_file_path = file.path(getwd(), "user_stats.txt"),
+  session_file_path = file.path(getwd(), "session_details.txt")
 )
+
+# This sample application includes a configuration for RSConnect deployments,
+# that uses parameters in `config.yml` file to define Data Storage backend
+if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
+  data_storage <- do.call(
+    config::get("data_storage")$class$new,
+    config::get("data_storage")$params %>%
+      purrr::assign_in("username", "test_user")
+  )
+}
 
 analytics_app(data_storage = data_storage)

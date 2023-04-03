@@ -7,5 +7,5 @@ exclusions:
   list(
     "R/constants.R" = 15,
     "vignettes",
-    "inst/examples/app/analytics/app.R" = 12
+    "inst/examples/app/analytics/app.R" = 16
   )

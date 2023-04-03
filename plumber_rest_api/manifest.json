@@ -227,37 +227,6 @@
         "Built": "R 4.2.2; x86_64-pc-linux-gnu; 2023-03-07 23:18:04 UTC; unix"
       }
     },
-    "bcrypt": {
-      "Source": "CRAN",
-      "Repository": "https://packagemanager.rstudio.com/all/latest",
-      "GithubRepo": null,
-      "GithubUsername": null,
-      "GithubRef": null,
-      "GithubSha1": null,
-      "description": {
-        "Package": "bcrypt",
-        "Type": "Package",
-        "Title": "'Blowfish' Password Hashing Algorithm",
-        "Version": "1.1",
-        "Authors@R": "c(\n    person(\"Jeroen\", \"Ooms\", , \"jeroen@berkeley.edu\", role = c(\"cre\", \"aut\")),\n    person(\"Damien\", \"Miller\", role = \"cph\"),\n    person(\"Niels\", \"Provos\", role = \"cph\")\n    )",
-        "Description": "Bindings to the 'blowfish' password hashing algorithm derived from\n    the 'OpenBSD' implementation.",
-        "URL": "https://github.com/jeroen/bcrypt\nhttps://www.openbsd.org/papers/bcrypt-paper.pdf",
-        "BugReports": "https://github.com/jeroen/bcrypt/issues",
-        "License": "BSD_2_clause + file LICENSE",
-        "Imports": "openssl",
-        "RoxygenNote": "6.0.1.9000",
-        "Suggests": "spelling",
-        "Language": "en-US",
-        "Encoding": "UTF-8",
-        "NeedsCompilation": "yes",
-        "Packaged": "2018-01-26 08:57:47 UTC; jeroen",
-        "Author": "Jeroen Ooms [cre, aut],\n  Damien Miller [cph],\n  Niels Provos [cph]",
-        "Maintainer": "Jeroen Ooms <jeroen@berkeley.edu>",
-        "Repository": "CRAN",
-        "Date/Publication": "2018-01-26 09:08:42 UTC",
-        "Built": "R 4.2.2; x86_64-pc-linux-gnu; 2023-03-20 09:49:41 UTC; unix"
-      }
-    },
     "bit": {
       "Source": "CRAN",
       "Repository": "https://packagemanager.rstudio.com/all/latest",
@@ -2313,13 +2282,13 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "add-plumber",
-      "GithubSha1": "3d5c336bdc5e688b1addb27a5ede184bb4e4038f",
+      "GithubRef": "tmp/deployment",
+      "GithubSha1": "55954875464abd535eb24025fbfad63545212680",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
         "Title": "Shiny app usability logs and statistics",
-        "Version": "0.0.9005",
+        "Version": "0.0.9007",
         "Author": "Appsilon Data Science <dev@appsilondatascience.com>",
         "Maintainer": "Appsilon Data Science <dev@appsilondatascience.com>",
         "Description": "Easy way for logging users activity and adding statistics panel to your Shiny app.",
@@ -2327,22 +2296,22 @@
         "Encoding": "UTF-8",
         "LazyData": "true",
         "Suggests": "testthat (>= 3.0.0),\nmockery,\nwithr,\nlintr,\nspelling,\nrcmdcheck,\nRPostgreSQL,\ntimevis,\nRColorBrewer,\nplotly,\nDT,\nshinyjs,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0)",
-        "Imports": "purrr,\ntidyr,\ndplyr,\nodbc,\nDBI,\njsonlite,\nlogger,\nR6,\nRSQLite,\nrlang,\nbcrypt,\ncheckmate,\nglue,\nshiny,\nhttr2,\ndigest",
+        "Imports": "purrr,\ntidyr,\ndplyr,\nodbc,\njsonlite,\nlogger,\nR6,\nRSQLite,\nrlang,\ncheckmate,\nglue,\nshiny,\nhttr2,\ndigest",
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-03-28 10:34:10 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-03-31 15:13:34 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "add-plumber",
-        "RemoteSha": "3d5c336bdc5e688b1addb27a5ede184bb4e4038f",
+        "RemoteRef": "tmp/deployment",
+        "RemoteSha": "55954875464abd535eb24025fbfad63545212680",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "add-plumber",
-        "GithubSHA1": "3d5c336bdc5e688b1addb27a5ede184bb4e4038f"
+        "GithubRef": "tmp/deployment",
+        "GithubSHA1": "55954875464abd535eb24025fbfad63545212680"
       }
     },
     "sodium": {
@@ -2917,7 +2886,7 @@
       "checksum": "73ad9b1933436d6cd29febed6e3f5edf"
     },
     ".Rprofile": {
-      "checksum": "d43f29ec2e7ad900d9fd0a673944d42a"
+      "checksum": "162662d83f3a573d8eb80d69062980a6"
     },
     "api/handlers/insert.R": {
       "checksum": "e903f0e5ed5db983c9a326eaf04d21d7"
@@ -2941,10 +2910,10 @@
       "checksum": "c7f676c16f136308f2b1c3182a67f69a"
     },
     "api/session_details.txt": {
-      "checksum": "b531cd55ce8e9cd9f079bc2c1cf4bd15"
+      "checksum": "02607a4609081aa3940f826e55cf7e8f"
     },
     "api/user_stats.txt": {
-      "checksum": "e50823aaa6c542ca46b62e72e04b512f"
+      "checksum": "33d6dcff7a867cbc77647487590e09dd"
     },
     "config.yml": {
       "checksum": "7758d89fba08901693d121f2f7a4c308"
@@ -2962,7 +2931,7 @@
       "checksum": "33ed4dc61ade34af45a474daf7a12bd2"
     },
     "README.md": {
-      "checksum": "66b18c9af200ab0ef0914b0d72cfd8f4"
+      "checksum": "e2653a23424edb0dce76b01761cd2186"
     },
     "telemetry.sqlite": {
       "checksum": "33fdda2762bdbcf162c7d04526848cb8"
