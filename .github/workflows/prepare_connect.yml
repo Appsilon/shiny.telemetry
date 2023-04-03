@@ -54,8 +54,8 @@ jobs:
 
       - name: Git verbose
         run: |
-          git describe ${{ github.sha }}
-          git log
+          git describe --all
+          /usr/bin/git log -1 --format='%H'
           ls -ln
 
       - name: Cleanup unnecesary files (only passes if branch does not exist)
@@ -64,12 +64,11 @@ jobs:
           git checkout --orphan $BRANCH_DEPLOY
 
           git rm -rf .
-          rm -rf * .lintr .whitesource .Rbuildignore
 
       - name: Checkout Apps
         run: |
           git switch $BRANCH_DEPLOY 2>/dev/null || git switch -c $BRANCH_DEPLOY
-          git fetch --unshallow
+
           git checkout ${{ github.sha }} -- inst/examples/app
 
           ls -ln
