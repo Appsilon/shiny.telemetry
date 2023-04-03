@@ -296,7 +296,16 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       excluded_inputs = c("browser_version"),
       session = shiny::getDefaultReactiveDomain()
     ) {
+
       input_values <- shiny::isolate(shiny::reactiveValuesToList(input))
+
+      if (is.null(session) && checkmate::test_r6(session)) {
+        utils::assignInNamespace(
+          "shiny_input_values", input_values, ns = "shiny.telemetry"
+        )
+      } else {
+        session$userData$shiny_input_values <- input_values
+      }
 
       logger::log_debug(logger::skip_formatter(
         paste(
@@ -307,7 +316,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
 
       shiny::observe({
-        old_input_values <- input_values
+        if (is.null(session) && checkmate::test_r6(session)) {
+          utils::getFromNamespace("shiny_input_values", ns = "shiny.telemetry")
+        } else {
+          old_input_values <- session$userData$shiny_input_values
+        }
         new_input_values <- shiny::reactiveValuesToList(input)
 
         if (NROW(new_input_values) != 0) {
@@ -348,7 +361,13 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             }
           }
         }
-        input_values <- new_input_values
+        if (is.null(session) && checkmate::test_r6(session)) {
+          utils::assignInNamespace(
+            "shiny_input_values", new_input_values, ns = "shiny.telemetry"
+          )
+        } else {
+          session$userData$shiny_input_values <- new_input_values
+        }
       })
     },
 
@@ -567,3 +586,5 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     }
   )
 )
+
+shiny_input_values <- NULL
