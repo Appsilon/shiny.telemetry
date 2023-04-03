@@ -13,10 +13,6 @@ library(DT)
 # install.packages("shiny.telemetry", dependencies = TRUE)
 library(shiny.telemetry)
 
-library(dplyr)
-
-logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
-
 # Default storage backend using LogFile
 data_storage <- DataStorageLogFile$new(
   username = "test_user",
