@@ -85,9 +85,16 @@ jobs:
 
       - name: Commit changes
         run: |
+          git add inst/examples/app/instrumentation/manifest.json
+          git add inst/examples/app/analytics/manifest.json
+          git add plumber_rest_api/manifest.json
+
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git commit -m "Update deployed apps @${{ env.sha_short }}"
           git status
           git describe --all
           git log
+      - name: Push to branch
+        run: |
+          git push origin $BRANCH_DEPLOY
