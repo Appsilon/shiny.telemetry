@@ -2507,8 +2507,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6",
-      "GithubSha1": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6",
+      "GithubRef": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa",
+      "GithubSha1": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2525,18 +2525,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-03 14:59:14 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-03 15:09:40 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6",
-        "RemoteSha": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6",
+        "RemoteRef": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa",
+        "RemoteSha": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6",
-        "GithubSHA1": "9f120eb4711bbfb2017d7aa81d76beb4fcf372b6"
+        "GithubRef": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa",
+        "GithubSHA1": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa"
       }
     },
     "shinyjs": {
@@ -3083,7 +3083,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "23820abd55414f588fb317640cb48c1b"
+      "checksum": "6b0e309c1dd350c2efbc18bceb1027ff"
     },
     "analytics/app.R": {
       "checksum": "810cc40c930651c6df50d8aa4a7c74ef"

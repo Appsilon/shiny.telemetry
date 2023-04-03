@@ -1,0 +1,15 @@
+default:
+  data_storage:
+    class_name: DataStorageLogFile
+
+rsconnect:
+  data_storage:
+    class_name: DataStoragePlumber
+    class: !expr shiny.telemetry::DataStoragePlumber
+    params:
+      hostname: !expr Sys.getenv("PLUMBER_HOSTNAME")
+      path: !expr Sys.getenv("PLUMBER_PATH")
+      port: !expr as.numeric(Sys.getenv("PLUMBER_PORT"))
+      protocol: !expr Sys.getenv("PLUMBER_PROTOCOL")
+      authorization: !expr Sys.getenv("CONNECT_AUTHORIZATION_KEY")
+      secret: !expr Sys.getenv("PLUMBER_SECRET")
