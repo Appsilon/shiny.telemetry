@@ -115,7 +115,15 @@ jobs:
       - name: Commit changes
         run: |
           git add instrumentation/manifest.json
+          git add instrumentation/renv.lock
+          git add instrumentation/renv
+          git add instrumentation/.Rprofile
+
           git add analytics/manifest.json
+          git add analytics/renv.lock
+          git add analytics/renv
+          git add analytics/.Rprofile
+
           git add plumber_rest_api/manifest.json
 
           git commit -m "Update deployed apps @${{ env.sha_short }}"
