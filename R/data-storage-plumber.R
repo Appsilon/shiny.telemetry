@@ -212,13 +212,11 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
       logger::log_debug(
        "values (names): ({NROW(names(values))}) ",
-       "{names(values) |> paste(collapse = \",\")}",
-       namespace = "shiny.telemetry"
+       "{names(values) |> paste(collapse = \",\")}"
       )
       logger::log_debug(
         "values (class): ({NROW(values)}) ",
-        "{sapply(values, class) |> paste(collapse = \", \")}",
-        namespace = "shiny.telemetry"
+        "{sapply(values, class) |> paste(collapse = \", \")}"
       )
       logger::log_debug(
         "values (el hash): ({NROW(values)}) ",
@@ -229,18 +227,14 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
         "    digest::digest(.x, algo = 'sha256'), start = 1, stop = 6)",
         "  ) |> ",
         "paste(collapse = \", \")",
-        "}",
-        namespace = "shiny.telemetry"
+        "}"
       )
       logger::log_debug(
-        "secret: {substr(private$secret, start = 1, stop = 6)}...",
-        namespace = "shiny.telemetry"
+        "secret: {substr(private$secret, start = 1, stop = 6)}..."
       )
-      logger::log_debug("secret: {private$id}",
-                        namespace = "shiny.telemetry")
+      logger::log_debug("secret: {private$id}")
 
-      logger::log_debug("endpoint {private$build_url(endpoint)}",
-                        namespace = "shiny.telemetry")
+      logger::log_debug("endpoint {private$build_url(endpoint)}")
 
       request <- httr2::request(private$build_url(endpoint)) %>%
         httr2::req_headers(
