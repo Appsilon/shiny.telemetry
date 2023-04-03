@@ -51,18 +51,21 @@ jobs:
         run: |
           git switch $BRANCH_DEPLOY 2>/dev/null || git switch -c $BRANCH_DEPLOY
 
-      - name: Cleanup unnecesary files
+      - name: Cleanup unnecesary files (only passes if branch does not exist)
+        continue-on-error: true
         run: |
           git rm rm -rf R man tests pkgdown
           git rm -f DESCRIPTION NAMESPACE .Rbuildignore LICENSE
           git rm -f .lintr renovate.json .whitesource README.md
+          git rm -rf inst
+
+      - name: Checkout Apps
+        run: |
 
           git checkout ${{ github.sha }} -- inst/examples/app
 
           mv inst/examples/app/analytics analytics
           mv inst/examples/app/instrumentation instrumentation
-
-          git rm -rf inst
 
       - name: Prepare Analytics App
         if : always()
