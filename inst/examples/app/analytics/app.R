@@ -8,6 +8,7 @@ library(purrr)
 library(plotly)
 library(timevis)
 library(ggplot2)
+library(config)
 library(DT)
 
 # please install shiny.telemetry with all dependencies

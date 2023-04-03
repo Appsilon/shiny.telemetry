@@ -1,6 +1,7 @@
 library(shiny)
 library(shiny.telemetry)
 library(dplyr)
+library(config)
 
 get_user <- function(session) {
   username <- shiny::isolate(shiny::parseQueryString(session$clientData$url_search)$username)
