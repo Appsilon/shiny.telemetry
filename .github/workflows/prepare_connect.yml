@@ -50,14 +50,27 @@ jobs:
       - name: Setup deploy branch
         run: |
           git switch $BRANCH_DEPLOY 2>/dev/null || git switch -c $BRANCH_DEPLOY
-          rm -rf R README.md man DESCRIPTION NAMESPACE .Rbuildignore LICENSE tests
-          git checkout ${{ github.sha }} -- inst/examples
+
+      - name: Cleanup unnecesary files
+        run: |
+          rm -rf R man tests
+          rm -f DESCRIPTION NAMESPACE .Rbuildignore LICENSE
+          rm -f .lintr renovate.json
+
+          git checkout ${{ github.sha }} -- inst/examples/app
+
+          mv inst/examples/app/analytics analytics
+          mv inst/examples/app/instrumentation instrumentation
+
+          rm -rf inst
+
+          git add R README.md man DESCRIPTION NAMESPACE .Rbuildignore LICENSE tests inst
 
       - name: Prepare Analytics App
         if : always()
         shell: Rscript {0}
         run: |
-          setwd("inst/examples/app/analytics")
+          setwd("analytics")
           renv::init()
           renv::install("appsilon/shiny.telemetry")
           renv::install("rsconnect")
@@ -67,7 +80,7 @@ jobs:
         if : always()
         shell: Rscript {0}
         run: |
-          setwd("inst/examples/app/instrumentation")
+          setwd("instrumentation")
           renv::init()
           renv::install("appsilon/shiny.telemetry")
           renv::install("rsconnect")
@@ -85,8 +98,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          git add inst/examples/app/instrumentation/manifest.json
-          git add inst/examples/app/analytics/manifest.json
+          git add instrumentation/manifest.json
+          git add analytics/manifest.json
           git add plumber_rest_api/manifest.json
 
           git config user.name "${{ github.actor }}"
