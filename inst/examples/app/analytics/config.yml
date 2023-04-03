@@ -1,6 +1,6 @@
 default:
   data_storage:
-    class_name: none, use explicit default on app.R
+    class_name: DataStorageLogFile
 
 rsconnect:
   data_storage:
