@@ -5,6 +5,10 @@ on:
 
 name: Prepare Connect Deployment
 
+env:
+  RENV_PATHS_ROOT: ~/.local/share/renv
+  BRANCH_DEPLOY: bot/deploy
+
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -17,13 +21,20 @@ jobs:
         id: vars
         shell: bash
         run: |
-          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Install R
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
+
+      - name: Cache packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-renv-
 
       - name: Install renv and box
         if : always()
@@ -33,7 +44,7 @@ jobs:
 
       - name: Setup deploy branch
         run: |
-          git switch bot/deploy 2>/dev/null || git switch -c bot/deploy
+          git switch $BRANCH_DEPLOY 2>/dev/null || git switch -c $BRANCH_DEPLOY
           rm -rf R README.md man DESCRIPTION NAMESPACE .Rbuildignore LICENSE tests
           git checkout ${{ github.sha }} -- inst/examples
 
