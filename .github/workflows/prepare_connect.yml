@@ -54,6 +54,11 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
+      - name: Fetch branch if exists
+        continue-on-error: true
+        run: |
+          git fetch origin $BRANCH_DEPLOY
+
       - name: Checkout branch and cleanup (setup orphan if no branch exists)
         run: |
           if [ `git rev-parse --verify origin/$BRANCH_DEPLOY 2>/dev/null` ]
