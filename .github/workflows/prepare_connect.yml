@@ -53,18 +53,16 @@ jobs:
 
       - name: Cleanup unnecesary files
         run: |
-          rm -rf R man tests
-          rm -f DESCRIPTION NAMESPACE .Rbuildignore LICENSE
-          rm -f .lintr renovate.json
+          git rm rm -rf R man tests pkgdown
+          git rm -f DESCRIPTION NAMESPACE .Rbuildignore LICENSE
+          git rm -f .lintr renovate.json .whitesource README.md
 
           git checkout ${{ github.sha }} -- inst/examples/app
 
           mv inst/examples/app/analytics analytics
           mv inst/examples/app/instrumentation instrumentation
 
-          rm -rf inst
-
-          git add R README.md man DESCRIPTION NAMESPACE .Rbuildignore LICENSE tests inst
+          git rm -rf inst
 
       - name: Prepare Analytics App
         if : always()
