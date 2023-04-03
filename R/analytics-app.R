@@ -205,9 +205,11 @@ analytics_server <- function(data_storage) {
 #' @param data_storage data_storage instance that will handle all backend read
 #' and writes.
 #'
+#' @return list of UI and Server to run a ShinyApp
+#'
 #' @export
 analytics_app <- function(data_storage) {
-  shiny::shinyApp(
+  list(
     ui = analytics_ui(),
     server = analytics_server(data_storage = data_storage)
   )

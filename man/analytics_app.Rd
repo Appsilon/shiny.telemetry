@@ -10,6 +10,9 @@ analytics_app(data_storage)
 \item{data_storage}{data_storage instance that will handle all backend read
 and writes.}
 }
+\value{
+list of UI and Server to run a ShinyApp
+}
 \description{
 Run example telemetry analytics dashboard
 }
