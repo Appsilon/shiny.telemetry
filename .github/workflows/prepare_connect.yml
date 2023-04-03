@@ -71,13 +71,21 @@ jobs:
 
       - name: Checkout Apps
         run: |
+          # Remove directories if they exist
+          [ ! -d analytics ] || git rm -rf analytics
+          [ ! -d instrumentation ] || git rm -rf instrumentation
+          [ ! -d plumber_rest_api ] || git rm -rf plumber_rest_api
+
+          # check out recent versions
           git checkout ${{ github.sha }} -- inst/examples/app/analytics
           git checkout ${{ github.sha }} -- inst/examples/app/instrumentation
           git checkout ${{ github.sha }} -- plumber_rest_api
 
+          # move to correct directory (root)
           git mv inst/examples/app/analytics analytics
-          git mv inst/examples/app/instrumentation instrumentation
+          git mv inst/examples/app/instrumentation analytics
 
+          # add changes
           git add analytics
           git add instrumentation
           git add plumber_rest_api
