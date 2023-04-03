@@ -25,10 +25,11 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
-      - name: Install R package dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: renv # Necessary to avoid object usage linter errors.
+      - name: Install renv and box
+        if : always()
+        shell: Rscript {0}
+        run: |
+          install.packages(c("renv", "box"))
 
       - name: Setup deploy branch
         run: |
@@ -46,7 +47,7 @@ jobs:
           renv::install("rsconnect")
           rsconnect::writeManifest()
 
-      - name: Prepare Analytics App
+      - name: Prepare Instrumentation App
         if : always()
         shell: Rscript {0}
         run: |
@@ -56,7 +57,7 @@ jobs:
           renv::install("rsconnect")
           rsconnect::writeManifest()
 
-      - name: Prepare Analytics App
+      - name: Prepare Plumber API
         if : always()
         shell: Rscript {0}
         run: |
