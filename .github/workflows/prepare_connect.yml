@@ -63,6 +63,7 @@ jobs:
       - name: Checkout Apps
         run: |
           git switch $BRANCH_DEPLOY 2>/dev/null || git switch -c $BRANCH_DEPLOY
+          git fetch --unshallow
           git checkout ${{ github.sha }} -- inst/examples/app
 
           git mv inst/examples/app/analytics analytics
