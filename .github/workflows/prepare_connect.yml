@@ -17,6 +17,7 @@ jobs:
       SHA: ${{ github.sha }}
     steps:
       - name: Env step
+        shell: Rscript {0}
         run: |
           print(paste("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
 
