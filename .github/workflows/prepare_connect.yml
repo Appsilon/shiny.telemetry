@@ -54,23 +54,18 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
-      - name: Git verbose
+      - name: Checkout branch and cleanup (setup orphan if no branch exists)
         run: |
-          git describe --all
-          /usr/bin/git log -1 --format='%H'
-          ls -ln
-
-      - name: Cleanup unnecesary files (only passes if branch does not exist)
-        continue-on-error: true
-        run: |
-          git checkout --orphan $BRANCH_DEPLOY
-
-          git rm -rf .
+          if [ `git rev-parse --verify origin/$BRANCH_DEPLOY 2>/dev/null` ]
+          then
+             git checkout origin/$BRANCH_DEPLOY -b $BRANCH_DEPLOY
+          else
+            git switch --orphan $BRANCH_DEPLOY
+            git rm -rf .
+          fi
 
       - name: Checkout Apps
         run: |
-          git switch $BRANCH_DEPLOY 2>/dev/null || git switch -c $BRANCH_DEPLOY
-
           git checkout ${{ github.sha }} -- inst/examples/app/analytics
           git checkout ${{ github.sha }} -- inst/examples/app/instrumentation
           git checkout ${{ github.sha }} -- plumber_rest_api
