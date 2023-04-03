@@ -34,20 +34,20 @@ test_that("log_input", {
 
   # Test simple usage of log_input with matching values
   expect_silent(
-    log_input(
-      data_storage,
+    telemetry$log_input(
       list(sample = 53, sample2 = 31),
       "sample",
+      track_value = TRUE,
       matching_values = c(52, "52"),
       input_type = "text"
     )
   )
 
   expect_message(
-    log_input(
-      data_storage,
-      list(sample = 53, sample2 = 31),
+    telemetry$log_input(
+      list(sample = 53, sample2 = 36),
       "sample",
+      track_value = TRUE,
       matching_values = 53,
       input_type = "text"
     ),
@@ -55,10 +55,27 @@ test_that("log_input", {
   )
 
   # Allow to test inputs that keep a list
-  log_input(
-    data_storage,
+  telemetry$log_input(
+    list(sample = 23, sample2 = 31),
+    "sample",
+    matching_values = NULL,
+    input_type = "text"
+  ) %>%
+    expect_message("Writing to user_log value change with id: sample")
+
+  telemetry$log_input(
+    list(sample = 1:10, sample2 = 31),
+    "sample",
+    matching_values = NULL,
+    input_type = "text"
+  ) %>%
+    expect_message("Writing to user_log value change with id: sample")
+
+  # Allow to test inputs that keep a list
+  telemetry$log_input(
     list(sample = list(1, 2, 3), sample2 = 31),
     "sample",
+    track_value = TRUE,
     matching_values = NULL,
     input_type = "text"
   ) %>%

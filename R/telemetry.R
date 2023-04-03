@@ -376,7 +376,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       checkmate::assert_string(input_id)
       checkmate::assert_flag(track_value)
-      checkmate::assert_character(matching_values, null.ok = TRUE)
+      checkmate::assert(
+        .combine = "or",
+        checkmate::check_atomic_vector(matching_values),
+        checkmate::check_null(matching_values)
+      )
+
       checkmate::assert_string(input_type)
       checkmate::assert_choice(input_type, c("text", "json"))
 
@@ -441,10 +446,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       checkmate::assert_string(event, null.ok = TRUE)
       checkmate::assert_string(id, null.ok = TRUE)
+
       checkmate::assert(
         .combine = "or",
-        checkmate::check_string(value, null.ok = TRUE),
-        checkmate::check_list(value, null.ok = TRUE)
+        checkmate::check_list(value, null.ok = TRUE),
+        checkmate::check_atomic(value)
       )
       checkmate::assert_r6(session, classes = "ShinySession", null.ok = TRUE)
 
