@@ -67,6 +67,11 @@ jobs:
           mv inst/examples/app/analytics analytics
           mv inst/examples/app/instrumentation instrumentation
 
+          git add analytics
+          git add instrumentation
+
+          git rm -rf inst
+
       - name: Prepare Analytics App
         if : always()
         shell: Rscript {0}
