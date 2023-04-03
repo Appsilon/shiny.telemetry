@@ -181,7 +181,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     # Reads the JSON log file
     # @param bucket string with path to file
     read_data = function(
-    bucket, date_from, date_to, empty_template = dplyr::tibble()
+      bucket, date_from, date_to, empty_template = dplyr::tibble()
     ) {
       checkmate::assert_string(bucket)
       checkmate::assert_date(date_from)
