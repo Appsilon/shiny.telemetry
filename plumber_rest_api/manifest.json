@@ -352,7 +352,7 @@
         "Maintainer": "Konrad Rudolph <konrad.rudolph@gmail.com>",
         "Repository": "CRAN",
         "Date/Publication": "2022-05-11 17:00:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-03 15:09:31 UTC; unix"
+        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-03 15:21:32 UTC; unix"
       }
     },
     "brio": {
@@ -2286,8 +2286,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa",
-      "GithubSha1": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa",
+      "GithubRef": "f1f341041174cd3f9e0e88f33b00534e5fdfe9b4",
+      "GithubSha1": "f1f341041174cd3f9e0e88f33b00534e5fdfe9b4",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2304,18 +2304,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-03 15:09:40 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-03 15:21:57 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa",
-        "RemoteSha": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa",
+        "RemoteRef": "f1f341041174cd3f9e0e88f33b00534e5fdfe9b4",
+        "RemoteSha": "f1f341041174cd3f9e0e88f33b00534e5fdfe9b4",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa",
-        "GithubSHA1": "b68f6f650f8bd32a01b57d580cceb448d4ae3aaa"
+        "GithubRef": "f1f341041174cd3f9e0e88f33b00534e5fdfe9b4",
+        "GithubSHA1": "f1f341041174cd3f9e0e88f33b00534e5fdfe9b4"
       }
     },
     "sodium": {
@@ -2890,7 +2890,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "3057c77742baa5d2290a61151936d87d"
+      "checksum": "08fd52eeeb15827586f114e340752f0c"
     },
     "api/handlers/insert.R": {
       "checksum": "e903f0e5ed5db983c9a326eaf04d21d7"
