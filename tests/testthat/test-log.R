@@ -20,7 +20,7 @@ test_that("log_input", {
     }
   )
 
-  ShinySessionMock <- R6::R6Class(
+  ShinySessionMock <- R6::R6Class( # nolint object_name_linter
     classname = "ShinySession",
     public = list(
       input = list(),
