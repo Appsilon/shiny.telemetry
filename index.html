@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9007</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -195,8 +195,8 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># define ui and server</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/shiny_stats_ui.html">shiny_stats_ui</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/shiny_stats_server.html">shiny_stats_server</a></span><span class="op">(</span><span class="va">get_user</span>, db_credentials <span class="op">=</span> <span class="va">db_credentials</span><span class="op">)</span></span></code></pre>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">shiny_stats_ui</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="fu">shiny_stats_server</span><span class="op">(</span><span class="va">get_user</span>, db_credentials <span class="op">=</span> <span class="va">db_credentials</span><span class="op">)</span></span></code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Run the app and see usage statistics at <code>http://localhost:8887/?username=&lt;username&gt;</code>.</li>
 </ol>

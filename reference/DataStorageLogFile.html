@@ -22,7 +22,7 @@ API for read/write operations"><!-- mathjax --><script src="https://cdnjs.cloudf
     
     <a class="navbar-brand me-2" href="../index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9007</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -227,7 +227,9 @@ the username of the current session</p></dd>
 <h3 id="method-close-">Method <code><a href="https://rdrr.io/r/base/connections.html" class="external-link">close()</a></code><a class="anchor" aria-label="anchor" href="#method-close-"></a></h3>
 <p>Does nothing, but needs to be kept here because log_logout calls this
 for database backends further discussion needed if closing connecting
-is really necessary.</p><div class="section">
+is really necessary.</p>
+
+<p>does nothing, defined for API consistency</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorageLogFile</span><span class="op">$</span><span class="fu">close</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
@@ -272,14 +274,14 @@ is really necessary.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   action time                session                  username  id    date      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> login  2023-03-31 12:38:05 OSg78ZAYpP20233103123805 test_user <span style="color: #BB0000;">NA</span>    2023-03-31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> click  2023-03-31 12:38:05 OSg78ZAYpP20233103123805 test_user an_id 2023-03-31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> click  2023-03-31 12:38:05 OSg78ZAYpP20233103123805 test_user a_di… 2023-03-31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> login  2023-04-04 08:54:27 dBU6bDlmiR20230404085426 test_user <span style="color: #BB0000;">NA</span>    2023-04-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> click  2023-04-04 08:54:27 dBU6bDlmiR20230404085426 test_user an_id 2023-04-04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> click  2023-04-04 08:54:27 dBU6bDlmiR20230404085426 test_user a_di… 2023-04-04</span>
 <span class="r-in"><span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_session_data</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2025-01-01"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   session                  title      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> OSg78ZAYpP20233103123805 some detail</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> dBU6bDlmiR20230404085426 some detail</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

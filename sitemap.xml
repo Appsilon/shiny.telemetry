@@ -25,6 +25,9 @@
     <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageRSQLite.html</loc>
   </url>
   <url>
+    <loc>https://appsilon.github.io/shiny.telemetry/reference/analytics_app.html</loc>
+  </url>
+  <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/browser_info_js.html</loc>
   </url>
   <url>
@@ -44,11 +47,5 @@
   </url>
   <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/shiny.telemetry-package.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/shiny_stats_server.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/shiny_stats_ui.html</loc>
   </url>
 </urlset>
