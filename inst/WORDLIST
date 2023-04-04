@@ -3,6 +3,7 @@ JSON
 Logfile
 RStudio
 Rhinoverse
+ShinyApp
 ShinySession
 UI
 analytics
@@ -17,4 +18,3 @@ json
 reactiveValues
 sqlfile
 sqlite
-userData

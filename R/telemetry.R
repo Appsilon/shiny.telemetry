@@ -25,7 +25,7 @@
 #'   )
 #' )
 #'
-#' telemetry$start_session(input = shiny::reactiveValues(), logout = FALSE)
+#' telemetry$start_session(logout = FALSE)
 #'
 #' telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 #'
@@ -36,7 +36,7 @@
 #'   )
 #' )
 #'
-#' telemetry$start_session(shiny::reactiveValues(), logout = FALSE)
+#' telemetry$start_session(logout = FALSE)
 #'
 #' telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 Telemetry <- R6::R6Class( # nolint object_name_linter
