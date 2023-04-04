@@ -4,11 +4,14 @@
 \alias{analytics_app}
 \title{Run example telemetry analytics dashboard}
 \usage{
-analytics_app(data_storage)
+analytics_app(data_storage, run_app = FALSE)
 }
 \arguments{
 \item{data_storage}{data_storage instance that will handle all backend read
 and writes.}
+
+\item{run_app}{flag that indicates if shinyApp should be called in the
+function or return the UI and Server instead.}
 }
 \description{
 Run example telemetry analytics dashboard

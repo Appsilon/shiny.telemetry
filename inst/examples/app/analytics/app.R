@@ -33,4 +33,6 @@ if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
   )
 }
 
-analytics_app(data_storage = data_storage)
+sample_app <- analytics_app(data_storage = data_storage)
+
+shiny::shinyApp(ui = sample_app$ui, server = sample_app$server)

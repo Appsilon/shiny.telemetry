@@ -204,11 +204,19 @@ analytics_server <- function(data_storage) {
 #'
 #' @param data_storage data_storage instance that will handle all backend read
 #' and writes.
+#' @param run_app flag that indicates if shinyApp should be called in the
+#' function or return the UI and Server instead.
 #'
 #' @export
-analytics_app <- function(data_storage) {
-  shiny::shinyApp(
+analytics_app <- function(data_storage, run_app = FALSE) {
+  sample_app <- list(
     ui = analytics_ui(),
     server = analytics_server(data_storage = data_storage)
   )
+
+  if (run_app) {
+    return(shiny::shinyApp(ui = sample_app$ui, server = sample_app$server))
+  }
+
+  sample_app
 }
