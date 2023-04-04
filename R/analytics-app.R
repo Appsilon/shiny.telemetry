@@ -214,7 +214,7 @@ analytics_app <- function(data_storage, run_app = FALSE) {
     server = analytics_server(data_storage = data_storage)
   )
 
-  if (run_app) {
+  if (isTRUE(run_app)) {
     return(shiny::shinyApp(ui = sample_app$ui, server = sample_app$server))
   }
 
