@@ -77,7 +77,6 @@ log_button <- function(data_storage, input, button_id) {
 
 #' @details Each function (except \code{log_custom_action}) store logs inside
 #' 'user_log' table. It is required to build admin panel
-#' (See \link{prepare_admin_panel_components}).
 #'
 #' @param values Named list. Names of the list specify column names of
 #' \code{bucket} and list elements corresponding values that should be

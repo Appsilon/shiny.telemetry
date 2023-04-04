@@ -1,3 +1,11 @@
+# define function to get username
+get_user <- function(session) {
+  username <- shiny::isolate(shiny::parseQueryString(session$clientData$url_search)$username)
+  if (is.null(username)) username <- "unknownUser"
+  shiny::req(username)
+  return(username)
+}
+
 date_filters <- function() {
   shiny::tagList(
     shiny::tags$div(
@@ -60,7 +68,7 @@ get_actions_per_day <- function(log_data) {
 }
 
 get_per_day_data <- function(
-  users_per_day_data, sessions_per_day, time_per_day, actions_per_day
+    users_per_day_data, sessions_per_day, time_per_day, actions_per_day
 ) {
   users_per_day_data %>%
     dplyr::full_join(sessions_per_day, by = "date") %>%
@@ -115,7 +123,7 @@ get_per_day_plot_data <- function(base, per_day) {
 #' @param data_storage data_storage instance that will handle all backend read
 #' and writes.
 prepare_admin_panel_components <- function(
-  input, output, session, data_storage
+    input, output, session, data_storage
 ) {
   hour_levels <- c("12am", paste0(1:11, "am"), "12pm", paste0(1:11, "pm"))
 
@@ -384,13 +392,13 @@ prepare_admin_panel_components <- function(
     colz <- prepare_color_scale(heatmap_data()$users, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(heatmap_data()$date))
     plotly::plot_ly(heatmap_data(),
-            x = ~date, y = ~day_hour, z = ~users,
-            type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-            text = ~paste(
-              "Date:", date,
-              "</br>Hour:", day_hour,
-              "</br>Users: ", users
-            )
+                    x = ~date, y = ~day_hour, z = ~users,
+                    type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
+                    text = ~paste(
+                      "Date:", date,
+                      "</br>Hour:", day_hour,
+                      "</br>Users: ", users
+                    )
     ) %>%
       plotly::layout(
         title = "Total users logged each hour", yaxis = list(title = ""),
@@ -442,13 +450,13 @@ prepare_admin_panel_components <- function(
     colz <- prepare_color_scale(actions_per_users_data()$actions, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(actions_per_users_data()$date))
     plotly::plot_ly(actions_per_users_data(),
-            x = ~date, y = ~day_hour, z = ~actions,
-            type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-            text = ~paste(
-              "Date:", date,
-              "</br>Hour:", day_hour,
-              "</br>Actions: ", actions
-            )
+                    x = ~date, y = ~day_hour, z = ~actions,
+                    type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
+                    text = ~paste(
+                      "Date:", date,
+                      "</br>Hour:", day_hour,
+                      "</br>Actions: ", actions
+                    )
     ) %>%
       plotly::layout(
         yaxis = list(title = ""), title = "Operations performed by user each hour",
@@ -574,13 +582,13 @@ prepare_admin_panel_components <- function(
     colz <- prepare_color_scale(global_action_data()$times, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(global_action_data()$date))
     plotly::plot_ly(global_action_data(),
-            x = ~date, y = ~action, z = ~times,
-            type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-            text = ~paste(
-              "Date:", date,
-              "</br>Action:", action,
-              "</br>Amount: ", times
-            )
+                    x = ~date, y = ~action, z = ~times,
+                    type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
+                    text = ~paste(
+                      "Date:", date,
+                      "</br>Action:", action,
+                      "</br>Amount: ", times
+                    )
     ) %>%
       plotly::layout(
         title = "Total actions performed each day", yaxis = list(title = ""),
@@ -670,13 +678,13 @@ prepare_admin_panel_components <- function(
     colz <- prepare_color_scale(heatmap_data()$users, "Blues")
 
     plotly::plot_ly(id_data,
-            x = ~date, y = ~input_label, z = ~times,
-            type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-            text = ~paste(
-              "Date:", date,
-              "</br>Input ID:", id,
-              "</br>Amount: ", times
-            )
+                    x = ~date, y = ~input_label, z = ~times,
+                    type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
+                    text = ~paste(
+                      "Date:", date,
+                      "</br>Input ID:", id,
+                      "</br>Amount: ", times
+                    )
     ) %>%
       plotly::layout(
         title = "Actions executed each day", yaxis = list(title = ""),

@@ -40,7 +40,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param session_file_path string with path to JSON log file for the session details
 
     initialize = function(
-    username, session_id = NULL, log_file_path, session_file_path
+      username, session_id = NULL, log_file_path, session_file_path
     ) {
       super$initialize(username, session_id)
       logger::log_debug("path to file: {log_file_path}")
@@ -69,6 +69,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       values <- private$insert_checks(
         values, bucket = bucket, add_username = add_username, force_params = force_params
       )
+
+      if (!is.null(values$value))
+        values$value <- as.character(values$value)
 
       private$write(values, bucket = bucket)
     },
@@ -130,6 +133,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' Does nothing, but needs to be kept here because log_logout calls this
     #' for database backends further discussion needed if closing connecting
     #' is really necessary.
+    #' @description does nothing, defined for API consistency
     close = function() {
     }
   ),

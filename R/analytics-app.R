@@ -1,9 +1,4 @@
-#' Stats Shiny UI
-#'
-#' @param custom_css_path path to custom css
-#'
-#' @export
-shiny_stats_ui <- function(custom_css_path = NULL) {
+analytics_ui <- function() {
   # Dashboard header carrying the title of the dashboard
   header <- semantic.dashboard::dashboardHeader(
     shinyjs::useShinyjs(),
@@ -11,7 +6,12 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
     shiny::suppressDependencies("plotlyjs"),
     style = "min-height: 100%;",
     shiny::tags$head(
-      shiny::tags$link(rel = "stylesheet", href = custom_css_path),
+      shiny::tags$link(
+        rel = "stylesheet",
+        href = system.file(
+          "examples", "app", "analytics", "www", "styles.css", package = "shiny.telemetry"
+        )
+      ),
       shiny::tags$script(src = "https://cdn.plot.ly/plotly-1.20.2.min.js"),
       shiny::tags$script(
         src = "https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js"
@@ -187,24 +187,28 @@ shiny_stats_ui <- function(custom_css_path = NULL) {
   )
 }
 
-#' Stats Shiny server
-#'
-#' @param get_user function to retrieve user name
-#' @param allow_admin_rule function that asserts if user is administrator
-#' @param db_credentials data.frame with database config parameters
-#'
-#' @export
-shiny_stats_server <- function(
-  get_user, allow_admin_rule = function(session) TRUE, db_credentials
-) {
+analytics_server <- function(data_storage) {
   shiny::shinyServer(function(input, output, session) {
     session$user <- get_user(session)
 
-    data_storage <- DataStorageRSQLite$new(
-      username = session$user,
-      db_path = db_credentials$DB_NAME
+    prepare_admin_panel_components(
+      input,
+      output,
+      session,
+      data_storage = data_storage
     )
-
-    prepare_admin_panel_components(input, output, session, data_storage)
   })
+}
+
+#' Run example telemetry analytics dashboard
+#'
+#' @param data_storage data_storage instance that will handle all backend read
+#' and writes.
+#'
+#' @export
+analytics_app <- function(data_storage) {
+  shiny::shinyApp(
+    ui = analytics_ui(),
+    server = analytics_server(data_storage = data_storage)
+  )
 }

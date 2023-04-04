@@ -41,7 +41,7 @@ test_that("get_per_day_plot_data", {
   )
 
   per_day_plot_data <- dplyr::tribble(
-               ~date,                 ~statistic, ~value, ~id,
+    ~date,                 ~statistic, ~value, ~id,
     date_initial + 0,    "logged users (unique)",      3,   3,
     date_initial + 0,    "total opened sessions",      4,   1,
     date_initial + 0, "avg session time (hours)",      0,   2,
@@ -69,7 +69,7 @@ test_that("get_per_day_plot_data", {
   base2 <- dplyr::bind_rows(base, base + 1, base + 2)
 
   expect_equal(
-      get_per_day_plot_data(base2, per_day) %>%
+    get_per_day_plot_data(base2, per_day) %>%
       dplyr::arrange(dplyr::across(tidyr::matches("[a-zA-Z]"))),
     per_day_plot_data,
     ignore_attr = TRUE

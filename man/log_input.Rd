@@ -73,7 +73,6 @@ and registers its insertion or change inside specified database.
 
 Each function (except \code{log_custom_action}) store logs inside
 'user_log' table. It is required to build admin panel
-(See \link{prepare_admin_panel_components}).
 
 \code{log_logout} should be used inside \code{observe} function.
 It is based on \code{shiny::onStop}.
