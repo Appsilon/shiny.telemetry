@@ -20,14 +20,24 @@ test_that("log_input", {
     }
   )
 
+  ShinySessionMock <- R6::R6Class(
+    classname = "ShinySession",
+    public = list(
+      input = list(),
+      initialize = function(input) {
+        self$input <- input
+      }
+    )
+  )
+
   # Test simple usage of log_input
   expect_message(
     telemetry$log_input(
-      input = list(sample = 53, sample2 = 31),
       input_id = "sample",
       matching_values = NULL,
       track_value = TRUE,
-      input_type = "text"
+      input_type = "text",
+      session = ShinySessionMock$new(list(sample = 53, sample2 = 31))
     ),
     "Writing to user_log value: 53 id: sample"
   )
@@ -35,49 +45,49 @@ test_that("log_input", {
   # Test simple usage of log_input with matching values
   expect_silent(
     telemetry$log_input(
-      list(sample = 53, sample2 = 31),
       "sample",
       track_value = TRUE,
       matching_values = c(52, "52"),
-      input_type = "text"
+      input_type = "text",
+      session = ShinySessionMock$new(list(sample = 53, sample2 = 31))
     )
   )
 
   expect_message(
     telemetry$log_input(
-      list(sample = 53, sample2 = 36),
       "sample",
       track_value = TRUE,
       matching_values = 53,
-      input_type = "text"
+      input_type = "text",
+      session = ShinySessionMock$new(list(sample = 53, sample2 = 36))
     ),
     "Writing to user_log value: 53 id: sample"
   )
 
   # Allow to test inputs that keep a list
   telemetry$log_input(
-    list(sample = 23, sample2 = 31),
     "sample",
     matching_values = NULL,
-    input_type = "text"
+    input_type = "text",
+    session = ShinySessionMock$new(list(sample = 23, sample2 = 31))
   ) %>%
     expect_message("Writing to user_log value change with id: sample")
 
   telemetry$log_input(
-    list(sample = 1:10, sample2 = 31),
     "sample",
     matching_values = NULL,
-    input_type = "text"
+    input_type = "text",
+    session = ShinySessionMock$new(list(sample = 1:10, sample2 = 31))
   ) %>%
     expect_message("Writing to user_log value change with id: sample")
 
   # Allow to test inputs that keep a list
   telemetry$log_input(
-    list(sample = list(1, 2, 3), sample2 = 31),
     "sample",
     track_value = TRUE,
     matching_values = NULL,
-    input_type = "text"
+    input_type = "text",
+    session = ShinySessionMock$new(list(sample = list(1, 2, 3), sample2 = 31))
   ) %>%
     expect_message("Writing to user_log value: 1 id: sample_1") %>%
     expect_message("Writing to user_log value: 2 id: sample_2") %>%

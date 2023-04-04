@@ -109,7 +109,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       }
 
       if (isTRUE(track_inputs) && isFALSE(private$track_all_inputs_flag)) {
-        self$log_all_inputs(input, track_values)
+        self$log_all_inputs(track_values)
         private$track_all_inputs_flag <- TRUE
       }
 
@@ -122,7 +122,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       }
 
       if (isTRUE(browser_version)) {
-        self$log_browser_version(input, session = session)
+        self$log_browser_version(session = session)
       }
 
       invisible(self)
@@ -214,14 +214,18 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @description
     #' Log the browser version
     #'
-    #' @param input [shiny::reactiveValues] object containing the inputs for
-    #' a Shiny dashboard.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
 
     log_browser_version = function(
-      input, session = shiny::getDefaultReactiveDomain()
+      session = shiny::getDefaultReactiveDomain()
     ) {
+
+      input <- shiny::reactiveValues()
+      if (checkmate::test_r6(session, "ShinySession")) {
+        input <- session$input
+      }
+
       shiny::observeEvent(input$browser_version, {
         browser <- input$browser_version
         shiny::validate(
@@ -263,24 +267,20 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' Track a button and track changes to this input (without storing the
     #' values)
     #'
-    #' @param input [shiny::reactiveValues] object containing the inputs for
-    #' a Shiny dashboard.
     #' @param input_id string that identifies the button in the Shiny
     #' application so that the function can track and log changes to it.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
 
     log_button = function(
-      input, input_id, session = shiny::getDefaultReactiveDomain()
+      input_id, session = shiny::getDefaultReactiveDomain()
     ) {
-      self$log_input(input, input_id, session = session)
+      self$log_input(input_id, session = session)
     },
 
     #' @description
     #' A short description...
     #'
-    #' @param input [shiny::reactiveValues] object containing the inputs for
-    #' a Shiny dashboard.
     #' @param track_values flag that indicates if the basic telemetry should
     #' track the values of the inputs that are changing. `FALSE` by default.
     #' This parameter is ignored if `track_inputs` is `FALSE`.
@@ -291,11 +291,14 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' Shiny session.
 
     log_all_inputs = function(
-      input,
       track_values = FALSE,
       excluded_inputs = c("browser_version"),
       session = shiny::getDefaultReactiveDomain()
     ) {
+      input <- shiny::reactiveValues()
+      if (checkmate::test_r6(session, "ShinySession")) {
+        input <- session$input
+      }
 
       input_values <- shiny::isolate(shiny::reactiveValuesToList(input))
 
@@ -367,8 +370,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
     #' @description
     #' A short description...
-    #' @param input [shiny::reactiveValues] object containing the inputs for
-    #' a Shiny dashboard.
     #' @param input_id string that identifies the generic input in the Shiny
     #' application so that the function can track and log changes to it.
     #' @param track_value flag that indicates if the basic telemetry should
@@ -380,7 +381,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' Shiny session.
 
     log_input = function(
-      input,
       input_id,
       track_value = FALSE,
       matching_values = NULL,
@@ -397,6 +397,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       checkmate::assert_string(input_type)
       checkmate::assert_choice(input_type, c("text", "json"))
+
+      input <- shiny::reactiveValues()
+      if (checkmate::test_r6(session, "ShinySession")) {
+        input <- session$input
+      }
 
       shiny::observeEvent(
         input[[input_id]],

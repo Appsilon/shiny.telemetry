@@ -235,18 +235,12 @@ Shiny session.}
 \subsection{Method \code{log_browser_version()}}{
 Log the browser version
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_browser_version(
-  input,
-  session = shiny::getDefaultReactiveDomain()
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_browser_version(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{input}}{[shiny::reactiveValues] object containing the inputs for
-a Shiny dashboard.}
-
 \item{\code{session}}{ShinySession object or NULL to identify the current
 Shiny session.}
 }
@@ -280,19 +274,12 @@ Shiny session.}
 Track a button and track changes to this input (without storing the
 values)
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_button(
-  input,
-  input_id,
-  session = shiny::getDefaultReactiveDomain()
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_button(input_id, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{input}}{[shiny::reactiveValues] object containing the inputs for
-a Shiny dashboard.}
-
 \item{\code{input_id}}{string that identifies the button in the Shiny
 application so that the function can track and log changes to it.}
 
@@ -309,7 +296,6 @@ Shiny session.}
 A short description...
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_all_inputs(
-  input,
   track_values = FALSE,
   excluded_inputs = c("browser_version"),
   session = shiny::getDefaultReactiveDomain()
@@ -319,9 +305,6 @@ A short description...
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{input}}{[shiny::reactiveValues] object containing the inputs for
-a Shiny dashboard.}
-
 \item{\code{track_values}}{flag that indicates if the basic telemetry should
 track the values of the inputs that are changing. `FALSE` by default.
 This parameter is ignored if `track_inputs` is `FALSE`.}
@@ -343,7 +326,6 @@ Shiny session.}
 A short description...
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_input(
-  input,
   input_id,
   track_value = FALSE,
   matching_values = NULL,
@@ -355,9 +337,6 @@ A short description...
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{input}}{[shiny::reactiveValues] object containing the inputs for
-a Shiny dashboard.}
-
 \item{\code{input_id}}{string that identifies the generic input in the Shiny
 application so that the function can track and log changes to it.}
 
