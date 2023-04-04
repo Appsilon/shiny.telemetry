@@ -75,8 +75,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @description
     #' Setup basic telemetry
     #'
-    #' @param input [shiny::reactiveValues] object containing the inputs for
-    #' a Shiny dashboard.
     #' @param track_inputs flag that indicates if the basic telemetry should
     #' track the inputs that change version. `TRUE` by default
     #' @param track_values flag that indicates if the basic telemetry should
@@ -88,19 +86,15 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' track when the session ends. `TRUE` by default.
     #' @param browser_version flag that indicates if the basic telemetry should
     #' track the browser version. `TRUE` by default.
-    #' @param save_in_session flag that indicates if the telemetry instance
-    #' should be stored in the current session `userData`.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
 
     start_session = function(
-      input,
       track_inputs = TRUE,
       track_values = FALSE,
       login = TRUE,
       logout = TRUE,
       browser_version = TRUE,
-      save_in_session = TRUE,
       session = shiny::getDefaultReactiveDomain()
     ) {
 
@@ -108,6 +102,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         shiny::parseQueryString(session$clientData$url_search)$username
       )
       if (is.null(username)) username <- "unknown_user"
+
+      input <- shiny::reactiveValues()
+      if (!is.null(session) && checkmate::test_r6(session)) {
+        input <- session$input
+      }
 
       if (isTRUE(track_inputs) && isFALSE(private$track_all_inputs_flag)) {
         self$log_all_inputs(input, track_values)
@@ -124,10 +123,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       if (isTRUE(browser_version)) {
         self$log_browser_version(input, session = session)
-      }
-
-      if (isTRUE(save_in_session)) {
-        session$userData$telemetry <- self
       }
 
       invisible(self)

@@ -110,13 +110,11 @@ working directory with filename `telemetry.sqlite`}
 Setup basic telemetry
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Telemetry$start_session(
-  input,
   track_inputs = TRUE,
   track_values = FALSE,
   login = TRUE,
   logout = TRUE,
   browser_version = TRUE,
-  save_in_session = TRUE,
   session = shiny::getDefaultReactiveDomain()
 )}\if{html}{\out{</div>}}
 }
@@ -124,9 +122,6 @@ Setup basic telemetry
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{input}}{[shiny::reactiveValues] object containing the inputs for
-a Shiny dashboard.}
-
 \item{\code{track_inputs}}{flag that indicates if the basic telemetry should
 track the inputs that change version. `TRUE` by default}
 
@@ -142,9 +137,6 @@ track when the session ends. `TRUE` by default.}
 
 \item{\code{browser_version}}{flag that indicates if the basic telemetry should
 track the browser version. `TRUE` by default.}
-
-\item{\code{save_in_session}}{flag that indicates if the telemetry instance
-should be stored in the current session `userData`.}
 
 \item{\code{session}}{ShinySession object or NULL to identify the current
 Shiny session.}
