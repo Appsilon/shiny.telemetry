@@ -141,6 +141,34 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #  log functions
     # ##############################################################
 
+    log_navigation = function(
+      input_id, session = shiny::getDefaultReactiveDomain()
+    ) {
+      checkmate::assert_string(input_id)
+      checkmate::assert_r6(session, "ShinySession")
+
+      private$.log_input(
+        input = session$input, input_id = input_id, track_value = TRUE,
+        event_type = "navigation"
+      )
+    },
+
+    log_navigation_manual = function(
+      input_id, value, session = shiny::getDefaultReactiveDomain()
+    ) {
+
+      logger::log_debug(
+        "Writing 'navigation' event with ",
+        "id: '{input_id}' and value: '{value}'",
+        namespace = "shiny.telemetry"
+      )
+
+      private$.log_event(
+        event = "navigation",
+        value = value,
+        session = session
+      )
+    },
 
     #' @description
     #' Log when session starts
@@ -316,6 +344,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             if (!identical(old, new)) {
               log_value <- NULL
               if (isTRUE(track_values)) {
+                if (is.null(old[[name]])) old[[name]] <- "null"
                 logger::log_debug(
                   "event: input change: {name} ",
                   ":: {old[[name]]} -> {new[[name]]}",
@@ -362,42 +391,14 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       input_type = "text",
       session = shiny::getDefaultReactiveDomain()
     ) {
-      checkmate::assert_string(input_id)
-      checkmate::assert_flag(track_value)
-      checkmate::assert(
-        .combine = "or",
-        checkmate::check_atomic_vector(matching_values),
-        checkmate::check_null(matching_values)
-      )
-
-      checkmate::assert_string(input_type)
-      checkmate::assert_choice(input_type, c("text", "json"))
-
-      checkmate::test_r6(session, "ShinySession")
-      input <- session$input
-
-      shiny::observeEvent(
-        input[[input_id]],
-        {
-          input_value <- input[[input_id]]
-
-          if (isTRUE(track_value)) {
-            return(private$log_input_value(
-              input_id = input_id,
-              input_value = input_value,
-              matching_values = matching_values,
-              input_type = input_type,
-              session = session
-            ))
-          }
-
-          private$.log_event(
-            event = "input", id = input_id, session = session
-          )
-
-        },
-        # Options to observeEvent call
-        priority = -1, ignoreInit = TRUE
+      private$.log_input(
+        input = input,
+        input_id = input_id,
+        track_value = track_value,
+        matching_values = matching_values,
+        input_type = input_type,
+        event_type = "input",
+        session = session
       )
     }
 
@@ -490,6 +491,55 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
     },
 
+    .log_input = function(
+      input_id,
+      track_value = FALSE,
+      matching_values = NULL,
+      input_type = "text",
+      event_type = "input",
+      session = shiny::getDefaultReactiveDomain()
+    ) {
+      checkmate::assert_string(input_id)
+      checkmate::assert_flag(track_value)
+      checkmate::assert_character(matching_values),
+
+      checkmate::assert_choice(input_type, c("text", "json"))
+      checkmate::assert_choice(event_type, c("input", "navigation"))
+
+      checkmate::test_r6(session, "ShinySession")
+      input <- session$input
+
+      shiny::observeEvent(
+        input[[input_id]],
+        {
+          input_value <- input[[input_id]]
+
+          if (isTRUE(track_value)) {
+            return(private$log_input_value(
+              input_id = input_id,
+              input_value = input_value,
+              matching_values = matching_values,
+              input_type = input_type,
+              event_type = event_type,
+              session = session
+            ))
+          }
+
+          logger::log_debug(
+            "Writing '{event_type}' event with id: '{input_id}'",
+            namespace = "shiny.telemetry"
+          )
+
+          private$.log_event(
+            event = event_type, id = input_id, session = session
+          )
+
+        },
+        # Options to observeEvent call
+        priority = -1, ignoreInit = TRUE
+      )
+    },
+
     .log_event = function(
       event = NULL, id = NULL, value = NULL, session = NULL
     ) {
@@ -514,11 +564,17 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     },
 
     log_input_value = function(
-      input_id, input_value, matching_values, input_type, session
+      input_id, input_value, matching_values, input_type, session, event_type
     ) {
       if (is.null(input_value)) {
         return(NULL)
       }
+
+      logger::log_debug(
+        "Writing '{event_type}' event with ",
+        "id: '{input_id}' and value: '{input_value}'",
+        namespace = "shiny.telemetry"
+      )
 
       if (is.logical(input_value)) {
         input_value <- as.character(input_value)
@@ -546,7 +602,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
           input_value,
           input_ids,
           ~ private$.log_event(
-            event = "input",
+            event = event_type,
             id = .y,
             value = .x,
             session = session
