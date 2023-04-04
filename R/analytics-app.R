@@ -209,7 +209,7 @@ analytics_server <- function(data_storage) {
 #'
 #' @export
 analytics_app <- function(data_storage) {
-  list(
+  shiny::shinyApp(
     ui = analytics_ui(),
     server = analytics_server(data_storage = data_storage)
   )
