@@ -10,7 +10,7 @@ It allows the developers to have access to insights about the dashboard usage an
 
 The `shiny.telemetry` package can be installed from GitHub by using the remotes package:
 
-```
+```R
 remotes::install_github("Appsilon/shiny.telemetry")
 ```
 
@@ -50,7 +50,7 @@ When inspecting the code above, we can breakdown the 3 lines of code by:
 
 The developers and administrators of the dashboard can access the data that is gathered by `shiny.telemetry` via a Telemetry object or directly from `DataStorage` via the appropriate provider.
 
-```
+```R
 # After running the app
 shiny.telemetry::Telemetry$new()$read_events("2020-01-01", "2050-01-01")
 shiny.telemetry::DataStorageRSQLite$new(db_path = "telemetry.sqlite") # default provider and path for Telemetry$new()
