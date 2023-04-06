@@ -128,15 +128,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       NULL
     },
 
-    #' @description read events data
-    #'
-    #' @param date_from date representing the starting day of results
-    #' @param date_to date representing the last day of results
-
-    read_events = function(date_from, date_to) {
-      private$.data_storage$read_user_data(date_from, date_to)
-    },
-
     # ###############################################################
     #
     #   _                __                  _   _

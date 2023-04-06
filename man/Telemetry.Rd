@@ -60,7 +60,6 @@ telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 \itemize{
 \item \href{#method-Telemetry-new}{\code{Telemetry$new()}}
 \item \href{#method-Telemetry-start_session}{\code{Telemetry$start_session()}}
-\item \href{#method-Telemetry-read_events}{\code{Telemetry$read_events()}}
 \item \href{#method-Telemetry-log_login}{\code{Telemetry$log_login()}}
 \item \href{#method-Telemetry-log_logout}{\code{Telemetry$log_logout()}}
 \item \href{#method-Telemetry-log_click}{\code{Telemetry$log_click()}}
@@ -140,25 +139,6 @@ track the browser version. `TRUE` by default.}
 
 \item{\code{session}}{ShinySession object or NULL to identify the current
 Shiny session.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Telemetry-read_events"></a>}}
-\if{latex}{\out{\hypertarget{method-Telemetry-read_events}{}}}
-\subsection{Method \code{read_events()}}{
-read events data
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Telemetry$read_events(date_from, date_to)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{date_from}}{date representing the starting day of results}
-
-\item{\code{date_to}}{date representing the last day of results}
 }
 \if{html}{\out{</div>}}
 }

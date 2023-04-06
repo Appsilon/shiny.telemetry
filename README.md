@@ -51,9 +51,11 @@ When inspecting the code above, we can breakdown the 3 lines of code by:
 The developers and administrators of the dashboard can access the data that is gathered by `shiny.telemetry` via a Telemetry object or directly from `DataStorage` via the appropriate provider.
 
 ```R
-# After running the app
-shiny.telemetry::Telemetry$new()$read_events("2020-01-01", "2050-01-01")
-shiny.telemetry::DataStorageRSQLite$new(db_path = "telemetry.sqlite") # default provider and path for Telemetry$new()
+# After running the instrumented
+shiny.telemetry::Telemetry$new()$data_storage$read_events("2020-01-01", "2050-01-01")
+
+# default provider and path for Telemetry$new()
+shiny.telemetry::DataStorageRSQLite$new(db_path = "telemetry.sqlite")$read_events("2020-01-01", "2050-01-01") 
 ```
 
 The package has an analytics sample dashboard to help access the data. It is located at `inst/examples/app/analytics` and it should be modified so that it references the correct `DataStorage` provider and configuration.
