@@ -2,9 +2,9 @@
 
 > Easy logging of users activity and session events of your Shiny App 
 
-This R package allows to track events happening on a session and storing to a database, either locally at the deployment or remotely.
+The `shiny.telemetry` R package tracks events occurring on a user session, such as input changes and session duration, and stores them in a local or remote database.
 
-It allows the developers to have access to insights about the dashboard usage and adoption, so that they can understand the users better and tailor the dashboards and their features.
+It provides developers with the tools to help understand how users interact with Shiny dashboards and answer questions such as: which tabs/pages are more often visited, which inputs users are changing, what is the average length of a session, etc.
 
 ## Install
 
