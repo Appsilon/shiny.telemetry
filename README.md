@@ -25,7 +25,7 @@ remotes::install_github("Appsilon/shiny.telemetry")
 The code below runs a minimal example of a shiny application that uses `shiny.telemetry`.
 In this example, this package will keep the session information and all changes to the `numericInput`.
 
-ℹ️ _note_: From the user's perspective of using the dashboard nothing happens as all operations run in the background.
+ℹ️ _note_: When using the dashboard nothing is happening from the user's perspective as all operation run in the background _(either in the server or in javascript)_.
 
 ```R
 library(shiny)
@@ -34,10 +34,12 @@ telemetry <- Telemetry$new() # 1. Initialize telemetry with default options
 shinyApp(
   ui = fluidPage(
     use_telemetry(), # 2. Add necessary Javascript to Shiny
-    numericInput("n", "n", 1)
+    numericInput("n", "n", 1),
+    plotOutput('plot')
   ),
   server = function(input, output) {
     telemetry$start_session() # 3. Minimal setup to track events
+    output$plot <- renderPlot({ hist(runif(input$n)) })
   }
 )
 ```
