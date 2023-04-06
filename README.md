@@ -28,11 +28,13 @@ In this example, this package will keep the session information and all changes 
 ℹ️ _note_: From the user's perspective of using the dashboard nothing happens as all operations run in the background.
 
 ```R
-telemetry <- shiny.telemetry::Telemetry$new() # 1. Initialize telemetry with default options
-shiny::shinyApp(
-  ui = shiny::fluidPage(
-    shiny.telemetry::use_telemetry(), # 2. Add necessary Javascript to Shiny
-    shiny::numericInput("n", "n", 1)
+library(shiny)
+library(shiny.telemetry)
+telemetry <- Telemetry$new() # 1. Initialize telemetry with default options
+shinyApp(
+  ui = fluidPage(
+    use_telemetry(), # 2. Add necessary Javascript to Shiny
+    numericInput("n", "n", 1)
   ),
   server = function(input, output) {
     telemetry$start_session() # 3. Minimal setup to track events
