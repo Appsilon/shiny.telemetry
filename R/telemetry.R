@@ -103,10 +103,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
       if (is.null(username)) username <- "unknown_user"
 
-      input <- shiny::reactiveValues()
-      if (checkmate::test_r6(session, "ShinySession")) {
-        input <- session$input
-      }
+      checkmate::test_r6(session, "ShinySession")
+      input <- session$input
 
       if (isTRUE(track_inputs) && isFALSE(private$track_all_inputs_flag)) {
         self$log_all_inputs(track_values)
@@ -211,11 +209,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     log_browser_version = function(
       session = shiny::getDefaultReactiveDomain()
     ) {
-
-      input <- shiny::reactiveValues()
-      if (checkmate::test_r6(session, "ShinySession")) {
-        input <- session$input
-      }
+      checkmate::test_r6(session, "ShinySession")
+      input <- session$input
 
       shiny::observeEvent(input$browser_version, {
         browser <- input$browser_version
@@ -286,12 +281,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       excluded_inputs = c("browser_version"),
       session = shiny::getDefaultReactiveDomain()
     ) {
-      input <- shiny::reactiveValues()
-      if (checkmate::test_r6(session, "ShinySession")) {
-        input <- session$input
-      }
+      checkmate::test_r6(session, "ShinySession")
 
-      input_values <- shiny::isolate(shiny::reactiveValuesToList(input))
+      input_values <- shiny::isolate(
+        shiny::reactiveValuesToList(session$input)
+      )
 
       if (checkmate::test_r6(session, "ShinySession")) {
         session$userData$shiny_input_values <- input_values
@@ -306,12 +300,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
 
       shiny::observe({
-        if (checkmate::test_r6(session, "ShinySession")) {
-          old_input_values <- session$userData$shiny_input_values
-        } else {
-          old_input_values <- input_values
-        }
-        new_input_values <- shiny::reactiveValuesToList(input)
+        old_input_values <- session$userData$shiny_input_values
+        new_input_values <- shiny::reactiveValuesToList(session$input)
 
         if (NROW(new_input_values) != 0) {
           names <- unique(c(names(old_input_values), names(new_input_values)))
@@ -351,11 +341,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             }
           }
         }
-        if (checkmate::test_r6(session, "ShinySession")) {
-          session$userData$shiny_input_values <- new_input_values
-        } else {
-          input_values <- new_input_values
-        }
+        session$userData$shiny_input_values <- new_input_values
+        input_values <- new_input_values
       })
     },
 
@@ -389,10 +376,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_string(input_type)
       checkmate::assert_choice(input_type, c("text", "json"))
 
-      input <- shiny::reactiveValues()
-      if (checkmate::test_r6(session, "ShinySession")) {
-        input <- session$input
-      }
+      checkmate::test_r6(session, "ShinySession")
+      input <- session$input
 
       shiny::observeEvent(
         input[[input_id]],
