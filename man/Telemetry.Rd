@@ -32,7 +32,7 @@ telemetry <- Telemetry$new(
   )
 )
 
-\donrun{
+\dontrun{
 telemetry$start_session(logout = FALSE)
 
 telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
