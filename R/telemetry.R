@@ -447,7 +447,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         version = self$version
       )
 
-      session_token <- NULL
       if (!is.null(session)) {
         payload$session <- session$token
       }
