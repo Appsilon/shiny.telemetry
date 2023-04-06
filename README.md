@@ -25,7 +25,7 @@ remotes::install_github("Appsilon/shiny.telemetry")
 The code below runs a minimal example of a shiny application that uses `shiny.telemetry`.
 In this example, this package will keep the session information and all changes to the `numericInput`.
 
-ℹ️ _note_: When using the dashboard nothing is happening from the user's perspective as all operation run in the background _(either in the server or in javascript)_.
+ℹ️ _note_: When using the dashboard nothing is happening from the user's perspective as all operation run in the background _(either in the server or in Javascript)_.
 
 ```R
 library(shiny)
