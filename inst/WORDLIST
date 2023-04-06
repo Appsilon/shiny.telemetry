@@ -4,7 +4,6 @@ Javascript
 Logfile
 RStudio
 Rhinoverse
-ShinyApp
 ShinySession
 UI
 analytics
@@ -12,8 +11,11 @@ appsilon
 cloneable
 customizable
 filesystem
+getDefaultReactiveDomain
 hostname
 json
+runApp
+shinyServer
 sqlfile
 sqlite
 ℹ️

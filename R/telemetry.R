@@ -25,10 +25,6 @@
 #'   )
 #' )
 #'
-#' telemetry$start_session(logout = FALSE)
-#'
-#' telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
-#'
 #' telemetry <- Telemetry$new(
 #'   data_storage = DataStorageLogFile$new(
 #'     log_file_path = tempfile(pattern = "user_stats", fileext = ".txt"),
@@ -36,9 +32,15 @@
 #'   )
 #' )
 #'
+#' \donrun{
 #' telemetry$start_session(logout = FALSE)
 #'
 #' telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
+#'
+#' telemetry$start_session(logout = FALSE)
+#'
+#' telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
+#' }
 Telemetry <- R6::R6Class( # nolint object_name_linter
   classname = "Telemetry",
   public = list(
