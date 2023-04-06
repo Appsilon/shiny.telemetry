@@ -44,7 +44,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
   public = list(
 
     #' @description
-    #' Constructor that initialize Telemetry instance with parameters.
+    #' Constructor that initializes Telemetry instance with parameters.
     #'
     #' @param name (optional) string that identifies the name of the dashboard.
     #' By default it will store data with `(dashboard)`.
@@ -53,7 +53,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param data_storage (optional) DataStorage instance where telemetry
     #' data is being stored.
     #' It can take any of data storage providers by this package,
-    #' By default it will store in a sqlite local database on the current
+    #' By default it will store in a SQLite local database in the current
     #' working directory with filename `telemetry.sqlite`
 
     initialize = function(
@@ -76,7 +76,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' Setup basic telemetry
     #'
     #' @param track_inputs flag that indicates if the basic telemetry should
-    #' track the inputs that change version. `TRUE` by default
+    #' track the inputs that change value. `TRUE` by default
     #' @param track_values flag that indicates if the basic telemetry should
     #' track the values of the inputs that are changing. `FALSE` by default.
     #' This parameter is ignored if `track_inputs` is `FALSE`
@@ -86,8 +86,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' track when the session ends. `TRUE` by default.
     #' @param browser_version flag that indicates if the basic telemetry should
     #' track the browser version. `TRUE` by default.
-    #' @param session ShinySession object or NULL to identify the current
-    #' Shiny session.
+    #' @param session The `session` object passed to function given to `shinyServer`.
+    #' Default is `shiny::getDefaultReactiveDomain()`.
 
     start_session = function(
       track_inputs = TRUE,
@@ -125,7 +125,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         self$log_browser_version(session = session)
       }
 
-      invisible(self)
+      NULL
     },
 
     #' @description read events data
