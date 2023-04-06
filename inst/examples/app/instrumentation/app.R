@@ -54,7 +54,7 @@ if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
 }
 
 server <- function(input, output, session) {
-  t2 <- telemetry$start_session()
+  telemetry$start_session()
 
   # server code
   output$distPlot <- renderPlot({
@@ -65,10 +65,6 @@ server <- function(input, output, session) {
   })
 
   telemetry$log_click("another click")
-
-  # or
-
-  t2$log_click("another click")
 }
 
 shinyApp(ui = ui, server = server)
