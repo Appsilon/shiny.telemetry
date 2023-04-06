@@ -4,7 +4,7 @@
 
 ## Install
 
-Shiny.telemetry can be installed from github by using the remotes package:
+Shiny.telemetry can be installed from GitHub by using the remotes package:
 
 ```
 remotes::install_github("Appsilon/shiny.telemetry")
@@ -15,8 +15,8 @@ remotes::install_github("Appsilon/shiny.telemetry")
 This package can be used with a minimal setup that keeps track of. 
 
 * Global `Telemetry` object that is across the different sessions
-* In the UI a `use_telemetry()` call is required to add package-related javascript
-* The server can be initialized with the method `start_session` of the `Telemetry object 
+* In the UI a `use_telemetry()` call is required to add package-related JavaScript
+* The server can be initialized with the method `start_session` of the `Telemetry` object 
     * for example: `telemetry$start_session(input)`
 
 The default `shinyApp` can be modified to add telemetry as it's shown below.
