@@ -11,7 +11,8 @@ analytics_app(data_storage)
 and writes.}
 }
 \value{
-list of UI and Server to run a ShinyApp
+An object that represents the analytics app. Printing the object or
+passing it to `shiny::runApp()` will run it.
 }
 \description{
 Run example telemetry analytics dashboard

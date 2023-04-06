@@ -75,7 +75,7 @@ telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 \if{html}{\out{<a id="method-Telemetry-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Telemetry-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor that initialize Telemetry instance with parameters.
+Constructor that initializes Telemetry instance with parameters.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Telemetry$new(
   name = "(dashboard)",
@@ -96,7 +96,7 @@ dashboard. By default it will use `v0.0.0`.}
 \item{\code{data_storage}}{(optional) DataStorage instance where telemetry
 data is being stored.
 It can take any of data storage providers by this package,
-By default it will store in a sqlite local database on the current
+By default it will store in a SQLite local database in the current
 working directory with filename `telemetry.sqlite`}
 }
 \if{html}{\out{</div>}}
@@ -122,7 +122,7 @@ Setup basic telemetry
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{track_inputs}}{flag that indicates if the basic telemetry should
-track the inputs that change version. `TRUE` by default}
+track the inputs that change value. `TRUE` by default}
 
 \item{\code{track_values}}{flag that indicates if the basic telemetry should
 track the values of the inputs that are changing. `FALSE` by default.
@@ -137,8 +137,8 @@ track when the session ends. `TRUE` by default.}
 \item{\code{browser_version}}{flag that indicates if the basic telemetry should
 track the browser version. `TRUE` by default.}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
-Shiny session.}
+\item{\code{session}}{The `session` object passed to function given to `shinyServer`.
+Default is `shiny::getDefaultReactiveDomain()`.}
 }
 \if{html}{\out{</div>}}
 }
