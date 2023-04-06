@@ -97,19 +97,40 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       login = TRUE,
       logout = TRUE,
       browser_version = TRUE,
+      navigation_input_id = NULL,
       session = shiny::getDefaultReactiveDomain()
     ) {
+
+      checkmate::assert_flag(track_inputs)
+      checkmate::assert_flag(track_values)
+      checkmate::assert_flag(login)
+      checkmate::assert_flag(logout)
+      checkmate::assert_flag(browser_version)
+
+      checkmate::assert_character(navigation_input_id, null.ok = TRUE)
 
       username <- shiny::isolate(
         shiny::parseQueryString(session$clientData$url_search)$username
       )
+
       if (is.null(username)) username <- "unknown_user"
 
       checkmate::test_r6(session, "ShinySession")
       input <- session$input
 
       if (isTRUE(track_inputs)) {
-        self$log_all_inputs(track_values)
+        private$.log_all_inputs(
+          track_values,
+          excluded_inputs = c(
+            "browser_version"
+          ),
+          navigation_inputs = navigation_input_id,
+          session = session
+        )
+      }
+
+      if (isFALSE(track_inputs) && !is.null(navigation_input_id)) {
+        sapply(navigation_input_id, self$log_navigation)
       }
 
       if (isTRUE(login)) {
@@ -313,63 +334,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       excluded_inputs = c("browser_version"),
       session = shiny::getDefaultReactiveDomain()
     ) {
-      checkmate::test_r6(session, "ShinySession")
-
-      input_values <- shiny::isolate(
-        shiny::reactiveValuesToList(session$input)
+      private$.log_all_inputs(
+        track_values = track_values,
+        excluded_inputs = excluded_inputs,
+        navigation_inputs = c(),
+        session = session
       )
-
-      if (checkmate::test_r6(session, "ShinySession")) {
-        session$userData$shiny_input_values <- input_values
-      }
-
-      logger::log_debug(logger::skip_formatter(
-        paste(
-          "shiny inputs initialized:",
-          paste(names(input_values), collapse = ", ")
-        )),
-        namespace = "shiny.telemetry"
-      )
-
-      shiny::observe({
-        old_input_values <- session$userData$shiny_input_values
-        new_input_values <- shiny::reactiveValuesToList(session$input)
-
-        if (NROW(new_input_values) != 0) {
-          names <- unique(c(names(old_input_values), names(new_input_values)))
-          names <- setdiff(names, excluded_inputs)
-          for (name in names) {
-            old <- old_input_values[name]
-            new <- new_input_values[name]
-            if (!identical(old, new)) {
-              log_value <- NULL
-              if (isTRUE(track_values)) {
-                if (is.null(old[[name]])) old[[name]] <- "null"
-                logger::log_debug(
-                  "event: input change: {name} ",
-                  ":: {old[[name]]} -> {new[[name]]}",
-                  namespace = "shiny.telemetry"
-                )
-                log_value <- new[[name]]
-              } else {
-                logger::log_debug(
-                  "event: input change: {name} :: (no value tracking)",
-                  namespace = "shiny.telemetry"
-                )
-              }
-
-              private$.log_event(
-                event = "input",
-                id = name,
-                value = log_value,
-                session = session
-              )
-            }
-          }
-        }
-        session$userData$shiny_input_values <- new_input_values
-        input_values <- new_input_values
-      })
     },
 
     #' @description
@@ -392,7 +362,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       session = shiny::getDefaultReactiveDomain()
     ) {
       private$.log_input(
-        input = input,
         input_id = input_id,
         track_value = track_value,
         matching_values = matching_values,
@@ -491,6 +460,106 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
     },
 
+    .log_all_inputs = function(
+      track_values,
+      excluded_inputs,
+      navigation_inputs,
+      session
+    ) {
+      checkmate::assert_r6(session, "ShinySession")
+      checkmate::assert_class(input, "reactivevalues")
+      checkmate::assert_flag(track_values)
+      checkmate::assert_character(excluded_inputs, null.ok = TRUE)
+      checkmate::assert_character(navigation_inputs, null.ok = TRUE)
+
+      if (is.null(navigation_inputs)) {
+        navigation_inputs <- c()
+      }
+
+      input_values <- shiny::isolate(
+        shiny::reactiveValuesToList(session$input)
+      )
+      session$userData$shiny_input_values <- input_values
+
+      if (checkmate::test_r6(session, "ShinySession")) {
+        session$userData$shiny_input_values <- input_values
+      }
+
+      logger::log_debug(logger::skip_formatter(
+        paste(
+          "shiny inputs initialized:",
+          paste(names(input_values), collapse = ", ")
+        )),
+        namespace = "shiny.telemetry"
+      )
+
+      input_values[input_values %in% navigation_inputs] %>%
+        purrr::keep(~.x %in% navigation_inputs) %>%
+        purrr::map(~private$.log_event(
+          event = "input",
+          id = .x,
+          value = new[[name]],
+          session = session
+        ))
+
+      shiny::observe({
+        old_input_values <- session$userData$shiny_input_values
+        new_input_values <- shiny::reactiveValuesToList(session$input)
+
+        if (NROW(new_input_values) != 0) {
+          names <- unique(c(names(old_input_values), names(new_input_values)))
+          names <- setdiff(names, excluded_inputs)
+          for (name in names) {
+            old <- old_input_values[name]
+            new <- new_input_values[name]
+            if (!identical(old, new)) {
+
+              if (name %in% navigation_inputs) {
+                logger::log_debug(
+                  "Writing 'navigation' event with ",
+                  "id: '{name}' and value: '{new[[name]]}'",
+                  namespace = "shiny.telemetry"
+                )
+                private$.log_event(
+                  event = "navigation",
+                  id = name,
+                  value = new[[name]],
+                  session = session
+                )
+                next
+              }
+
+              log_value <- NULL
+
+              if (isTRUE(track_values)) {
+                if (is.null(old[[name]])) old[[name]] <- "null"
+                logger::log_debug(
+                  "event: input change: {name} ",
+                  ":: {old[[name]]} -> {new[[name]]}",
+                  namespace = "shiny.telemetry"
+                )
+                log_value <- new[[name]]
+              } else {
+                logger::log_debug(
+                  "event: input change: {name} :: (no value tracking)",
+                  namespace = "shiny.telemetry"
+                )
+              }
+
+              private$.log_event(
+                event = "input",
+                id = name,
+                value = log_value,
+                session = session
+              )
+            }
+          }
+        }
+        session$userData$shiny_input_values <- new_input_values
+        input_values <- new_input_values
+      })
+    },
+
     .log_input = function(
       input_id,
       track_value = FALSE,
@@ -501,7 +570,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       checkmate::assert_string(input_id)
       checkmate::assert_flag(track_value)
-      checkmate::assert_character(matching_values),
+      checkmate::assert(
+        .combine = "or",
+        checkmate::check_atomic_vector(matching_values),
+        checkmate::check_null(matching_values)
+      )
 
       checkmate::assert_choice(input_type, c("text", "json"))
       checkmate::assert_choice(event_type, c("input", "navigation"))
