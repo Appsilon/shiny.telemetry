@@ -106,9 +106,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       checkmate::test_r6(session, "ShinySession")
       input <- session$input
 
-      if (isTRUE(track_inputs) && isFALSE(private$track_all_inputs_flag)) {
+      if (isTRUE(track_inputs)) {
         self$log_all_inputs(track_values)
-        private$track_all_inputs_flag <- TRUE
       }
 
       if (isTRUE(login)) {
@@ -418,7 +417,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
   ),
   private = list(
 
-    track_all_inputs_flag = FALSE,
     .name = NULL,
     .version = NULL,
     .data_storage = NULL,
