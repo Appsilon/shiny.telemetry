@@ -151,7 +151,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     log_login = function(
       username = NULL, session = shiny::getDefaultReactiveDomain()
     ) {
-      logger::log_debug("login", namespace = "shiny.telemetry")
+      logger::log_debug("event: login", namespace = "shiny.telemetry")
 
       private$.log_event(
         event = "login user",
@@ -171,7 +171,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       username = NULL, session = shiny::getDefaultReactiveDomain()
     ) {
       shiny::onSessionEnded(function() {
-        logger::log_debug("logout", namespace = "shiny.telemetry")
+        logger::log_debug("event: logout", namespace = "shiny.telemetry")
 
         private$.log_event(
           event = "logout user",
@@ -191,7 +191,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     log_click = function(id, session = shiny::getDefaultReactiveDomain()) {
       checkmate::assert_string(id)
 
-      logger::log_debug("click: {id}", namespace = "shiny.telemetry")
+      logger::log_debug("event: click: {id}", namespace = "shiny.telemetry")
 
       private$.log_event(
         event = "click",
@@ -218,7 +218,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
           shiny::need(browser, "'browser_info_js' should be set in app head")
         )
         logger::log_debug(
-          "browser_version: {browser}", namespace = "shiny.telemetry"
+          "event: browser_version: {browser}", namespace = "shiny.telemetry"
         )
 
         private$.log_event(
@@ -241,7 +241,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       checkmate::assert_string(detail)
 
-      logger::log_debug("session_details: {detail}", namespace = "shiny.telemetry")
+      logger::log_debug(
+        "event: session_details: {detail}",
+        namespace = "shiny.telemetry"
+      )
 
       private$.log_session(
         detail = detail,
@@ -293,8 +296,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       logger::log_debug(logger::skip_formatter(
         paste(
-          "Default Shiny inputs initialized:",
-          as.character(jsonlite::toJSON(input_values, auto_unbox = TRUE))
+          "shiny inputs initialized:",
+          paste(names(input_values), collapse = ", ")
         )),
         namespace = "shiny.telemetry"
       )
@@ -310,32 +313,25 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             old <- old_input_values[name]
             new <- new_input_values[name]
             if (!identical(old, new)) {
+              log_value <- NULL
               if (isTRUE(track_values)) {
                 logger::log_debug(
-                  "Shiny input change detected on {name} ",
-                  "{old[[name]]} -> {new[[name]]}",
+                  "event: input change: {name} ",
+                  ":: {old[[name]]} -> {new[[name]]}",
                   namespace = "shiny.telemetry"
                 )
+                log_value <- new[[name]]
               } else {
                 logger::log_debug(
-                  "Shiny input change detected on {name} (no value tracking) ",
-                  "{old[[name]]} -> {new[[name]]}",
+                  "event: input change: {name} :: (no value tracking)",
                   namespace = "shiny.telemetry"
                 )
               }
 
-              if (isTRUE(track_values)) {
-                private$.log_event(
-                  event = "input",
-                  id = name,
-                  value = new[[name]],
-                  session = session
-                )
-                next
-              }
               private$.log_event(
                 event = "input",
                 id = name,
+                value = log_value,
                 session = session
               )
             }
