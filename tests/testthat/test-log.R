@@ -9,32 +9,29 @@ test_that("log_input", {
     action_bucket = "user_log"
   )
 
-  mocked_observe_event <- function(eventExpr, handlerExpr, ...) { # nolint object_name_linter
-    shiny::isolate(handlerExpr)
-  }
-
   telemetry <- Telemetry$new(data_storage = data_storage)
 
   # Mock ShinySession (with required class added to pass assertions)
   session <- shiny::MockShinySession$new()
   class(session) <- c("ShinySession", class(session))
+
+  # Inputs are changed via session to best mimick that behaviour
   session$setInputs(sample = 53, sample2 = 31)
 
+  # 'log_input' uses 'observeEvent' internally, thus the function needs to be
+  # mocked. This cannot be done with 'mockery::stub()' as this function
+  # cannot scope the private methods of a class.
+  # `testthat::local_mocked_bindings` allows for it.
   testthat::local_mocked_bindings(
-    observeEvent = mocked_observe_event,
+    observeEvent = function(
+      eventExpr, handlerExpr, ... # nolint object_name_linter
+    ) {
+        shiny::isolate(handlerExpr)
+    },
     .package = "shiny"
   )
 
-  ShinySessionMock <- R6::R6Class( # nolint object_name_linter
-    classname = "ShinySession",
-    public = list(
-      input = list(),
-      initialize = function(input) {
-        self$input <- input
-      }
-    )
-  )
-
+  #
   # Test simple usage of log_input
   session$setInputs(sample = 53, sample2 = 31)
   expect_message(
@@ -48,8 +45,9 @@ test_that("log_input", {
     "Writing to user_log value: .*\"value\":53.*"
   )
 
+  #
+  # Test simple usage of log_input with matching values that don't match
   session$setInputs(sample = 63, sample2 = 41)
-  # Test simple usage of log_input with matching values
   expect_silent(
     telemetry$log_input(
       "sample",
@@ -60,6 +58,8 @@ test_that("log_input", {
     )
   )
 
+  #
+  # Test simple usage of log_input with matching values
   session$setInputs(sample = 73, sample2 = 51)
   expect_message(
     telemetry$log_input(
@@ -72,8 +72,9 @@ test_that("log_input", {
     "Writing to user_log value: .*\"value\":73.*"
   )
 
+  #
+  # Test simple usage of log_input without tracking values
   session$setInputs(sample = 83, sample2 = 61)
-  # Allow to test inputs that keep a list
   telemetry$log_input(
     "sample",
     matching_values = NULL,
@@ -82,6 +83,9 @@ test_that("log_input", {
   ) %>%
     expect_message("Writing to user_log value: .*\"id\":\"sample\".*")
 
+  #
+  # Test simple usage of log_input without tracking values
+  # (where value is not atomic)
   session$setInputs(sample = 1:10, sample2 = 31)
   telemetry$log_input(
     "sample",
@@ -91,7 +95,8 @@ test_that("log_input", {
   ) %>%
     expect_message("Writing to user_log value: .*\"id\":\"sample\".*")
 
-  # Allow to test inputs that keep a list
+  #
+  # Test simple usage of log_input (where value is not atomic)
   session$setInputs(sample = list(1, 2, 3), sample2 = 31)
   telemetry$log_input(
     "sample",
@@ -104,5 +109,6 @@ test_that("log_input", {
     expect_message("Writing to user_log value: .*\"id\":\"sample_2\".*") %>%
     expect_message("Writing to user_log value: .*\"id\":\"sample_3\".*")
 
+  # Manual call to revert mock_binding of 'observeEvent'
   withr::deferred_run()
 })
