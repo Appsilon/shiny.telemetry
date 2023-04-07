@@ -109,6 +109,26 @@ test_that("log_input", {
     expect_message("Writing to user_log value: .*\"id\":\"sample_2\".*") %>%
     expect_message("Writing to user_log value: .*\"id\":\"sample_3\".*")
 
+  #
+  # Test simple usage of log_input
+  session$setInputs(uisidebar = "tab1")
+  expect_message(
+    telemetry$log_navigation(
+      input_id = "uisidebar",
+      session = session
+    ),
+    "Writing to user_log value: .*\"action\":\"navigation\".*\"value\":\"tab1\".*"
+  )
+
+  expect_message(
+    telemetry$log_navigation_manual(
+      navigation_id = "sample",
+      value = "tab2",
+      session = session
+    ),
+    "Writing to user_log value: .*\"action\":\"navigation\".*\"value\":\"tab2\".*"
+  )
+
   # Manual call to revert mock_binding of 'observeEvent'
   withr::deferred_run()
 })

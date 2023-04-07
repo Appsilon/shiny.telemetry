@@ -177,8 +177,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_r6(session, "ShinySession")
 
       private$.log_input(
-        input = session$input, input_id = input_id, track_value = TRUE,
-        event_type = "navigation"
+        input_id = input_id,
+        track_value = TRUE,
+        event_type = "navigation",
+        session = session
       )
     },
 
@@ -196,7 +198,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       logger::log_debug(
         "Writing 'navigation' event with ",
-        "id: '{input_id}' and value: '{value}'",
+        "id: '{navigation_id}' and value: '{value}'",
         namespace = "shiny.telemetry"
       )
 
@@ -280,6 +282,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       shiny::observeEvent(input$browser_version, {
         browser <- input$browser_version
+
         shiny::validate(
           shiny::need(browser, "'browser_info_js' should be set in app head")
         )
@@ -478,7 +481,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       session
     ) {
       checkmate::assert_r6(session, "ShinySession")
-      checkmate::assert_class(input, "reactivevalues")
       checkmate::assert_flag(track_values)
       checkmate::assert_character(excluded_inputs, null.ok = TRUE)
       checkmate::assert_character(navigation_inputs, null.ok = TRUE)
