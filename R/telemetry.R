@@ -127,9 +127,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
           navigation_inputs = navigation_input_id,
           session = session
         )
-      }
-
-      if (isFALSE(track_inputs) && !is.null(navigation_input_id)) {
+      } else {
         sapply(navigation_input_id, self$log_navigation)
       }
 
