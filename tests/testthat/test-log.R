@@ -1,23 +1,28 @@
 test_that("log_input", {
   data_storage <- list(
     insert = function(values, bucket) {
-      if (!is.null(values$value)) {
-        message(glue::glue("Writing to {bucket} value: {values$value} id: {values$id}"))
-      } else {
-        message(glue::glue("Writing to {bucket} value change with id: {values$id}"))
-      }
+      message(glue::glue(
+        "Writing to {bucket} value: ",
+        "{jsonlite::toJSON(values, auto_unbox = TRUE)}"
+      ))
     },
     action_bucket = "user_log"
   )
 
+  mocked_observe_event <- function(eventExpr, handlerExpr, ...) { # nolint object_name_linter
+    shiny::isolate(handlerExpr)
+  }
+
   telemetry <- Telemetry$new(data_storage = data_storage)
 
-  mockery::stub(
-    telemetry$log_input,
-    "shiny::observeEvent",
-    function(eventExpr, handlerExpr, ...) { # nolint object_name_linter
-      handlerExpr
-    }
+  # Mock ShinySession (with required class added to pass assertions)
+  session <- shiny::MockShinySession$new()
+  class(session) <- c("ShinySession", class(session))
+  session$setInputs(sample = 53, sample2 = 31)
+
+  testthat::local_mocked_bindings(
+    observeEvent = mocked_observe_event,
+    .package = "shiny"
   )
 
   ShinySessionMock <- R6::R6Class( # nolint object_name_linter
@@ -31,65 +36,73 @@ test_that("log_input", {
   )
 
   # Test simple usage of log_input
+  session$setInputs(sample = 53, sample2 = 31)
   expect_message(
     telemetry$log_input(
       input_id = "sample",
       matching_values = NULL,
       track_value = TRUE,
       input_type = "text",
-      session = ShinySessionMock$new(list(sample = 53, sample2 = 31))
+      session = session
     ),
-    "Writing to user_log value: 53 id: sample"
+    "Writing to user_log value: .*\"value\":53.*"
   )
 
+  session$setInputs(sample = 63, sample2 = 41)
   # Test simple usage of log_input with matching values
   expect_silent(
     telemetry$log_input(
       "sample",
       track_value = TRUE,
-      matching_values = c(52, "52"),
+      matching_values = c(62, "62"),
       input_type = "text",
-      session = ShinySessionMock$new(list(sample = 53, sample2 = 31))
+      session = session
     )
   )
 
+  session$setInputs(sample = 73, sample2 = 51)
   expect_message(
     telemetry$log_input(
       "sample",
       track_value = TRUE,
-      matching_values = 53,
+      matching_values = 73,
       input_type = "text",
-      session = ShinySessionMock$new(list(sample = 53, sample2 = 36))
+      session = session
     ),
-    "Writing to user_log value: 53 id: sample"
+    "Writing to user_log value: .*\"value\":73.*"
   )
 
+  session$setInputs(sample = 83, sample2 = 61)
   # Allow to test inputs that keep a list
   telemetry$log_input(
     "sample",
     matching_values = NULL,
     input_type = "text",
-    session = ShinySessionMock$new(list(sample = 23, sample2 = 31))
+    session = session
   ) %>%
-    expect_message("Writing to user_log value change with id: sample")
+    expect_message("Writing to user_log value: .*\"id\":\"sample\".*")
 
+  session$setInputs(sample = 1:10, sample2 = 31)
   telemetry$log_input(
     "sample",
     matching_values = NULL,
     input_type = "text",
-    session = ShinySessionMock$new(list(sample = 1:10, sample2 = 31))
+    session = session
   ) %>%
-    expect_message("Writing to user_log value change with id: sample")
+    expect_message("Writing to user_log value: .*\"id\":\"sample\".*")
 
   # Allow to test inputs that keep a list
+  session$setInputs(sample = list(1, 2, 3), sample2 = 31)
   telemetry$log_input(
     "sample",
     track_value = TRUE,
     matching_values = NULL,
     input_type = "text",
-    session = ShinySessionMock$new(list(sample = list(1, 2, 3), sample2 = 31))
+    session = session
   ) %>%
-    expect_message("Writing to user_log value: 1 id: sample_1") %>%
-    expect_message("Writing to user_log value: 2 id: sample_2") %>%
-    expect_message("Writing to user_log value: 3 id: sample_3")
+    expect_message("Writing to user_log value: .*\"id\":\"sample_1\".*") %>%
+    expect_message("Writing to user_log value: .*\"id\":\"sample_2\".*") %>%
+    expect_message("Writing to user_log value: .*\"id\":\"sample_3\".*")
+
+  withr::deferred_run()
 })

@@ -428,7 +428,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         checkmate::check_list(value, null.ok = TRUE),
         checkmate::check_atomic(value)
       )
-      checkmate::assert_r6(session, classes = "ShinySession", null.ok = TRUE)
+      checkmate::assert_r6(
+        session, classes = "ShinySession", null.ok = TRUE
+      )
 
       payload <- list(
         dashboard = self$dashboard,
@@ -489,10 +491,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         shiny::reactiveValuesToList(session$input)
       )
       session$userData$shiny_input_values <- input_values
-
-      if (checkmate::test_r6(session, "ShinySession")) {
-        session$userData$shiny_input_values <- input_values
-      }
 
       logger::log_debug(logger::skip_formatter(
         paste(
@@ -564,6 +562,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             }
           }
         }
+
         session$userData$shiny_input_values <- new_input_values
         input_values <- new_input_values
       })
@@ -608,14 +607,20 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             ))
           }
 
-          logger::log_debug(
-            "Writing '{event_type}' event with id: '{input_id}'",
-            namespace = "shiny.telemetry"
-          )
+          if (
+            is.null(matching_values) ||
+            (!is.null(matching_values) && input_value %in% matching_values)
+          ) {
 
-          private$.log_event(
-            event = event_type, id = input_id, session = session
-          )
+            logger::log_debug(
+              "Writing '{event_type}' event with id: '{input_id}'",
+              namespace = "shiny.telemetry"
+            )
+
+            private$.log_event(
+              event = event_type, id = input_id, session = session
+            )
+          }
 
         },
         # Options to observeEvent call
@@ -653,12 +658,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         return(NULL)
       }
 
-      logger::log_debug(
-        "Writing '{event_type}' event with ",
-        "id: '{input_id}' and value: '{input_value}'",
-        namespace = "shiny.telemetry"
-      )
-
       if (is.logical(input_value)) {
         input_value <- as.character(input_value)
       }
@@ -671,7 +670,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       }
 
       if (
-        is.null(matching_values) |
+        is.null(matching_values) ||
         (!is.null(matching_values) && input_value %in% matching_values)
       ) {
         # save each value separately (if more than 1)
@@ -680,6 +679,13 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         if (n_values > 1) {
           input_ids <- glue::glue("{input_id}_{seq(1, n_values)}")
         }
+
+        logger::log_debug(
+          "Writing '{event_type}' event with ",
+          "id: '{input_id}' and value: ",
+          "'{jsonlite::toJSON(input_value, auto_unbox = TRUE)}'",
+          namespace = "shiny.telemetry"
+        )
 
         purrr::walk2(
           input_value,
