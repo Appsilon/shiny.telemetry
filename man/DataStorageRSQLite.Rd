@@ -9,18 +9,19 @@ API for read/write operations
 }
 \examples{
 data_storage <- DataStorageRSQLite$new(
-  username = "test_user",
   db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
 )
-log_login(data_storage)
 
-log_click(data_storage, "an_id")
-log_click(data_storage, "a_different_id")
+telemetry <- Telemetry$new(data_storage = data_storage)
+telemetry$log_login()
 
-log_session_detail(data_storage, detail = "some detail")
+telemetry$log_click("an_id")
+telemetry$log_click("a_different_id")
 
-data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
+telemetry$log_session(detail = "some detail")
+
 data_storage$read_user_data("2020-01-01", "2025-01-01")
+data_storage$read_session_data("2020-01-01", "2025-01-01")
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageRSQLite}
@@ -42,20 +43,12 @@ data_storage$read_user_data("2020-01-01", "2025-01-01")
 \subsection{Method \code{new()}}{
 Initialize the data storage class
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageRSQLite$new(
-  username,
-  session_id = NULL,
-  db_path = "user_stats.sqlite"
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorageRSQLite$new(db_path = "user_stats.sqlite")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{username}}{string with username of the current session}
-
-\item{\code{session_id}}{string with custom session id (should not be used)}
-
 \item{\code{db_path}}{string with path to sqlfile}
 }
 \if{html}{\out{</div>}}
@@ -67,12 +60,7 @@ Initialize the data storage class
 \subsection{Method \code{insert()}}{
 Insert new data
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageRSQLite$insert(
-  values,
-  bucket = self$action_bucket,
-  add_username = TRUE,
-  force_params = TRUE
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorageRSQLite$insert(values, bucket = self$action_bucket)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -81,13 +69,6 @@ Insert new data
 \item{\code{values}}{list of values to write to database}
 
 \item{\code{bucket}}{name of table to write}
-
-\item{\code{add_username}}{boolean flag that indicates if line should include
-the username of the current session}
-
-\item{\code{force_params}}{boolean flag that indicates if `session`,
-`username` and `time` parameters should be added automatically
-(the default behavior).}
 }
 \if{html}{\out{</div>}}
 }

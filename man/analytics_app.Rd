@@ -10,6 +10,10 @@ analytics_app(data_storage)
 \item{data_storage}{data_storage instance that will handle all backend read
 and writes.}
 }
+\value{
+An object that represents the analytics app. Printing the object or
+passing it to `shiny::runApp()` will run it.
+}
 \description{
 Run example telemetry analytics dashboard
 }

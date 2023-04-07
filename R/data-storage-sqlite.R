@@ -8,18 +8,19 @@
 #'
 #' @examples
 #' data_storage <- DataStorageRSQLite$new(
-#'   username = "test_user",
 #'   db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
 #' )
-#' log_login(data_storage)
 #'
-#' log_click(data_storage, "an_id")
-#' log_click(data_storage, "a_different_id")
+#' telemetry <- Telemetry$new(data_storage = data_storage)
+#' telemetry$log_login()
 #'
-#' log_session_detail(data_storage, detail = "some detail")
+#' telemetry$log_click("an_id")
+#' telemetry$log_click("a_different_id")
 #'
-#' data_storage$read_user_data(as.Date("2020-01-01"), as.Date("2025-01-01"))
+#' telemetry$log_session(detail = "some detail")
+#'
 #' data_storage$read_user_data("2020-01-01", "2025-01-01")
+#' data_storage$read_session_data("2020-01-01", "2025-01-01")
 DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageRSQLite",
   inherit = DataStorage,
@@ -29,36 +30,28 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
 
     #' @description
     #' Initialize the data storage class
-    #' @param username string with username of the current session
-    #' @param session_id string with custom session id (should not be used)
     #' @param db_path string with path to sqlfile
 
     initialize = function(
-    username, session_id = NULL, db_path = "user_stats.sqlite"
+      db_path = "user_stats.sqlite"
     ) {
-      super$initialize(username, session_id)
+      super$initialize()
 
-      checkmate::assert_string(username)
       logger::log_debug("path to db: {db_path}", namespace = "shiny.telemetry")
       private$connect(db_path)
 
-      private$initialize_connection(username)
+      private$initialize_connection()
     },
 
     #' @description Insert new data
     #' @param values list of values to write to database
     #' @param bucket name of table to write
-    #' @param add_username boolean flag that indicates if line should include
-    #' the username of the current session
-    #' @param force_params boolean flag that indicates if `session`,
-    #' `username` and `time` parameters should be added automatically
-    #' (the default behavior).
 
-    insert = function(
-    values, bucket = self$action_bucket, add_username = TRUE, force_params = TRUE
-    ) {
-      values <- private$insert_checks(
-        values, bucket, add_username, force_params
+    insert = function(values, bucket = self$action_bucket) {
+      values <- private$insert_checks(values, bucket)
+
+      checkmate::assert_choice(
+        bucket, c(self$action_bucket, self$session_bucket)
       )
 
       private$write(values, bucket)
@@ -85,6 +78,9 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     #' @param date_to date representing the last day of results
 
     read_session_data = function(date_from, date_to) {
+      date_from <- private$check_date(date_from, .var_name = "date_from")
+      date_to <- private$check_date(date_to, .var_name = "date_to")
+
       db_data <- private$read_data(self$session_bucket, date_from, date_to)
 
       db_data %>%
@@ -116,10 +112,12 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
       odbc::dbDisconnect(private$db_con)
     },
 
-    initialize_connection = function(username, table_schemes) {
+    initialize_connection = function() {
       table_schemes <- list(
         user_log = c(
           time = "TIMESTAMP",
+          dashboard = "TEXT",
+          version = "TEXT",
           session = "TEXT",
           username = "TEXT",
           action = "TEXT",
@@ -127,7 +125,11 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
           value = "TEXT"
         ),
         session_details = c(
-          time = "TIMESTAMP", session = "TEXT", detail = "TEXT"
+          time = "TIMESTAMP",
+          dashboard = "TEXT",
+          version = "TEXT",
+          session = "TEXT",
+          detail = "TEXT"
         )
       )
 
@@ -141,7 +143,9 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
 
     create_table_from_schema = function(table_name, table_scheme) {
       if (!(table_name %in% odbc::dbListTables(private$db_con))) {
-        logger::log_debug("Creating table {table_name}")
+        logger::log_debug(
+          "Creating table {table_name}", namespace = "shiny.telemetry"
+        )
         create_table_query <- odbc::sqlCreateTable(
           con = private$db_con,
           table = table_name,
@@ -158,7 +162,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_string(bucket)
       checkmate::assert_list(values)
 
-      send_query_df <- as.data.frame(values, stringsAsFactors = FALSE)
+      send_query_df <- dplyr::bind_rows(values)
 
       odbc::dbWriteTable(
         private$db_con,

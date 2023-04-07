@@ -18,7 +18,6 @@ library(shiny.telemetry)
 
 # Default storage backend using LogFile
 data_storage <- DataStorageLogFile$new(
-  username = "test_user",
   log_file_path = file.path(getwd(), "user_stats.txt"),
   session_file_path = file.path(getwd(), "session_details.txt")
 )
@@ -28,8 +27,7 @@ data_storage <- DataStorageLogFile$new(
 if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
   data_storage <- do.call(
     config::get("data_storage")$class$new,
-    config::get("data_storage")$params %>%
-      purrr::assign_in("username", "test_user")
+    config::get("data_storage")$params
   )
 }
 

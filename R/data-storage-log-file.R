@@ -8,17 +8,17 @@
 #'
 #' @examples
 #' data_storage <- DataStorageLogFile$new(
-#'   username = "test_user",
 #'   log_file_path = tempfile(pattern = "user_stats", fileext = ".json"),
 #'   session_file_path = tempfile(pattern = "session_details", fileext = ".json")
 #' )
 #'
-#' log_login(data_storage)
+#' telemetry <- Telemetry$new(data_storage = data_storage)
+#' telemetry$log_login()
 #'
-#' log_click(data_storage, "an_id")
-#' log_click(data_storage, "a_different_id")
+#' telemetry$log_click("an_id")
+#' telemetry$log_click("a_different_id")
 #'
-#' log_session_detail(data_storage, detail = "some detail")
+#' telemetry$log_session(detail = "some detail")
 #'
 #' data_storage$read_user_data("2020-01-01", "2025-01-01")
 #' data_storage$read_session_data("2020-01-01", "2025-01-01")
@@ -28,46 +28,29 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
   #
   # Public
   public = list(
-    # @title initialize RSQLite storage provider
-    # @param username string with username of the current session
-    #
 
     #' @description
     #' Initialize the data storage class
-    #' @param username string with username of the current session
-    #' @param session_id string with custom session id (should not be used)
     #' @param log_file_path string with path to JSON log file user actions
     #' @param session_file_path string with path to JSON log file for the session details
 
     initialize = function(
-      username, session_id = NULL, log_file_path, session_file_path
+      log_file_path, session_file_path
     ) {
-      super$initialize(username, session_id)
-      logger::log_debug("path to file: {log_file_path}")
+      super$initialize()
+      logger::log_debug("path to file: {log_file_path}", namespace = "shiny.telemetry")
       private$connect(log_file_path = log_file_path, session_file_path = session_file_path)
     },
 
     #' @description Insert new data
     #' @param values list of values to write to database
     #' @param bucket path to log file; defaults to `log_file_path` used when initialized
-    #' @param add_username boolean flag that indicates if line should include
-    #' the username of the current session
-    #' @param force_params boolean flag that indicates if `session`,
-    #' `username` and `time` parameters should be added automatically
-    #' (the default behavior).
 
-    insert = function(
-      values,
-      bucket = private$log_file_path,
-      add_username = TRUE,
-      force_params = TRUE
-    ) {
-      checkmate::assert_list(values)
-      checkmate::assert_string(bucket)
-      checkmate::assert_logical(add_username)
+    insert = function(values, bucket = private$log_file_path) {
+      values <- private$insert_checks(values, bucket = bucket)
 
-      values <- private$insert_checks(
-        values, bucket = bucket, add_username = add_username, force_params = force_params
+      checkmate::assert_choice(
+        bucket, c(self$action_bucket, self$session_bucket)
       )
 
       if (!is.null(values$value))
@@ -87,16 +70,18 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       log_data <- private$read_data(
         private$log_file_path,
         date_from,
-        date_to,
-        empty_template = dplyr::tibble(
+        date_to
+      ) %>%
+        dplyr::bind_rows(dplyr::tibble(
           time = character(),
+          dashboard = character(),
+          version = character(),
           session = character(),
           username = character(),
           action = character(),
           id = character(),
           value = character()
-        )
-      )
+        ))
 
       if (NROW(log_data) > 0) {
         return(dplyr::mutate(log_data, date = as.Date(.data$time)))
@@ -115,13 +100,15 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       db_data <- private$read_data(
         private$session_file_path,
         date_from,
-        date_to,
-        empty_template = dplyr::tibble(
+        date_to
+      ) %>%
+        dplyr::bind_rows(dplyr::tibble(
           time = character(),
+          dashboard = character(),
+          version = character(),
           session = character(),
           detail = character()
-        )
-      )
+        ))
 
       db_data %>%
         dplyr::select("session", "detail") %>%
@@ -180,16 +167,16 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     # @name read_data
     # Reads the JSON log file
     # @param bucket string with path to file
-    read_data = function(
-      bucket, date_from, date_to, empty_template = dplyr::tibble()
-    ) {
+    read_data = function(bucket, date_from, date_to) {
+
       checkmate::assert_string(bucket)
       checkmate::assert_date(date_from)
       checkmate::assert_date(date_to)
 
       if (!file.exists(bucket)) {
-        return(empty_template)
+        return(dplyr::tibble())
       }
+
       readLines(bucket) %>%
         lapply(jsonlite::fromJSON) %>%
         dplyr::bind_rows() %>%

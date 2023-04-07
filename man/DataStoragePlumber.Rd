@@ -13,7 +13,6 @@ API for read/write operations
 # running these examples (NULL or a valid secret)
 
 data_storage <- DataStoragePlumber$new(
-  username = "test_user",
   hostname = "connect.appsilon.com",
   path = "shiny_telemetry_plumber",
   port = 443,
@@ -23,7 +22,6 @@ data_storage <- DataStoragePlumber$new(
 )
 
 data_storage <- DataStoragePlumber$new(
-  username = "test_user",
   hostname = "127.0.0.1",
   path = NULL,
   port = 8087,
@@ -31,12 +29,13 @@ data_storage <- DataStoragePlumber$new(
   secret = Sys.getenv("PLUMBER_SECRET")
 )
 
-log_login(data_storage)
+telemetry <- Telemetry$new(data_storage = data_storage)
+telemetry$log_login()
 
-log_click(data_storage, "an_id")
-log_click(data_storage, "a_different_id")
+telemetry$log_click("an_id")
+telemetry$log_click("a_different_id")
 
-log_session_detail(data_storage, detail = "some detail")
+telemetry$log_session(detail = "some detail")
 
 data_storage$read_user_data("2020-01-01", "2025-01-01")
 data_storage$read_session_data("2020-01-01", "2025-01-01")
@@ -80,8 +79,6 @@ endpoint}
 Initialize the data storage class
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataStoragePlumber$new(
-  username,
-  session_id = NULL,
   hostname = "127.0.0.1",
   port = 80,
   protocol = "http",
@@ -94,10 +91,6 @@ Initialize the data storage class
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{username}}{string with username of the current session.}
-
-\item{\code{session_id}}{string with custom session id (should not be used).}
-
 \item{\code{hostname}}{string with hostname of plumber instance,}
 
 \item{\code{port}}{numeric value with port number of plumber instance.}
@@ -123,12 +116,7 @@ server).}
 \subsection{Method \code{insert()}}{
 Insert new data
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStoragePlumber$insert(
-  values,
-  bucket = self$action_bucket,
-  add_username = TRUE,
-  force_params = TRUE
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStoragePlumber$insert(values, bucket = self$action_bucket)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -137,13 +125,6 @@ Insert new data
 \item{\code{values}}{list of values to write to database}
 
 \item{\code{bucket}}{name of table to write}
-
-\item{\code{add_username}}{boolean flag that indicates if line should include
-the username of the current session}
-
-\item{\code{force_params}}{boolean flag that indicates if `session`,
-`username` and `time` parameters should be added automatically
-(the default behavior).}
 }
 \if{html}{\out{</div>}}
 }

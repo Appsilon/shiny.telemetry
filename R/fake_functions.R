@@ -10,4 +10,5 @@ fake_function <- function() {
   digest::digest
   httr2::request
   odbc::dbConnect
+  jsonlite::toJSON
 }

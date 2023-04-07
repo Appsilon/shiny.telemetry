@@ -205,6 +205,9 @@ analytics_server <- function(data_storage) {
 #' @param data_storage data_storage instance that will handle all backend read
 #' and writes.
 #'
+#' @return An object that represents the analytics app. Printing the object or
+#' passing it to `shiny::runApp()` will run it.
+#'
 #' @export
 analytics_app <- function(data_storage) {
   shiny::shinyApp(
