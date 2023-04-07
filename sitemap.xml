@@ -25,10 +25,10 @@
     <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageRSQLite.html</loc>
   </url>
   <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/analytics_app.html</loc>
+    <loc>https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html</loc>
   </url>
   <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/browser_info_js.html</loc>
+    <loc>https://appsilon.github.io/shiny.telemetry/reference/analytics_app.html</loc>
   </url>
   <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/build_id_from_secret.html</loc>
@@ -40,12 +40,12 @@
     <loc>https://appsilon.github.io/shiny.telemetry/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/log_input.html</loc>
-  </url>
-  <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/prepare_admin_panel_components.html</loc>
   </url>
   <url>
     <loc>https://appsilon.github.io/shiny.telemetry/reference/shiny.telemetry-package.html</loc>
+  </url>
+  <url>
+    <loc>https://appsilon.github.io/shiny.telemetry/reference/use_telemetry.html</loc>
   </url>
 </urlset>

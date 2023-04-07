@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9008</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -95,112 +95,82 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="shinytelemetry">shiny.telemetry<a class="anchor" aria-label="anchor" href="#shinytelemetry"></a>
 </h1></div>
-<p>Easy way for logging users activity and adding statistics panel to your Shiny app.</p>
+<blockquote>
+<p>Easy logging of users activity and session events of your Shiny App</p>
+</blockquote>
+<p>The <code>shiny.telemetry</code> R package tracks events occurring on a user session, such as input changes and session duration, and stores them in a local or remote database.</p>
+<p>It provides developers with the tools to help understand how users interact with Shiny dashboards and answer questions such as: which tabs/pages are more often visited, which inputs users are changing, what is the average length of a session, etc.</p>
 <div class="section level2">
-<h2 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
+<h2 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
 </h2>
-<p>Remote DB. Can be PostgreSQL DB or simple sqlite file.</p>
+<p>The <code>shiny.telemetry</code> package can be installed from GitHub by using the remotes package:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Appsilon/shiny.telemetry"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="how-to-register-users-action">How to register user’s action?<a class="anchor" aria-label="anchor" href="#how-to-register-users-action"></a>
+<h2 id="how-to-use-in-a-shiny-dashboard">How to use in a Shiny Dashboard?<a class="anchor" aria-label="anchor" href="#how-to-use-in-a-shiny-dashboard"></a>
 </h2>
-<ol style="list-style-type: decimal">
-<li>Prepare DB to store results (here we use SQLite, but PostgreSQL is possible as well).</li>
-</ol>
-<pre><code><span><span class="co"># run only once</span></span>
-<span><span class="va">connection</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span>, dbname <span class="op">=</span> <span class="st">"user_stats.sqlite"</span><span class="op">)</span></span>
-<span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">connection</span><span class="op">)</span></span></code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Depending on your authentication approach, define function to extract username. In this example we just extract username from url <code>username</code> parameter.</li>
-</ol>
-<pre><code><span><span class="va">get_user</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">parseQueryString</span><span class="op">(</span><span class="fu">isolate</span><span class="op">(</span><span class="va">session</span><span class="op">$</span><span class="va">clientData</span><span class="op">$</span><span class="va">url_search</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">username</span></span>
-<span><span class="op">}</span></span></code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Structure your main app to register user’s actions.</li>
-</ol>
-<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
+<p><code>shiny.telemetry</code> allows for a minimal setup with only 3 commands that can track some information about the session:</p>
+<ul>
+<li>When session starts and ends</li>
+<li>The browser version used by the client</li>
+<li>Changes in the inputs <em>(doesn’t track values by default)</em>
+</li>
+</ul>
+<p>The code below runs a minimal example of a shiny application that uses <code>shiny.telemetry</code>. In this example, this package will keep the session information and all changes to the <code>numericInput</code>.</p>
+<p>ℹ️ <em>note</em>: When using the dashboard nothing is happening from the user’s perspective as all operation run in the background <em>(either in the server or in Javascript)</em>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">shiny.telemetry</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rsqlite.r-dbi.org" class="external-link">RSQLite</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/titlePanel.html" class="external-link">titlePanel</a></span><span class="op">(</span><span class="st">"Old Faithful Geyser Data"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html" class="external-link">sidebarLayout</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html" class="external-link">sidebarPanel</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sliderInput.html" class="external-link">sliderInput</a></span><span class="op">(</span><span class="st">"bins"</span>,</span>
-<span>                  <span class="st">"Number of bins:"</span>,</span>
-<span>                  min <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                  max <span class="op">=</span> <span class="fl">50</span>,</span>
-<span>                  value <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/actionButton.html" class="external-link">actionButton</a></span><span class="op">(</span><span class="st">"apply_slider"</span>, <span class="st">"Apply"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/sidebarLayout.html" class="external-link">mainPanel</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html" class="external-link">plotOutput</a></span><span class="op">(</span><span class="st">"distPlot"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">connection</span> <span class="op">&lt;-</span> <span class="fu">odbc</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span>, dbname <span class="op">=</span> <span class="st">"user_stats.sqlite"</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># creating user connection list and making sure required tables exist in DB</span></span>
-<span>  <span class="va">user_connection</span> <span class="op">&lt;-</span> <span class="fu">initialize_connection</span><span class="op">(</span><span class="va">connection</span>, username <span class="op">=</span> <span class="fu">get_user</span><span class="op">(</span><span class="va">session</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># registering login</span></span>
-<span>  <span class="fu"><a href="reference/log_input.html">log_login</a></span><span class="op">(</span><span class="va">user_connection</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># selecting registered actions to watch</span></span>
-<span>  <span class="fu"><a href="reference/log_input.html">log_click</a></span><span class="op">(</span><span class="va">user_connection</span>, id <span class="op">=</span> <span class="st">"apply_slider"</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="reference/log_input.html">log_input</a></span><span class="op">(</span><span class="va">user_connection</span>, <span class="va">input</span>, input_id <span class="op">=</span> <span class="st">"bins"</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># server code</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">distPlot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html" class="external-link">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="va">input</span><span class="op">$</span><span class="va">apply_slider</span></span>
-<span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">faithful</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span></span>
-<span>    <span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">bins</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">x</span>, breaks <span class="op">=</span> <span class="va">bins</span>, col <span class="op">=</span> <span class="st">'darkgray'</span>, border <span class="op">=</span> <span class="st">'white'</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># registering logout (this also disconnects connection object, if not used take care of it on your own)</span></span>
-<span>  <span class="fu"><a href="reference/log_input.html">log_logout</a></span><span class="op">(</span><span class="va">user_connection</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Run and play with your app at <code>http://localhost:8888/?username=&lt;username&gt;</code>.</li>
+<span><span class="va">telemetry</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Telemetry.html">Telemetry</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span> <span class="co"># 1. Initialize telemetry with default options</span></span>
+<span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span>
+<span>  ui <span class="op">=</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="reference/use_telemetry.html">use_telemetry</a></span><span class="op">(</span><span class="op">)</span>, <span class="co"># 2. Add necessary Javascript to Shiny</span></span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/numericInput.html" class="external-link">numericInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"n"</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/plotOutput.html" class="external-link">plotOutput</a></span><span class="op">(</span><span class="st">'plot'</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  server <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">telemetry</span><span class="op">$</span><span class="fu">start_session</span><span class="op">(</span><span class="op">)</span> <span class="co"># 3. Minimal setup to track events</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/renderPlot.html" class="external-link">renderPlot</a></span><span class="op">(</span><span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>When inspecting the code above, we can breakdown the 3 lines of code by:</p>
+<ol style="list-style-type: decimal">
+<li>Global <code>Telemetry</code> object that is used across the different sessions</li>
+<li>Add necessary Javascript to the UI by calling <code><a href="reference/use_telemetry.html">use_telemetry()</a></code>. It is used to track browser version.</li>
+<li>Initialize the session-specific tracking by calling method <code>start_session()</code> of the <code>Telemetry</code> object</li>
 </ol>
-<pre><code><span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>port <span class="op">=</span> <span class="fl">8888</span>, launch.browser <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level2">
-<h2 id="how-to-display-users-stats">How to display users’ stats?<a class="anchor" aria-label="anchor" href="#how-to-display-users-stats"></a>
+<h2 id="how-to-access-the-data">How to access the data?<a class="anchor" aria-label="anchor" href="#how-to-access-the-data"></a>
 </h2>
-<ol style="list-style-type: decimal">
-<li>Create the following app.</li>
-</ol>
-<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rsqlite.r-dbi.org" class="external-link">RSQLite</a></span><span class="op">)</span></span>
-<span><span class="co"># please install shiny.telemetry with all dependencies</span></span>
-<span><span class="co"># install.packages("shiny.telemetry", dependencies = TRUE)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">shiny.telemetry</span><span class="op">)</span></span>
+<p>The developers and administrators of the dashboard can access the data that is gathered by <code>shiny.telemetry</code> via a Telemetry object or directly from <code>DataStorage</code> via the appropriate provider.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># After running the instrumented</span></span>
+<span><span class="fu">shiny.telemetry</span><span class="fu">::</span><span class="va"><a href="reference/Telemetry.html">Telemetry</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_events</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2050-01-01"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># prepare credentials list to access logs:</span></span>
-<span><span class="va">db_credentials</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  DB_NAME <span class="op">=</span> <span class="st">"user_stats.sqlite"</span>,</span>
-<span>  DB_DRIVER <span class="op">=</span> <span class="st">"SQLite"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># define function hot to get username</span></span>
-<span><span class="va">get_user</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">username</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/isolate.html" class="external-link">isolate</a></span><span class="op">(</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/parseQueryString.html" class="external-link">parseQueryString</a></span><span class="op">(</span><span class="va">session</span><span class="op">$</span><span class="va">clientData</span><span class="op">$</span><span class="va">url_search</span><span class="op">)</span><span class="op">$</span><span class="va">username</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/req.html" class="external-link">req</a></span><span class="op">(</span><span class="va">username</span><span class="op">)</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">username</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="co"># define ui and server</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">shiny_stats_ui</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="fu">shiny_stats_server</span><span class="op">(</span><span class="va">get_user</span>, db_credentials <span class="op">=</span> <span class="va">db_credentials</span><span class="op">)</span></span></code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Run the app and see usage statistics at <code>http://localhost:8887/?username=&lt;username&gt;</code>.</li>
-</ol>
-<pre><code><span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span>, options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>port <span class="op">=</span> <span class="fl">8887</span>, launch.browser <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<span><span class="co"># default provider and path for Telemetry$new()</span></span>
+<span><span class="fu">shiny.telemetry</span><span class="fu">::</span><span class="va"><a href="reference/DataStorageRSQLite.html">DataStorageRSQLite</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>db_path <span class="op">=</span> <span class="st">"telemetry.sqlite"</span><span class="op">)</span><span class="op">$</span><span class="fu">read_events</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2050-01-01"</span><span class="op">)</span> </span></code></pre></div>
+<p>The package has an analytics sample dashboard to help access the data. It is located at <code>inst/examples/app/analytics</code> and it should be modified so that it references the correct <code>DataStorage</code> provider and configuration.</p>
+</div>
+<div class="section level2">
+<h2 id="data-providers">Data providers<a class="anchor" aria-label="anchor" href="#data-providers"></a>
+</h2>
+<p>There are 3 different types of data providers that can range from local filesystem storage to a remote plumber REST API instance.</p>
+<ul>
+<li>SQLite using <code>DataStorageRSQLite</code> class</li>
+<li>Logfile using <code>DataStorageLogFile</code> class</li>
+<li>Plumber REST API using one of the providers above as backend using <code>DataStoragePlumber</code> class</li>
+</ul>
+<p>The setup for plumber requires a valid Plumber instance running on the network and the communication can be protected. See Plumber deployment documentation for more information.</p>
+</div>
+<div class="section level2">
+<h2 id="debugging-the-telemetry-calls">Debugging the Telemetry calls<a class="anchor" aria-label="anchor" href="#debugging-the-telemetry-calls"></a>
+</h2>
+<p>The package uses the <code>logger</code> package internally with the <code>shiny.telemetry</code> namespace. To debug the <code>shiny.telemetry</code> calls in the dashboard, change the threshold of this namespace to <code>DEBUG</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">logger</span><span class="fu">::</span><span class="fu"><a href="https://daroczig.github.io/logger/reference/log_threshold.html" class="external-link">log_threshold</a></span><span class="op">(</span><span class="st">"DEBUG"</span>, namespace <span class="op">=</span> <span class="st">"shiny.telemetry"</span><span class="op">)</span></span></code></pre></div>
+<p>ℹ️ <em>note</em>: This command can be run before the Shiny call or by adding it to the <code>.Rprofile</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="appsilon">Appsilon<a class="anchor" aria-label="anchor" href="#appsilon"></a>
