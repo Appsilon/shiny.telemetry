@@ -1659,13 +1659,13 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553",
-      "GithubSha1": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553",
+      "GithubRef": "bbd0cdb12ed1972c557f69a194e334156d253013",
+      "GithubSha1": "bbd0cdb12ed1972c557f69a194e334156d253013",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
         "Title": "Shiny app usability logs and statistics",
-        "Version": "0.0.9007",
+        "Version": "0.0.9008",
         "Author": "Appsilon Data Science <dev@appsilondatascience.com>",
         "Maintainer": "Appsilon Data Science <dev@appsilondatascience.com>",
         "Description": "Easy way for logging users activity and adding statistics panel to your Shiny app.",
@@ -1677,18 +1677,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-04 09:08:15 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-07 11:14:30 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553",
-        "RemoteSha": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553",
+        "RemoteRef": "bbd0cdb12ed1972c557f69a194e334156d253013",
+        "RemoteSha": "bbd0cdb12ed1972c557f69a194e334156d253013",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553",
-        "GithubSHA1": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553"
+        "GithubRef": "bbd0cdb12ed1972c557f69a194e334156d253013",
+        "GithubSHA1": "bbd0cdb12ed1972c557f69a194e334156d253013"
       }
     },
     "sourcetools": {
@@ -2082,10 +2082,10 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "d79617ba1014d2065d4cdfd39efe568f"
+      "checksum": "d49d1abb1d5799eb2d0a72dc75c36d69"
     },
     "app.R": {
-      "checksum": "0e975220fb8a19a0c0514251906d6ebc"
+      "checksum": "fc69a68ce1e0d96e595b7498d9bfe6a8"
     },
     "config.yml": {
       "checksum": "2c8fcf3c29e18ff1277d16035a31f0b2"

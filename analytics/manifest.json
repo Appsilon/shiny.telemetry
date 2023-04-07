@@ -119,8 +119,8 @@
       "GithubSha1": null,
       "description": {
         "Package": "Matrix",
-        "Version": "1.5-3",
-        "Date": "2022-11-09",
+        "Version": "1.5-4",
+        "Date": "2023-04-02",
         "Priority": "recommended",
         "Title": "Sparse and Dense Matrix Classes and Methods",
         "Contact": "Matrix-authors@R-project.org",
@@ -140,11 +140,11 @@
         "URL": "https://Matrix.R-forge.R-project.org/,\nhttps://Matrix.R-forge.R-project.org/doxygen/",
         "BugReports": "https://R-forge.R-project.org/tracker/?atid=294&group_id=61",
         "NeedsCompilation": "yes",
-        "Packaged": "2022-11-10 14:57:57 UTC; maechler",
+        "Packaged": "2023-04-03 09:54:24 UTC; maechler",
         "Author": "Douglas Bates [aut],\n  Martin Maechler [aut, cre] (<https://orcid.org/0000-0002-8685-9910>),\n  Mikael Jagan [aut] (<https://orcid.org/0000-0002-3542-2938>),\n  Timothy A. Davis [ctb] (SuiteSparse and 'cs' C libraries, notably\n    CHOLMOD and AMD, collaborators listed in\n    dir(pattern=\"^[A-Z]+[.]txt$\", full.names=TRUE, system.file(\"doc\",\n    \"SuiteSparse\", package=\"Matrix\"))),\n  Jens Oehlschlägel [ctb] (initial nearPD()),\n  Jason Riedy [ctb] (condest() and onenormest() for octave, Copyright:\n    Regents of the University of California),\n  R Core Team [ctb] (base R matrix implementation)",
         "Repository": "CRAN",
-        "Date/Publication": "2022-11-11 08:30:10 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-03-15 09:05:48 UTC; unix"
+        "Date/Publication": "2023-04-04 08:20:06 UTC",
+        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-07 11:11:48 UTC; unix"
       }
     },
     "R6": {
@@ -1679,28 +1679,28 @@
       "GithubSha1": null,
       "description": {
         "Package": "lattice",
-        "Version": "0.20-45",
-        "Date": "2021-09-18",
+        "Version": "0.21-8",
+        "Date": "2023-04-05",
         "Priority": "recommended",
         "Title": "Trellis Graphics for R",
-        "Authors@R": "c(person(\"Deepayan\", \"Sarkar\", role = c(\"aut\", \"cre\"),\n\t            email = \"deepayan.sarkar@r-project.org\",\n\t\t    comment = c(ORCID = \"0000-0003-4107-1553\")),\n              person(\"Felix\", \"Andrews\", role = \"ctb\"),\n\t      person(\"Kevin\", \"Wright\", role = \"ctb\", comment = \"documentation\"),\n\t      person(\"Neil\", \"Klepeis\", role = \"ctb\"),\n\t      person(\"Johan\", \"Larsson\", role = \"ctb\", comment = \"colorkey title\"),\n              person(\"Paul\", \"Murrell\", role = \"ctb\", email = \"paul@stat.auckland.ac.nz\"))",
+        "Authors@R": "c(person(\"Deepayan\", \"Sarkar\", role = c(\"aut\", \"cre\"),\n\t            email = \"deepayan.sarkar@r-project.org\",\n\t\t    comment = c(ORCID = \"0000-0003-4107-1553\")),\n              person(\"Felix\", \"Andrews\", role = \"ctb\"),\n\t      person(\"Kevin\", \"Wright\", role = \"ctb\", comment = \"documentation\"),\n\t      person(\"Neil\", \"Klepeis\", role = \"ctb\"),\n\t      person(\"Johan\", \"Larsson\", role = \"ctb\", comment = \"miscellaneous improvements\"),\n              person(\"Zhijian (Jason)\", \"Wen\", role = \"cph\", comment = \"filled contour code\"),\n              person(\"Paul\", \"Murrell\", role = \"ctb\", email = \"paul@stat.auckland.ac.nz\"),\n\t      person(\"Stefan\", \"Eng\", role = \"ctb\", comment = \"violin plot improvements\"),\n\t      person(\"Achim\", \"Zeileis\", role = \"ctb\", comment = \"modern colors\")\n\t      )",
         "Description": "A powerful and elegant high-level data visualization\n  system inspired by Trellis graphics, with an emphasis on\n  multivariate data. Lattice is sufficient for typical graphics needs,\n  and is also flexible enough to handle most nonstandard requirements.\n  See ?Lattice for an introduction.",
-        "Depends": "R (>= 3.0.0)",
-        "Suggests": "KernSmooth, MASS, latticeExtra",
+        "Depends": "R (>= 4.0.0)",
+        "Suggests": "KernSmooth, MASS, latticeExtra, colorspace",
         "Imports": "grid, grDevices, graphics, stats, utils",
         "Enhances": "chron",
         "LazyLoad": "yes",
         "LazyData": "yes",
         "License": "GPL (>= 2)",
-        "URL": "http://lattice.r-forge.r-project.org/",
+        "URL": "https://lattice.r-forge.r-project.org/",
         "BugReports": "https://github.com/deepayan/lattice/issues",
         "NeedsCompilation": "yes",
-        "Packaged": "2021-09-22 09:17:07 UTC; deepayan",
-        "Author": "Deepayan Sarkar [aut, cre] (<https://orcid.org/0000-0003-4107-1553>),\n  Felix Andrews [ctb],\n  Kevin Wright [ctb] (documentation),\n  Neil Klepeis [ctb],\n  Johan Larsson [ctb] (colorkey title),\n  Paul Murrell [ctb]",
+        "Packaged": "2023-04-05 15:31:40 UTC; deepayan",
+        "Author": "Deepayan Sarkar [aut, cre] (<https://orcid.org/0000-0003-4107-1553>),\n  Felix Andrews [ctb],\n  Kevin Wright [ctb] (documentation),\n  Neil Klepeis [ctb],\n  Johan Larsson [ctb] (miscellaneous improvements),\n  Zhijian (Jason) Wen [cph] (filled contour code),\n  Paul Murrell [ctb],\n  Stefan Eng [ctb] (violin plot improvements),\n  Achim Zeileis [ctb] (modern colors)",
         "Maintainer": "Deepayan Sarkar <deepayan.sarkar@r-project.org>",
         "Repository": "CRAN",
-        "Date/Publication": "2021-09-22 12:10:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-03-15 09:05:38 UTC; unix"
+        "Date/Publication": "2023-04-05 17:43:19 UTC",
+        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-07 11:11:35 UTC; unix"
       }
     },
     "lazyeval": {
@@ -2507,13 +2507,13 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553",
-      "GithubSha1": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553",
+      "GithubRef": "bbd0cdb12ed1972c557f69a194e334156d253013",
+      "GithubSha1": "bbd0cdb12ed1972c557f69a194e334156d253013",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
         "Title": "Shiny app usability logs and statistics",
-        "Version": "0.0.9007",
+        "Version": "0.0.9008",
         "Author": "Appsilon Data Science <dev@appsilondatascience.com>",
         "Maintainer": "Appsilon Data Science <dev@appsilondatascience.com>",
         "Description": "Easy way for logging users activity and adding statistics panel to your Shiny app.",
@@ -2525,18 +2525,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-04 09:08:15 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-07 11:14:30 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553",
-        "RemoteSha": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553",
+        "RemoteRef": "bbd0cdb12ed1972c557f69a194e334156d253013",
+        "RemoteSha": "bbd0cdb12ed1972c557f69a194e334156d253013",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553",
-        "GithubSHA1": "3c47923d0e3312ee01a01d6f9685de9b5b4d2553"
+        "GithubRef": "bbd0cdb12ed1972c557f69a194e334156d253013",
+        "GithubSHA1": "bbd0cdb12ed1972c557f69a194e334156d253013"
       }
     },
     "shinyjs": {
@@ -3083,10 +3083,10 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "26c35b3d867d49b78d40841da618ffc9"
+      "checksum": "108fc53c1f4e7d4997e0733bf9231270"
     },
     "app.R": {
-      "checksum": "810cc40c930651c6df50d8aa4a7c74ef"
+      "checksum": "2069338bc00760a72cf46f81bfab1330"
     },
     "config.yml": {
       "checksum": "2c8fcf3c29e18ff1277d16035a31f0b2"
