@@ -86,10 +86,14 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' track when a session starts. `TRUE` by default.
     #' @param logout flag that indicates if the basic telemetry should
     #' track when the session ends. `TRUE` by default.
-    #' @param browser_version flag that indicates if the basic telemetry should
-    #' track the browser version. `TRUE` by default.
-    #' @param session The `session` object passed to function given to `shinyServer`.
-    #' Default is `shiny::getDefaultReactiveDomain()`.
+    #' @param browser_version flag that indicates that the browser version
+    #' should be tracked.`TRUE` by default.
+    #' @param navigation_input_id string or vector of strings that represent
+    #' input ids and which value should be tracked as navigation events. i.e.
+    #' a change in the value represent a navigation to a page or tab.
+    #' By default, no navigation is tracked.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
 
     start_session = function(
       track_inputs = TRUE,
@@ -109,11 +113,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       checkmate::assert_character(navigation_input_id, null.ok = TRUE)
 
-      username <- shiny::isolate(
-        shiny::parseQueryString(session$clientData$url_search)$username
-      )
-
-      if (is.null(username)) username <- "unknown_user"
+      username <- private$get_user(session)
 
       checkmate::test_r6(session, "ShinySession")
       input <- session$input
@@ -162,6 +162,14 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #  log functions
     # ##############################################################
 
+    #' @description
+    #' Log an input change as a navigation event
+    #'
+    #' @param input_id string that identifies the generic input in the Shiny
+    #' application so that the function can track and log changes to it.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
+
     log_navigation = function(
       input_id, session = shiny::getDefaultReactiveDomain()
     ) {
@@ -174,8 +182,16 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
     },
 
+    #' @description
+    #' Log a navigation event manually by indicating the id (as input id)
+    #'
+    #' @param navigation_id string that identifies navigation event.
+    #' @param value string that indicates a value for the navigation
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
+
     log_navigation_manual = function(
-      input_id, value, session = shiny::getDefaultReactiveDomain()
+      navigation_id, value, session = shiny::getDefaultReactiveDomain()
     ) {
 
       logger::log_debug(
@@ -436,14 +452,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       }
 
       if (isTRUE(add_username)) {
-        if (!is.null(session)) {
-          username <- shiny::isolate(
-            shiny::parseQueryString(session$clientData$url_search)$username
-          )
-          if (is.null(username)) username <- "anonymous"
-          shiny::req(username)
-          payload$username <- username
-        }
+        payload$username <- private$get_user(session)
       }
 
       if (!is.null(value)) {
@@ -570,6 +579,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       checkmate::assert_string(input_id)
       checkmate::assert_flag(track_value)
+
       checkmate::assert(
         .combine = "or",
         checkmate::check_atomic_vector(matching_values),
@@ -682,6 +692,15 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
           )
         )
       }
+    },
+
+    get_user = function(session = shiny::getDefaultReactiveDomain()) {
+      if (!is.null(session)) return("anonymous")
+      username <- shiny::isolate(
+        shiny::parseQueryString(session$clientData$url_search)$username
+      )
+      if (is.null(username)) return("anonymous")
+      username
     }
   )
 )

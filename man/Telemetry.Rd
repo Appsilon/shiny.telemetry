@@ -62,6 +62,8 @@ telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 \itemize{
 \item \href{#method-Telemetry-new}{\code{Telemetry$new()}}
 \item \href{#method-Telemetry-start_session}{\code{Telemetry$start_session()}}
+\item \href{#method-Telemetry-log_navigation}{\code{Telemetry$log_navigation()}}
+\item \href{#method-Telemetry-log_navigation_manual}{\code{Telemetry$log_navigation_manual()}}
 \item \href{#method-Telemetry-log_login}{\code{Telemetry$log_login()}}
 \item \href{#method-Telemetry-log_logout}{\code{Telemetry$log_logout()}}
 \item \href{#method-Telemetry-log_click}{\code{Telemetry$log_click()}}
@@ -116,6 +118,7 @@ Setup basic telemetry
   login = TRUE,
   logout = TRUE,
   browser_version = TRUE,
+  navigation_input_id = NULL,
   session = shiny::getDefaultReactiveDomain()
 )}\if{html}{\out{</div>}}
 }
@@ -136,11 +139,63 @@ track when a session starts. `TRUE` by default.}
 \item{\code{logout}}{flag that indicates if the basic telemetry should
 track when the session ends. `TRUE` by default.}
 
-\item{\code{browser_version}}{flag that indicates if the basic telemetry should
-track the browser version. `TRUE` by default.}
+\item{\code{browser_version}}{flag that indicates that the browser version
+should be tracked.`TRUE` by default.}
 
-\item{\code{session}}{The `session` object passed to function given to `shinyServer`.
-Default is `shiny::getDefaultReactiveDomain()`.}
+\item{\code{navigation_input_id}}{string or vector of strings that represent
+input ids and which value should be tracked as navigation events. i.e.
+a change in the value represent a navigation to a page or tab.
+By default, no navigation is tracked.}
+
+\item{\code{session}}{ShinySession object or NULL to identify the current
+Shiny session.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Telemetry-log_navigation"></a>}}
+\if{latex}{\out{\hypertarget{method-Telemetry-log_navigation}{}}}
+\subsection{Method \code{log_navigation()}}{
+Log an input change as a navigation event
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_navigation(input_id, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{input_id}}{string that identifies the generic input in the Shiny
+application so that the function can track and log changes to it.}
+
+\item{\code{session}}{ShinySession object or NULL to identify the current
+Shiny session.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Telemetry-log_navigation_manual"></a>}}
+\if{latex}{\out{\hypertarget{method-Telemetry-log_navigation_manual}{}}}
+\subsection{Method \code{log_navigation_manual()}}{
+Log a navigation event manually by indicating the id (as input id)
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_navigation_manual(
+  navigation_id,
+  value,
+  session = shiny::getDefaultReactiveDomain()
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{navigation_id}}{string that identifies navigation event.}
+
+\item{\code{value}}{string that indicates a value for the navigation}
+
+\item{\code{session}}{ShinySession object or NULL to identify the current
+Shiny session.}
 }
 \if{html}{\out{</div>}}
 }
