@@ -60,9 +60,9 @@ test_common <- function(data_storage) {
 
   expect_equal(NROW(user_data), 5)
 
-  user_data %>%
-    dplyr::filter(.data$username == "u1") %>%
-    NROW() %>%
+  user_data |>
+    dplyr::filter(.data$username == "u1") |>
+    NROW() |>
     expect_equal(2)
 
   # 1 result per session

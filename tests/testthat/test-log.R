@@ -70,7 +70,7 @@ test_that("log_input", {
     matching_values = NULL,
     input_type = "text",
     session = ShinySessionMock$new(list(sample = 23, sample2 = 31))
-  ) %>%
+  ) |>
     expect_message("Writing to user_log value change with id: sample")
 
   telemetry$log_input(
@@ -78,7 +78,7 @@ test_that("log_input", {
     matching_values = NULL,
     input_type = "text",
     session = ShinySessionMock$new(list(sample = 1:10, sample2 = 31))
-  ) %>%
+  ) |>
     expect_message("Writing to user_log value change with id: sample")
 
   # Allow to test inputs that keep a list
@@ -88,8 +88,8 @@ test_that("log_input", {
     matching_values = NULL,
     input_type = "text",
     session = ShinySessionMock$new(list(sample = list(1, 2, 3), sample2 = 31))
-  ) %>%
-    expect_message("Writing to user_log value: 1 id: sample_1") %>%
-    expect_message("Writing to user_log value: 2 id: sample_2") %>%
+  ) |>
+    expect_message("Writing to user_log value: 1 id: sample_1") |>
+    expect_message("Writing to user_log value: 2 id: sample_2") |>
     expect_message("Writing to user_log value: 3 id: sample_3")
 })

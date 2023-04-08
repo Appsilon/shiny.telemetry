@@ -12,7 +12,7 @@ test_that("get_active_users", {
 
   # 2 userts on hour 3pm / 15h
   expect_equal(
-    (result %>% dplyr::pull(.data$users))[1],
+    (result |> dplyr::pull(.data$users))[1],
     2
   )
 })
@@ -24,7 +24,7 @@ test_that("get_actions_per_day", {
   )
 
   expect_equal(
-    get_actions_per_day(log_data) %>% dplyr::pull(.data$action),
+    get_actions_per_day(log_data) |> dplyr::pull(.data$action),
     2
   )
 })
@@ -56,20 +56,20 @@ test_that("get_per_day_plot_data", {
     date_initial + 2,    "total opened sessions",      0,   1,
     date_initial + 2, "avg session time (hours)",      0,   2,
     date_initial + 2,  "total clicks and inputs",      0,   1,
-  ) %>%
+  ) |>
     dplyr::arrange(dplyr::across(tidyr::matches("[a-zA-Z]")))
 
   expect_equal(
-    get_per_day_plot_data(base, per_day) %>%
+    get_per_day_plot_data(base, per_day) |>
       dplyr::arrange(dplyr::across(tidyr::matches("[a-zA-Z]"))),
-    per_day_plot_data %>% dplyr::filter(date == date_initial)
+    per_day_plot_data |> dplyr::filter(date == date_initial)
   )
 
   # 2 days
   base2 <- dplyr::bind_rows(base, base + 1, base + 2)
 
   expect_equal(
-    get_per_day_plot_data(base2, per_day) %>%
+    get_per_day_plot_data(base2, per_day) |>
       dplyr::arrange(dplyr::across(tidyr::matches("[a-zA-Z]"))),
     per_day_plot_data,
     ignore_attr = TRUE

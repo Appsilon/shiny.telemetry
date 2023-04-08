@@ -7,5 +7,5 @@ logger::layout_glue_generator(
     "[{crayon::italic(format(time, \"%Y-%m-%d %H:%M:%S\"))}]",
     "{grayscale_by_log_level(msg, levelr)}"
   )
-) %>%
+) |>
   logger::log_layout(namespace = "shiny.telemetry")

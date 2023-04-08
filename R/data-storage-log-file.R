@@ -71,7 +71,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
         private$log_file_path,
         date_from,
         date_to
-      ) %>%
+      ) |>
         dplyr::bind_rows(dplyr::tibble(
           time = character(),
           dashboard = character(),
@@ -101,7 +101,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
         private$session_file_path,
         date_from,
         date_to
-      ) %>%
+      ) |>
         dplyr::bind_rows(dplyr::tibble(
           time = character(),
           dashboard = character(),
@@ -110,9 +110,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
           detail = character()
         ))
 
-      db_data %>%
-        dplyr::select("session", "detail") %>%
-        dplyr::group_by(.data$session) %>%
+      db_data |>
+        dplyr::select("session", "detail") |>
+        dplyr::group_by(.data$session) |>
         dplyr::summarise(title = paste(.data$detail, collapse = " | "))
     },
 
@@ -177,9 +177,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
         return(dplyr::tibble())
       }
 
-      readLines(bucket) %>%
-        lapply(jsonlite::fromJSON) %>%
-        dplyr::bind_rows() %>%
+      readLines(bucket) |>
+        lapply(jsonlite::fromJSON) |>
+        dplyr::bind_rows() |>
         dplyr::filter(
           time >=  date_from,
           time <= date_to

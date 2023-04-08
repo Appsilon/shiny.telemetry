@@ -83,9 +83,9 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
 
       db_data <- private$read_data(self$session_bucket, date_from, date_to)
 
-      db_data %>%
-        dplyr::select("session", "detail") %>%
-        dplyr::group_by(.data$session) %>%
+      db_data |>
+        dplyr::select("session", "detail") |>
+        dplyr::group_by(.data$session) |>
         dplyr::summarise(title = paste(.data$detail, collapse = " | "))
     },
 
@@ -186,7 +186,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
         "WHERE date(time) >= '{date_from}' AND date(time) <= '{date_to}'"
       )
 
-      odbc::dbGetQuery(private$db_con, query) %>%
+      odbc::dbGetQuery(private$db_con, query) |>
         dplyr::tibble()
     }
   )

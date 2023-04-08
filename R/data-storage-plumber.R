@@ -223,29 +223,29 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
         "endpoint {private$build_url(endpoint)}", namespace = "shiny.telemetry"
       )
 
-      request <- httr2::request(private$build_url(endpoint)) %>%
+      request <- httr2::request(private$build_url(endpoint)) |>
         httr2::req_headers(
           "Accept" = "application/json"
-        ) %>%
+        ) |>
         httr2::req_body_json(
           list(
             id = private$id,
             token = build_token(values, secret = private$secret),
             data = jsonlite::serializeJSON(values)
           )
-        ) %>%
+        ) |>
         httr2::req_method("POST")
 
       # Adds authorization
       if (!is.null(private$authorization)) {
-        request <- request %>%
+        request <- request |>
           httr2::req_headers(
             "Authorization" = glue::glue("Key {private$authorization}")
           )
       }
 
       # Perform the HTTP request
-      request %>%
+      request |>
         httr2::req_perform()
 
       invisible(TRUE)
@@ -267,7 +267,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
         rlang::abort("reading data from invalid bucket.")
       }
 
-      request <- httr2::request(private$build_url(endpoint)) %>%
+      request <- httr2::request(private$build_url(endpoint)) |>
         httr2::req_url_query(
           from = date_from,
           to = date_to,
@@ -280,18 +280,18 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
       # Adds authorization
       if (!is.null(private$authorization)) {
-        request <- request %>%
+        request <- request |>
           httr2::req_headers(
             "Authorization" = glue::glue("Key {private$authorization}")
           )
       }
 
-      body <- request %>%
-        httr2::req_perform() %>%
+      body <- request |>
+        httr2::req_perform() |>
         httr2::resp_body_json()
 
-      body$result %>%
-        purrr::pluck(1) %>%
+      body$result |>
+        purrr::pluck(1) |>
         jsonlite::unserializeJSON()
     }
   )

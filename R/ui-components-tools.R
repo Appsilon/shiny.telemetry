@@ -22,7 +22,7 @@ convert_hour <- function(time) {
 }
 
 convert_timediff_to_hm <- function(timediff_in_seconds) {
-  days <- (timediff_in_seconds / (60 * 60 * 24)) %>% floor()
+  days <- (timediff_in_seconds / (60 * 60 * 24)) |> floor()
   seconds_in_posixct <- .POSIXct(timediff_in_seconds, tz = "GMT")
   S <- as.numeric(format(seconds_in_posixct, "%S"))
   M <- as.numeric(format(seconds_in_posixct, "%M"))

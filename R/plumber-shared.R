@@ -40,6 +40,6 @@ build_token <- function(values, secret = NULL) {
 #' @examples
 #' build_id_from_secret("some_random_secret_generated_with_uuid::UUIDgenerate")
 build_id_from_secret <- function(secret) {
-  digest::digest(secret, algo = "sha256") %>%
+  digest::digest(secret, algo = "sha256") |>
     substr(start = 1, stop = 8)
 }
