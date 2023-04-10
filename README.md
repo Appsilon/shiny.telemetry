@@ -65,7 +65,7 @@ The developers and administrators of the dashboard can access the data that is g
 shiny.telemetry::Telemetry$new()$data_storage$read_events("2020-01-01", "2050-01-01")
 
 # default provider and path for Telemetry$new()
-shiny.telemetry::DataStorageRSQLite$new(db_path = "telemetry.sqlite")$read_events("2020-01-01", "2050-01-01")
+shiny.telemetry::DataStorageSQLite$new(db_path = "telemetry.sqlite")$read_events("2020-01-01", "2050-01-01") 
 ```
 
 The package has an analytics sample dashboard to help access the data. It is located at `inst/examples/app/analytics` and it should be modified so that it references the correct `DataStorage` provider and configuration.
@@ -74,7 +74,7 @@ The package has an analytics sample dashboard to help access the data. It is loc
 
 There are 3 different types of data providers that can range from local filesystem storage to a remote plumber REST API instance.
 
-* SQLite using `DataStorageRSQLite` class
+* SQLite using `DataStorageSQLite` class
 * Logfile using `DataStorageLogFile` class
 * Plumber REST API using one of the providers above as backend using `DataStoragePlumber` class
 

@@ -9,8 +9,7 @@ API for read/write operations
 }
 \examples{
 data_storage <- DataStorageLogFile$new(
-  log_file_path = tempfile(pattern = "user_stats", fileext = ".json"),
-  session_file_path = tempfile(pattern = "session_details", fileext = ".json")
+  log_file_path = tempfile(pattern = "user_stats", fileext = ".json")
 )
 
 telemetry <- Telemetry$new(data_storage = data_storage)
@@ -19,10 +18,7 @@ telemetry$log_login()
 telemetry$log_click("an_id")
 telemetry$log_click("a_different_id")
 
-telemetry$log_session(detail = "some detail")
-
-data_storage$read_user_data("2020-01-01", "2025-01-01")
-data_storage$read_session_data("2020-01-01", "2025-01-01")
+data_storage$read_event_data("2020-01-01", "2025-01-01")
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageLogFile}
@@ -30,11 +26,8 @@ data_storage$read_session_data("2020-01-01", "2025-01-01")
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{action_bucket}}{string that identifies the file path to store user
+\item{\code{event_bucket}}{string that identifies the file path to store user
 related and action data}
-
-\item{\code{session_bucket}}{string that identifies the bucket to store session
-details data}
 }
 \if{html}{\out{</div>}}
 }
@@ -42,110 +35,34 @@ details data}
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-DataStorageLogFile-new}{\code{DataStorageLogFile$new()}}
-\item \href{#method-DataStorageLogFile-insert}{\code{DataStorageLogFile$insert()}}
-\item \href{#method-DataStorageLogFile-read_user_data}{\code{DataStorageLogFile$read_user_data()}}
-\item \href{#method-DataStorageLogFile-read_session_data}{\code{DataStorageLogFile$read_session_data()}}
-\item \href{#method-DataStorageLogFile-close}{\code{DataStorageLogFile$close()}}
 \item \href{#method-DataStorageLogFile-clone}{\code{DataStorageLogFile$clone()}}
 }
 }
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="close"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-close'><code>shiny.telemetry::DataStorage$close()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="insert"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-insert'><code>shiny.telemetry::DataStorage$insert()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="read_event_data"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-read_event_data'><code>shiny.telemetry::DataStorage$read_event_data()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataStorageLogFile-new"></a>}}
 \if{latex}{\out{\hypertarget{method-DataStorageLogFile-new}{}}}
 \subsection{Method \code{new()}}{
 Initialize the data storage class
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$new(log_file_path, session_file_path)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$new(log_file_path)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{log_file_path}}{string with path to JSON log file user actions}
-
-\item{\code{session_file_path}}{string with path to JSON log file for the session details}
 }
 \if{html}{\out{</div>}}
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStorageLogFile-insert"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStorageLogFile-insert}{}}}
-\subsection{Method \code{insert()}}{
-Insert new data
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$insert(
-  values,
-  insert_time = TRUE,
-  bucket = private$log_file_path
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{values}}{list of values to write to database}
-
-\item{\code{insert_time}}{boolean flag that indicates if `time` parameters
-should be added automatically}
-
-\item{\code{bucket}}{path to log file; defaults to `log_file_path` used when initialized}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStorageLogFile-read_user_data"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStorageLogFile-read_user_data}{}}}
-\subsection{Method \code{read_user_data()}}{
-read all user data from SQLite
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$read_user_data(date_from, date_to)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{date_from}}{date representing the starting day of results}
-
-\item{\code{date_to}}{date representing the last day of results}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStorageLogFile-read_session_data"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStorageLogFile-read_session_data}{}}}
-\subsection{Method \code{read_session_data()}}{
-read all session data from SQLite
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$read_session_data(date_from, date_to)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{date_from}}{date representing the starting day of results}
-
-\item{\code{date_to}}{date representing the last day of results}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStorageLogFile-close"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStorageLogFile-close}{}}}
-\subsection{Method \code{close()}}{
-Does nothing, but needs to be kept here because log_logout calls this
-for database backends further discussion needed if closing connecting
-is really necessary.
-
-
-does nothing, defined for API consistency
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageLogFile$close()}\if{html}{\out{</div>}}
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataStorageLogFile-clone"></a>}}

@@ -18,8 +18,7 @@ library(shiny.telemetry)
 
 # Default storage backend using LogFile
 data_storage <- DataStorageLogFile$new(
-  log_file_path = file.path(getwd(), "user_stats.txt"),
-  session_file_path = file.path(getwd(), "session_details.txt")
+  log_file_path = file.path(getwd(), "user_stats.txt")
 )
 
 # This sample application includes a configuration for RSConnect deployments,

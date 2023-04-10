@@ -6,7 +6,7 @@ test_that("log_input", {
         "{jsonlite::toJSON(values, auto_unbox = TRUE)}"
       ))
     },
-    action_bucket = "user_log"
+    event_bucket = "event_log"
   )
 
   telemetry <- Telemetry$new(data_storage = data_storage)

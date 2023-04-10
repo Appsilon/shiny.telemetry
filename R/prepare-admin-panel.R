@@ -120,7 +120,7 @@ prepare_admin_panel_components <- function(
   hour_levels <- c("12am", paste0(1:11, "am"), "12pm", paste0(1:11, "pm"))
 
   log_data <- shiny::reactive({
-    data_storage$read_user_data(
+    data_storage$read_event_data(
       as.Date(input$date_from), as.Date(input$date_to)
     )
   })

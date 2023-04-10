@@ -35,27 +35,13 @@ function(req, res){
 #* @param data:string
 #* @param token:string
 #* @param id:string
-#' @post /user_log
+#' @post /insert
 #' @serializer json
 function(token, id, data, res){
-  result <- insert$handler(data, token, id, data_storage$action_bucket)
+  result <- insert$handler(data, token, id, data_storage$event_bucket)
 
   res$status <- result$status
   result
-}
-
-#' Insert session data
-#* @param data:string
-#* @param token:string
-#* @param id:string
-#' @post /session_details
-#' @serializer json
-function(data, token, id, res){
-  # future_promise({
-  result <- insert$handler(data, token, id, data_storage$session_bucket)
-  res$status <- result$status
-  result
-  # })
 }
 
 #' Read user data
@@ -63,27 +49,12 @@ function(data, token, id, res){
 #* @param to:string
 #* @param token:string
 #* @param id:string
-#* @get /read_user_data
+#* @get /read_data
 #' @serializer json
 function(from, to, token, id, res) {
-  log_debug('@get /read_user_data triggered')
+  log_debug('@get /read_data triggered')
   result <- read_data$handler(
-    from, to, token, id, data_storage$read_user_data
-  )
-  res$status <- result$status
-  result
-}
-
-#' Read session data
-#* @param from:string
-#* @param to:string
-#* @param token:string
-#* @param id:string
-#* @get /read_session_data
-#' @serializer json
-function(from, to, token, id, res) {
-  result <- read_data$handler(
-    from, to, token, id, data_storage$read_session_data
+    from, to, token, id, data_storage$read_event_data
   )
   res$status <- result$status
   result

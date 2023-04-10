@@ -36,8 +36,7 @@
 #'
 #' telemetry$log_session(detail = "some detail")
 #'
-#' data_storage$read_user_data("2020-01-01", "2025-01-01")
-#' data_storage$read_session_data("2020-01-01", "2025-01-01")
+#' data_storage$read_event_data("2020-01-01", "2025-01-01")
 #' }
 DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
   classname = "DataStoragePlumber",
@@ -81,84 +80,21 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
         "path: {private$build_url(\"health_check\")}",
         namespace = "shiny.telemetry"
       )
-    },
-
-    #' @description Insert new data
-    #' @param values list of values to write to database
-    #' @param insert_time boolean flag that indicates if `time` parameters
-    #' should be added automatically
-    #' @param bucket name of table to write
-
-    insert = function(
-      values, insert_time = TRUE, bucket = self$action_bucket
-    ) {
-      values <- private$insert_checks(values, insert_time, bucket)
-
-      private$write(values, bucket)
-    },
-
-    #' @description read all user data from SQLite
-    #' @param date_from date representing the starting day of results
-    #' @param date_to date representing the last day of results
-
-    read_user_data = function(date_from, date_to) {
-      date_from <- private$check_date(date_from, .var_name = "date_from")
-      date_to <- private$check_date(date_to, .var_name = "date_to")
-
-      db_data <- private$read_data(
-        self$action_bucket,
-        as.Date(date_from),
-        as.Date(date_to)
-      )
-
-      if (NROW(db_data) > 0) {
-        return(dplyr::mutate(db_data, date = as.Date(.data$time)))
-      }
-      db_data
-    },
-
-    #' @description read all session data from SQLite
-    #' @param date_from date representing the starting day of results
-    #' @param date_to date representing the last day of results
-
-    read_session_data = function(date_from, date_to) {
-      date_from <- private$check_date(date_from, .var_name = "date_from")
-      date_to <- private$check_date(date_to, .var_name = "date_to")
-
-      private$read_data(
-        self$session_bucket,
-        date_from,
-        date_to
-      )
-    },
-
-    #' @description read all session data
-
-    close = function() {
-      # Do nothing
     }
+
   ),
   active = list(
 
-    #' @field action_read_endpoint string field that returns read action
+    #' @field event_read_endpoint string field that returns read action
     #' endpoint
 
-    action_read_endpoint = function() "read_user_data",
+    event_read_endpoint = function() "read_data",
 
-    #' @field session_read_endpoint string field that returns read session
+    #' @field event_insert_endpoint string field that returns insert action
     #' endpoint
 
-    session_read_endpoint = function() "read_session_data",
+    event_insert_endpoint = function() "insert"
 
-    #' @field action_insert_endpoint string field that returns insert action
-    #' endpoint
-
-    action_insert_endpoint = function() "user_log",
-
-    #' @field session_insert_endpoint string field that returns insert session
-    #' endpoint
-
-    session_insert_endpoint = function() "session_details"
   ),
   #
   # Private
@@ -187,6 +123,13 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
         "{private$protocol}://{private$hostname}:{private$port}/",
         "{private$path}/{path}"
       )
+    },
+
+    # @name close_connection
+    # Does nothing, implemented for API consistency
+
+    close_connection = function() {
+      # Do nothing
     },
 
     write = function(values, bucket) {
@@ -262,8 +205,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
       endpoint <- dplyr::case_when(
         # API endpoints
-        bucket == self$action_bucket ~ self$action_read_endpoint,
-        bucket == self$session_bucket ~ self$session_read_endpoint,
+        bucket == self$event_bucket ~ self$action_read_endpoint,
         .default = NULL
       )
 

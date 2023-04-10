@@ -101,13 +101,10 @@ test_that("Plumber API works", {
 
   dat_user_log <- list(
     time = as.character(Sys.time()),
-    dashboard = "Plumber test",
-    version = "v0.0.0",
+    app_name = "Plumber test",
     session = "some_session",
-    username = "some_username",
-    action = "input",
-    id = "some_id",
-    value = "new_value"
+    type = "input",
+    details = list(id = "some_id", value = "new_value"),
   ) %>% jsonlite::serializeJSON()
 
   req_user_log <- mock_request(data = dat_user_log)
@@ -173,13 +170,10 @@ test_that("Plumber API token only accepts valid messages", {
 
   data_user_log <- list(
     time = as.character(Sys.time()),
-    dashboard = "Plumber test with token",
-    version = "v0.0.0",
+    app_name = "Plumber test with token",
     session = "some_session",
-    username = "some_username",
     action = "input",
-    id = "some_id",
-    value = "new_value"
+    details = list(id = "some_id", value = "new_value")
   )
 
   req_user_log <- mock_request(
