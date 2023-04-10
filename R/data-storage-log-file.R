@@ -117,7 +117,6 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
         ) %>%
         private$unnest_json("details") %>%
         dplyr::bind_rows(private$table_schema)
-
     }
   )
 )
