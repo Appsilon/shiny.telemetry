@@ -1,6 +1,80 @@
 logger::log_threshold(logger::FATAL)
 logger::log_threshold(logger::FATAL, namespace = "shiny.telemetry")
 
+test_that("DataStoragePlumber should be able to insert and read", {
+
+  data_storage <- DataStoragePlumber$new(
+    hostname = "127.0.0.1",
+    path = NULL,
+    port = 8087,
+    protocol = "http",
+    secret = Sys.getenv("PLUMBER_SECRET")
+  )
+
+  db_path <- tempfile(pattern = "events", fileext = ".sqlite")
+
+  old_env <- list(
+    plumber_secret = Sys.getenv("PLUMBER_SECRET"),
+    secret_tokens = Sys.getenv("SECRET_TOKENS"),
+    force_sql = Sys.getenv("FORCE_SQLITE_AND_PATH")
+  )
+
+  #
+  #
+  # Setup environment variables
+
+  Sys.setenv(PLUMBER_SECRET = Sys.getenv("PLUMBER_SECRET"))
+  Sys.setenv(SECRET_TOKENS = Sys.getenv("PLUMBER_SECRET"))
+  Sys.setenv(FORCE_SQLITE_AND_PATH = db_path)
+
+  withr::defer(file.remove(db_path))
+  withr::defer(options(box.path = getwd()))
+  withr::defer({
+    Sys.setenv(FORCE_SQLITE_AND_PATH = old_env$force_sql)
+    Sys.setenv(PLUMBER_SECRET = old_env$plumber_secret)
+    Sys.setenv(SECRET_TOKENS = old_env$secret_tokens)
+  })
+  withr::defer({
+    loaded_mods <- loadNamespace("box")$loaded_mods
+    rm(list = ls(loaded_mods), envir = loaded_mods)
+  })
+
+  # Setup API
+  options(box.path = file.path(getwd(), "..", "..", "plumber_rest_api"))
+
+  loaded_mods <- loadNamespace("box")$loaded_mods
+  rm(list = ls(loaded_mods), envir = loaded_mods)
+  api <- plumber::pr(file = file.path(options()$box.path, "api/main.R"))
+
+  local_mocked_bindings(
+    req_perform = function(req, path, ...) {
+      url <- httr2::url_parse(req$url)
+
+      endpoint <- gsub("^/", "", url$path)
+      request <- list(args = url$query)
+      if (grepl("user_log|session_details", url$path)) {
+        request <- list(args = req$body$data)
+      }
+      result <- api$routes[[endpoint]]$exec(request, res = list(status = 2))
+      response <- httr2::response(
+        status_code = result$status,
+        url = req$url,
+        headers = c(
+          "Content-Type: application/json", "Transfer-Encoding: chunked"
+        ),
+        body = result
+      )
+      response
+    },
+    resp_body_json = function(resp) {
+      resp$body
+    },
+    .package = "httr2"
+  )
+
+  test_common(data_storage)
+})
+
 test_that("Plumber API works", {
   db_path <- tempfile(pattern = "events", fileext = ".sqlite")
 

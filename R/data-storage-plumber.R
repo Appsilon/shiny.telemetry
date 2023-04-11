@@ -90,7 +90,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' @param bucket name of table to write
 
     insert = function(
-      values, insert_time = TRUE, bucket = private$log_file_path
+      values, insert_time = TRUE, bucket = self$action_bucket
     ) {
       values <- private$insert_checks(values, insert_time, bucket)
 
