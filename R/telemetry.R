@@ -259,13 +259,17 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #'
     #' @param input_id string that identifies the button in the Shiny
     #' application so that the function can track and log changes to it.
+    #' @param track_value flag that indicates if the basic telemetry should
+    #' track the value of the input that are changing. `FALSE` by default.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
 
     log_button = function(
-      input_id, session = shiny::getDefaultReactiveDomain()
+      input_id,
+      track_value = FALSE,
+      session = shiny::getDefaultReactiveDomain()
     ) {
-      self$log_input(input_id, session = session)
+      self$log_input(input_id, track_value = track_value, session = session)
     },
 
     #' @description
