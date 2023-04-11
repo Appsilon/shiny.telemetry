@@ -18,8 +18,8 @@ test_that("log_input", {
 
   testthat::local_mocked_bindings(
     observeEvent =  function(
-    eventExpr, handlerExpr, ...
-    ) { # nolint object_name_linter
+    eventExpr, handlerExpr, ... # nolint object_name_linter
+    ) {
       tryCatch(
         shiny::isolate(handlerExpr),
         error = function(err) {
