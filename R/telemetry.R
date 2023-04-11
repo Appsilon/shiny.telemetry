@@ -500,14 +500,17 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         namespace = "shiny.telemetry"
       )
 
-      input_values[input_values %in% navigation_inputs] %>%
-        purrr::keep(~.x %in% navigation_inputs) %>%
-        purrr::map(~private$.log_event(
-          event = "input",
-          id = .x,
-          value = new[[name]],
-          session = session
-        ))
+      # Log initial value for navigation
+      input_values[names(input_values) %in% navigation_inputs] %>%
+        names() %>%
+        purrr::walk(function(.x) {
+
+          self$log_navigation_manual(
+            navigation_id = .x,
+            value = input_values[[.x]],
+            session = session
+          )
+        })
 
       shiny::observe({
         old_input_values <- session$userData$shiny_input_values
