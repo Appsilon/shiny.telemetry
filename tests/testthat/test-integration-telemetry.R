@@ -112,9 +112,7 @@ test_that("log_input", {
 
   results <- data_storage$read_user_data(date_from, date_to)
 
-  results %>%
-    NROW() %>%
-    expect_equal(11)
+  expect_equal(NROW(results), 11)
 
   results %>%
     dplyr::filter(.data$id == "sample_a") %>%
