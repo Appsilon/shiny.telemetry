@@ -18,11 +18,15 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' @description Insert new data
     #'
     #' @param values list of values to write to storage provider.
+    #' @param insert_time boolean flag that indicates if `time` parameters
+    #' should be added automatically
     #' @param bucket string with name of type of data to write (example, for
     #' SQL it should represent a table).
 
-    insert = function(values, bucket = self$action_bucket) {
-      values <- private$insert_checks(values, bucket)
+    insert = function(
+      values, insert_time = TRUE, bucket = self$action_bucket
+    ) {
+      values <- private$insert_checks(values, insert_time, bucket)
 
       rlang::abort("Method not implemented.")
     },
@@ -104,10 +108,14 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     close_connection = function() {
       rlang::abort("Method not implemented.")
     },
-    insert_checks = function(values, bucket) {
+    insert_checks = function(values, insert_time, bucket) {
       checkmate::assert_string(bucket)
       checkmate::assert_list(values)
+      checkmate::assert_flag(insert_time)
 
+      if (!insert_time) {
+        return(values)
+      }
 
       if ("time" %in% names(values)) {
         rlang::abort(paste0(

@@ -1,21 +1,23 @@
 default:
-  log_level: "DEBUG"
+  log_level: "INFO"
   tokens: !expr Sys.getenv("SECRET_TOKENS")
   allow_empty_tokens: true
   storage_method:
     # # SQLite backend
     # driver: "sqlite"
     # params:
-    #   username: "plumber"
     #   db_path: !expr file.path(here::here(), "telemetry.sqlite")
     #
     # # Logfile backend
     driver: "logfile"
     params:
-      username: "plumber"
       log_file_path: "user_stats.txt"
       session_file_path: "session_details.txt"
 
+rsconnect:
+  log_level: "DEBUG"
+  allow_empty_tokens: false
+
 production:
-  log_level: "INFO"
+  log_level: "DEBUG"
   allow_empty_tokens: false

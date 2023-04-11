@@ -3,16 +3,14 @@ box::use(
   glue[glue],
   future[plan],
   promises[future_promise],
-  logger[
-    log_info, log_debug, log_error, log_warn, log_threshold, log_layout,
-    layout_glue_colors
-  ],
+  logger[log_threshold, log_layout, layout_glue_colors],
 )
 
 box::use(
   api/handlers/insert,
   api/handlers/read_data,
   api/logic/setup[data_storage],
+  api/logic/logger[log_info, log_debug, log_warn, log_fatal, log_error],
 )
 
 # Setup
@@ -37,7 +35,7 @@ function(req, res){
 #* @param id:string
 #' @post /user_log
 #' @serializer json
-function(token, id, data, res){
+function(token = NULL, id = NULL, data, res){
   result <- insert$handler(data, token, id, data_storage$action_bucket)
 
   res$status <- result$status
@@ -50,7 +48,7 @@ function(token, id, data, res){
 #* @param id:string
 #' @post /session_details
 #' @serializer json
-function(token, id, data, res){
+function(data, token = NULL, id = NULL, res){
   # future_promise({
   result <- insert$handler(data, token, id, data_storage$session_bucket)
   res$status <- result$status
@@ -65,12 +63,11 @@ function(token, id, data, res){
 #* @param id:string
 #* @get /read_user_data
 #' @serializer json
-function(from, to, token, id, res) {
+function(from, to, token = NULL, id = NULL, res) {
   log_debug('@get /read_user_data triggered')
   result <- read_data$handler(
     from, to, token, id, data_storage$read_user_data
   )
-
   res$status <- result$status
   result
 }
@@ -82,8 +79,7 @@ function(from, to, token, id, res) {
 #* @param id:string
 #* @get /read_session_data
 #' @serializer json
-function(from, to, token, id, res) {
-  log_debug('@get /read_session_data triggered')
+function(from, to, token = NULL, id = NULL, res) {
   result <- read_data$handler(
     from, to, token, id, data_storage$read_session_data
   )

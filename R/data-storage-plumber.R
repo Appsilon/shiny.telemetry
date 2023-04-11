@@ -85,10 +85,14 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
     #' @description Insert new data
     #' @param values list of values to write to database
+    #' @param insert_time boolean flag that indicates if `time` parameters
+    #' should be added automatically
     #' @param bucket name of table to write
 
-    insert = function(values, bucket = self$action_bucket) {
-      values <- private$insert_checks(values, bucket)
+    insert = function(
+      values, insert_time = TRUE, bucket = private$log_file_path
+    ) {
+      values <- private$insert_checks(values, insert_time, bucket)
 
       private$write(values, bucket)
     },
@@ -131,7 +135,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
     #' @description read all session data
 
     close = function() {
-      private$close_connection()
+      # Do nothing
     }
   ),
   active = list(

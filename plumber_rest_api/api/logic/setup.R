@@ -8,7 +8,10 @@ box::use(
   checkmate[test_string],
   purrr[pluck, set_names],
   stringr[str_trim, str_sub],
-  logger[log_warn, log_debug, log_info],
+)
+
+box::use(
+  api/logic/logger[log_info, log_debug, log_warn, log_fatal, log_error],
 )
 
 STORAGE_METHODS <- list(
@@ -23,6 +26,19 @@ STORAGE_METHODS <- list(
 #' @examples
 #' get_storage("sqlite")
 get_storage <- function(driver) {
+  # This is used exclusively for testing purposes
+  if (Sys.getenv("FORCE_SQLITE_AND_PATH") != "") {
+    tmp_file <- Sys.getenv("FORCE_SQLITE_AND_PATH")
+    return(
+      list(
+        new = function(...) {
+          # Ignore parameters
+          DataStorageRSQLite$new(db_path = tmp_file)
+        }
+      )
+    )
+  }
+
   if (is.null(driver)) {
     return(STORAGE_METHODS$.default)
   }
@@ -60,7 +76,7 @@ setup_secrets <- function(tokens_raw) {
       rlang::abort("SECRET_TOKENS environmental variable must be defined.")
     }
 
-    return(list())
+    return(NULL)
   }
 
   str_trim(tokens_raw) |>

@@ -30,6 +30,10 @@ validate_token <- function(values, token, id) {
     return(TRUE)
   }
 
+  if (is.null(token) || !checkmate::test_string(token)) {
+    return(FALSE)
+  }
+
   return(token == build_token(values, secret = get_secret(id)))
 }
 
