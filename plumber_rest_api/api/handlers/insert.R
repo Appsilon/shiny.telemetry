@@ -4,7 +4,7 @@ box::use(
   checkmate[test_string],
   shiny.telemetry[build_token],
   stringr[str_sub],
-  logger[log_info, log_debug, log_warn, log_fatal, log_error],
+  logger[log_info, log_debug, log_error, log_warn],
 )
 
 box::use(

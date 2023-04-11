@@ -2,7 +2,7 @@ box::use(
   glue[glue],
   shiny.telemetry[build_token],
   jsonlite[serializeJSON, unbox],
-  logger[log_info, log_debug, log_warn, log_fatal, log_error],
+  logger[log_info, log_debug, log_error, log_warn],
 )
 
 box::use(

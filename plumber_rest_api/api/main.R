@@ -4,8 +4,8 @@ box::use(
   future[plan],
   promises[future_promise],
   logger[
-    log_threshold, log_layout, layout_glue_colors,
-    log_info, log_debug, log_warn, log_fatal, log_error
+    log_info, log_debug, log_error, log_warn, log_threshold, log_layout,
+    layout_glue_colors
   ],
 )
 
