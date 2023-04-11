@@ -1,5 +1,5 @@
 default:
-  log_level: "INFO"
+  log_level: "DEBUG"
   tokens: !expr Sys.getenv("SECRET_TOKENS")
   allow_empty_tokens: true
   storage_method:
@@ -19,5 +19,5 @@ rsconnect:
   allow_empty_tokens: false
 
 production:
-  log_level: "DEBUG"
+  log_level: "INFO"
   allow_empty_tokens: false

@@ -6,7 +6,7 @@ mock_request <- function(..., .secret = "", .serialize_data = FALSE) {
   token <- ""
   id <- ""
 
-  if ( !is.null(.secret) && stringr::str_trim(.secret) != "") {
+  if (!is.null(.secret) && stringr::str_trim(.secret) != "") {
 
     args_token_input <- args
     if (.serialize_data && !is.null(req$args$data)) {

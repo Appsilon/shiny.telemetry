@@ -4,7 +4,7 @@ logger::log_threshold(logger::FATAL, namespace = "shiny.telemetry")
 test_that("Plumber API works", {
   db_path <- tempfile(pattern = "events", fileext = ".sqlite")
 
-  old.env <- list(
+  old_env <- list(
     plumber_secret = Sys.getenv("PLUMBER_SECRET"),
     secret_tokens = Sys.getenv("SECRET_TOKENS"),
     force_sql = Sys.getenv("FORCE_SQLITE_AND_PATH")
@@ -14,8 +14,8 @@ test_that("Plumber API works", {
   #
   # Setup environment variables
 
-  Sys.setenv(PLUMBER_SECRET="")
-  Sys.setenv(SECRET_TOKENS="")
+  Sys.setenv(PLUMBER_SECRET = "")
+  Sys.setenv(SECRET_TOKENS = "")
   Sys.setenv(FORCE_SQLITE_AND_PATH = db_path)
 
   #
@@ -25,9 +25,9 @@ test_that("Plumber API works", {
   withr::defer(file.remove(db_path))
   withr::defer(options(box.path = getwd()))
   withr::defer({
-    Sys.setenv(FORCE_SQLITE_AND_PATH = old.env$force_sql)
-    Sys.setenv(PLUMBER_SECRET = old.env$plumber_secret)
-    Sys.setenv(SECRET_TOKENS = old.env$secret_tokens)
+    Sys.setenv(FORCE_SQLITE_AND_PATH = old_env$force_sql)
+    Sys.setenv(PLUMBER_SECRET = old_env$plumber_secret)
+    Sys.setenv(SECRET_TOKENS = old_env$secret_tokens)
   })
   withr::defer({
     loaded_mods <- loadNamespace("box")$loaded_mods
@@ -81,7 +81,7 @@ test_that("Plumber API works", {
 test_that("Plumber API token only accepts valid messages", {
   db_path <- tempfile(pattern = "events", fileext = ".sqlite")
 
-  old.env <- list(
+  old_env <- list(
     plumber_secret = Sys.getenv("PLUMBER_SECRET"),
     secret_tokens = Sys.getenv("SECRET_TOKENS"),
     force_sql = Sys.getenv("FORCE_SQLITE_AND_PATH")
@@ -91,8 +91,8 @@ test_that("Plumber API token only accepts valid messages", {
   #
   # Setup environment variables
 
-  Sys.setenv(PLUMBER_SECRET="12345")
-  Sys.setenv(SECRET_TOKENS="12345")
+  Sys.setenv(PLUMBER_SECRET = "12345")
+  Sys.setenv(SECRET_TOKENS = "12345")
   Sys.setenv(FORCE_SQLITE_AND_PATH = db_path)
 
   #
@@ -102,9 +102,9 @@ test_that("Plumber API token only accepts valid messages", {
   withr::defer(file.remove(db_path))
   withr::defer(options(box.path = getwd()))
   withr::defer({
-    Sys.setenv(FORCE_SQLITE_AND_PATH = old.env$force_sql)
-    Sys.setenv(PLUMBER_SECRET = old.env$plumber_secret)
-    Sys.setenv(SECRET_TOKENS = old.env$secret_tokens)
+    Sys.setenv(FORCE_SQLITE_AND_PATH = old_env$force_sql)
+    Sys.setenv(PLUMBER_SECRET = old_env$plumber_secret)
+    Sys.setenv(SECRET_TOKENS = old_env$secret_tokens)
   })
 
   # Setup API
