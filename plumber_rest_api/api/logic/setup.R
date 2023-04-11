@@ -8,10 +8,7 @@ box::use(
   checkmate[test_string],
   purrr[pluck, set_names],
   stringr[str_trim, str_sub],
-)
-
-box::use(
-  api/logic/logger[log_info, log_debug, log_warn, log_fatal, log_error],
+  logger[log_info, log_debug, log_warn, log_fatal, log_error],
 )
 
 STORAGE_METHODS <- list(

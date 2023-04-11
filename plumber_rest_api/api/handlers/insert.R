@@ -4,12 +4,12 @@ box::use(
   checkmate[test_string],
   shiny.telemetry[build_token],
   stringr[str_sub],
+  logger[log_info, log_debug, log_warn, log_fatal, log_error],
 )
 
 box::use(
   api/logic/setup[data_storage],
   api/logic/token[validate_token, get_secret],
-  api/logic/logger[log_info, log_debug, log_warn, log_fatal, log_error],
 )
 
 #' Handler to insert data to the data storage provider

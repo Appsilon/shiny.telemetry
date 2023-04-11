@@ -3,14 +3,16 @@ box::use(
   glue[glue],
   future[plan],
   promises[future_promise],
-  logger[log_threshold, log_layout, layout_glue_colors],
+  logger[
+    log_threshold, log_layout, layout_glue_colors,
+    log_info, log_debug, log_warn, log_fatal, log_error
+  ],
 )
 
 box::use(
   api/handlers/insert,
   api/handlers/read_data,
   api/logic/setup[data_storage],
-  api/logic/logger[log_info, log_debug, log_warn, log_fatal, log_error],
 )
 
 # Setup
