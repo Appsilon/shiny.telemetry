@@ -352,7 +352,7 @@
         "Maintainer": "Konrad Rudolph <konrad.rudolph@gmail.com>",
         "Repository": "CRAN",
         "Date/Publication": "2022-05-11 17:00:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-07 11:11:28 UTC; unix"
+        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-12 07:46:43 UTC; unix"
       }
     },
     "brio": {
@@ -2286,13 +2286,13 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "bbd0cdb12ed1972c557f69a194e334156d253013",
-      "GithubSha1": "bbd0cdb12ed1972c557f69a194e334156d253013",
+      "GithubRef": "0777190060b7f5cfbd0c28367998d2b26960d832",
+      "GithubSha1": "0777190060b7f5cfbd0c28367998d2b26960d832",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
         "Title": "Shiny app usability logs and statistics",
-        "Version": "0.0.9008",
+        "Version": "0.0.9009",
         "Author": "Appsilon Data Science <dev@appsilondatascience.com>",
         "Maintainer": "Appsilon Data Science <dev@appsilondatascience.com>",
         "Description": "Easy way for logging users activity and adding statistics panel to your Shiny app.",
@@ -2304,18 +2304,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-07 11:14:30 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-12 07:49:14 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "bbd0cdb12ed1972c557f69a194e334156d253013",
-        "RemoteSha": "bbd0cdb12ed1972c557f69a194e334156d253013",
+        "RemoteRef": "0777190060b7f5cfbd0c28367998d2b26960d832",
+        "RemoteSha": "0777190060b7f5cfbd0c28367998d2b26960d832",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "bbd0cdb12ed1972c557f69a194e334156d253013",
-        "GithubSHA1": "bbd0cdb12ed1972c557f69a194e334156d253013"
+        "GithubRef": "0777190060b7f5cfbd0c28367998d2b26960d832",
+        "GithubSHA1": "0777190060b7f5cfbd0c28367998d2b26960d832"
       }
     },
     "sodium": {
@@ -2890,7 +2890,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "7d6c6a8287c5513608c25423497e0b57"
+      "checksum": "a093c70f89bb0e068ef6b9496f60cb2f"
     },
     "api/handlers/insert.R": {
       "checksum": "e903f0e5ed5db983c9a326eaf04d21d7"
