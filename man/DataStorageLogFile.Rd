@@ -12,13 +12,11 @@ data_storage <- DataStorageLogFile$new(
   log_file_path = tempfile(pattern = "user_stats", fileext = ".json")
 )
 
-telemetry <- Telemetry$new(data_storage = data_storage)
-telemetry$log_login()
+data_storage$insert("example", "test_event", "session1")
+data_storage$insert("example", "input", "s1", list(id = "id"))
+data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 
-telemetry$log_click("an_id")
-telemetry$log_click("a_different_id")
-
-data_storage$read_event_data("2020-01-01", "2025-01-01")
+data_storage$read_event_data(Sys.date() - 365, Sys.date() + 365)
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageLogFile}

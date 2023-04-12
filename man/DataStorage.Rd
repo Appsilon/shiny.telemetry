@@ -42,13 +42,7 @@ initialize data storage object common with all providers
 \subsection{Method \code{insert()}}{
 Insert new data
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorage$insert(
-  app_name,
-  type,
-  session = NULL,
-  details = NULL,
-  insert_time = TRUE
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorage$insert(app_name, type, session = NULL, details = NULL, time = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -64,8 +58,10 @@ event was logged}
 
 \item{\code{details}}{atomic element of list with data to save in storage}
 
-\item{\code{insert_time}}{boolean flag that indicates if `time` parameters
-should be added automatically}
+\item{\code{time}}{date time value indicates the moment the record was
+generated in UTC. By default it should be NULL and determined
+automatically, but in cases where it should be defined, use Sys.time()
+to generate it.}
 }
 \if{html}{\out{</div>}}
 }

@@ -12,13 +12,11 @@ data_storage <- DataStorageSQLite$new(
   db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
 )
 
-telemetry <- Telemetry$new(data_storage = data_storage)
-telemetry$log_login()
+data_storage$insert("example", "test_event", "session1")
+data_storage$insert("example", "input", "s1", list(id = "id"))
+data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 
-telemetry$log_click("an_id")
-telemetry$log_click("a_different_id")
-
-data_storage$read_event_data("2020-01-01", "2025-01-01")
+data_storage$read_event_data(Sys.date() - 365, Sys.date() + 365)
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageSQLite}
@@ -27,7 +25,6 @@ data_storage$read_event_data("2020-01-01", "2025-01-01")
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-DataStorageSQLite-new}{\code{DataStorageSQLite$new()}}
-\item \href{#method-DataStorageSQLite-read_event_data}{\code{DataStorageSQLite$read_event_data()}}
 \item \href{#method-DataStorageSQLite-clone}{\code{DataStorageSQLite$clone()}}
 }
 }
@@ -36,6 +33,7 @@ data_storage$read_event_data("2020-01-01", "2025-01-01")
 <ul>
 <li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="close"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-close'><code>shiny.telemetry::DataStorage$close()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="insert"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-insert'><code>shiny.telemetry::DataStorage$insert()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="read_event_data"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-read_event_data'><code>shiny.telemetry::DataStorage$read_event_data()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -52,25 +50,6 @@ Initialize the data storage class
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{db_path}}{string with path to sqlfile}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStorageSQLite-read_event_data"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStorageSQLite-read_event_data}{}}}
-\subsection{Method \code{read_event_data()}}{
-read all user data from SQLite
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageSQLite$read_event_data(date_from, date_to)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{date_from}}{date representing the starting day of results}
-
-\item{\code{date_to}}{date representing the last day of results}
 }
 \if{html}{\out{</div>}}
 }

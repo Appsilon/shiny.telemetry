@@ -227,7 +227,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       private$log_generic(
         type = "login user",
-        value = list(value = username),
+        details = list(value = username),
         session = session
       )
     },
@@ -247,7 +247,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
         private$log_generic(
           type = "logout user",
-          value = list(value = username),
+          details = list(value = username),
           session = session
         )
       }, session)
@@ -267,7 +267,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       private$log_generic(
         type = "click",
-        value = list(id = id),
+        details = list(id = id),
         session = session
       )
     },
@@ -301,7 +301,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
         private$log_generic(
           type = "browser",
-          value = browser,
+          details = list(value = browser),
           session = session
         )
       })
@@ -399,7 +399,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       private$.log_event(
         type = "input",
-        value = list(id = input_id, value = value),
+        details = list(id = input_id, value = value),
         session = session
       )
     }
@@ -427,15 +427,15 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
     log_generic = function(
       type = NULL,
-      value = NULL,
+      details = NULL,
       session = NULL
     ) {
       checkmate::assert_string(type, null.ok = TRUE)
 
       checkmate::assert(
         .combine = "or",
-        checkmate::check_list(value, null.ok = TRUE),
-        checkmate::check_scalar(value)
+        checkmate::check_list(details, null.ok = TRUE),
+        checkmate::check_scalar(details)
       )
       checkmate::assert(
         .combine = "or",
@@ -443,31 +443,15 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         checkmate::check_class(session, "session_proxy")
       )
 
-      details <- list(
-        app_name = self$app_name
-      )
-
-      if (!is.null(session)) {
-        details$session <- session$token
-      }
-
-      if (checkmate::test_list(value)) {
-        value <- jsonlite::toJSON(value)
-      }
-
-      if (!is.null(type)) {
-        details$action <- type
-      }
-
-      if (!is.null(value)) {
-        details$value <- value
+      if (checkmate::test_list(details)) {
+        details <- jsonlite::toJSON(details)
       }
 
       self$data_storage$insert(
-        app_name = details$app_name,
-        session = details$session,
-        type = details$action,
-        details = details$value
+        app_name = self$app_name,
+        session = purrr::pluck(session, "token"),
+        type = type,
+        details = details
       )
     },
 

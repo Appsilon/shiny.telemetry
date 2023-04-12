@@ -23,14 +23,16 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' @param session (optional) string that identifies a session where the
     #' event was logged
     #' @param details atomic element of list with data to save in storage
-    #' @param insert_time boolean flag that indicates if `time` parameters
-    #' should be added automatically
+    #' @param time date time value indicates the moment the record was
+    #' generated in UTC. By default it should be NULL and determined
+    #' automatically, but in cases where it should be defined, use Sys.time()
+    #' to generate it.
 
     insert = function(
-      app_name, type, session = NULL, details = NULL, insert_time = TRUE
+      app_name, type, session = NULL, details = NULL, time = NULL
     ) {
       values <- private$insert_checks(
-        app_name, type, session, details, insert_time
+        app_name, type, session, details, time
       )
 
       private$write(values = values, bucket = self$event_bucket)
@@ -97,11 +99,11 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
       rlang::abort("Method not implemented.")
     },
 
-    insert_checks = function(app_name, type, session, details, insert_time) {
+    insert_checks = function(app_name, type, session, details, time) {
       checkmate::assert_string(app_name)
       checkmate::assert_string(type)
       checkmate::assert_string(session, null.ok = TRUE)
-      checkmate::assert_flag(insert_time)
+      checkmate::assert_class(time, "POSIXct", null.ok = TRUE)
       checkmate::assert(
         .combine = "or",
         checkmate::check_scalar(details),
@@ -115,18 +117,11 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
         details = details
       )
 
-      if (isFALSE(insert_time)) {
-        return(values)
+      if (checkmate::test_list(details)) {
+        values$details <- jsonlite::toJSON(details)
       }
 
-      if ("time" %in% names(details)) {
-        rlang::abort(paste0(
-          "You must not pass 'time' value into database.",
-          " It is set automatically."
-        ))
-      }
-
-      values$time <- as.character(Sys.time())
+      values$time <- dplyr::coalesce(time, as.character(Sys.time()))
 
       values
     }

@@ -11,13 +11,11 @@
 #'   db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
 #' )
 #'
-#' telemetry <- Telemetry$new(data_storage = data_storage)
-#' telemetry$log_login()
+#' data_storage$insert("example", "test_event", "session1")
+#' data_storage$insert("example", "input", "s1", list(id = "id"))
+#' data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 #'
-#' telemetry$log_click("an_id")
-#' telemetry$log_click("a_different_id")
-#'
-#' data_storage$read_event_data("2020-01-01", "2025-01-01")
+#' data_storage$read_event_data(Sys.date() - 365, Sys.date() + 365)
 DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageSQLite",
   inherit = DataStorage,
@@ -38,22 +36,6 @@ DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
       private$connect(db_path)
 
       private$initialize_connection()
-    },
-
-    #' @description read all user data from SQLite
-    #' @param date_from date representing the starting day of results
-    #' @param date_to date representing the last day of results
-
-    read_event_data = function(date_from, date_to) {
-      date_from <- private$check_date(date_from, .var_name = "date_from")
-      date_to <- private$check_date(date_to, .var_name = "date_to")
-
-      db_data <- private$read_data(self$event_bucket, date_from, date_to)
-
-      if (NROW(db_data) > 0) {
-        return(dplyr::mutate(db_data, date = as.Date(.data$time)))
-      }
-      db_data
     }
 
   ),
