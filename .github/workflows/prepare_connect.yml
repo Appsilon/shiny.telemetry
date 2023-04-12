@@ -2,12 +2,13 @@ on:
   push:
     branches:
       - main
+      - fix/renv-deployment
 
 name: Prepare Connect Deployment
 
 env:
   RENV_PATHS_ROOT: ~/.local/share/renv
-  BRANCH_DEPLOY: bot/deploy
+  BRANCH_DEPLOY: bot/deploy_test
 
 jobs:
   main:
@@ -115,8 +116,9 @@ jobs:
         shell: Rscript {0}
         run: |
           setwd("plumber_rest_api")
-          renv::restore()
           renv::install(paste0("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
+          renv::snapshot()
+          renv::restore()
           renv::install("rsconnect")
           rsconnect::writeManifest()
 
