@@ -2,13 +2,12 @@ on:
   push:
     branches:
       - main
-      - fix/renv-deployment
 
 name: Prepare Connect Deployment
 
 env:
   RENV_PATHS_ROOT: ~/.local/share/renv
-  BRANCH_DEPLOY: bot/deploy_test
+  BRANCH_DEPLOY: bot/deploy
 
 jobs:
   main:
