@@ -1659,7 +1659,7 @@
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
       "GithubRef": "deploy-and-remove",
-      "GithubSha1": "18830aab1baafa6fd07ba82efbc8c6f0bb676f8e",
+      "GithubSha1": "8835f4fda80d98b84a45c90d1f35c2c0445d5c8b",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -1676,18 +1676,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-12 11:27:38 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-12 11:31:44 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
         "RemoteRef": "deploy-and-remove",
-        "RemoteSha": "18830aab1baafa6fd07ba82efbc8c6f0bb676f8e",
+        "RemoteSha": "8835f4fda80d98b84a45c90d1f35c2c0445d5c8b",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
         "GithubRef": "deploy-and-remove",
-        "GithubSHA1": "18830aab1baafa6fd07ba82efbc8c6f0bb676f8e"
+        "GithubSHA1": "8835f4fda80d98b84a45c90d1f35c2c0445d5c8b"
       }
     },
     "sourcetools": {
@@ -2081,7 +2081,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "dda7f2d31616cbbacb49e678a21a27de"
+      "checksum": "a165fb497df7378e461c8affd1287036"
     },
     "app.R": {
       "checksum": "fc69a68ce1e0d96e595b7498d9bfe6a8"
