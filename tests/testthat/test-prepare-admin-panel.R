@@ -19,7 +19,7 @@ test_that("get_active_users", {
 
 test_that("get_actions_per_day", {
   log_data <- dplyr::tibble(
-    action = c("login", "login", "logout", "something else", "other"),
+    action = c("login user", "login user", "logout user", "something else", "other"),
     date = rep(Sys.Date(), 5)
   )
 
