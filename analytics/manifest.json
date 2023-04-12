@@ -144,7 +144,7 @@
         "Author": "Douglas Bates [aut],\n  Martin Maechler [aut, cre] (<https://orcid.org/0000-0002-8685-9910>),\n  Mikael Jagan [aut] (<https://orcid.org/0000-0002-3542-2938>),\n  Timothy A. Davis [ctb] (SuiteSparse and 'cs' C libraries, notably\n    CHOLMOD and AMD, collaborators listed in\n    dir(pattern=\"^[A-Z]+[.]txt$\", full.names=TRUE, system.file(\"doc\",\n    \"SuiteSparse\", package=\"Matrix\"))),\n  Jens Oehlschlägel [ctb] (initial nearPD()),\n  Jason Riedy [ctb] (condest() and onenormest() for octave, Copyright:\n    Regents of the University of California),\n  R Core Team [ctb] (base R matrix implementation)",
         "Repository": "CRAN",
         "Date/Publication": "2023-04-04 08:20:06 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-12 07:47:01 UTC; unix"
+        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-12 07:58:09 UTC; unix"
       }
     },
     "R6": {
@@ -1700,7 +1700,7 @@
         "Maintainer": "Deepayan Sarkar <deepayan.sarkar@r-project.org>",
         "Repository": "CRAN",
         "Date/Publication": "2023-04-05 17:43:19 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-12 07:46:50 UTC; unix"
+        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-12 07:57:59 UTC; unix"
       }
     },
     "lazyeval": {
@@ -2507,8 +2507,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "0777190060b7f5cfbd0c28367998d2b26960d832",
-      "GithubSha1": "0777190060b7f5cfbd0c28367998d2b26960d832",
+      "GithubRef": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405",
+      "GithubSha1": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2525,18 +2525,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-12 07:49:14 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-12 07:59:58 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "0777190060b7f5cfbd0c28367998d2b26960d832",
-        "RemoteSha": "0777190060b7f5cfbd0c28367998d2b26960d832",
+        "RemoteRef": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405",
+        "RemoteSha": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "0777190060b7f5cfbd0c28367998d2b26960d832",
-        "GithubSHA1": "0777190060b7f5cfbd0c28367998d2b26960d832"
+        "GithubRef": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405",
+        "GithubSHA1": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405"
       }
     },
     "shinyjs": {
@@ -3083,7 +3083,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "907a8c3bd5117202269e57636df8a396"
+      "checksum": "5619854c6070d9844578c16fb39fbcaf"
     },
     "app.R": {
       "checksum": "2069338bc00760a72cf46f81bfab1330"
