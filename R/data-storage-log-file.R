@@ -44,10 +44,14 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
 
     #' @description Insert new data
     #' @param values list of values to write to database
+    #' @param insert_time boolean flag that indicates if `time` parameters
+    #' should be added automatically
     #' @param bucket path to log file; defaults to `log_file_path` used when initialized
 
-    insert = function(values, bucket = private$log_file_path) {
-      values <- private$insert_checks(values, bucket = bucket)
+    insert = function(
+      values, insert_time = TRUE, bucket = private$log_file_path
+    ) {
+      values <- private$insert_checks(values, insert_time, bucket)
 
       checkmate::assert_choice(
         bucket, c(self$action_bucket, self$session_bucket)

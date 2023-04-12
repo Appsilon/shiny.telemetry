@@ -23,6 +23,7 @@ STORAGE_METHODS <- list(
 #' @examples
 #' get_storage("sqlite")
 get_storage <- function(driver) {
+  # This is used exclusively for testing purposes
   if (is.null(driver)) {
     return(STORAGE_METHODS$.default)
   }
@@ -42,7 +43,7 @@ setup_storage <- function() {
 
   data_storage <- do.call(
     get_storage(storage_config$driver)$new,
-    storage_config$params
+    storage_config[[storage_config$driver]]$params
   )
 
   data_storage
@@ -60,7 +61,7 @@ setup_secrets <- function(tokens_raw) {
       rlang::abort("SECRET_TOKENS environmental variable must be defined.")
     }
 
-    return(list())
+    return(NULL)
   }
 
   str_trim(tokens_raw) |>

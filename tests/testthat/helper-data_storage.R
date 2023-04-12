@@ -26,9 +26,7 @@ test_common <- function(data_storage) {
   expect_error(data_storage$insert("some value"), "Must be of type 'list'")
 
   expect_silent({
-    data_storage$insert(
-      values = list(action = "logout"), bucket = data_storage$action_bucket
-    )
+    data_storage$insert(values = list(action = "logout"))
     data_storage$insert(list(action = "click", id = "some_button_id"))
     data_storage$insert(list(action = "click", id = "some_button_id_2"))
     data_storage$insert(

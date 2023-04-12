@@ -8,7 +8,11 @@ Description: Easy way for logging users activity and adding statistics panel to 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Suggests: 
+Suggests:
+    plumber,
+    box,
+    stringr,
+    here,
     testthat (>= 3.0.0),
     mockery,
     withr,

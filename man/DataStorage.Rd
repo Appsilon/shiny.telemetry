@@ -50,13 +50,16 @@ initialize data storage object common with all providers
 \subsection{Method \code{insert()}}{
 Insert new data
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorage$insert(values, bucket = self$action_bucket)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorage$insert(values, insert_time = TRUE, bucket = self$action_bucket)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{values}}{list of values to write to storage provider.}
+
+\item{\code{insert_time}}{boolean flag that indicates if `time` parameters
+should be added automatically}
 
 \item{\code{bucket}}{string with name of type of data to write (example, for
 SQL it should represent a table).}

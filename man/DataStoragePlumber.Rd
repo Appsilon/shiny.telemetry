@@ -116,13 +116,20 @@ server).}
 \subsection{Method \code{insert()}}{
 Insert new data
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStoragePlumber$insert(values, bucket = self$action_bucket)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStoragePlumber$insert(
+  values,
+  insert_time = TRUE,
+  bucket = private$log_file_path
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{values}}{list of values to write to database}
+
+\item{\code{insert_time}}{boolean flag that indicates if `time` parameters
+should be added automatically}
 
 \item{\code{bucket}}{name of table to write}
 }
