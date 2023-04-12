@@ -1,6 +1,6 @@
 # define function to get username
 get_user <- function(session) {
-  if (is.null(session) || is.null(session$user)) username <- "anonymous"
+  if (is.null(session) || is.null(session$user)) return("anonymous")
   session$user
 }
 
