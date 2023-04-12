@@ -124,6 +124,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
 
       values$time <- dplyr::coalesce(time, Sys.time())
       values$time <- as.character(values$time)
+
       values
     },
 
