@@ -24,18 +24,6 @@ STORAGE_METHODS <- list(
 #' get_storage("sqlite")
 get_storage <- function(driver) {
   # This is used exclusively for testing purposes
-  if (Sys.getenv("FORCE_SQLITE_AND_PATH") != "") {
-    tmp_file <- Sys.getenv("FORCE_SQLITE_AND_PATH")
-    return(
-      list(
-        new = function(...) {
-          # Ignore parameters
-          DataStorageRSQLite$new(db_path = tmp_file)
-        }
-      )
-    )
-  }
-
   if (is.null(driver)) {
     return(STORAGE_METHODS$.default)
   }
@@ -55,7 +43,7 @@ setup_storage <- function() {
 
   data_storage <- do.call(
     get_storage(storage_config$driver)$new,
-    storage_config$params
+    storage_config[[storage_config$driver]]$params
   )
 
   data_storage

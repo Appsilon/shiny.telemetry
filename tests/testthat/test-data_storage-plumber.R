@@ -1,6 +1,8 @@
 logger::log_threshold(logger::FATAL)
 logger::log_threshold(logger::FATAL, namespace = "shiny.telemetry")
 
+Sys.setenv(R_CONFIG_ACTIVE = "test")
+
 test_that("DataStoragePlumber should be able to insert and read", {
   db_path <- tempfile(pattern = "events", fileext = ".sqlite")
 

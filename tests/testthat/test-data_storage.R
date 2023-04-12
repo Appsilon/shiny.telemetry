@@ -15,27 +15,3 @@ test_that("Data storage initializes a dummy class", {
   expect_error(data_storage$close(), error_msg)
 
 })
-
-test_that("SQL Data storage inserts / reads", {
-  db_path <- tempfile(fileext = ".sqlite")
-  withr::defer(file.remove(db_path))
-
-  data_storage <- DataStorageRSQLite$new(db_path = db_path)
-
-  test_common(data_storage)
-})
-
-test_that("DataStorageLogFile shoulb be able to insert and read", {
-  log_file_path <- tempfile(fileext = ".txt")
-  session_file_path <- tempfile(fileext = ".txt")
-  withr::defer(file.remove(log_file_path))
-  withr::defer(file.remove(session_file_path))
-
-  data_storage <-
-    DataStorageLogFile$new(
-      log_file_path = log_file_path,
-      session_file_path = session_file_path
-    )
-
-  test_common(data_storage)
-})

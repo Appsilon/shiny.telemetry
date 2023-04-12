@@ -37,7 +37,7 @@ function(req, res){
 #* @param id:string
 #' @post /user_log
 #' @serializer json
-function(token = NULL, id = NULL, data, res){
+function(token, id, data, res){
   result <- insert$handler(data, token, id, data_storage$action_bucket)
 
   res$status <- result$status
@@ -50,7 +50,7 @@ function(token = NULL, id = NULL, data, res){
 #* @param id:string
 #' @post /session_details
 #' @serializer json
-function(data, token = NULL, id = NULL, res){
+function(data, token, id, res){
   # future_promise({
   result <- insert$handler(data, token, id, data_storage$session_bucket)
   res$status <- result$status
@@ -65,7 +65,7 @@ function(data, token = NULL, id = NULL, res){
 #* @param id:string
 #* @get /read_user_data
 #' @serializer json
-function(from, to, token = NULL, id = NULL, res) {
+function(from, to, token, id, res) {
   log_debug('@get /read_user_data triggered')
   result <- read_data$handler(
     from, to, token, id, data_storage$read_user_data
@@ -81,7 +81,7 @@ function(from, to, token = NULL, id = NULL, res) {
 #* @param id:string
 #* @get /read_session_data
 #' @serializer json
-function(from, to, token = NULL, id = NULL, res) {
+function(from, to, token, id, res) {
   result <- read_data$handler(
     from, to, token, id, data_storage$read_session_data
   )
