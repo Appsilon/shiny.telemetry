@@ -1,6 +1,12 @@
 # shiny.telemetry
 
-> Easy logging of users activity and session events of your Shiny App 
+> Easy logging of users activity and session events of your Shiny App
+
+[![CRAN](https://www.r-pkg.org/badges/version/shiny.telemetry)](https://cran.r-project.org/package=shiny.telemetry)
+[![R CMD check](https://github.com/Appsilon/shiny.telemetry/actions/workflows/main.yml/badge.svg)](https://github.com/Appsilon/shiny.telemetry/actions/workflows/main.yml)
+[![downloads monthly](https://cranlogs.r-pkg.org/badges/shiny.telemetry)](https://CRAN.R-project.org/package=shiny.telemetry)
+[![downloads total](https://cranlogs.r-pkg.org/badges/grand-total/shiny.telemetry)](https://CRAN.R-project.org/package=shiny.telemetry)
+[![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/license/lgpl-3-0/)
 
 The `shiny.telemetry` R package tracks events occurring on a user session, such as input changes and session duration, and stores them in a local or remote database.
 
@@ -47,8 +53,8 @@ shinyApp(
 When inspecting the code above, we can breakdown the 3 lines of code by:
 
 1. Global `Telemetry` object that is used across the different sessions
-2. Add necessary Javascript to the UI by calling `use_telemetry()`. It is used to track browser version. 
-3. Initialize the session-specific tracking by  calling method `start_session()` of the `Telemetry` object 
+2. Add necessary Javascript to the UI by calling `use_telemetry()`. It is used to track browser version.
+3. Initialize the session-specific tracking by  calling method `start_session()` of the `Telemetry` object
 
 ## How to access the data?
 
@@ -59,7 +65,7 @@ The developers and administrators of the dashboard can access the data that is g
 shiny.telemetry::Telemetry$new()$data_storage$read_events("2020-01-01", "2050-01-01")
 
 # default provider and path for Telemetry$new()
-shiny.telemetry::DataStorageRSQLite$new(db_path = "telemetry.sqlite")$read_events("2020-01-01", "2050-01-01") 
+shiny.telemetry::DataStorageRSQLite$new(db_path = "telemetry.sqlite")$read_events("2020-01-01", "2050-01-01")
 ```
 
 The package has an analytics sample dashboard to help access the data. It is located at `inst/examples/app/analytics` and it should be modified so that it references the correct `DataStorage` provider and configuration.

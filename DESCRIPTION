@@ -5,7 +5,7 @@ Version: 0.0.9009
 Author: Appsilon Data Science <dev@appsilondatascience.com>
 Maintainer: Appsilon Data Science <dev@appsilondatascience.com>
 Description: Easy way for logging users activity and adding statistics panel to your Shiny app.
-License: MIT + file LICENSE
+License: LGPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests:
