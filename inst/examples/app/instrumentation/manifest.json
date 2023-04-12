@@ -2081,13 +2081,13 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "52164262d00fd7129207063ef838ae6e"
+      "checksum": "8d8b995b60a7ba83d59834d6c7d8b187"
     },
     "app.R": {
       "checksum": "fc69a68ce1e0d96e595b7498d9bfe6a8"
     },
     "config.yml": {
-      "checksum": "3cdb7e70954f2a521d0ca0ef7efa2d34"
+      "checksum": "fc6a8cac00b1e33e7ffe14cf69d8d654"
     },
     "user_stats.txt": {
       "checksum": "d6c0d71215aa147a237e3edc8a857e4d"

@@ -1,5 +1,5 @@
 default:
-
+  name: "Old Faithful Geyser Data"
 
 rsconnect:
   data_storage:
