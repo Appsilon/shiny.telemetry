@@ -121,7 +121,7 @@ jobs:
           rsconnect::writeManifest()
 
       - name: Commit changes
-        if: ${{ github.ref_name == 'main' }}
+        if: ${{ github.ref_name == 'fix/renv-deployment' }}
         id: commit-changes
         run: |
           git add instrumentation/manifest.json
