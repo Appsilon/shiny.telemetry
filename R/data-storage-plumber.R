@@ -132,7 +132,15 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_string(bucket)
       checkmate::assert_list(values)
 
-      endpoint <- bucket
+      endpoint <- dplyr::case_when(
+        # API endpoints
+        bucket == self$event_bucket ~ self$event_insert_endpoint,
+        .default = NULL
+      )
+
+      if (is.null(endpoint)) {
+        rlang::abort("writing to invalid bucket.")
+      }
 
       logger::log_debug(
        "values (names): ({NROW(names(values))}) ",
@@ -201,7 +209,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
       endpoint <- dplyr::case_when(
         # API endpoints
-        bucket == self$event_bucket ~ self$action_read_endpoint,
+        bucket == self$event_bucket ~ self$event_read_endpoint,
         .default = NULL
       )
 

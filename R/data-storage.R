@@ -101,7 +101,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
 
     insert_checks = function(app_name, type, session, details, time) {
       checkmate::assert_string(app_name)
-      checkmate::assert_string(type)
+      checkmate::assert_string(type, null.ok = TRUE)
       checkmate::assert_string(session, null.ok = TRUE)
       checkmate::assert_class(time, "POSIXct", null.ok = TRUE)
       checkmate::assert(
@@ -121,8 +121,8 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
         values$details <- jsonlite::toJSON(details)
       }
 
-      values$time <- dplyr::coalesce(time, as.character(Sys.time()))
-
+      values$time <- dplyr::coalesce(time, Sys.time())
+      values$time <- as.character(values$time)
       values
     }
   )

@@ -50,9 +50,11 @@ handler <- function(data, token, id, bucket){
   }
 
   data_storage$insert(
-    values,
-    insert_time = FALSE,
-    bucket = bucket
+    values$app_name,
+    values$type,
+    values$session,
+    values$details,
+    as.POSIXct(values$time)
   )
 
   msg <- glue::glue("Ok at {Sys.time()}")
