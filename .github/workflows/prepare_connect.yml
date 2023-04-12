@@ -9,7 +9,7 @@ name: Prepare Connect Deployment
 env:
   RENV_PATHS_ROOT: ~/.local/share/renv
   BRANCH_DEPLOY: bot/deploy_test_2
-  PUSH_ON_BRANCH: fix/renv-deployment
+  PUSH_ON_BRANCH: main
 
 jobs:
   main:
@@ -142,7 +142,7 @@ jobs:
           git describe --all
           git log
       - name: Push to branch
-        if: ${{ github.ref_name == 'main' }}
+        if: ${{ github.ref_name == env.PUSH_ON_BRANCH }}
         id: push-changes
         run: |
           git push origin $BRANCH_DEPLOY
