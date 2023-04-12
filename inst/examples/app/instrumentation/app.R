@@ -43,6 +43,7 @@ telemetry <- Telemetry$new(
 # This sample application includes a configuration for RSConnect deployments,
 # that uses parameters in `config.yml` file to define Data Storage backend
 if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
+  print(config::get("data_storage"))
   telemetry <- Telemetry$new(
     name = "demo",
     version = "v0.0.9007",
