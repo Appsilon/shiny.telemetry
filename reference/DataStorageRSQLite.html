@@ -120,13 +120,22 @@ API for read/write operations</p>
 <h3 id="method-insert-">Method <code>insert()</code><a class="anchor" aria-label="anchor" href="#method-insert-"></a></h3>
 <p>Insert new data</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorageRSQLite</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span><span class="va">values</span>, bucket <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">action_bucket</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorageRSQLite</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span></span>
+<span>  <span class="va">values</span>,</span>
+<span>  insert_time <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bucket <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">action_bucket</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>values</code></dt>
 <dd><p>list of values to write to database</p></dd>
+
+
+<dt><code>insert_time</code></dt>
+<dd><p>boolean flag that indicates if `time` parameters
+should be added automatically</p></dd>
 
 
 <dt><code>bucket</code></dt>
@@ -222,9 +231,9 @@ API for read/write operations</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   time          dashboard version session username action id    value date      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2023-04-12 0… (dashboa… v0.0.0  <span style="color: #BB0000;">NA</span>      anonymo… login… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    2023-04-12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2023-04-12 0… (dashboa… v0.0.0  <span style="color: #BB0000;">NA</span>      anonymo… click  an_id <span style="color: #BB0000;">NA</span>    2023-04-12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 2023-04-12 0… (dashboa… v0.0.0  <span style="color: #BB0000;">NA</span>      anonymo… click  a_di… <span style="color: #BB0000;">NA</span>    2023-04-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2023-04-12 1… (dashboa… v0.0.0  <span style="color: #BB0000;">NA</span>      anonymo… login… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    2023-04-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2023-04-12 1… (dashboa… v0.0.0  <span style="color: #BB0000;">NA</span>      anonymo… click  an_id <span style="color: #BB0000;">NA</span>    2023-04-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 2023-04-12 1… (dashboa… v0.0.0  <span style="color: #BB0000;">NA</span>      anonymo… click  a_di… <span style="color: #BB0000;">NA</span>    2023-04-12</span>
 <span class="r-in"><span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_session_data</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2025-01-01"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   session title      </span>
