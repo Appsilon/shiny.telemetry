@@ -3,7 +3,7 @@
 #' Sys.setenv(Z_AAA="123", Z_BBB = "456")
 #' capture_evironment_variables(c("Z_AAA", "Z_BBB"))
 capture_evironment_variables <- function(...) {
-  var_names = list(...)
+  var_names <- list(...)
   var_names %>% purrr::map(
     ~ Sys.getenv(.x)
   ) %>%
