@@ -1,3 +1,13 @@
+thresholds <- list(
+  global = logger::log_threshold(),
+  shiny.telemetry = logger::log_threshold(namespace = "shiny.telemetry")
+)
+
+withr::defer({
+  logger::log_threshold(thresholds$global)
+  logger::log_threshold(thresholds$shiny.telemetry, namespace = "shiny.telemetry")
+})
+
 logger::log_threshold(logger::FATAL)
 logger::log_threshold(logger::FATAL, namespace = "shiny.telemetry")
 
