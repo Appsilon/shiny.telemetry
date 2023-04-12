@@ -1,95 +1,134 @@
 test_that("log_input", {
   data_storage <- list(
     insert = function(values, bucket) {
-      if (!is.null(values$value)) {
-        message(glue::glue("Writing to {bucket} value: {values$value} id: {values$id}"))
-      } else {
-        message(glue::glue("Writing to {bucket} value change with id: {values$id}"))
-      }
+      message(glue::glue(
+        "Writing to {bucket} value: ",
+        "{jsonlite::toJSON(values, auto_unbox = TRUE)}"
+      ))
     },
     action_bucket = "user_log"
   )
 
   telemetry <- Telemetry$new(data_storage = data_storage)
 
-  mockery::stub(
-    telemetry$log_input,
-    "shiny::observeEvent",
-    function(eventExpr, handlerExpr, ...) { # nolint object_name_linter
-      handlerExpr
-    }
+  # Mock ShinySession (with required class added to pass assertions)
+  session <- shiny::MockShinySession$new()
+  class(session) <- c("ShinySession", class(session))
+
+  # Inputs are changed via session to best mimick that behaviour
+  session$setInputs(sample = 53, sample2 = 31)
+
+  # 'log_input' uses 'observeEvent' internally, thus the function needs to be
+  # mocked. This cannot be done with 'mockery::stub()' as this function
+  # cannot scope the private methods of a class.
+  # `testthat::local_mocked_bindings` allows for it.
+  testthat::local_mocked_bindings(
+    observeEvent = function(
+      eventExpr, handlerExpr, ... # nolint object_name_linter
+    ) {
+        shiny::isolate(handlerExpr)
+    },
+    .package = "shiny"
   )
 
-  ShinySessionMock <- R6::R6Class( # nolint object_name_linter
-    classname = "ShinySession",
-    public = list(
-      input = list(),
-      initialize = function(input) {
-        self$input <- input
-      }
-    )
-  )
-
+  #
   # Test simple usage of log_input
+  session$setInputs(sample = 53, sample2 = 31)
   expect_message(
     telemetry$log_input(
       input_id = "sample",
       matching_values = NULL,
       track_value = TRUE,
       input_type = "text",
-      session = ShinySessionMock$new(list(sample = 53, sample2 = 31))
+      session = session
     ),
-    "Writing to user_log value: 53 id: sample"
+    "Writing to user_log value: .*\"value\":53.*"
   )
 
-  # Test simple usage of log_input with matching values
+  #
+  # Test simple usage of log_input with matching values that don't match
+  session$setInputs(sample = 63, sample2 = 41)
   expect_silent(
     telemetry$log_input(
       "sample",
       track_value = TRUE,
-      matching_values = c(52, "52"),
+      matching_values = c(62, "62"),
       input_type = "text",
-      session = ShinySessionMock$new(list(sample = 53, sample2 = 31))
+      session = session
     )
   )
 
+  #
+  # Test simple usage of log_input with matching values
+  session$setInputs(sample = 73, sample2 = 51)
   expect_message(
     telemetry$log_input(
       "sample",
       track_value = TRUE,
-      matching_values = 53,
+      matching_values = 73,
       input_type = "text",
-      session = ShinySessionMock$new(list(sample = 53, sample2 = 36))
+      session = session
     ),
-    "Writing to user_log value: 53 id: sample"
+    "Writing to user_log value: .*\"value\":73.*"
   )
 
-  # Allow to test inputs that keep a list
+  #
+  # Test simple usage of log_input without tracking values
+  session$setInputs(sample = 83, sample2 = 61)
   telemetry$log_input(
     "sample",
     matching_values = NULL,
     input_type = "text",
-    session = ShinySessionMock$new(list(sample = 23, sample2 = 31))
+    session = session
   ) %>%
-    expect_message("Writing to user_log value change with id: sample")
+    expect_message("Writing to user_log value: .*\"id\":\"sample\".*")
 
+  #
+  # Test simple usage of log_input without tracking values
+  # (where value is not atomic)
+  session$setInputs(sample = 1:10, sample2 = 31)
   telemetry$log_input(
     "sample",
     matching_values = NULL,
     input_type = "text",
-    session = ShinySessionMock$new(list(sample = 1:10, sample2 = 31))
+    session = session
   ) %>%
-    expect_message("Writing to user_log value change with id: sample")
+    expect_message("Writing to user_log value: .*\"id\":\"sample\".*")
 
-  # Allow to test inputs that keep a list
+  #
+  # Test simple usage of log_input (where value is not atomic)
+  session$setInputs(sample = list(1, 2, 3), sample2 = 31)
   telemetry$log_input(
     "sample",
     track_value = TRUE,
     matching_values = NULL,
     input_type = "text",
-    session = ShinySessionMock$new(list(sample = list(1, 2, 3), sample2 = 31))
+    session = session
   ) %>%
-    expect_message("Writing to user_log value: 1 id: sample_1") %>%
-    expect_message("Writing to user_log value: 2 id: sample_2") %>%
-    expect_message("Writing to user_log value: 3 id: sample_3")
+    expect_message("Writing to user_log value: .*\"id\":\"sample_1\".*") %>%
+    expect_message("Writing to user_log value: .*\"id\":\"sample_2\".*") %>%
+    expect_message("Writing to user_log value: .*\"id\":\"sample_3\".*")
+
+  #
+  # Test simple usage of log_input
+  session$setInputs(uisidebar = "tab1")
+  expect_message(
+    telemetry$log_navigation(
+      input_id = "uisidebar",
+      session = session
+    ),
+    "Writing to user_log value: .*\"action\":\"navigation\".*\"value\":\"tab1\".*"
+  )
+
+  expect_message(
+    telemetry$log_navigation_manual(
+      navigation_id = "sample",
+      value = "tab2",
+      session = session
+    ),
+    "Writing to user_log value: .*\"action\":\"navigation\".*\"value\":\"tab2\".*"
+  )
+
+  # Manual call to revert mock_binding of 'observeEvent'
+  withr::deferred_run()
 })
