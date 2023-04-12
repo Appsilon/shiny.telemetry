@@ -24,7 +24,8 @@ test_that("Data storage initializes a dummy class", {
     details = list(value = "132")
   ) %>% expect_error(error_msg)
 
-  expect_error(data_storage$read_event_data(date_from, date_to), error_msg)
+  data_storage$read_event_data(date_from, date_to) %>%
+    expect_error(error_msg)
 
   data_storage$insert(
     app_name = app_name,

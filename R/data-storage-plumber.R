@@ -194,7 +194,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       invisible(TRUE)
     },
 
-    read_data = function(bucket, date_from, date_to) {
+    read_data = function(date_from, date_to, bucket) {
       checkmate::assert_string(bucket)
       checkmate::assert_date(date_from)
       checkmate::assert_date(date_to)

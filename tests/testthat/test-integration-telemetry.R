@@ -2,20 +2,12 @@
 #  valid data storage provider.
 test_that("Telemetry logs events to storage and reads (integration)", {
   event_file_path <- tempfile(fileext = ".txt")
-  session_file_path <- tempfile(fileext = ".txt")
 
   withr::defer({
     if (file.exists(event_file_path)) file.remove(event_file_path)
   })
 
-  withr::defer({
-    if (file.exists(session_file_path)) file.remove(session_file_path)
-  })
-
-  data_storage <- DataStorageLogFile$new(
-    log_file_path = event_file_path,
-    session_file_path = session_file_path
-  )
+  data_storage <- DataStorageLogFile$new(log_file_path = event_file_path)
   telemetry <- Telemetry$new(data_storage = data_storage)
 
   testthat::local_mocked_bindings(
@@ -112,7 +104,7 @@ test_that("Telemetry logs events to storage and reads (integration)", {
   date_from <- Sys.Date() - 365 * 10
   date_to <- Sys.Date() + 10
 
-  results <- data_storage$read_user_data(date_from, date_to)
+  results <- data_storage$read_event_data(date_from, date_to)
 
   expect_equal(NROW(results), 11)
 

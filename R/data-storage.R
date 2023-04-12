@@ -46,7 +46,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
       date_from <- private$check_date(date_from, .var_name = "date_from")
       date_to <- private$check_date(date_to, .var_name = "date_to")
 
-      db_data <- private$read_data(self$event_bucket, date_from, date_to)
+      db_data <- private$read_data(date_from, date_to, self$event_bucket)
 
       if (NROW(db_data) > 0) {
         return(dplyr::mutate(db_data, date = as.Date(.data$time)))
@@ -95,7 +95,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
       rlang::abort("Method not implemented.")
     },
 
-    read_data = function(date_from, date_to) {
+    read_data = function(date_from, date_to, bucket) {
       rlang::abort("Method not implemented.")
     },
 

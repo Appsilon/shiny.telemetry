@@ -89,7 +89,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     # @param date_from date or string that indicates start of range
     # @param date_to date or string that indicates end of range
 
-    read_data = function(bucket, date_from, date_to) {
+    read_data = function(date_from, date_to, bucket) {
 
       checkmate::assert_string(bucket)
       checkmate::assert_date(date_from)
@@ -111,7 +111,7 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
           app_name = character(),
           type = character(),
           session = character(),
-          details = list()
+          details = character()
         ))
     }
   )

@@ -27,8 +27,7 @@
 #'
 #' telemetry <- Telemetry$new(
 #'   data_storage = DataStorageLogFile$new(
-#'     log_file_path = tempfile(pattern = "user_stats", fileext = ".txt"),
-#'     session_file_path = tempfile(pattern = "session_details", fileext = ".txt")
+#'     log_file_path = tempfile(pattern = "user_stats", fileext = ".txt")
 #'   )
 #' )
 #'
@@ -402,6 +401,22 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         details = list(id = input_id, value = value),
         session = session
       )
+    },
+
+    #' @description
+    #' Log a manual event
+    #'
+    #' @param event_type string that identifies the event type
+    #' @param details (optional) scalar value or list with the value to register.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
+
+    log_custom_event = function(
+      event_type, details = NULL, session = shiny::getDefaultReactiveDomain()
+    ) {
+      private$.log_event(
+        type = event_type, details = details, session = session
+      )
     }
 
   ),
@@ -443,14 +458,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         checkmate::check_class(session, "session_proxy")
       )
 
-      if (checkmate::test_list(details)) {
-        details <- jsonlite::toJSON(details)
-      }
-
       self$data_storage$insert(
         app_name = self$app_name,
-        session = purrr::pluck(session, "token"),
         type = type,
+        session = purrr::pluck(session, "token"),
         details = details
       )
     },
@@ -604,7 +615,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       private$log_generic(
         type = type,
         details = details,
-        session = purrr::pluck(session, "token"),
+        session = session
       )
     },
 
@@ -645,12 +656,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         )
 
         purrr::walk2(
-          input_value,
           input_ids,
-          ~ self$log_input_manual(
-            input_id = .y,
-            value = .x,
-            session = session
+          input_value,
+          ~ self$log_custom_event(
+            event_type, list(id = .x, value = .y), session
           )
         )
       }
