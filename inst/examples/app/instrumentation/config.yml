@@ -1,4 +1,7 @@
 default:
+
+
+rsconnect:
   data_storage:
     class: !expr shiny.telemetry::DataStorageLogFile
     class_name: DataStorageLogFile
