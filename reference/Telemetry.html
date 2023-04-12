@@ -40,7 +40,7 @@ the supported providers (see [DataStorage])."><!-- mathjax --><script src="https
     
     <a class="navbar-brand me-2" href="../index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9009</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -140,6 +140,8 @@ the supported providers (see [DataStorage]).</p>
 
 <ul><li><p><a href="#method-Telemetry-new"><code>Telemetry$new()</code></a></p></li>
 <li><p><a href="#method-Telemetry-start_session"><code>Telemetry$start_session()</code></a></p></li>
+<li><p><a href="#method-Telemetry-log_navigation"><code>Telemetry$log_navigation()</code></a></p></li>
+<li><p><a href="#method-Telemetry-log_navigation_manual"><code>Telemetry$log_navigation_manual()</code></a></p></li>
 <li><p><a href="#method-Telemetry-log_login"><code>Telemetry$log_login()</code></a></p></li>
 <li><p><a href="#method-Telemetry-log_logout"><code>Telemetry$log_logout()</code></a></p></li>
 <li><p><a href="#method-Telemetry-log_click"><code>Telemetry$log_click()</code></a></p></li>
@@ -193,6 +195,7 @@ working directory with filename `telemetry.sqlite`</p></dd>
 <span>  login <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  logout <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  browser_version <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  navigation_input_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
@@ -221,13 +224,71 @@ track when the session ends. `TRUE` by default.</p></dd>
 
 
 <dt><code>browser_version</code></dt>
-<dd><p>flag that indicates if the basic telemetry should
-track the browser version. `TRUE` by default.</p></dd>
+<dd><p>flag that indicates that the browser version
+should be tracked.`TRUE` by default.</p></dd>
+
+
+<dt><code>navigation_input_id</code></dt>
+<dd><p>string or vector of strings that represent
+input ids and which value should be tracked as navigation events. i.e.
+a change in the value represent a navigation to a page or tab.
+By default, no navigation is tracked.</p></dd>
 
 
 <dt><code>session</code></dt>
-<dd><p>The `session` object passed to function given to `shinyServer`.
-Default is `shiny::getDefaultReactiveDomain()`.</p></dd>
+<dd><p>ShinySession object or NULL to identify the current
+Shiny session.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-Telemetry-log_navigation"></a><div class="section">
+<h3 id="method-log-navigation-">Method <code>log_navigation()</code><a class="anchor" aria-label="anchor" href="#method-log-navigation-"></a></h3>
+<p>Log an input change as a navigation event</p><div class="section">
+<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_navigation</span><span class="op">(</span><span class="va">input_id</span>, session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>input_id</code></dt>
+<dd><p>string that identifies the generic input in the Shiny
+application so that the function can track and log changes to it.</p></dd>
+
+
+<dt><code>session</code></dt>
+<dd><p>ShinySession object or NULL to identify the current
+Shiny session.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-Telemetry-log_navigation_manual"></a><div class="section">
+<h3 id="method-log-navigation-manual-">Method <code>log_navigation_manual()</code><a class="anchor" aria-label="anchor" href="#method-log-navigation-manual-"></a></h3>
+<p>Log a navigation event manually by indicating the id (as input id)</p><div class="section">
+<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_navigation_manual</span><span class="op">(</span></span>
+<span>  <span class="va">navigation_id</span>,</span>
+<span>  <span class="va">value</span>,</span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>navigation_id</code></dt>
+<dd><p>string that identifies navigation event.</p></dd>
+
+
+<dt><code>value</code></dt>
+<dd><p>string that indicates a value for the navigation</p></dd>
+
+
+<dt><code>session</code></dt>
+<dd><p>ShinySession object or NULL to identify the current
+Shiny session.</p></dd>
 
 
 </dl><p></p></div>
@@ -236,7 +297,7 @@ Default is `shiny::getDefaultReactiveDomain()`.</p></dd>
 </div><p></p><hr><a id="method-Telemetry-log_login"></a><div class="section">
 <h3 id="method-log-login-">Method <code>log_login()</code><a class="anchor" aria-label="anchor" href="#method-log-login-"></a></h3>
 <p>Log when session starts</p><div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
+<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_login</span><span class="op">(</span></span>
 <span>  username <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -244,7 +305,7 @@ Default is `shiny::getDefaultReactiveDomain()`.</p></dd>
 </div>
 
 <div class="section">
-<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
+<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>username</code></dt>
 <dd><p>string with username from current session</p></dd>
 
@@ -260,7 +321,7 @@ Shiny session.</p></dd>
 </div><p></p><hr><a id="method-Telemetry-log_logout"></a><div class="section">
 <h3 id="method-log-logout-">Method <code>log_logout()</code><a class="anchor" aria-label="anchor" href="#method-log-logout-"></a></h3>
 <p>Log when session ends</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
+<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_logout</span><span class="op">(</span></span>
 <span>  username <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -268,7 +329,7 @@ Shiny session.</p></dd>
 </div>
 
 <div class="section">
-<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
+<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>username</code></dt>
 <dd><p>string with username from current session</p></dd>
 
@@ -284,12 +345,12 @@ Shiny session.</p></dd>
 </div><p></p><hr><a id="method-Telemetry-log_click"></a><div class="section">
 <h3 id="method-log-click-">Method <code>log_click()</code><a class="anchor" aria-label="anchor" href="#method-log-click-"></a></h3>
 <p>Log an action click</p><div class="section">
-<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
+<h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_click</span><span class="op">(</span><span class="va">id</span>, session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
+<h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>id</code></dt>
 <dd><p>string that identifies a manual click to the dashboard.</p></dd>
 
@@ -305,12 +366,12 @@ Shiny session.</p></dd>
 </div><p></p><hr><a id="method-Telemetry-log_browser_version"></a><div class="section">
 <h3 id="method-log-browser-version-">Method <code>log_browser_version()</code><a class="anchor" aria-label="anchor" href="#method-log-browser-version-"></a></h3>
 <p>Log the browser version</p><div class="section">
-<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
+<h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_browser_version</span><span class="op">(</span>session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
+<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>session</code></dt>
 <dd><p>ShinySession object or NULL to identify the current
 Shiny session.</p></dd>
@@ -322,12 +383,12 @@ Shiny session.</p></dd>
 </div><p></p><hr><a id="method-Telemetry-log_session"></a><div class="section">
 <h3 id="method-log-session-">Method <code>log_session()</code><a class="anchor" aria-label="anchor" href="#method-log-session-"></a></h3>
 <p>Log session details</p><div class="section">
-<h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
+<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_session</span><span class="op">(</span><span class="va">detail</span>, session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
+<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>detail</code></dt>
 <dd><p>string with details about the session.</p></dd>
 
@@ -344,12 +405,12 @@ Shiny session.</p></dd>
 <h3 id="method-log-button-">Method <code>log_button()</code><a class="anchor" aria-label="anchor" href="#method-log-button-"></a></h3>
 <p>Track a button and track changes to this input (without storing the
 values)</p><div class="section">
-<h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
+<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_button</span><span class="op">(</span><span class="va">input_id</span>, session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
+<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>input_id</code></dt>
 <dd><p>string that identifies the button in the Shiny
 application so that the function can track and log changes to it.</p></dd>
@@ -366,7 +427,7 @@ Shiny session.</p></dd>
 </div><p></p><hr><a id="method-Telemetry-log_all_inputs"></a><div class="section">
 <h3 id="method-log-all-inputs-">Method <code>log_all_inputs()</code><a class="anchor" aria-label="anchor" href="#method-log-all-inputs-"></a></h3>
 <p>A short description...</p><div class="section">
-<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
+<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_all_inputs</span><span class="op">(</span></span>
 <span>  track_values <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  excluded_inputs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"browser_version"</span><span class="op">)</span>,</span>
@@ -375,7 +436,7 @@ Shiny session.</p></dd>
 </div>
 
 <div class="section">
-<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
+<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>track_values</code></dt>
 <dd><p>flag that indicates if the basic telemetry should
 track the values of the inputs that are changing. `FALSE` by default.
@@ -399,7 +460,7 @@ Shiny session.</p></dd>
 </div><p></p><hr><a id="method-Telemetry-log_input"></a><div class="section">
 <h3 id="method-log-input-">Method <code>log_input()</code><a class="anchor" aria-label="anchor" href="#method-log-input-"></a></h3>
 <p>A short description...</p><div class="section">
-<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
+<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_input</span><span class="op">(</span></span>
 <span>  <span class="va">input_id</span>,</span>
 <span>  track_value <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -410,7 +471,7 @@ Shiny session.</p></dd>
 </div>
 
 <div class="section">
-<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
+<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>input_id</code></dt>
 <dd><p>string that identifies the generic input in the Shiny
 application so that the function can track and log changes to it.</p></dd>
@@ -441,12 +502,12 @@ Shiny session.</p></dd>
 </div><p></p><hr><a id="method-Telemetry-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
+<h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
+<h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
