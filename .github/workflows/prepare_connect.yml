@@ -122,6 +122,7 @@ jobs:
 
       - name: Commit changes
         if: ${{ github.ref_name == 'main' }}
+        id: commit-changes
         run: |
           git add instrumentation/manifest.json
           git add instrumentation/renv.lock
@@ -140,6 +141,7 @@ jobs:
           git describe --all
           git log
       - name: Push to branch
-        if: ${{ (github.ref_name == "main") }}
+        if: ${{ github.ref_name == 'main' }}
+        id: push-changes
         run: |
           git push origin $BRANCH_DEPLOY
