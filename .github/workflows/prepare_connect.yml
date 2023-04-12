@@ -9,6 +9,7 @@ name: Prepare Connect Deployment
 env:
   RENV_PATHS_ROOT: ~/.local/share/renv
   BRANCH_DEPLOY: bot/deploy_test_2
+  PUSH_ON_BRANCH: fix/renv-deployment
 
 jobs:
   main:
@@ -121,7 +122,7 @@ jobs:
           rsconnect::writeManifest()
 
       - name: Commit changes
-        if: ${{ github.ref_name == 'fix/renv-deployment' }}
+        if: ${{ github.ref_name == env.PUSH_ON_BRANCH }}
         id: commit-changes
         run: |
           git add instrumentation/manifest.json
