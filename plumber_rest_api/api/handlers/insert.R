@@ -26,11 +26,11 @@ handler <- function(data, token, id, bucket){
   values <- tryCatch ({
     unserializeJSON(data)
   }, error = function(err) {
-    log_error("Couldn't unserialize json")
-    "Couldn't serialize json"
+    "Couldn't unserialize json"
   })
 
   if (test_string(values)) {
+    log_error(values)
     msg <- glue("Bad request at {Sys.time()}")
     return(list(status = 400, error = unbox(msg)))
   }
