@@ -265,7 +265,7 @@ prepare_admin_panel_components <- function(
 
         semantic.dashboard::valueBox(
           value = time_hours,
-          subtitle = "Average time spent on app daily",
+          subtitle = "Average time spent daily",
           icon = semantic.dashboard::icon("User Circle"),
           color = "yellow",
           width = 16
@@ -285,7 +285,7 @@ prepare_admin_panel_components <- function(
               dplyr::filter(username != "") %>%
               dplyr::pull(username)
           )),
-          subtitle = "Unique users accessed app",
+          subtitle = "Unique users",
           icon = semantic.dashboard::icon("User Circle"),
           color = "red",
           width = 16
@@ -305,7 +305,7 @@ prepare_admin_panel_components <- function(
       output$total_days <- semantic.dashboard::renderValueBox({
         semantic.dashboard::valueBox(
           value = length(unique(as.Date(selected_log_data()$time))),
-          subtitle = "Days of active app usage",
+          subtitle = "Days active",
           icon = semantic.dashboard::icon("Calendar"),
           color = "teal",
           width = 16
