@@ -47,7 +47,7 @@ if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
     name = "demo",
     version = "v0.0.9007",
     data_storage = do.call(
-      config::get("data_storage")$class$new,
+      config::get("data_storage")$class_name$new,
       config::get("data_storage")$params
     )
   )
