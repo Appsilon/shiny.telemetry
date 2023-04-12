@@ -1,6 +1,6 @@
 default:
   data_storage:
-    class_name: DataStorageLogFile
+    class_name: shiny.telemetry::DataStorageLogFile
     params:
       log_file_path: "user_log.txt"
       session_file_path: "user_log.txt"
