@@ -699,7 +699,7 @@ prepare_admin_panel_components <- function(
 
   output$select_action_id <- shiny::renderUI({
     shiny::validate(shiny::need(input$selected_action, "selected_action"))
-    if (input$selected_action == "input") {
+    if (input$selected_action %in% c("input", "navigation")) {
       shiny.semantic::search_selection_choices(
         "selected_action_id",
         sort(unique(selected_action_data()$id)),
