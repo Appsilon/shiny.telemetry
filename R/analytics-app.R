@@ -113,7 +113,7 @@ analytics_ui <- function() {
       shiny::div(
         style = "margin-top: 2em;", class = "ui row",
         semantic.dashboard::valueBoxOutput("total_inputs", width = 8),
-        semantic.dashboard::valueBoxOutput("total_clicks", width = 8)
+        semantic.dashboard::valueBoxOutput("total_navigations", width = 8)
       ),
       shiny::div(
         class = "ui row",

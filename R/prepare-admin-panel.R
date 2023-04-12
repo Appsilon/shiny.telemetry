@@ -109,7 +109,7 @@ get_per_day_plot_data <- function(base, per_day) {
     )) %>%
     dplyr::mutate(statistic = dplyr::case_when(
       statistic == "users" ~ "logged users (unique)",
-      statistic == "actions" ~ "total clicks and inputs",
+      statistic == "actions" ~ "total navigations and inputs",
       statistic == "sessions" ~ "total opened sessions",
       statistic == "time" ~ "avg session time (hours)"
     ))
@@ -213,7 +213,7 @@ prepare_admin_panel_components <- function(
         annotations = list(
           annote(y = 1.03, text = "Unique users / opened sessions"),
           annote(y = 0.65, text = "Average session time [hours]"),
-          annote(y = 0.29, text = "Total clicks and inputs")
+          annote(y = 0.29, text = "Total navigations and inputs")
         )
       ) %>%
       plotly::config(displayModeBar = FALSE)
@@ -615,15 +615,15 @@ prepare_admin_panel_components <- function(
     )
   })
 
-  output$total_clicks <- semantic.dashboard::renderValueBox({
-    total_clicks_value <- global_action_data() %>%
+  output$total_navigations <- semantic.dashboard::renderValueBox({
+    total_navigations_value <- global_action_data() %>%
       dplyr::filter(.data$action == "navigation") %>%
       dplyr::pull(.data$times) %>%
       sum()
 
     semantic.dashboard::valueBox(
-      value = total_clicks_value,
-      subtitle = "Total clicks performed",
+      value = total_navigations_value,
+      subtitle = "Total navigations performed",
       icon = semantic.dashboard::icon("bar chart"),
       color = "purple",
       width = 5
