@@ -564,12 +564,12 @@ prepare_admin_panel_components <- function(
   global_action_data <- shiny::reactive({
     action_date_base <- expand.grid(
       date = date_base()$date,
-      action = c("input", "click"),
+      action = c("input", "navigation"),
       stringsAsFactors = FALSE
     )
 
     selected_log_data() %>%
-      dplyr::filter(.data$action %in% c("input", "click")) %>%
+      dplyr::filter(.data$action %in% c("input", "navigation")) %>%
       dplyr::group_by(.data$action, .data$date) %>%
       dplyr::summarise(times = dplyr::n()) %>%
       (function(.dot) {
@@ -617,7 +617,7 @@ prepare_admin_panel_components <- function(
 
   output$total_clicks <- semantic.dashboard::renderValueBox({
     total_clicks_value <- global_action_data() %>%
-      dplyr::filter(.data$action == "click") %>%
+      dplyr::filter(.data$action == "navigation") %>%
       dplyr::pull(.data$times) %>%
       sum()
 
@@ -632,7 +632,7 @@ prepare_admin_panel_components <- function(
 
   output$select_action <- shiny::renderUI({
     actions <- selected_log_data() %>%
-      dplyr::filter(.data$action %in% c("click", "input")) %>%
+      dplyr::filter(.data$action %in% c("navigation", "input")) %>%
       dplyr::pull(.data$action) %>%
       unique() %>%
       sort()
@@ -745,7 +745,7 @@ prepare_admin_panel_components <- function(
 
   output$action_id_stats <- shiny::renderUI({
     shiny::validate(shiny::need(input$selected_action, "selected_action"))
-    if (input$selected_action == "input") {
+    if (!input$selected_action %in% c("login user", "logout user", "browser")) {
       shiny.semantic::segment(
         title = "Stats per input id",
         shiny::tags$h3("Select input ID:"),
@@ -762,7 +762,7 @@ prepare_admin_panel_components <- function(
   sessions_data <- shiny::reactive({
     selected_log_data() %>%
       dplyr::select("time", "session", "action") %>%
-      dplyr::filter(.data$action %in% c("login", "logout", "input", "click")) %>%
+      dplyr::filter(.data$action %in% c("login", "logout", "input", "navigation")) %>%
       dplyr::distinct() %>%
       dplyr::group_by(.data$session) %>%
       dplyr::summarise(
@@ -808,14 +808,15 @@ prepare_admin_panel_components <- function(
     shiny::validate(shiny::need(selected_session(), label = "selected_session"))
     selected_log_data() %>%
       dplyr::filter(
-        .data$action %in% c("login", "logout", "input", "click"), session == selected_session()
+        .data$action %in% c("login user", "logout user", "input", "navigation"),
+        session == selected_session()
       ) %>%
       dplyr::mutate(
         start = as.character(.data$time),
         content = dplyr::case_when(
-          action %in% c("login", "logout") ~ action,
+          action %in% c("login user", "logout user") ~ action,
           action == "input" ~ sprintf("Input: %s <br /> Value: %s", id, value),
-          action == "click" ~ sprintf("Clicked: %s", id)
+          action == "navigation" ~ sprintf("Clicked: %s", id)
         ),
         style = "text-align: left;",
         end = NA
