@@ -121,7 +121,7 @@ jobs:
           rsconnect::writeManifest()
 
       - name: Commit changes
-        if: ${{ (github.ref_name == 'main') }}
+        if: ${{ github.ref_name == 'main' }}
         run: |
           git add instrumentation/manifest.json
           git add instrumentation/renv.lock
