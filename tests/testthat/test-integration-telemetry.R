@@ -1,4 +1,6 @@
-test_that("log_input", {
+# Test that performs integration checks on how Telemetry class works with a
+#  valid data storage provider.
+test_that("Telemetry logs events to storage and reads (integration)", {
   event_file_path <- tempfile(fileext = ".txt")
   session_file_path <- tempfile(fileext = ".txt")
 
