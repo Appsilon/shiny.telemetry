@@ -101,4 +101,4 @@ Get in touch [opensource@appsilon.com](mailto:opensource@appsilon.com)
 
 Check the [Rhinoverse](https://rhinoverse.dev).
 
-<a href = "https://appsilon.com/careers/" target="_blank"><img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!"/></a>
+<a href = "https://appsilon.com/careers/" target="_blank"><img src="https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/WeAreHiring1.png" alt="We are hiring!"/></a>
