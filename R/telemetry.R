@@ -115,6 +115,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       username <- private$get_user(session)
       print(glue::glue("Username is: {username}"))
+      print(session$user)
 
       checkmate::test_r6(session, "ShinySession")
       input <- session$input
