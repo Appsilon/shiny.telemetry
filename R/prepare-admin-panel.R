@@ -60,7 +60,7 @@ get_time_per_day <- function(log_data) {
 
 get_actions_per_day <- function(log_data) {
   log_data %>%
-    dplyr::filter(!(.data$action %in% c("login", "logout"))) %>%
+    dplyr::filter(!(.data$action %in% c("login user", "logout user"))) %>%
     dplyr::select("date", "action") %>%
     dplyr::select("date") %>%
     dplyr::group_by(.data$date) %>%
@@ -762,7 +762,7 @@ prepare_admin_panel_components <- function(
   sessions_data <- shiny::reactive({
     selected_log_data() %>%
       dplyr::select("time", "session", "action") %>%
-      dplyr::filter(.data$action %in% c("login", "logout", "input", "navigation")) %>%
+      dplyr::filter(.data$action %in% c("login user", "logout user", "input", "navigation")) %>%
       dplyr::distinct() %>%
       dplyr::group_by(.data$session) %>%
       dplyr::summarise(
