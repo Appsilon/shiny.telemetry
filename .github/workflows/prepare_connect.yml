@@ -67,7 +67,6 @@ jobs:
              git checkout origin/$BRANCH_DEPLOY -b $BRANCH_DEPLOY
           else
             git switch --orphan $BRANCH_DEPLOY
-            git rm -rf .
           fi
 
       - name: Checkout Apps
