@@ -98,6 +98,7 @@
 <blockquote>
 <p>Easy logging of users activity and session events of your Shiny App</p>
 </blockquote>
+<p><a href="https://cran.r-project.org/package=shiny.telemetry" class="external-link"><img src="https://www.r-pkg.org/badges/version/shiny.telemetry" alt="CRAN"></a> <a href="https://github.com/Appsilon/shiny.telemetry/actions/workflows/main.yml" class="external-link"><img src="https://github.com/Appsilon/shiny.telemetry/actions/workflows/main.yml/badge.svg" alt="R CMD check"></a> <a href="https://CRAN.R-project.org/package=shiny.telemetry" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/shiny.telemetry" alt="downloads monthly"></a> <a href="https://CRAN.R-project.org/package=shiny.telemetry" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/shiny.telemetry" alt="downloads total"></a> <a href="https://opensource.org/license/lgpl-3-0/" class="external-link"><img src="https://img.shields.io/badge/License-LGPL--3.0-blue.svg" alt="License: LGPL-3.0"></a></p>
 <p>The <code>shiny.telemetry</code> R package tracks events occurring on a user session, such as input changes and session duration, and stores them in a local or remote database.</p>
 <p>It provides developers with the tools to help understand how users interact with Shiny dashboards and answer questions such as: which tabs/pages are more often visited, which inputs users are changing, what is the average length of a session, etc.</p>
 <div class="section level2">
@@ -150,7 +151,7 @@
 <span><span class="fu">shiny.telemetry</span><span class="fu">::</span><span class="va"><a href="reference/Telemetry.html">Telemetry</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_events</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2050-01-01"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># default provider and path for Telemetry$new()</span></span>
-<span><span class="fu">shiny.telemetry</span><span class="fu">::</span><span class="va"><a href="reference/DataStorageRSQLite.html">DataStorageRSQLite</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>db_path <span class="op">=</span> <span class="st">"telemetry.sqlite"</span><span class="op">)</span><span class="op">$</span><span class="fu">read_events</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2050-01-01"</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="fu">shiny.telemetry</span><span class="fu">::</span><span class="va"><a href="reference/DataStorageRSQLite.html">DataStorageRSQLite</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>db_path <span class="op">=</span> <span class="st">"telemetry.sqlite"</span><span class="op">)</span><span class="op">$</span><span class="fu">read_events</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2050-01-01"</span><span class="op">)</span></span></code></pre></div>
 <p>The package has an analytics sample dashboard to help access the data. It is located at <code>inst/examples/app/analytics</code> and it should be modified so that it references the correct <code>DataStorage</code> provider and configuration.</p>
 </div>
 <div class="section level2">
@@ -192,9 +193,7 @@
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="https://www.r-project.org/Licenses/LGPL-3" class="external-link">LGPL-3</a></li>
 </ul>
 </div>
 
