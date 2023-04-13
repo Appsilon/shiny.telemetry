@@ -94,18 +94,17 @@ get_per_day_plot_data <- function(base, per_day) {
     dplyr::arrange(.data$date, .data$statistic, .data$value) %>%
     tidyr::replace_na(list(value = 0)) %>%
     dplyr::mutate(id = dplyr::case_when(
-      statistic == "users" ~ 3L,
-      statistic == "actions" ~ 1L,
+      statistic == "users" ~ 1L,
+      statistic == "action" ~ 3L,
       statistic == "sessions" ~ 1L,
       statistic == "time" ~ 2L
     )) %>%
     dplyr::mutate(statistic = dplyr::case_when(
       statistic == "users" ~ "logged users (unique)",
-      statistic == "actions" ~ "total navigations and inputs",
+      statistic == "action" ~ "total navigations and inputs",
       statistic == "sessions" ~ "total opened sessions",
       statistic == "time" ~ "avg session time (hours)"
-    )) %>%
-    dplyr::filter(!is.na(.data$id))
+    ))
 }
 
 #' prepare_admin_panel_components
