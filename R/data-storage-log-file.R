@@ -15,7 +15,8 @@
 #' data_storage$insert("example", "input", "s1", list(id = "id"))
 #' data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 #'
-#' data_storage$read_event_data(Sys.date() - 365, Sys.date() + 365)
+#' data_storage$read_event_data()
+#' data_storage$read_event_data(Sys.Date() - 365, Sys.Date() + 365)
 DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageLogFile",
   inherit = DataStorage,
@@ -99,8 +100,8 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     read_data = function(date_from, date_to, bucket) {
 
       checkmate::assert_string(bucket)
-      checkmate::assert_date(date_from)
-      checkmate::assert_date(date_to)
+      checkmate::assert_date(date_from, null.ok = TRUE)
+      checkmate::assert_date(date_to, null.ok = TRUE)
 
       if (!file.exists(bucket)) {
         return(
@@ -108,13 +109,18 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
         )
       }
 
-      readLines(bucket) %>%
+      result <- readLines(bucket) %>%
         lapply(function(x) jsonlite::fromJSON(x, flatten = TRUE)) %>%
-        dplyr::bind_rows() %>%
-        dplyr::filter(
-          time >= date_from,
-          time <= date_to
-        ) %>%
+        dplyr::bind_rows()
+
+      if (!is.null(date_from)) {
+        result <- dplyr::filter(result, .data$time >= date_from)
+      }
+      if (!is.null(date_to)) {
+        result <- dplyr::filter(result, .data$time <= date_to)
+      }
+
+      result %>%
         private$unnest_json("details") %>%
         dplyr::bind_rows(private$table_schema)
     }
