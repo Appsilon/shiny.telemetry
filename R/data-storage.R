@@ -38,11 +38,12 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
       private$write(values = values, bucket = self$event_bucket)
     },
 
-    #' @description read all user data from SQLite
-    #' @param date_from date representing the starting day of results
-    #' @param date_to date representing the last day of results
+    #' @description read all user data from SQLite.
+    #' @param date_from (optional) date representing the starting day of
+    #' results.
+    #' @param date_to (optional) date representing the last day of results.
 
-    read_event_data = function(date_from, date_to) {
+    read_event_data = function(date_from = NULL, date_to = NULL) {
       date_from <- private$check_date(date_from, .var_name = "date_from")
       date_to <- private$check_date(date_to, .var_name = "date_to")
 
@@ -78,7 +79,10 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
   private = list(
     check_date = function(date_value, .var_name) {
       # required parameter
-      checkmate::assert_string(.var_name)
+      checkmate::assert_string(.var_name, null.ok = TRUE)
+      if (is.null(date_value)) {
+        return(NULL)
+      }
 
       tryCatch({
         date_value <- as.Date(date_value)

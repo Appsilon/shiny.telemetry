@@ -15,6 +15,7 @@
 #' data_storage$insert("example", "input", "s1", list(id = "id1"))
 #' data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 #'
+#' data_storage$read_event_data()
 #' data_storage$read_event_data(Sys.Date() - 365, Sys.Date() + 365)
 DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageSQLite",
@@ -110,16 +111,9 @@ DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
     },
 
     read_data = function(date_from, date_to, bucket) {
-      checkmate::assert_string(bucket)
-      checkmate::assert_date(date_from)
-      checkmate::assert_date(date_to)
+      checkmate::assert_choice(bucket, c(self$event_bucket))
 
-      query <- glue::glue(
-        .sep = " ",
-        "SELECT *",
-        "FROM {bucket}",
-        "WHERE date(time) >= '{date_from}' AND date(time) <= '{date_to}'"
-      )
+      query <- build_query_sql(bucket, date_from, date_to)
 
       odbc::dbGetQuery(private$db_con, query) %>%
         dplyr::tibble() %>%
