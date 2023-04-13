@@ -12,11 +12,9 @@ appsilon
 cloneable
 customizable
 filesystem
-getDefaultReactiveDomain
 hostname
 json
 runApp
-shinyServer
 sqlfile
 sqlite
 ℹ️

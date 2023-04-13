@@ -5,12 +5,25 @@ library(shiny.telemetry)
 library(dplyr)
 library(config)
 
+secondary_tab_ui <- function(id, label = "Click me") {
+  ns <- NS(id)
+  div(
+    h2(class = "ui header primary", "Widgets tab content", style = "margin: 2rem"),
+    action_button(ns("button"), label),
+    verbatimTextOutput(ns("out"))
+  )
+}
+
 ui <- dashboardPage(
   dashboardHeader(title = "Basic dashboard"),
-  dashboardSidebar(sidebarMenu(
-    menuItem(tabName = "dashboard", text = "Home", icon = icon("home")),
-    menuItem(tabName = "widgets", text = "Another Tab", icon = icon("heart"))
-  )),
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem(tabName = "dashboard", text = "Home", icon = icon("home")),
+      menuItem(tabName = "widgets", text = "Another Tab", icon = icon("heart")),
+      menuItem(tabName = "another-widgets", text = "Yet Another Tab", icon = icon("heart")),
+      id = "uisidebar"
+    )
+  ),
   dashboardBody(
     use_telemetry(),
     tabItems(
@@ -44,7 +57,13 @@ ui <- dashboardPage(
       # Second tab content
       tabItem(
         tabName = "widgets",
-        h2(class = "ui header primary", "Widgets tab content", style = "margin: 2rem")
+        secondary_tab_ui("widgets", "Click me (counter 1)")
+      ),
+
+      # Third tab content
+      tabItem(
+        tabName = "another-widgets",
+        secondary_tab_ui("another-widgets", "Click me (counter 2)")
       )
     )
   )
@@ -73,8 +92,22 @@ if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
   )
 }
 
-server <- function(input, output, session) {
+# Define the server logic for a module
+counter_server <- function(id) {
+  moduleServer(
+    id,
+    function(input, output, session) {
+      count <- reactiveVal(0)
+      observeEvent(input$button, {
+        count(count() + 1)
+      })
+      output$out <- renderText(count())
+      count
+    }
+  )
+}
 
+shinyApp(ui = ui, server = function(input, output, session) {
   telemetry$start_session(
     track_values = TRUE,
     navigation_input_id = "uisidebar"
@@ -87,6 +120,7 @@ server <- function(input, output, session) {
     bins <- seq(min(x), max(x), length.out = isolate(input$bins) + 1)
     hist(x, breaks = bins, col = "#0099F9", border = "white")
   })
-}
 
-shinyApp(ui = ui, server = server)
+  counter_server("widgets")
+  counter_server("another-widgets")
+})
