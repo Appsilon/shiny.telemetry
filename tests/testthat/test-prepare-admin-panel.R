@@ -19,7 +19,7 @@ test_that("get_active_users", {
 
 test_that("get_actions_per_day", {
   log_data <- dplyr::tibble(
-    action = c("login", "login", "logout", "something else", "other"),
+    action = c("login user", "login user", "logout user", "something else", "other"),
     date = rep(Sys.Date(), 5)
   )
 
@@ -45,17 +45,17 @@ test_that("get_per_day_plot_data", {
     date_initial + 0,    "logged users (unique)",      3,   3,
     date_initial + 0,    "total opened sessions",      4,   1,
     date_initial + 0, "avg session time (hours)",      0,   2,
-    date_initial + 0,  "total clicks and inputs",      5,   1,
+    date_initial + 0,  "total navigations and inputs",      5,   1,
     #
     date_initial + 1,    "logged users (unique)",     31,   3,
     date_initial + 1,    "total opened sessions",     41,   1,
     date_initial + 1, "avg session time (hours)",      8,   2,
-    date_initial + 1,  "total clicks and inputs",     99,   1,
+    date_initial + 1,  "total navigations and inputs",     99,   1,
     #
     date_initial + 2,    "logged users (unique)",      0,   3,
     date_initial + 2,    "total opened sessions",      0,   1,
     date_initial + 2, "avg session time (hours)",      0,   2,
-    date_initial + 2,  "total clicks and inputs",      0,   1,
+    date_initial + 2,  "total navigations and inputs",      0,   1,
   ) %>%
     dplyr::arrange(dplyr::across(tidyr::matches("[a-zA-Z]")))
 
