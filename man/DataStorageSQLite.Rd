@@ -16,6 +16,7 @@ data_storage$insert("example", "test_event", "session1")
 data_storage$insert("example", "input", "s1", list(id = "id1"))
 data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 
+data_storage$read_event_data()
 data_storage$read_event_data(Sys.Date() - 365, Sys.Date() + 365)
 }
 \section{Super class}{

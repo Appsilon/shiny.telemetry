@@ -32,6 +32,7 @@
 #' data_storage$insert("example", "input", "s1", list(id = "id"))
 #' data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 #'
+#' data_storage$read_event_data()
 #' data_storage$read_event_data(Sys.Date() - 365, Sys.Date() + 365)
 #' }
 DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
@@ -204,8 +205,16 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
     read_data = function(date_from, date_to, bucket) {
       checkmate::assert_string(bucket)
-      checkmate::assert_date(date_from)
-      checkmate::assert_date(date_to)
+      checkmate::assert_date(date_from, null.ok = TRUE)
+      checkmate::assert_date(date_to, null.ok = TRUE)
+
+      if (is.null(date_from)) {
+        date_from <- as.Date("0000-01-01")
+      }
+
+      if (is.null(date_to)) {
+        date_to <- as.Date("9999-12-31")
+      }
 
       endpoint <- dplyr::case_when(
         # API endpoints
