@@ -707,12 +707,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     },
 
     get_user = function(session = shiny::getDefaultReactiveDomain()) {
-      if (!is.null(session)) return("anonymous")
-      username <- shiny::isolate(
-        shiny::parseQueryString(session$clientData$url_search)$username
-      )
-      if (is.null(username)) return("anonymous")
-      username
+      if (is.null(session) || is.null(session$user)) return("anonymous")
+      session$user
     }
   )
 )

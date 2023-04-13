@@ -1,6 +1,5 @@
 default:
-  data_storage:
-    class_name: DataStorageLogFile
+  data_storage: null
 
 rsconnect:
   data_storage:

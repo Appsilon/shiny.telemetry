@@ -1,11 +1,3 @@
-# define function to get username
-get_user <- function(session) {
-  username <- shiny::isolate(shiny::parseQueryString(session$clientData$url_search)$username)
-  if (is.null(username)) username <- "unknownUser"
-  shiny::req(username)
-  return(username)
-}
-
 date_filters <- function() {
   shiny::tagList(
     shiny::tags$div(
