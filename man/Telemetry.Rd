@@ -27,8 +27,7 @@ telemetry <- Telemetry$new(
 
 telemetry <- Telemetry$new(
   data_storage = DataStorageLogFile$new(
-    log_file_path = tempfile(pattern = "user_stats", fileext = ".txt"),
-    session_file_path = tempfile(pattern = "session_details", fileext = ".txt")
+    log_file_path = tempfile(pattern = "user_stats", fileext = ".txt")
   )
 )
 
@@ -70,6 +69,7 @@ telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01") |> tail()
 \item \href{#method-Telemetry-log_all_inputs}{\code{Telemetry$log_all_inputs()}}
 \item \href{#method-Telemetry-log_input}{\code{Telemetry$log_input()}}
 \item \href{#method-Telemetry-log_input_manual}{\code{Telemetry$log_input_manual()}}
+\item \href{#method-Telemetry-log_custom_event}{\code{Telemetry$log_custom_event()}}
 \item \href{#method-Telemetry-clone}{\code{Telemetry$clone()}}
 }
 }
@@ -400,6 +400,32 @@ It creates the correct payload to log the event internally.
 application so that the function can track and log changes to it.}
 
 \item{\code{value}}{(optional) scalar value or list with the value to register.}
+
+\item{\code{session}}{ShinySession object or NULL to identify the current
+Shiny session.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Telemetry-log_custom_event"></a>}}
+\if{latex}{\out{\hypertarget{method-Telemetry-log_custom_event}{}}}
+\subsection{Method \code{log_custom_event()}}{
+Log a manual event
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_custom_event(
+  event_type,
+  details = NULL,
+  session = shiny::getDefaultReactiveDomain()
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{event_type}}{string that identifies the event type}
+
+\item{\code{details}}{(optional) scalar value or list with the value to register.}
 
 \item{\code{session}}{ShinySession object or NULL to identify the current
 Shiny session.}
