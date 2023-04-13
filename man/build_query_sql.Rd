@@ -20,9 +20,10 @@ string with SQL query
 Build query to read from table in DataStorageSQLite provider
 }
 \examples{
-build_query_sql("table_name")
-build_query_sql("table_name", Sys.Date() - 365)
-build_query_sql("table_name", date_to = Sys.Date() + 365)
-build_query_sql("table_name", Sys.Date() - 365, Sys.Date() + 365)
-build_query_sql("table_name", as.Date("2023-04-13"), as.Date("2000-01-01"))
+
+shiny.telemetry:::build_query_sql("table_name")
+shiny.telemetry:::build_query_sql("table_name", Sys.Date() - 365)
+shiny.telemetry:::build_query_sql("table_name", date_to = Sys.Date() + 365)
+shiny.telemetry:::build_query_sql("table_name", Sys.Date() - 365, Sys.Date() + 365)
+shiny.telemetry:::build_query_sql("table_name", as.Date("2023-04-13"), as.Date("2000-01-01"))
 }

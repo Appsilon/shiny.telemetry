@@ -38,4 +38,3 @@ test_that("Build valid SQL query", {
     )
 
 })
-

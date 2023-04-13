@@ -35,7 +35,7 @@ data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 
 data_storage$insert(
   "example", "test_event_3_days_ago", "session1",
-  time = (lubridate::today() - 3) \%>\% lubridate::as_datetime()
+  time = lubridate::as_datetime(lubridate::today() - 3)
 )
 
 data_storage$read_event_data()

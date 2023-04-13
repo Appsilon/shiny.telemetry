@@ -7,12 +7,13 @@
 #' @return string with SQL query
 #'
 #' @examples
-#' build_query_sql("table_name")
-#' build_query_sql("table_name", Sys.Date() - 365)
-#' build_query_sql("table_name", date_to = Sys.Date() + 365)
-#' build_query_sql("table_name", Sys.Date() - 365, Sys.Date() + 365)
-#' build_query_sql("table_name", as.Date("2023-04-13"), as.Date("2000-01-01"))
-build_query_sql = function(bucket, date_from = NULL, date_to = NULL) {
+#'
+#' shiny.telemetry:::build_query_sql("table_name")
+#' shiny.telemetry:::build_query_sql("table_name", Sys.Date() - 365)
+#' shiny.telemetry:::build_query_sql("table_name", date_to = Sys.Date() + 365)
+#' shiny.telemetry:::build_query_sql("table_name", Sys.Date() - 365, Sys.Date() + 365)
+#' shiny.telemetry:::build_query_sql("table_name", as.Date("2023-04-13"), as.Date("2000-01-01"))
+build_query_sql <- function(bucket, date_from = NULL, date_to = NULL) {
   checkmate::assert_date(date_from, null.ok = TRUE)
   checkmate::assert_date(date_to, null.ok = TRUE)
 
@@ -24,15 +25,12 @@ build_query_sql = function(bucket, date_from = NULL, date_to = NULL) {
   )
 
   where <- list(.sep = " AND ")
-
   if (!is.null(date_from)) {
-    date_from_dbl <- lubridate::as_datetime(date_from) %>% as.double()
-    where <- c(where, "time >= {date_from_dbl}")
+    where <- c(where, "time >= {as.double(lubridate::as_datetime(date_from))}")
   }
 
   if (!is.null(date_to)) {
-    date_to_dbl <- lubridate::as_datetime(date_to) %>% as.double()
-    where <- c(where, "time <= {date_to_dbl}")
+    where <- c(where, "time <= {as.double(lubridate::as_datetime(date_to))}")
   }
   query <- c(query, do.call(glue::glue, where))
   do.call(glue::glue, query) %>% stringr::str_trim()
