@@ -1,9 +1,3 @@
-# define function to get username
-get_user <- function(session) {
-  if (is.null(session) || is.null(session$user)) return("anonymous")
-  session$user
-}
-
 date_filters <- function() {
   shiny::tagList(
     shiny::tags$div(
