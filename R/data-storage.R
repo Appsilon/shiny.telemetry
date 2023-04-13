@@ -126,21 +126,36 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
       values
     },
 
+    # Unnest JSON column from data.frame
+
     unnest_json = function(x, column_name) {
+      checkmate::assert_data_frame(x)
+      checkmate::assert_string(column_name)
+
       x[[column_name]] <- x[[column_name]] %>%
         purrr::map(
           function(.x) {
-            tmp_result <- dplyr::coalesce(.x, "{\".empty\": \"true\"}") %>%
+            if (is.null(.x) || is.na(.x) || .x == "") {
+              return(data.frame(.empty = "true"))
+            }
+
+            # fromJSON() cannot be called with vector input, it needs to
+            #  iterated one by one. It also does not allow for NULL, NA nor
+            #  empty strings.
+            tmp_result <- .x  %>%
               jsonlite::fromJSON() %>%
               as.data.frame()  %>%
+              # All un-nested columns have to be character type.
               dplyr::mutate(dplyr::across(
                 dplyr::everything(),
                 as.character
               ))
 
+            # Catch for when `details` json is valid, but empty.
             if (NROW(tmp_result) == 0) {
               return(data.frame(.empty = "true"))
             }
+
             tmp_result
           }
         ) %>%
