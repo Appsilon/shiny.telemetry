@@ -104,7 +104,8 @@ get_per_day_plot_data <- function(base, per_day) {
       statistic == "actions" ~ "total navigations and inputs",
       statistic == "sessions" ~ "total opened sessions",
       statistic == "time" ~ "avg session time (hours)"
-    ))
+    )) %>%
+    dplyr::filter(!is.na(.data$id))
 }
 
 #' prepare_admin_panel_components
