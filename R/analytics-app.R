@@ -5,13 +5,12 @@ analytics_ui <- function() {
     shiny::suppressDependencies("bootstrap"),
     shiny::suppressDependencies("plotlyjs"),
     style = "min-height: 100%;",
+    shiny::includeCSS(
+      system.file(
+        "examples", "app", "analytics", "www", "styles.css", package = "shiny.telemetry"
+      )
+    ),
     shiny::tags$head(
-      shiny::tags$link(
-        rel = "stylesheet",
-        href = system.file(
-          "examples", "app", "analytics", "www", "styles.css", package = "shiny.telemetry"
-        )
-      ),
       shiny::tags$script(src = "https://cdn.plot.ly/plotly-1.20.2.min.js"),
       shiny::tags$script(
         src = "https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js"
@@ -71,6 +70,7 @@ analytics_ui <- function() {
   )
 
   final_stats <- shiny.semantic::segment(
+    class = "general-app-stats-segment",
     title = "General app stats",
     shiny::div(
       class = "ui grid",
