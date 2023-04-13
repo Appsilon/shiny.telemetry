@@ -5,7 +5,7 @@ name: Prepare Connect Deployment
 
 env:
   RENV_PATHS_ROOT: ~/.local/share/renv
-  BRANCH_DEPLOY: bot/deploy_test
+  BRANCH_DEPLOY: bot/deploy
   PUSH_ON_BRANCH: main
 
 jobs:
