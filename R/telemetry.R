@@ -396,6 +396,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     log_input_manual = function(
       input_id, value = NULL, session = shiny::getDefaultReactiveDomain()
     ) {
+      logger::log_debug(
+        "event: input '{input_id}' change: ",
+        "{dplyr::coalesce(value, \"'NULL' (note: it might not be tracked)\")}",
+        namespace = "shiny.telemetry"
+      )
+
       private$.log_event(
         type = "input",
         details = list(id = input_id, value = value),
