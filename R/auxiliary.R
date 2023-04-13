@@ -33,5 +33,5 @@ build_query_sql = function(bucket, date_from = NULL, date_to = NULL) {
     where <- c(where, "date(time) <= '{date_to}'")
   }
   query <- c(query, do.call(glue::glue, where))
-  do.call(glue::glue, query)
+  do.call(glue::glue, query) %>% stringr::str_trim()
 }
