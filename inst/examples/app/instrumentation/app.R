@@ -5,12 +5,16 @@ library(shiny.telemetry)
 library(dplyr)
 library(config)
 
-secondary_tab_ui <- function(id, label = "Click me") {
+secondary_tab_ui <- function(id, label = "Counter") {
   ns <- NS(id)
   div(
     h2(class = "ui header primary", "Widgets tab content", style = "margin: 2rem"),
-    action_button(ns("button"), label),
-    verbatimTextOutput(ns("out"))
+    box(
+      title = label,
+      action_button(ns("button"), "Click me!", class = "red"),
+      verbatimTextOutput(ns("out")),
+      width = 4, color = "teal"
+    )
   )
 }
 
@@ -57,13 +61,13 @@ ui <- dashboardPage(
       # Second tab content
       tabItem(
         tabName = "widgets",
-        secondary_tab_ui("widgets", "Click me (counter 1)")
+        secondary_tab_ui("widgets", "Counter 1")
       ),
 
       # Third tab content
       tabItem(
         tabName = "another-widgets",
-        secondary_tab_ui("another-widgets", "Click me (counter 2)")
+        secondary_tab_ui("another-widgets", "Counter 2")
       )
     )
   )
