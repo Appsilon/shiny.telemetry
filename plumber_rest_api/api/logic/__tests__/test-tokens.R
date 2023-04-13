@@ -6,9 +6,10 @@ box::use(
   stringr[str_replace_all],
   withr[with_envvar],
   shiny.telemetry[build_token],
+  dplyr[`%>%`],
 )
 
-tokens_raw <- UUIDgenerate() |> str_replace_all("-", "")
+tokens_raw <- UUIDgenerate() %>% str_replace_all("-", "")
 
 # need with_envvar to control hash token
 with_envvar(
@@ -28,7 +29,7 @@ test_that("Tokens work", {
 
   token <- build_token(values, secret = id)
 
-  values_2 <- serializeJSON(values) |> unserializeJSON()
-  validate_token(values_2, token, id) |>
+  values_2 <- serializeJSON(values) %>% unserializeJSON()
+  validate_token(values_2, token, id) %>%
     expect_true()
 })

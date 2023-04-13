@@ -5,6 +5,7 @@ box::use(
   shiny.telemetry[build_token],
   stringr[str_sub],
   logger[log_info, log_debug, log_error, log_warn],
+  dplyr[`%>%`],
 )
 
 box::use(
@@ -40,7 +41,7 @@ handler <- function(data, token, id, bucket){
   if (isFALSE(is_token_valid)) {
     msg <- glue("Invalid token at {Sys.time()}")
     log_debug(msg)
-    calculated_token <- build_token(values, secret = get_secret(id)) |>
+    calculated_token <- build_token(values, secret = get_secret(id)) %>%
       str_sub(end = 8)
     log_debug(
       "Received token {str_sub(token, end = 8)} != ",
