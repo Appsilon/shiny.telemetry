@@ -19,12 +19,12 @@ test_that("get_active_users", {
 
 test_that("get_actions_per_day", {
   log_data <- dplyr::tibble(
-    action = c("login user", "login user", "logout user", "something else", "other"),
+    type = c("login", "login", "logout", "something else", "other"),
     date = rep(Sys.Date(), 5)
   )
 
   expect_equal(
-    get_actions_per_day(log_data) %>% dplyr::pull(.data$action),
+    get_actions_per_day(log_data) %>% dplyr::pull(.data$type),
     2
   )
 })
