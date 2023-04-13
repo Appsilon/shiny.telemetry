@@ -52,11 +52,11 @@ get_time_per_day <- function(log_data) {
 
 get_actions_per_day <- function(log_data) {
   log_data %>%
-    dplyr::filter(!(.data$action %in% c("login user", "logout user"))) %>%
-    dplyr::select("date", "action") %>%
+    dplyr::filter(!(.data$type %in% c("login", "logout"))) %>%
+    dplyr::select("date", "type") %>%
     dplyr::select("date") %>%
     dplyr::group_by(.data$date) %>%
-    dplyr::summarise(action = dplyr::n())
+    dplyr::summarise(type = dplyr::n())
 }
 
 get_per_day_data <- function(
@@ -121,12 +121,6 @@ prepare_admin_panel_components <- function(
 
   log_data <- shiny::reactive({
     data_storage$read_event_data(
-      as.Date(input$date_from), as.Date(input$date_to)
-    )
-  })
-
-  session_details <- shiny::reactive({
-    data_storage$read_session_data(
       as.Date(input$date_from), as.Date(input$date_to)
     )
   })
@@ -556,16 +550,16 @@ prepare_admin_panel_components <- function(
   global_action_data <- shiny::reactive({
     action_date_base <- expand.grid(
       date = date_base()$date,
-      action = c("input", "navigation"),
+      type = c("input", "navigation"),
       stringsAsFactors = FALSE
     )
 
     selected_log_data() %>%
-      dplyr::filter(.data$action %in% c("input", "navigation")) %>%
-      dplyr::group_by(.data$action, .data$date) %>%
+      dplyr::filter(.data$type %in% c("input", "navigation")) %>%
+      dplyr::group_by(.data$type, .data$date) %>%
       dplyr::summarise(times = dplyr::n()) %>%
       (function(.dot) {
-        dplyr::left_join(action_date_base, .dot, by = c("action", "date"))
+        dplyr::left_join(action_date_base, .dot, by = c("type", "date"))
       })() %>%
       tidyr::replace_na(list(times = 0))
   })
@@ -574,11 +568,11 @@ prepare_admin_panel_components <- function(
     colz <- prepare_color_scale(global_action_data()$times, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(global_action_data()$date))
     plotly::plot_ly(global_action_data(),
-                    x = ~date, y = ~action, z = ~times,
+                    x = ~date, y = ~type, z = ~times,
                     type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
                     text = ~paste(
                       "Date:", date,
-                      "</br>Action:", action,
+                      "</br>Event:", type,
                       "</br>Amount: ", times
                     )
     ) %>%
@@ -594,7 +588,7 @@ prepare_admin_panel_components <- function(
 
   output$total_inputs <- semantic.dashboard::renderValueBox({
     total_inputs_value <- global_action_data() %>%
-      dplyr::filter(.data$action == "input") %>%
+      dplyr::filter(.data$type == "input") %>%
       dplyr::pull(.data$times) %>%
       sum()
 
@@ -609,7 +603,7 @@ prepare_admin_panel_components <- function(
 
   output$total_navigations <- semantic.dashboard::renderValueBox({
     total_navigations_value <- global_action_data() %>%
-      dplyr::filter(.data$action == "navigation") %>%
+      dplyr::filter(.data$type == "navigation") %>%
       dplyr::pull(.data$times) %>%
       sum()
 
@@ -624,8 +618,8 @@ prepare_admin_panel_components <- function(
 
   output$select_action <- shiny::renderUI({
     actions <- selected_log_data() %>%
-      dplyr::filter(.data$action %in% c("navigation", "input")) %>%
-      dplyr::pull(.data$action) %>%
+      dplyr::filter(.data$type %in% c("navigation", "input")) %>%
+      dplyr::pull(.data$type) %>%
       unique() %>%
       sort()
     shiny.semantic::search_selection_choices(
@@ -638,7 +632,7 @@ prepare_admin_panel_components <- function(
 
   selected_action_data <- shiny::reactive({
     selected_log_data() %>%
-      dplyr::filter(.data$action == input$selected_action)
+      dplyr::filter(.data$type == input$selected_action)
   })
 
   # s_* = selected_*
@@ -753,15 +747,14 @@ prepare_admin_panel_components <- function(
 
   sessions_data <- shiny::reactive({
     selected_log_data() %>%
-      dplyr::select("time", "session", "action") %>%
-      dplyr::filter(.data$action %in% c("login user", "logout user", "input", "navigation")) %>%
+      dplyr::select("time", "session", "type") %>%
+      dplyr::filter(.data$type %in% c("login", "logout", "input", "navigation")) %>%
       dplyr::distinct() %>%
       dplyr::group_by(.data$session) %>%
       dplyr::summarise(
         start = as.character(min(.data$time)), end = as.character(max(.data$time)),
         style = "font-size: 0.1em;"
-      ) %>%
-      dplyr::left_join(session_details(), by = "session")
+      )
   })
 
   output$sessions_general <- timevis::renderTimevis({
@@ -800,15 +793,15 @@ prepare_admin_panel_components <- function(
     shiny::validate(shiny::need(selected_session(), label = "selected_session"))
     selected_log_data() %>%
       dplyr::filter(
-        .data$action %in% c("login user", "logout user", "input", "navigation"),
+        .data$type %in% c("login", "logout", "input", "navigation"),
         session == selected_session()
       ) %>%
       dplyr::mutate(
         start = as.character(.data$time),
         content = dplyr::case_when(
-          action %in% c("login user", "logout user") ~ action,
-          action == "input" ~ sprintf("Input: %s <br /> Value: %s", id, value),
-          action == "navigation" ~ sprintf("Clicked: %s", id)
+          type %in% c("login", "logout") ~ type,
+          type == "input" ~ sprintf("Input: %s <br /> Value: %s", id, value),
+          type == "navigation" ~ sprintf("Navigated: %s", id)
         ),
         style = "text-align: left;",
         end = NA

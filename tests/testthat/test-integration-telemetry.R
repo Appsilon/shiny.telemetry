@@ -150,7 +150,7 @@ test_that("Telemetry logs events to storage and reads (integration)", {
 
 
   results %>%
-    dplyr::filter(.data$type == "login user") %>%
+    dplyr::filter(.data$type == "login") %>%
     NROW() %>%
     expect_equal(1)
 

@@ -225,8 +225,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       logger::log_debug("event: login", namespace = "shiny.telemetry")
 
       private$log_generic(
-        type = "login user",
-        details = list(value = username),
+        type = "login",
+        details = list(username = username),
         session = session
       )
     },
@@ -245,8 +245,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         logger::log_debug("event: logout", namespace = "shiny.telemetry")
 
         private$log_generic(
-          type = "logout user",
-          details = list(value = username),
+          type = "logout",
+          details = list(username = username),
           session = session
         )
       }, session)

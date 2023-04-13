@@ -14,7 +14,7 @@ library(DT)
 
 # Please install shiny.telemetry with all dependencies
 # remotes::install_github("Appsilon/shiny.telemetry", dependencies = TRUE)
-library(shiny.telemetry)
+#library(shiny.telemetry)
 
 # Default storage backend using LogFile
 data_storage <- DataStorageLogFile$new(
@@ -31,3 +31,5 @@ if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
 }
 
 analytics_app(data_storage = data_storage)
+
+# shiny::shinyAppDir(file.path("inst", "examples", "app", "analytics"))

@@ -83,6 +83,13 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
         cat(file = bucket, sep = "\n", append = TRUE)
     },
 
+    table_schema = dplyr::tibble(
+      time = character(),
+      app_name = character(),
+      type = character(),
+      session = character()
+    ),
+
     # @name read_data
     # Reads the JSON log file
     # @param bucket string with path to file
@@ -96,7 +103,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_date(date_to)
 
       if (!file.exists(bucket)) {
-        return(dplyr::tibble())
+        return(
+          private$table_schema
+        )
       }
 
       readLines(bucket) %>%
@@ -106,14 +115,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
           time >= date_from,
           time <= date_to
         ) %>%
-        dplyr::bind_rows(dplyr::tibble(
-          time = character(),
-          app_name = character(),
-          type = character(),
-          session = character(),
-          details = character()
-        )) %>%
-        private$unnest_json("details")
+        private$unnest_json("details") %>%
+        dplyr::bind_rows(private$table_schema)
+
     }
   )
 )
