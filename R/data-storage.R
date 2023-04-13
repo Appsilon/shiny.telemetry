@@ -51,8 +51,13 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
       if (NROW(db_data) > 0) {
         return(dplyr::mutate(db_data, date = as.Date(.data$time)))
       }
-
-      db_data
+      db_data %>%
+        dplyr::bind_rows(dplyr::tibble(
+          date = character(0),
+          id = character(0),
+          value = character(0),
+          username = character(0)
+        ))
     },
 
     #' @description
