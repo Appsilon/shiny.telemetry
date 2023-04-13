@@ -144,13 +144,13 @@ test_that("Telemetry logs events to storage and reads (integration)", {
     expect_equal(c(NA_character_, "zz"))
 
   results %>%
-    dplyr::filter(.data$action == "browser") %>%
+    dplyr::filter(.data$type == "browser") %>%
     purrr::pluck("value") %>%
     expect_equal("Chrome 108")
 
 
   results %>%
-    dplyr::filter(.data$action == "login user") %>%
+    dplyr::filter(.data$type == "login user") %>%
     NROW() %>%
     expect_equal(1)
 

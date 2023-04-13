@@ -122,7 +122,9 @@ DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
       )
 
       odbc::dbGetQuery(private$db_con, query) %>%
-        dplyr::tibble()
+        dplyr::tibble() %>%
+        private$unnest_json("details")
+
     }
   )
 )

@@ -124,6 +124,36 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
       values$time <- dplyr::coalesce(time, Sys.time())
       values$time <- as.character(values$time)
       values
+    },
+
+    unnest_json = function(x, column_name) {
+      x[[column_name]] <- x[[column_name]] %>%
+        purrr::map(
+          function(.x) {
+            tmp_result <- dplyr::coalesce(.x, "{\".empty\": \"true\"}") %>%
+              jsonlite::fromJSON() %>%
+              as.data.frame()  %>%
+              dplyr::mutate(dplyr::across(
+                dplyr::everything(),
+                as.character
+              ))
+
+            if (NROW(tmp_result) == 0) {
+              return(data.frame(.empty = "true"))
+            }
+            tmp_result
+          }
+        ) %>%
+        dplyr::bind_rows()
+
+      x <- tidyr::unnest(x, cols = dplyr::all_of(column_name))
+
+      if (".empty" %in% colnames(x)) {
+        x <- x %>%
+          dplyr::select(-dplyr::all_of(".empty"))
+      }
+
+      x
     }
   )
 )

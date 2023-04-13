@@ -112,7 +112,8 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
           type = character(),
           session = character(),
           details = character()
-        ))
+        )) %>%
+        private$unnest_json("details")
     }
   )
 )

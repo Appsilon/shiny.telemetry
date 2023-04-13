@@ -173,7 +173,7 @@ test_that("Plumber API token only accepts valid messages", {
     time = as.character(Sys.time()),
     app_name = "Plumber test with token",
     session = "some_session",
-    action = "input",
+    type = "input",
     details = list(id = "some_id", value = "new_value")
   )
 
