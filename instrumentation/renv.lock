@@ -3,6 +3,10 @@
     "Version": "4.2.3",
     "Repositories": [
       {
+        "Name": "RSPM",
+        "URL": "https://packagemanager.posit.co/cran/latest"
+      },
+      {
         "Name": "CRAN",
         "URL": "https://cloud.r-project.org"
       }
@@ -383,7 +387,7 @@
       "Package": "renv",
       "Version": "0.17.3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "utils"
       ],

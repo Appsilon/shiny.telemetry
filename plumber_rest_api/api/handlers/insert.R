@@ -26,11 +26,11 @@ handler <- function(data, token, id, bucket){
   values <- tryCatch ({
     unserializeJSON(data)
   }, error = function(err) {
-    log_error("Couldn't serialize json")
-    "Couldn't serialize json"
+    "Couldn't unserialize json"
   })
 
   if (test_string(values)) {
+    log_error(values)
     msg <- glue("Bad request at {Sys.time()}")
     return(list(status = 400, error = unbox(msg)))
   }
@@ -39,7 +39,7 @@ handler <- function(data, token, id, bucket){
 
   if (isFALSE(is_token_valid)) {
     msg <- glue("Invalid token at {Sys.time()}")
-    log_warn(msg)
+    log_debug(msg)
     calculated_token <- build_token(values, secret = get_secret(id)) |>
       str_sub(end = 8)
     log_debug(
@@ -51,8 +51,7 @@ handler <- function(data, token, id, bucket){
 
   data_storage$insert(
     values,
-    add_username = FALSE,
-    force_params = FALSE,
+    insert_time = FALSE,
     bucket = bucket
   )
 

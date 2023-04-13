@@ -12,7 +12,7 @@
   "packages": {
     "DBI": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -48,7 +48,7 @@
     },
     "DT": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -79,7 +79,7 @@
     },
     "MASS": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -111,8 +111,8 @@
       }
     },
     "Matrix": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -142,14 +142,14 @@
         "NeedsCompilation": "yes",
         "Packaged": "2023-04-03 09:54:24 UTC; maechler",
         "Author": "Douglas Bates [aut],\n  Martin Maechler [aut, cre] (<https://orcid.org/0000-0002-8685-9910>),\n  Mikael Jagan [aut] (<https://orcid.org/0000-0002-3542-2938>),\n  Timothy A. Davis [ctb] (SuiteSparse and 'cs' C libraries, notably\n    CHOLMOD and AMD, collaborators listed in\n    dir(pattern=\"^[A-Z]+[.]txt$\", full.names=TRUE, system.file(\"doc\",\n    \"SuiteSparse\", package=\"Matrix\"))),\n  Jens Oehlschlägel [ctb] (initial nearPD()),\n  Jason Riedy [ctb] (condest() and onenormest() for octave, Copyright:\n    Regents of the University of California),\n  R Core Team [ctb] (base R matrix implementation)",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-04-04 08:20:06 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-12 07:58:09 UTC; unix"
+        "Built": "R 4.2.0; x86_64-pc-linux-gnu; 2023-04-05 11:26:18 UTC; unix"
       }
     },
     "R6": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -177,7 +177,7 @@
     },
     "RColorBrewer": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -202,7 +202,7 @@
     },
     "RSQLite": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -239,7 +239,7 @@
     },
     "Rcpp": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -268,7 +268,7 @@
     },
     "askpass": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -300,7 +300,7 @@
     },
     "backports": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -330,7 +330,7 @@
     },
     "base64enc": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -355,7 +355,7 @@
     },
     "bit": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -387,7 +387,7 @@
     },
     "bit64": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -419,7 +419,7 @@
     },
     "blob": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -451,7 +451,7 @@
     },
     "bslib": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -486,7 +486,7 @@
     },
     "cachem": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -517,7 +517,7 @@
     },
     "checkmate": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -552,7 +552,7 @@
     },
     "cli": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -584,7 +584,7 @@
     },
     "colorspace": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -617,7 +617,7 @@
     },
     "commonmark": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -647,7 +647,7 @@
     },
     "config": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -679,7 +679,7 @@
     },
     "cpp11": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -712,7 +712,7 @@
     },
     "crayon": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -742,7 +742,7 @@
     },
     "crosstalk": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -772,7 +772,7 @@
     },
     "curl": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -805,7 +805,7 @@
     },
     "data.table": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -836,7 +836,7 @@
     },
     "digest": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -865,7 +865,7 @@
     },
     "dplyr": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -900,7 +900,7 @@
     },
     "ellipsis": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -930,7 +930,7 @@
     },
     "evaluate": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -961,7 +961,7 @@
     },
     "fansi": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -993,7 +993,7 @@
     },
     "farver": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1024,7 +1024,7 @@
     },
     "fastmap": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1052,7 +1052,7 @@
     },
     "fontawesome": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1085,7 +1085,7 @@
     },
     "fs": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1122,7 +1122,7 @@
     },
     "generics": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1154,7 +1154,7 @@
     },
     "ggplot2": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1190,7 +1190,7 @@
     },
     "glue": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1224,7 +1224,7 @@
     },
     "gtable": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1257,7 +1257,7 @@
     },
     "highr": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1289,7 +1289,7 @@
     },
     "hms": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1323,7 +1323,7 @@
     },
     "htmltools": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1357,7 +1357,7 @@
     },
     "htmlwidgets": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1389,7 +1389,7 @@
     },
     "httpuv": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1423,7 +1423,7 @@
     },
     "httr": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1455,7 +1455,7 @@
     },
     "httr2": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1488,7 +1488,7 @@
     },
     "isoband": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1521,7 +1521,7 @@
     },
     "jquerylib": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1549,7 +1549,7 @@
     },
     "jsonlite": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1579,7 +1579,7 @@
     },
     "knitr": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1613,7 +1613,7 @@
     },
     "labeling": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1639,7 +1639,7 @@
     },
     "later": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1671,8 +1671,8 @@
       }
     },
     "lattice": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1698,14 +1698,15 @@
         "Packaged": "2023-04-05 15:31:40 UTC; deepayan",
         "Author": "Deepayan Sarkar [aut, cre] (<https://orcid.org/0000-0003-4107-1553>),\n  Felix Andrews [ctb],\n  Kevin Wright [ctb] (documentation),\n  Neil Klepeis [ctb],\n  Johan Larsson [ctb] (miscellaneous improvements),\n  Zhijian (Jason) Wen [cph] (filled contour code),\n  Paul Murrell [ctb],\n  Stefan Eng [ctb] (violin plot improvements),\n  Achim Zeileis [ctb] (modern colors)",
         "Maintainer": "Deepayan Sarkar <deepayan.sarkar@r-project.org>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-04-05 17:43:19 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-12 07:57:59 UTC; unix"
+        "Encoding": "UTF-8",
+        "Built": "R 4.2.0; x86_64-pc-linux-gnu; 2023-04-06 13:18:44 UTC; unix"
       }
     },
     "lazyeval": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1733,7 +1734,7 @@
     },
     "lifecycle": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1766,7 +1767,7 @@
     },
     "logger": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1799,7 +1800,7 @@
     },
     "magrittr": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1832,7 +1833,7 @@
     },
     "memoise": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1861,7 +1862,7 @@
     },
     "mgcv": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1889,7 +1890,7 @@
     },
     "mime": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1918,7 +1919,7 @@
     },
     "munsell": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1945,7 +1946,7 @@
     },
     "nlme": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1979,7 +1980,7 @@
     },
     "odbc": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2015,7 +2016,7 @@
     },
     "openssl": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2047,7 +2048,7 @@
     },
     "pillar": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2084,7 +2085,7 @@
     },
     "pkgconfig": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2112,7 +2113,7 @@
     },
     "plogr": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2142,7 +2143,7 @@
     },
     "plotly": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2173,7 +2174,7 @@
     },
     "promises": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2207,7 +2208,7 @@
     },
     "purrr": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2242,7 +2243,7 @@
     },
     "rappdirs": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2274,7 +2275,7 @@
     },
     "rlang": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2309,7 +2310,7 @@
     },
     "rmarkdown": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2343,7 +2344,7 @@
     },
     "sass": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2376,7 +2377,7 @@
     },
     "scales": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2409,7 +2410,7 @@
     },
     "semantic.dashboard": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2439,7 +2440,7 @@
     },
     "shiny": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2474,7 +2475,7 @@
     },
     "shiny.semantic": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2507,8 +2508,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405",
-      "GithubSha1": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405",
+      "GithubRef": "b8dc31c4b9087125e40222b78f0693b7200ec23e",
+      "GithubSha1": "b8dc31c4b9087125e40222b78f0693b7200ec23e",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2517,31 +2518,31 @@
         "Author": "Appsilon Data Science <dev@appsilondatascience.com>",
         "Maintainer": "Appsilon Data Science <dev@appsilondatascience.com>",
         "Description": "Easy way for logging users activity and adding statistics panel to your Shiny app.",
-        "License": "MIT + file LICENSE",
+        "License": "LGPL-3",
         "Encoding": "UTF-8",
         "LazyData": "true",
-        "Suggests": "testthat (>= 3.0.0),\nmockery,\nwithr,\nlintr,\nspelling,\nrcmdcheck,\nRPostgreSQL,\ntimevis,\nRColorBrewer,\nplotly,\nDT,\nshinyjs,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nconfig",
+        "Suggests": "plumber,\nbox,\nstringr,\nhere,\ntestthat (>= 3.0.0),\nmockery,\nwithr,\nlintr,\nspelling,\nrcmdcheck,\nRPostgreSQL,\ntimevis,\nRColorBrewer,\nplotly,\nDT,\nshinyjs,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nconfig",
         "Imports": "purrr,\ntidyr,\ndplyr,\nodbc,\njsonlite,\nlogger,\nR6,\nRSQLite,\nrlang,\ncheckmate,\nglue,\nshiny,\nhttr2,\ndigest",
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-12 07:59:58 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-13 10:51:20 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405",
-        "RemoteSha": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405",
+        "RemoteRef": "b8dc31c4b9087125e40222b78f0693b7200ec23e",
+        "RemoteSha": "b8dc31c4b9087125e40222b78f0693b7200ec23e",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405",
-        "GithubSHA1": "5d9232f22a44a6aa0f88c484d9a7c8aac6217405"
+        "GithubRef": "b8dc31c4b9087125e40222b78f0693b7200ec23e",
+        "GithubSHA1": "b8dc31c4b9087125e40222b78f0693b7200ec23e"
       }
     },
     "shinyjs": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2572,7 +2573,7 @@
     },
     "sourcetools": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2600,7 +2601,7 @@
     },
     "stringi": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2633,7 +2634,7 @@
     },
     "stringr": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2667,7 +2668,7 @@
     },
     "sys": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2697,7 +2698,7 @@
     },
     "tibble": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2735,7 +2736,7 @@
     },
     "tidyr": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2771,7 +2772,7 @@
     },
     "tidyselect": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2805,7 +2806,7 @@
     },
     "timevis": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2836,7 +2837,7 @@
     },
     "tinytex": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2866,7 +2867,7 @@
     },
     "utf8": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2897,7 +2898,7 @@
     },
     "vctrs": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2931,7 +2932,7 @@
     },
     "viridisLite": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2961,7 +2962,7 @@
     },
     "withr": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2995,7 +2996,7 @@
     },
     "xfun": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3026,7 +3027,7 @@
     },
     "xtable": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3055,7 +3056,7 @@
     },
     "yaml": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -3083,7 +3084,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "5619854c6070d9844578c16fb39fbcaf"
+      "checksum": "8862cef50768e6ef81d401359676bfc6"
     },
     "app.R": {
       "checksum": "2069338bc00760a72cf46f81bfab1330"

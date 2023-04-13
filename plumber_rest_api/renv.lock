@@ -779,15 +779,15 @@
     },
     "shiny.telemetry": {
       "Package": "shiny.telemetry",
-      "Version": "0.0.9006",
+      "Version": "0.0.9009",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "appsilon",
       "RemoteRepo": "shiny.telemetry",
       "RemoteRef": "main",
-      "RemoteSha": "5797e2dbffec364d913fea286d715ed2b69664b8",
-      "Hash": "78907c8060d66d551765dac83a5d566b",
+      "RemoteSha": "130071acfb363a82db168027eb5b086f05818e53",
+      "Hash": "1eb31d0971b999aa0bceecb6b300cefe",
       "Requirements": [
         "R6",
         "RSQLite",
