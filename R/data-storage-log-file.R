@@ -7,16 +7,22 @@
 #' @export
 #'
 #' @examples
+#' aa <- tempfile(pattern = "user_stats", fileext = ".txt")
 #' data_storage <- DataStorageLogFile$new(
-#'   log_file_path = tempfile(pattern = "user_stats", fileext = ".json")
+#'   log_file_path = aa
 #' )
 #'
 #' data_storage$insert("example", "test_event", "session1")
 #' data_storage$insert("example", "input", "s1", list(id = "id"))
 #' data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 #'
+#' data_storage$insert(
+#'   "example", "test_event_3_days_ago", "session1",
+#'   time = (lubridate::today() - 3) %>% lubridate::as_datetime()
+#' )
+#'
 #' data_storage$read_event_data()
-#' data_storage$read_event_data(Sys.Date() - 365, Sys.Date() + 365)
+#' data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
 DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageLogFile",
   inherit = DataStorage,
@@ -78,6 +84,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     # @bucket string with path to file
 
     write = function(values, bucket) {
+
+      values$time <- values$time %>% as.double()
+
       values %>%
         purrr::compact() %>%
         jsonlite::toJSON() %>%
@@ -85,10 +94,10 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     },
 
     table_schema = dplyr::tibble(
-      time = character(),
-      app_name = character(),
-      type = character(),
-      session = character()
+      time = double(0),
+      app_name = character(0),
+      type = character(0),
+      session = character(0)
     ),
 
     # @name read_data
@@ -111,18 +120,26 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
 
       result <- readLines(bucket) %>%
         lapply(function(x) jsonlite::fromJSON(x, flatten = TRUE)) %>%
-        dplyr::bind_rows()
+        dplyr::bind_rows() %>%
+        dplyr::bind_rows(private$table_schema) %>%
+        dplyr::mutate(time = lubridate::as_datetime(.data$time, tz = "UTC"))
 
       if (!is.null(date_from)) {
-        result <- dplyr::filter(result, .data$time >= date_from)
+        result <- dplyr::filter(
+          result,
+          .data$time >= lubridate::as_datetime(date_from, tz = "UTC")
+        )
       }
       if (!is.null(date_to)) {
-        result <- dplyr::filter(result, .data$time <= date_to)
+        result <- dplyr::filter(
+          result,
+          .data$time <= lubridate::as_datetime(date_to, tz = "UTC")
+        )
       }
 
       result %>%
         private$unnest_json("details") %>%
-        dplyr::bind_rows(private$table_schema)
+        dplyr::mutate(time = lubridate::as_datetime(time, tz = "UTC"))
     }
   )
 )

@@ -15,8 +15,13 @@
 #' data_storage$insert("example", "input", "s1", list(id = "id1"))
 #' data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 #'
+#' data_storage$insert(
+#'   "example", "test_event_3_days_ago", "session1",
+#'   time = (lubridate::today() - 3) %>% lubridate::as_datetime()
+#' )
+#'
 #' data_storage$read_event_data()
-#' data_storage$read_event_data(Sys.Date() - 365, Sys.Date() + 365)
+#' data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
 DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageSQLite",
   inherit = DataStorage,
@@ -88,8 +93,9 @@ DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
           fields = table_scheme,
           row.names = FALSE
         )
-        res <- odbc::dbSendQuery(conn = private$db_con, create_table_query)
-        odbc::dbClearResult(res)
+
+        odbc::dbSendQuery(conn = private$db_con, create_table_query) %>%
+          odbc::dbClearResult()
       }
       NULL
     },

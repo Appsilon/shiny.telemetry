@@ -25,8 +25,8 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' @param details atomic element of list with data to save in storage
     #' @param time date time value indicates the moment the record was
     #' generated in UTC. By default it should be NULL and determined
-    #' automatically, but in cases where it should be defined, use Sys.time()
-    #' to generate it.
+    #' automatically, but in cases where it should be defined, use `Sys.time()`
+    #' or `lubridate::now(tzone = "UTC")` to generate it.
 
     insert = function(
       app_name, type, session = NULL, details = NULL, time = NULL
@@ -47,14 +47,20 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
       date_from <- private$check_date(date_from, .var_name = "date_from")
       date_to <- private$check_date(date_to, .var_name = "date_to")
 
-      db_data <- private$read_data(date_from, date_to, self$event_bucket)
+      db_data <- private$read_data(date_from, date_to, self$event_bucket) %>%
+        dplyr::mutate(
+          date = lubridate::as_date(.data$time),
+          time = lubridate::as_datetime(.data$time)
+        )
 
       if (NROW(db_data) > 0) {
-        return(dplyr::mutate(db_data, date = as.Date(.data$time)))
+        return(db_data)
       }
+
       db_data %>%
         dplyr::bind_rows(dplyr::tibble(
-          date = character(0),
+          time = as.POSIXct(character(0)),
+          date = as.Date(character(0)),
           id = character(0),
           value = character(0),
           username = character(0)
@@ -131,8 +137,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
         values$details <- jsonlite::toJSON(details)
       }
 
-      values$time <- dplyr::coalesce(time, Sys.time())
-      values$time <- as.character(values$time)
+      values$time <- dplyr::coalesce(time, lubridate::now(tzone = "UTC"))
 
       values
     },

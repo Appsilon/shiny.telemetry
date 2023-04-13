@@ -26,11 +26,13 @@ build_query_sql = function(bucket, date_from = NULL, date_to = NULL) {
   where <- list(.sep = " AND ")
 
   if (!is.null(date_from)) {
-    where <- c(where, "date(time) >= '{date_from}'")
+    date_from_dbl <- lubridate::as_datetime(date_from) %>% as.double()
+    where <- c(where, "time >= {date_from_dbl}")
   }
 
   if (!is.null(date_to)) {
-    where <- c(where, "date(time) <= '{date_to}'")
+    date_to_dbl <- lubridate::as_datetime(date_to) %>% as.double()
+    where <- c(where, "time <= {date_to_dbl}")
   }
   query <- c(query, do.call(glue::glue, where))
   do.call(glue::glue, query) %>% stringr::str_trim()

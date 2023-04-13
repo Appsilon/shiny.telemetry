@@ -111,7 +111,7 @@ test_that("Plumber API works", {
   result$result %>% jsonlite::unserializeJSON() %>% NROW() %>% expect_equal(0)
 
   dat_user_log <- list(
-    time = as.character(Sys.time()),
+    time = lubridate::now(),
     app_name = "Plumber test",
     session = "some_session",
     type = "input",
@@ -180,7 +180,7 @@ test_that("Plumber API token only accepts valid messages", {
   result$result %>% jsonlite::unserializeJSON() %>% NROW() %>% expect_equal(0)
 
   data_user_log <- list(
-    time = as.character(Sys.time()),
+    time = lubridate::now(),
     app_name = "Plumber test with token",
     session = "some_session",
     type = "input",

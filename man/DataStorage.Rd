@@ -60,8 +60,8 @@ event was logged}
 
 \item{\code{time}}{date time value indicates the moment the record was
 generated in UTC. By default it should be NULL and determined
-automatically, but in cases where it should be defined, use Sys.time()
-to generate it.}
+automatically, but in cases where it should be defined, use `Sys.time()`
+or `lubridate::now(tzone = "UTC")` to generate it.}
 }
 \if{html}{\out{</div>}}
 }
