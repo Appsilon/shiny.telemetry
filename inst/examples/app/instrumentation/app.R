@@ -36,7 +36,8 @@ ui <- dashboardPage(
           tags$ul(
             tags$li("Start of session"),
             tags$li("Every time slider changes"),
-            tags$li("Click of 'Apply' button")
+            tags$li("Click of 'Apply' button"),
+            tags$li("Tab navigation when clicking on the links in the left sidebar")
           )
         )
       ),
