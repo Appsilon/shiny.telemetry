@@ -90,23 +90,13 @@ API for read/write operations</p>
     </div>
     <div class="section level2">
     <h2 id="active-bindings">Active bindings<a class="anchor" aria-label="anchor" href="#active-bindings"></a></h2>
-    <p></p><div class="r6-active-bindings"><dl><dt><code>action_read_endpoint</code></dt>
+    <p></p><div class="r6-active-bindings"><dl><dt><code>event_read_endpoint</code></dt>
 <dd><p>string field that returns read action
 endpoint</p></dd>
 
 
-<dt><code>session_read_endpoint</code></dt>
-<dd><p>string field that returns read session
-endpoint</p></dd>
-
-
-<dt><code>action_insert_endpoint</code></dt>
+<dt><code>event_insert_endpoint</code></dt>
 <dd><p>string field that returns insert action
-endpoint</p></dd>
-
-
-<dt><code>session_insert_endpoint</code></dt>
-<dd><p>string field that returns insert session
 endpoint</p></dd>
 
 
@@ -119,12 +109,11 @@ endpoint</p></dd>
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-DataStoragePlumber-new"><code>DataStoragePlumber$new()</code></a></p></li>
-<li><p><a href="#method-DataStoragePlumber-insert"><code>DataStoragePlumber$insert()</code></a></p></li>
-<li><p><a href="#method-DataStoragePlumber-read_user_data"><code>DataStoragePlumber$read_user_data()</code></a></p></li>
-<li><p><a href="#method-DataStoragePlumber-read_session_data"><code>DataStoragePlumber$read_session_data()</code></a></p></li>
-<li><p><a href="#method-DataStoragePlumber-close"><code>DataStoragePlumber$close()</code></a></p></li>
 <li><p><a href="#method-DataStoragePlumber-clone"><code>DataStoragePlumber$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-DataStoragePlumber-new"></a><div class="section">
+</ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="close"><a href="DataStorage.html#method-close"><code>shiny.telemetry::DataStorage$close()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="insert"><a href="DataStorage.html#method-insert"><code>shiny.telemetry::DataStorage$insert()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="read_event_data"><a href="DataStorage.html#method-read_event_data"><code>shiny.telemetry::DataStorage$read_event_data()</code></a></span></li>
+</ul></details></p><hr><a id="method-DataStoragePlumber-new"></a><div class="section">
 <h3 id="method-new-">Method <code><a href="https://rdrr.io/r/methods/new.html" class="external-link">new()</a></code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Initialize the data storage class</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
@@ -171,92 +160,15 @@ server).</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-DataStoragePlumber-insert"></a><div class="section">
-<h3 id="method-insert-">Method <code>insert()</code><a class="anchor" aria-label="anchor" href="#method-insert-"></a></h3>
-<p>Insert new data</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStoragePlumber</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span></span>
-<span>  <span class="va">values</span>,</span>
-<span>  insert_time <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  bucket <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">action_bucket</span></span>
-<span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>values</code></dt>
-<dd><p>list of values to write to database</p></dd>
-
-
-<dt><code>insert_time</code></dt>
-<dd><p>boolean flag that indicates if `time` parameters
-should be added automatically</p></dd>
-
-
-<dt><code>bucket</code></dt>
-<dd><p>name of table to write</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-DataStoragePlumber-read_user_data"></a><div class="section">
-<h3 id="method-read-user-data-">Method <code>read_user_data()</code><a class="anchor" aria-label="anchor" href="#method-read-user-data-"></a></h3>
-<p>read all user data from SQLite</p><div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStoragePlumber</span><span class="op">$</span><span class="fu">read_user_data</span><span class="op">(</span><span class="va">date_from</span>, <span class="va">date_to</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>date_from</code></dt>
-<dd><p>date representing the starting day of results</p></dd>
-
-
-<dt><code>date_to</code></dt>
-<dd><p>date representing the last day of results</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-DataStoragePlumber-read_session_data"></a><div class="section">
-<h3 id="method-read-session-data-">Method <code>read_session_data()</code><a class="anchor" aria-label="anchor" href="#method-read-session-data-"></a></h3>
-<p>read all session data from SQLite</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStoragePlumber</span><span class="op">$</span><span class="fu">read_session_data</span><span class="op">(</span><span class="va">date_from</span>, <span class="va">date_to</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>date_from</code></dt>
-<dd><p>date representing the starting day of results</p></dd>
-
-
-<dt><code>date_to</code></dt>
-<dd><p>date representing the last day of results</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-DataStoragePlumber-close"></a><div class="section">
-<h3 id="method-close-">Method <code><a href="https://rdrr.io/r/base/connections.html" class="external-link">close()</a></code><a class="anchor" aria-label="anchor" href="#method-close-"></a></h3>
-<p>read all session data</p><div class="section">
-<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStoragePlumber</span><span class="op">$</span><span class="fu">close</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-
 </div><p></p><hr><a id="method-DataStoragePlumber-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStoragePlumber</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
+<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
@@ -291,16 +203,11 @@ should be added automatically</p></dd>
 <span class="r-in"><span>  secret <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"PLUMBER_SECRET"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">telemetry</span> <span class="op">&lt;-</span> <span class="va"><a href="Telemetry.html">Telemetry</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>data_storage <span class="op">=</span> <span class="va">data_storage</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="fu">log_login</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data_storage</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span><span class="st">"example"</span>, <span class="st">"test_event"</span>, <span class="st">"session1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data_storage</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span><span class="st">"example"</span>, <span class="st">"input"</span>, <span class="st">"s1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data_storage</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span><span class="st">"example"</span>, <span class="st">"input"</span>, <span class="st">"s1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"id2"</span>, value <span class="op">=</span> <span class="fl">32</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="fu">log_click</span><span class="op">(</span><span class="st">"an_id"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="fu">log_click</span><span class="op">(</span><span class="st">"a_different_id"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="fu">log_session</span><span class="op">(</span>detail <span class="op">=</span> <span class="st">"some detail"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_user_data</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2025-01-01"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_session_data</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2025-01-01"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_event_data</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">365</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">365</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

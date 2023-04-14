@@ -89,22 +89,9 @@ functions and uses a unified API.</p>
 
     <div class="section level2">
     <h2 id="active-bindings">Active bindings<a class="anchor" aria-label="anchor" href="#active-bindings"></a></h2>
-    <p></p><div class="r6-active-bindings"><dl><dt><code>username</code></dt>
-<dd><p>string field that returns the current username</p></dd>
-
-
-<dt><code>session_id</code></dt>
-<dd><p>string field that returns the current session_id</p></dd>
-
-
-<dt><code>action_bucket</code></dt>
+    <p></p><div class="r6-active-bindings"><dl><dt><code>event_bucket</code></dt>
 <dd><p>string that identifies the bucket to store user
 related and action data</p></dd>
-
-
-<dt><code>session_bucket</code></dt>
-<dd><p>string that identifies the bucket to store session
-details data</p></dd>
 
 
 </dl><p></p></div>
@@ -117,8 +104,7 @@ details data</p></dd>
 
 <ul><li><p><a href="#method-DataStorage-new"><code>DataStorage$new()</code></a></p></li>
 <li><p><a href="#method-DataStorage-insert"><code>DataStorage$insert()</code></a></p></li>
-<li><p><a href="#method-DataStorage-read_user_data"><code>DataStorage$read_user_data()</code></a></p></li>
-<li><p><a href="#method-DataStorage-read_session_data"><code>DataStorage$read_session_data()</code></a></p></li>
+<li><p><a href="#method-DataStorage-read_event_data"><code>DataStorage$read_event_data()</code></a></p></li>
 <li><p><a href="#method-DataStorage-close"><code>DataStorage$close()</code></a></p></li>
 <li><p><a href="#method-DataStorage-clone"><code>DataStorage$clone()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-DataStorage-new"></a><div class="section">
@@ -133,33 +119,44 @@ details data</p></dd>
 <h3 id="method-insert-">Method <code>insert()</code><a class="anchor" aria-label="anchor" href="#method-insert-"></a></h3>
 <p>Insert new data</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorage</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span><span class="va">values</span>, insert_time <span class="op">=</span> <span class="cn">TRUE</span>, bucket <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">action_bucket</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorage</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span><span class="va">app_name</span>, <span class="va">type</span>, session <span class="op">=</span> <span class="cn">NULL</span>, details <span class="op">=</span> <span class="cn">NULL</span>, time <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>values</code></dt>
-<dd><p>list of values to write to storage provider.</p></dd>
+<p></p><div class="arguments"><dl><dt><code>app_name</code></dt>
+<dd><p>string with name of dashboard (the version can be also
+included in this string)</p></dd>
 
 
-<dt><code>insert_time</code></dt>
-<dd><p>boolean flag that indicates if `time` parameters
-should be added automatically</p></dd>
+<dt><code>type</code></dt>
+<dd><p>string that identifies the event type to store</p></dd>
 
 
-<dt><code>bucket</code></dt>
-<dd><p>string with name of type of data to write (example, for
-SQL it should represent a table).</p></dd>
+<dt><code>session</code></dt>
+<dd><p>(optional) string that identifies a session where the
+event was logged</p></dd>
+
+
+<dt><code>details</code></dt>
+<dd><p>atomic element of list with data to save in storage</p></dd>
+
+
+<dt><code>time</code></dt>
+<dd><p>date time value indicates the moment the record was
+generated in UTC. By default it should be NULL and determined
+automatically, but in cases where it should be defined, use Sys.time()
+to generate it.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-DataStorage-read_user_data"></a><div class="section">
-<h3 id="method-read-user-data-">Method <code>read_user_data()</code><a class="anchor" aria-label="anchor" href="#method-read-user-data-"></a></h3>
-<p>read all user data</p><div class="section">
+</div><p></p><hr><a id="method-DataStorage-read_event_data"></a><div class="section">
+<h3 id="method-read-event-data-">Method <code>read_event_data()</code><a class="anchor" aria-label="anchor" href="#method-read-event-data-"></a></h3>
+<p>read all user data from SQLite</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorage</span><span class="op">$</span><span class="fu">read_user_data</span><span class="op">(</span><span class="va">date_from</span>, <span class="va">date_to</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorage</span><span class="op">$</span><span class="fu">read_event_data</span><span class="op">(</span><span class="va">date_from</span>, <span class="va">date_to</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -175,30 +172,10 @@ SQL it should represent a table).</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-DataStorage-read_session_data"></a><div class="section">
-<h3 id="method-read-session-data-">Method <code>read_session_data()</code><a class="anchor" aria-label="anchor" href="#method-read-session-data-"></a></h3>
-<p>read all session data</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorage</span><span class="op">$</span><span class="fu">read_session_data</span><span class="op">(</span><span class="va">date_from</span>, <span class="va">date_to</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>date_from</code></dt>
-<dd><p>date representing the starting day of results</p></dd>
-
-
-<dt><code>date_to</code></dt>
-<dd><p>date representing the last day of results</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
 </div><p></p><hr><a id="method-DataStorage-close"></a><div class="section">
 <h3 id="method-close-">Method <code><a href="https://rdrr.io/r/base/connections.html" class="external-link">close()</a></code><a class="anchor" aria-label="anchor" href="#method-close-"></a></h3>
-<p>read all session data</p><div class="section">
-<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
+<p>Close the connection if necessary</p><div class="section">
+<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorage</span><span class="op">$</span><span class="fu">close</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -206,12 +183,12 @@ SQL it should represent a table).</p></dd>
 </div><p></p><hr><a id="method-DataStorage-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
+<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataStorage</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
+<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 

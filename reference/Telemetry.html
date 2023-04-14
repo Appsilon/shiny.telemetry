@@ -122,12 +122,8 @@ the supported providers (see [DataStorage]).</p>
 [DataStorage]. See the documentation on that class for more information.</p></dd>
 
 
-<dt><code>dashboard</code></dt>
+<dt><code>app_name</code></dt>
 <dd><p>string with name of dashboard</p></dd>
-
-
-<dt><code>version</code></dt>
-<dd><p>string with version of the dashboard</p></dd>
 
 
 </dl><p></p></div>
@@ -146,32 +142,27 @@ the supported providers (see [DataStorage]).</p>
 <li><p><a href="#method-Telemetry-log_logout"><code>Telemetry$log_logout()</code></a></p></li>
 <li><p><a href="#method-Telemetry-log_click"><code>Telemetry$log_click()</code></a></p></li>
 <li><p><a href="#method-Telemetry-log_browser_version"><code>Telemetry$log_browser_version()</code></a></p></li>
-<li><p><a href="#method-Telemetry-log_session"><code>Telemetry$log_session()</code></a></p></li>
 <li><p><a href="#method-Telemetry-log_button"><code>Telemetry$log_button()</code></a></p></li>
 <li><p><a href="#method-Telemetry-log_all_inputs"><code>Telemetry$log_all_inputs()</code></a></p></li>
 <li><p><a href="#method-Telemetry-log_input"><code>Telemetry$log_input()</code></a></p></li>
+<li><p><a href="#method-Telemetry-log_input_manual"><code>Telemetry$log_input_manual()</code></a></p></li>
+<li><p><a href="#method-Telemetry-log_custom_event"><code>Telemetry$log_custom_event()</code></a></p></li>
 <li><p><a href="#method-Telemetry-clone"><code>Telemetry$clone()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-Telemetry-new"></a><div class="section">
 <h3 id="method-new-">Method <code><a href="https://rdrr.io/r/methods/new.html" class="external-link">new()</a></code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Constructor that initializes Telemetry instance with parameters.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/Telemetry.html">Telemetry</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="st">"(dashboard)"</span>,</span>
-<span>  version <span class="op">=</span> <span class="st">"v0.0.0"</span>,</span>
-<span>  data_storage <span class="op">=</span> <span class="va"><a href="../reference/DataStorageRSQLite.html">DataStorageRSQLite</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>db_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"telemetry.sqlite"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  app_name <span class="op">=</span> <span class="st">"(dashboard)"</span>,</span>
+<span>  data_storage <span class="op">=</span> <span class="va"><a href="../reference/DataStorageSQLite.html">DataStorageSQLite</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>db_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"telemetry.sqlite"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>name</code></dt>
+<p></p><div class="arguments"><dl><dt><code>app_name</code></dt>
 <dd><p>(optional) string that identifies the name of the dashboard.
 By default it will store data with `(dashboard)`.</p></dd>
-
-
-<dt><code>version</code></dt>
-<dd><p>(optional) string that identifies the version of the
-dashboard. By default it will use `v0.0.0`.</p></dd>
 
 
 <dt><code>data_storage</code></dt>
@@ -180,6 +171,11 @@ data is being stored.
 It can take any of data storage providers by this package,
 By default it will store in a SQLite local database in the current
 working directory with filename `telemetry.sqlite`</p></dd>
+
+
+<dt><code>version</code></dt>
+<dd><p>(optional) string that identifies the version of the
+dashboard. By default it will use `v0.0.0`.</p></dd>
 
 
 </dl><p></p></div>
@@ -380,32 +376,11 @@ Shiny session.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Telemetry-log_session"></a><div class="section">
-<h3 id="method-log-session-">Method <code>log_session()</code><a class="anchor" aria-label="anchor" href="#method-log-session-"></a></h3>
-<p>Log session details</p><div class="section">
-<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_session</span><span class="op">(</span><span class="va">detail</span>, session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>detail</code></dt>
-<dd><p>string with details about the session.</p></dd>
-
-
-<dt><code>session</code></dt>
-<dd><p>ShinySession object or NULL to identify the current
-Shiny session.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
 </div><p></p><hr><a id="method-Telemetry-log_button"></a><div class="section">
 <h3 id="method-log-button-">Method <code>log_button()</code><a class="anchor" aria-label="anchor" href="#method-log-button-"></a></h3>
 <p>Track a button and track changes to this input (without storing the
 values)</p><div class="section">
-<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
+<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_button</span><span class="op">(</span></span>
 <span>  <span class="va">input_id</span>,</span>
 <span>  track_value <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -414,7 +389,7 @@ values)</p><div class="section">
 </div>
 
 <div class="section">
-<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
+<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>input_id</code></dt>
 <dd><p>string that identifies the button in the Shiny
 application so that the function can track and log changes to it.</p></dd>
@@ -436,7 +411,7 @@ Shiny session.</p></dd>
 </div><p></p><hr><a id="method-Telemetry-log_all_inputs"></a><div class="section">
 <h3 id="method-log-all-inputs-">Method <code>log_all_inputs()</code><a class="anchor" aria-label="anchor" href="#method-log-all-inputs-"></a></h3>
 <p>A short description...</p><div class="section">
-<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
+<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_all_inputs</span><span class="op">(</span></span>
 <span>  track_values <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  excluded_inputs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"browser_version"</span><span class="op">)</span>,</span>
@@ -445,7 +420,7 @@ Shiny session.</p></dd>
 </div>
 
 <div class="section">
-<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
+<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>track_values</code></dt>
 <dd><p>flag that indicates if the basic telemetry should
 track the values of the inputs that are changing. `FALSE` by default.
@@ -469,7 +444,7 @@ Shiny session.</p></dd>
 </div><p></p><hr><a id="method-Telemetry-log_input"></a><div class="section">
 <h3 id="method-log-input-">Method <code>log_input()</code><a class="anchor" aria-label="anchor" href="#method-log-input-"></a></h3>
 <p>A short description...</p><div class="section">
-<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
+<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_input</span><span class="op">(</span></span>
 <span>  <span class="va">input_id</span>,</span>
 <span>  track_value <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -480,7 +455,7 @@ Shiny session.</p></dd>
 </div>
 
 <div class="section">
-<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
+<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>input_id</code></dt>
 <dd><p>string that identifies the generic input in the Shiny
 application so that the function can track and log changes to it.</p></dd>
@@ -508,15 +483,78 @@ Shiny session.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Telemetry-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
-<p>The objects of this class are cloneable with this method.</p><div class="section">
+</div><p></p><hr><a id="method-Telemetry-log_input_manual"></a><div class="section">
+<h3 id="method-log-input-manual-">Method <code>log_input_manual()</code><a class="anchor" aria-label="anchor" href="#method-log-input-manual-"></a></h3>
+<p>Log a manual input value.</p>
+
+<p>This can be called in telemetry and is also used as a layer between
+log_input family of functions and actual log event.
+It creates the correct payload to log the event internally.</p><div class="section">
+<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_input_manual</span><span class="op">(</span></span>
+<span>  <span class="va">input_id</span>,</span>
+<span>  value <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>input_id</code></dt>
+<dd><p>string that identifies the generic input in the Shiny
+application so that the function can track and log changes to it.</p></dd>
+
+
+<dt><code>value</code></dt>
+<dd><p>(optional) scalar value or list with the value to register.</p></dd>
+
+
+<dt><code>session</code></dt>
+<dd><p>ShinySession object or NULL to identify the current
+Shiny session.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-Telemetry-log_custom_event"></a><div class="section">
+<h3 id="method-log-custom-event-">Method <code>log_custom_event()</code><a class="anchor" aria-label="anchor" href="#method-log-custom-event-"></a></h3>
+<p>Log a manual event</p><div class="section">
 <h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_custom_event</span><span class="op">(</span></span>
+<span>  <span class="va">event_type</span>,</span>
+<span>  details <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>event_type</code></dt>
+<dd><p>string that identifies the event type</p></dd>
+
+
+<dt><code>details</code></dt>
+<dd><p>(optional) scalar value or list with the value to register.</p></dd>
+
+
+<dt><code>session</code></dt>
+<dd><p>ShinySession object or NULL to identify the current
+Shiny session.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-Telemetry-clone"></a><div class="section">
+<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-13">Arguments<a class="anchor" aria-label="anchor" href="#arguments-13"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
@@ -531,26 +569,25 @@ Shiny session.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">telemetry</span> <span class="op">&lt;-</span> <span class="va">Telemetry</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  data_storage <span class="op">=</span> <span class="va"><a href="DataStorageRSQLite.html">DataStorageRSQLite</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  data_storage <span class="op">=</span> <span class="va"><a href="DataStorageSQLite.html">DataStorageSQLite</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    db_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"telemetry"</span>, fileext <span class="op">=</span> <span class="st">".sqlite"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">telemetry</span> <span class="op">&lt;-</span> <span class="va">Telemetry</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  data_storage <span class="op">=</span> <span class="va"><a href="DataStorageLogFile.html">DataStorageLogFile</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    log_file_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"user_stats"</span>, fileext <span class="op">=</span> <span class="st">".txt"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    session_file_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"session_details"</span>, fileext <span class="op">=</span> <span class="st">".txt"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    log_file_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"user_stats"</span>, fileext <span class="op">=</span> <span class="st">".txt"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="fu">start_session</span><span class="op">(</span>logout <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_user_data</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2025-01-01"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_event_data</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2025-01-01"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="fu">start_session</span><span class="op">(</span>logout <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_user_data</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2025-01-01"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_event_data</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2025-01-01"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
