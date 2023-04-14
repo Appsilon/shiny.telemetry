@@ -766,8 +766,8 @@ prepare_admin_panel_components <- function(
 
   output$sessions_general <- timevis::renderTimevis({
     timevis::timevis(sessions_data(), options = list(
-      start = as.POSIXct(sprintf("%s 00:00:00", Sys.Date())),
-      end = as.POSIXct(Sys.time()),
+      start = as.POSIXct(sprintf("%s 00:00:00", as.Date(sessions_data()$end) - 1)),
+      end = as.POSIXct(as.Date(sessions_data()$end) + 1),
       margin = list(item = 0.5)
     ))
   })
