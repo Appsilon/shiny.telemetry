@@ -5,7 +5,7 @@ library(shiny.telemetry)
 library(dplyr)
 library(config)
 
-secondary_tab_ui <- function(id, label = "Counter") {
+counter_ui <- function(id, label = "Counter") {
   ns <- NS(id)
   div(
     h2(class = "ui header primary", "Widgets tab content", style = "margin: 2rem"),
@@ -61,13 +61,13 @@ ui <- dashboardPage(
       # Second tab content
       tabItem(
         tabName = "widgets",
-        secondary_tab_ui("widgets", "Counter 1")
+        counter_ui("widgets", "Counter 1")
       ),
 
       # Third tab content
       tabItem(
         tabName = "another-widgets",
-        secondary_tab_ui("another-widgets", "Counter 2")
+        counter_ui("another-widgets", "Counter 2")
       )
     )
   )
