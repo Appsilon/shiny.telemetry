@@ -2286,8 +2286,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "e44b5798bcc8175e0d482e682fb6bb2301ab0049",
-      "GithubSha1": "e44b5798bcc8175e0d482e682fb6bb2301ab0049",
+      "GithubRef": "c09de1e1b41bcd8f0d5b738d45acac42421cd130",
+      "GithubSha1": "c09de1e1b41bcd8f0d5b738d45acac42421cd130",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2304,18 +2304,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-14 07:35:45 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-14 09:17:31 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "e44b5798bcc8175e0d482e682fb6bb2301ab0049",
-        "RemoteSha": "e44b5798bcc8175e0d482e682fb6bb2301ab0049",
+        "RemoteRef": "c09de1e1b41bcd8f0d5b738d45acac42421cd130",
+        "RemoteSha": "c09de1e1b41bcd8f0d5b738d45acac42421cd130",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "e44b5798bcc8175e0d482e682fb6bb2301ab0049",
-        "GithubSHA1": "e44b5798bcc8175e0d482e682fb6bb2301ab0049"
+        "GithubRef": "c09de1e1b41bcd8f0d5b738d45acac42421cd130",
+        "GithubSHA1": "c09de1e1b41bcd8f0d5b738d45acac42421cd130"
       }
     },
     "sodium": {
@@ -2890,13 +2890,13 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "93850589072320515e376c3a1be4813f"
+      "checksum": "2282b924e50cfd78b855b4e7834d0ca0"
     },
     "api/handlers/insert.R": {
-      "checksum": "4de4ab7535e0dcb9b32427a4c7ebe39f"
+      "checksum": "0470b51778973c72651721de280badee"
     },
     "api/handlers/read_data.R": {
-      "checksum": "6f84c639bf3d9fff1e246a844ba69005"
+      "checksum": "6412a3efe4df97e9080faac129683640"
     },
     "api/logic/__tests__/__init__.R": {
       "checksum": "ffd52525921d49ecc9f2cfdaed6144f6"
@@ -2905,16 +2905,16 @@
       "checksum": "2f5c41c4c28ade6e9e539ea53e78bdac"
     },
     "api/logic/setup.R": {
-      "checksum": "f9d117e2e7fdf91bcfce5586e8d3fd64"
+      "checksum": "28487a743eaeb0e56efa0cb3a63bccb1"
     },
     "api/logic/token.R": {
       "checksum": "ec371842278f14d233d732b923afcff4"
     },
     "api/main.R": {
-      "checksum": "237f5c134c3d90e36ab6340ac0e83d08"
+      "checksum": "da6a7cfe496189d36a9fd8b0c4b8de6d"
     },
     "config.yml": {
-      "checksum": "49faf2757a2b43b127ceb51d6275400c"
+      "checksum": "b154c3e663fa3fe16f2133b37b0c74df"
     },
     "dependencies.R": {
       "checksum": "d78fc160cdb566c8a41449e32b938b70"
@@ -2926,7 +2926,7 @@
       "checksum": "8da5b0b29749699c9185621b47504429"
     },
     "README.md": {
-      "checksum": "e2653a23424edb0dce76b01761cd2186"
+      "checksum": "4f84296db1ac0154f9faf853e35be365"
     }
   },
   "users": null

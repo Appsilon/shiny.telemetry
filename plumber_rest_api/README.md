@@ -60,10 +60,7 @@ log_login(data_storage)
 log_click(data_storage, "an_id")
 log_click(data_storage, "a_different_id")
 
-log_session_detail(data_storage, detail = "some detail")
-
-data_storage$read_user_data("2020-01-01", "2035-01-01")
-data_storage$read_session_data("2020-01-01", "2035-01-01")
+data_storage$read_event_data("2020-01-01", "2035-01-01")
 ```
 
 ## Communication signature & validation

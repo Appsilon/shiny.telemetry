@@ -76,11 +76,9 @@ ui <- dashboardPage(
 
 # Default Telemetry with data storage backend using LogFile
 telemetry <- Telemetry$new(
-  name = "demo",
-  version = "v0.0.9007",
+  app_name = "demo",
   data_storage = DataStorageLogFile$new(
-    log_file_path = file.path(getwd(), "user_stats.txt"),
-    session_file_path = file.path(getwd(), "session_details.txt")
+    log_file_path = file.path(getwd(), "user_stats.txt")
   )
 )
 
@@ -88,8 +86,7 @@ telemetry <- Telemetry$new(
 # that uses parameters in `config.yml` file to define Data Storage backend
 if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
   telemetry <- Telemetry$new(
-    name = "demo",
-    version = "v0.0.9007",
+    app_name = "demo",
     data_storage = do.call(
       config::get("data_storage")$class$new,
       config::get("data_storage")$params
