@@ -41,21 +41,21 @@ test_that("get_per_day_plot_data", {
   )
 
   per_day_plot_data <- dplyr::tribble(
-    ~date           , ~statistic                    , ~value, ~id, # nolint: commas_linter
-    date_initial + 0, "logged users (unique)"       ,      3,   1, # nolint: commas_linter
-    date_initial + 0, "total opened sessions"       ,      4,   1, # nolint: commas_linter
-    date_initial + 0, "avg session time (hours)"    ,      0,   2, # nolint: commas_linter
-    date_initial + 0, "total navigations and inputs",      5,   3, # nolint: commas_linter
+    ~date,            ~statistic,                     ~value, ~id,
+    date_initial + 0, "logged users (unique)",             3,   1,
+    date_initial + 0, "total opened sessions",             4,   1,
+    date_initial + 0, "avg session time (hours)",          0,   2,
+    date_initial + 0, "total navigations and inputs",      5,   3,
     #
-    date_initial + 1, "logged users (unique)"       ,     31,   1, # nolint: commas_linter
-    date_initial + 1, "total opened sessions"       ,     41,   1, # nolint: commas_linter
-    date_initial + 1, "avg session time (hours)"    ,      8,   2, # nolint: commas_linter
-    date_initial + 1, "total navigations and inputs",     99,   3, # nolint: commas_linter
+    date_initial + 1, "logged users (unique)",            31,   1,
+    date_initial + 1, "total opened sessions",            41,   1,
+    date_initial + 1, "avg session time (hours)",          8,   2,
+    date_initial + 1, "total navigations and inputs",     99,   3,
     #
-    date_initial + 2, "logged users (unique)"       ,      0,   1, # nolint: commas_linter
-    date_initial + 2, "total opened sessions"       ,      0,   1, # nolint: commas_linter
-    date_initial + 2, "avg session time (hours)"    ,      0,   2, # nolint: commas_linter
-    date_initial + 2, "total navigations and inputs",      0,   3, # nolint: commas_linter
+    date_initial + 2, "logged users (unique)",             0,   1,
+    date_initial + 2, "total opened sessions",             0,   1,
+    date_initial + 2, "avg session time (hours)",          0,   2,
+    date_initial + 2, "total navigations and inputs",      0,   3
   ) %>%
     dplyr::arrange(dplyr::across(tidyr::matches("[a-zA-Z]")))
 
