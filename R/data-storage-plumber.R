@@ -214,11 +214,11 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_date(date_to, null.ok = TRUE)
 
       if (is.null(date_from)) {
-        date_from <- as.Date("0000-01-01")
+        date_from <- as.Date(date_from_null)
       }
 
       if (is.null(date_to)) {
-        date_to <- as.Date("9999-12-31")
+        date_to <- as.Date(date_to_null)
       }
 
       endpoint <- dplyr::case_when(
