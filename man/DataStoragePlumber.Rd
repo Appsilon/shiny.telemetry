@@ -119,7 +119,7 @@ Insert new data
 \if{html}{\out{<div class="r">}}\preformatted{DataStoragePlumber$insert(
   values,
   insert_time = TRUE,
-  bucket = private$log_file_path
+  bucket = self$action_bucket
 )}\if{html}{\out{</div>}}
 }
 

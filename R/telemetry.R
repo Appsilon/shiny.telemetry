@@ -115,7 +115,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       username <- private$get_user(session)
 
-      checkmate::test_r6(session, "ShinySession")
+      checkmate::assert(
+        .combine = "or",
+        checkmate::check_r6(session, "ShinySession"),
+        checkmate::check_class(session, "session_proxy")
+      )
+
       input <- session$input
 
       if (isTRUE(track_inputs)) {
@@ -172,7 +177,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       input_id, session = shiny::getDefaultReactiveDomain()
     ) {
       checkmate::assert_string(input_id)
-      checkmate::assert_r6(session, "ShinySession")
+      checkmate::assert(
+        .combine = "or",
+        checkmate::check_r6(session, "ShinySession"),
+        checkmate::check_class(session, "session_proxy")
+      )
 
       private$.log_input(
         input_id = input_id,
@@ -275,7 +284,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     log_browser_version = function(
       session = shiny::getDefaultReactiveDomain()
     ) {
-      checkmate::test_r6(session, "ShinySession")
+      checkmate::assert(
+        .combine = "or",
+        checkmate::check_r6(session, "ShinySession"),
+        checkmate::check_class(session, "session_proxy")
+      )
+
       input <- session$input
 
       shiny::observeEvent(input$browser_version, {
@@ -433,8 +447,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         checkmate::check_list(value, null.ok = TRUE),
         checkmate::check_atomic(value)
       )
-      checkmate::assert_r6(
-        session, classes = "ShinySession", null.ok = TRUE
+      checkmate::assert(
+        .combine = "or",
+        checkmate::check_r6(session, "ShinySession", null.ok = TRUE),
+        checkmate::check_class(session, "session_proxy")
       )
 
       payload <- list(
@@ -482,7 +498,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       navigation_inputs,
       session
     ) {
-      checkmate::assert_r6(session, "ShinySession")
+      checkmate::assert(
+        .combine = "or",
+        checkmate::check_r6(session, "ShinySession"),
+        checkmate::check_class(session, "session_proxy")
+      )
+
       checkmate::assert_flag(track_values)
       checkmate::assert_character(excluded_inputs, null.ok = TRUE)
       checkmate::assert_character(navigation_inputs, null.ok = TRUE)
@@ -594,7 +615,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_choice(input_type, c("text", "json"))
       checkmate::assert_choice(event_type, c("input", "navigation"))
 
-      checkmate::test_r6(session, "ShinySession")
+      checkmate::assert(
+        .combine = "or",
+        checkmate::check_r6(session, "ShinySession"),
+        checkmate::check_class(session, "session_proxy")
+      )
+
       input <- session$input
 
       shiny::observeEvent(

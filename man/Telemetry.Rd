@@ -311,7 +311,11 @@ Shiny session.}
 Track a button and track changes to this input (without storing the
 values)
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_button(input_id, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_button(
+  input_id,
+  track_value = FALSE,
+  session = shiny::getDefaultReactiveDomain()
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -319,6 +323,9 @@ values)
 \describe{
 \item{\code{input_id}}{string that identifies the button in the Shiny
 application so that the function can track and log changes to it.}
+
+\item{\code{track_value}}{flag that indicates if the basic telemetry should
+track the value of the input that are changing. `FALSE` by default.}
 
 \item{\code{session}}{ShinySession object or NULL to identify the current
 Shiny session.}
