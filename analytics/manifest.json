@@ -2508,8 +2508,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "b90608aad738821f9fd5da2d667fe0fb79b64812",
-      "GithubSha1": "b90608aad738821f9fd5da2d667fe0fb79b64812",
+      "GithubRef": "f4f5015790820f6427f154007443a017330e55a3",
+      "GithubSha1": "f4f5015790820f6427f154007443a017330e55a3",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2526,18 +2526,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-14 03:46:37 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-14 04:18:32 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "b90608aad738821f9fd5da2d667fe0fb79b64812",
-        "RemoteSha": "b90608aad738821f9fd5da2d667fe0fb79b64812",
+        "RemoteRef": "f4f5015790820f6427f154007443a017330e55a3",
+        "RemoteSha": "f4f5015790820f6427f154007443a017330e55a3",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "b90608aad738821f9fd5da2d667fe0fb79b64812",
-        "GithubSHA1": "b90608aad738821f9fd5da2d667fe0fb79b64812"
+        "GithubRef": "f4f5015790820f6427f154007443a017330e55a3",
+        "GithubSHA1": "f4f5015790820f6427f154007443a017330e55a3"
       }
     },
     "shinyjs": {
@@ -3084,7 +3084,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "af3e21a2f321379faf556f5a74968177"
+      "checksum": "98eb5348699011f4dab4f9f1f342c235"
     },
     "app.R": {
       "checksum": "2069338bc00760a72cf46f81bfab1330"
@@ -3093,7 +3093,7 @@
       "checksum": "2c8fcf3c29e18ff1277d16035a31f0b2"
     },
     "www/styles.css": {
-      "checksum": "d41d8cd98f00b204e9800998ecf8427e"
+      "checksum": "56705fbddcc16218aefb166d6f6b61e5"
     }
   },
   "users": null
