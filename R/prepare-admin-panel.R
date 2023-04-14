@@ -94,14 +94,14 @@ get_per_day_plot_data <- function(base, per_day) {
     dplyr::arrange(.data$date, .data$statistic, .data$value) %>%
     tidyr::replace_na(list(value = 0)) %>%
     dplyr::mutate(id = dplyr::case_when(
-      statistic == "users" ~ 3L,
-      statistic == "actions" ~ 1L,
+      statistic == "users" ~ 1L,
+      statistic == "action" ~ 3L,
       statistic == "sessions" ~ 1L,
       statistic == "time" ~ 2L
     )) %>%
     dplyr::mutate(statistic = dplyr::case_when(
       statistic == "users" ~ "logged users (unique)",
-      statistic == "actions" ~ "total navigations and inputs",
+      statistic == "action" ~ "total navigations and inputs",
       statistic == "sessions" ~ "total opened sessions",
       statistic == "time" ~ "avg session time (hours)"
     ))
@@ -766,8 +766,8 @@ prepare_admin_panel_components <- function(
 
   output$sessions_general <- timevis::renderTimevis({
     timevis::timevis(sessions_data(), options = list(
-      start = as.POSIXct(sprintf("%s 00:00:00", Sys.Date())),
-      end = as.POSIXct(Sys.time()),
+      start = as.POSIXct(sprintf("%s 00:00:00", as.Date(sessions_data()$end) - 1)),
+      end = as.POSIXct(as.Date(sessions_data()$end) + 1),
       margin = list(item = 0.5)
     ))
   })

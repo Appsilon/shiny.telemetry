@@ -1,0 +1,8 @@
+.centered-and-margined {
+  justify-content: center !important;
+  margin: 1rem !important;
+}
+
+.full-width {
+  width: 100% !important;
+}

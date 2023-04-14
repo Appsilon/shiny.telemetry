@@ -5,13 +5,12 @@ analytics_ui <- function() {
     shiny::suppressDependencies("bootstrap"),
     shiny::suppressDependencies("plotlyjs"),
     style = "min-height: 100%;",
+    shiny::includeCSS(
+      system.file(
+        "examples", "app", "analytics", "www", "styles.css", package = "shiny.telemetry"
+      )
+    ),
     shiny::tags$head(
-      shiny::tags$link(
-        rel = "stylesheet",
-        href = system.file(
-          "examples", "app", "analytics", "www", "styles.css", package = "shiny.telemetry"
-        )
-      ),
       shiny::tags$script(src = "https://cdn.plot.ly/plotly-1.20.2.min.js"),
       shiny::tags$script(
         src = "https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js"
@@ -71,6 +70,7 @@ analytics_ui <- function() {
   )
 
   final_stats <- shiny.semantic::segment(
+    class = "centered-and-margined full-width",
     title = "General app stats",
     shiny::div(
       class = "ui grid",
@@ -86,17 +86,20 @@ analytics_ui <- function() {
   )
 
   stats_daily <- shiny.semantic::segment(
+    class = "centered-and-margined full-width",
     title = "Statistics daily",
     plotly::plotlyOutput("daily_stats", height = "600px")
   )
 
   global_user_stats <- shiny.semantic::segment(
+    class = "centered-and-margined full-width",
     title = "General users stats",
     plotly::plotlyOutput("users_general"),
     plotly::plotlyOutput("users_per_hour")
   )
 
   user_specific_stats <- shiny.semantic::segment(
+    class = "centered-and-margined full-width",
     title = "User specific stats",
     shiny::div(
       class = "ui segment",
@@ -107,6 +110,7 @@ analytics_ui <- function() {
   )
 
   activity_global_stats <- shiny.semantic::segment(
+    class = "centered-and-margined full-width",
     title = "Global activity stats",
     shiny::div(
       class = "ui grid",
@@ -123,6 +127,7 @@ analytics_ui <- function() {
   )
 
   stats_per_action <- shiny.semantic::segment(
+    class = "centered-and-margined full-width",
     title = "Stats per action",
     shiny::tags$h3("Select desired action: "),
     shiny::uiOutput("select_action"),
@@ -134,12 +139,14 @@ analytics_ui <- function() {
   )
 
   global_session_stats <- shiny.semantic::segment(
+    class = "centered-and-margined full-width",
     title = "Sessions timeline",
     shiny::tags$h3("Sessions duration over time", style = "margin-top:0;"),
     timevis::timevisOutput("sessions_general")
   )
 
   session_specific_stats <- shiny.semantic::segment(
+    class = "centered-and-margined full-width",
     title = "Sessions details",
     shiny::tags$h3("Summary per session", style = "margin-top:0;"),
     shiny::tags$h4(
