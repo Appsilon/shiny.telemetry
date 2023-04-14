@@ -113,7 +113,9 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
 
       if (!file.exists(bucket)) {
         return(
-          private$table_schema
+          private$table_schema %>%
+            # Schema stores time as double
+            dplyr::mutate(time = lubridate::as_datetime(time, tz = "UTC"))
         )
       }
 
@@ -126,19 +128,17 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
       if (!is.null(date_from)) {
         result <- dplyr::filter(
           result,
-          .data$time >= lubridate::as_datetime(date_from, tz = "UTC")
+          lubridate::as_date(.data$time) >= lubridate::as_date(date_from)
         )
       }
       if (!is.null(date_to)) {
         result <- dplyr::filter(
           result,
-          .data$time <= lubridate::as_datetime(date_to, tz = "UTC")
+          lubridate::as_date(.data$time) <= lubridate::as_date(date_to)
         )
       }
 
-      result %>%
-        private$unnest_json("details") %>%
-        dplyr::mutate(time = lubridate::as_datetime(time, tz = "UTC"))
+      private$unnest_json(result, "details")
     }
   )
 )
