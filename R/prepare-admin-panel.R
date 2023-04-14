@@ -768,6 +768,7 @@ prepare_admin_panel_components <- function(
   sessions_summary <- shiny::reactive({
     selected_log_data() %>%
       dplyr::group_by(.data$session) %>%
+      tidyr::fill("username") %>%
       dplyr::summarise(
         username = unique(.data$username),
         session_start_date = min(.data$time),
