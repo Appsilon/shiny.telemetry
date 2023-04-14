@@ -7,22 +7,17 @@
 #' @export
 #'
 #' @examples
-#' data_storage <- DataStorageRSQLite$new(
+#' data_storage <- DataStorageSQLite$new(
 #'   db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
 #' )
 #'
-#' telemetry <- Telemetry$new(data_storage = data_storage)
-#' telemetry$log_login()
+#' data_storage$insert("example", "test_event", "session1")
+#' data_storage$insert("example", "input", "s1", list(id = "id1"))
+#' data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 #'
-#' telemetry$log_click("an_id")
-#' telemetry$log_click("a_different_id")
-#'
-#' telemetry$log_session(detail = "some detail")
-#'
-#' data_storage$read_user_data("2020-01-01", "2025-01-01")
-#' data_storage$read_session_data("2020-01-01", "2025-01-01")
-DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
-  classname = "DataStorageRSQLite",
+#' data_storage$read_event_data(Sys.Date() - 365, Sys.Date() + 365)
+DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
+  classname = "DataStorageSQLite",
   inherit = DataStorage,
   #
   # Public
@@ -41,63 +36,8 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
       private$connect(db_path)
 
       private$initialize_connection()
-    },
-
-    #' @description Insert new data
-    #' @param values list of values to write to database
-    #' @param insert_time boolean flag that indicates if `time` parameters
-    #' should be added automatically
-    #' @param bucket name of table to write
-
-    insert = function(
-      values, insert_time = TRUE, bucket = self$action_bucket
-    ) {
-      values <- private$insert_checks(values, insert_time, bucket)
-
-      checkmate::assert_choice(
-        bucket, c(self$action_bucket, self$session_bucket)
-      )
-
-      private$write(values, bucket)
-    },
-
-    #' @description read all user data from SQLite
-    #' @param date_from date representing the starting day of results
-    #' @param date_to date representing the last day of results
-
-    read_user_data = function(date_from, date_to) {
-      date_from <- private$check_date(date_from, .var_name = "date_from")
-      date_to <- private$check_date(date_to, .var_name = "date_to")
-
-      db_data <- private$read_data("user_log", date_from, date_to)
-
-      if (NROW(db_data) > 0) {
-        return(dplyr::mutate(db_data, date = as.Date(.data$time)))
-      }
-      db_data
-    },
-
-    #' @description read all session data from SQLite
-    #' @param date_from date representing the starting day of results
-    #' @param date_to date representing the last day of results
-
-    read_session_data = function(date_from, date_to) {
-      date_from <- private$check_date(date_from, .var_name = "date_from")
-      date_to <- private$check_date(date_to, .var_name = "date_to")
-
-      db_data <- private$read_data(self$session_bucket, date_from, date_to)
-
-      db_data %>%
-        dplyr::select("session", "detail") %>%
-        dplyr::group_by(.data$session) %>%
-        dplyr::summarise(title = paste(.data$detail, collapse = " | "))
-    },
-
-    #' @description read all session data
-
-    close = function() {
-      private$close_connection()
     }
+
   ),
   #
   # Private
@@ -118,26 +58,17 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
 
     initialize_connection = function() {
       table_schemes <- list(
-        user_log = c(
+        c(
           time = "TIMESTAMP",
-          dashboard = "TEXT",
-          version = "TEXT",
+          app_name = "TEXT",
           session = "TEXT",
-          username = "TEXT",
-          action = "TEXT",
-          id = "TEXT",
-          value = "TEXT"
-        ),
-        session_details = c(
-          time = "TIMESTAMP",
-          dashboard = "TEXT",
-          version = "TEXT",
-          session = "TEXT",
-          detail = "TEXT"
+          type = "TEXT",
+          details = "TEXT"
         )
       )
 
-      table_names <- names(table_schemes)
+      table_names <- c(self$event_bucket)
+      names(table_schemes) <- table_names
 
       purrr::walk2(
         table_names, table_schemes, private$create_table_from_schema
@@ -163,7 +94,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
     },
 
     write = function(values, bucket) {
-      checkmate::assert_string(bucket)
+      checkmate::assert_choice(bucket, choices = c(self$event_bucket))
       checkmate::assert_list(values)
 
       send_query_df <- dplyr::bind_rows(values)
@@ -178,7 +109,7 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
       )
     },
 
-    read_data = function(bucket, date_from, date_to) {
+    read_data = function(date_from, date_to, bucket) {
       checkmate::assert_string(bucket)
       checkmate::assert_date(date_from)
       checkmate::assert_date(date_to)
@@ -191,7 +122,9 @@ DataStorageRSQLite <- R6::R6Class( # nolint object_name_linter
       )
 
       odbc::dbGetQuery(private$db_con, query) %>%
-        dplyr::tibble()
+        dplyr::tibble() %>%
+        private$unnest_json("details")
+
     }
   )
 )

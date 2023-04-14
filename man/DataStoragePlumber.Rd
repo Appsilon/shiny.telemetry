@@ -29,16 +29,11 @@ data_storage <- DataStoragePlumber$new(
   secret = Sys.getenv("PLUMBER_SECRET")
 )
 
-telemetry <- Telemetry$new(data_storage = data_storage)
-telemetry$log_login()
+data_storage$insert("example", "test_event", "session1")
+data_storage$insert("example", "input", "s1", list(id = "id"))
+data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 
-telemetry$log_click("an_id")
-telemetry$log_click("a_different_id")
-
-telemetry$log_session(detail = "some detail")
-
-data_storage$read_user_data("2020-01-01", "2025-01-01")
-data_storage$read_session_data("2020-01-01", "2025-01-01")
+data_storage$read_event_data(Sys.Date() - 365, Sys.Date() + 365)
 }
 }
 \section{Super class}{
@@ -47,16 +42,10 @@ data_storage$read_session_data("2020-01-01", "2025-01-01")
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{action_read_endpoint}}{string field that returns read action
+\item{\code{event_read_endpoint}}{string field that returns read action
 endpoint}
 
-\item{\code{session_read_endpoint}}{string field that returns read session
-endpoint}
-
-\item{\code{action_insert_endpoint}}{string field that returns insert action
-endpoint}
-
-\item{\code{session_insert_endpoint}}{string field that returns insert session
+\item{\code{event_insert_endpoint}}{string field that returns insert action
 endpoint}
 }
 \if{html}{\out{</div>}}
@@ -65,13 +54,18 @@ endpoint}
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-DataStoragePlumber-new}{\code{DataStoragePlumber$new()}}
-\item \href{#method-DataStoragePlumber-insert}{\code{DataStoragePlumber$insert()}}
-\item \href{#method-DataStoragePlumber-read_user_data}{\code{DataStoragePlumber$read_user_data()}}
-\item \href{#method-DataStoragePlumber-read_session_data}{\code{DataStoragePlumber$read_session_data()}}
-\item \href{#method-DataStoragePlumber-close}{\code{DataStoragePlumber$close()}}
 \item \href{#method-DataStoragePlumber-clone}{\code{DataStoragePlumber$clone()}}
 }
 }
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="close"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-close'><code>shiny.telemetry::DataStorage$close()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="insert"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-insert'><code>shiny.telemetry::DataStorage$insert()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="read_event_data"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-read_event_data'><code>shiny.telemetry::DataStorage$read_event_data()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataStoragePlumber-new"></a>}}
 \if{latex}{\out{\hypertarget{method-DataStoragePlumber-new}{}}}
@@ -109,80 +103,6 @@ server).}
 }
 \if{html}{\out{</div>}}
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStoragePlumber-insert"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStoragePlumber-insert}{}}}
-\subsection{Method \code{insert()}}{
-Insert new data
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStoragePlumber$insert(
-  values,
-  insert_time = TRUE,
-  bucket = self$action_bucket
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{values}}{list of values to write to database}
-
-\item{\code{insert_time}}{boolean flag that indicates if `time` parameters
-should be added automatically}
-
-\item{\code{bucket}}{name of table to write}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStoragePlumber-read_user_data"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStoragePlumber-read_user_data}{}}}
-\subsection{Method \code{read_user_data()}}{
-read all user data from SQLite
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStoragePlumber$read_user_data(date_from, date_to)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{date_from}}{date representing the starting day of results}
-
-\item{\code{date_to}}{date representing the last day of results}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStoragePlumber-read_session_data"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStoragePlumber-read_session_data}{}}}
-\subsection{Method \code{read_session_data()}}{
-read all session data from SQLite
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStoragePlumber$read_session_data(date_from, date_to)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{date_from}}{date representing the starting day of results}
-
-\item{\code{date_to}}{date representing the last day of results}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStoragePlumber-close"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStoragePlumber-close}{}}}
-\subsection{Method \code{close()}}{
-read all session data
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStoragePlumber$close()}\if{html}{\out{</div>}}
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataStoragePlumber-clone"></a>}}

@@ -2,7 +2,7 @@
 
 export(DataStorageLogFile)
 export(DataStoragePlumber)
-export(DataStorageRSQLite)
+export(DataStorageSQLite)
 export(Telemetry)
 export(analytics_app)
 export(build_id_from_secret)

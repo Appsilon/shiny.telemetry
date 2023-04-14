@@ -11,15 +11,8 @@ functions and uses a unified API.
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{username}}{string field that returns the current username}
-
-\item{\code{session_id}}{string field that returns the current session_id}
-
-\item{\code{action_bucket}}{string that identifies the bucket to store user
+\item{\code{event_bucket}}{string that identifies the bucket to store user
 related and action data}
-
-\item{\code{session_bucket}}{string that identifies the bucket to store session
-details data}
 }
 \if{html}{\out{</div>}}
 }
@@ -28,8 +21,7 @@ details data}
 \itemize{
 \item \href{#method-DataStorage-new}{\code{DataStorage$new()}}
 \item \href{#method-DataStorage-insert}{\code{DataStorage$insert()}}
-\item \href{#method-DataStorage-read_user_data}{\code{DataStorage$read_user_data()}}
-\item \href{#method-DataStorage-read_session_data}{\code{DataStorage$read_session_data()}}
+\item \href{#method-DataStorage-read_event_data}{\code{DataStorage$read_event_data()}}
 \item \href{#method-DataStorage-close}{\code{DataStorage$close()}}
 \item \href{#method-DataStorage-clone}{\code{DataStorage$clone()}}
 }
@@ -50,49 +42,37 @@ initialize data storage object common with all providers
 \subsection{Method \code{insert()}}{
 Insert new data
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorage$insert(values, insert_time = TRUE, bucket = self$action_bucket)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorage$insert(app_name, type, session = NULL, details = NULL, time = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{values}}{list of values to write to storage provider.}
+\item{\code{app_name}}{string with name of dashboard (the version can be also
+included in this string)}
 
-\item{\code{insert_time}}{boolean flag that indicates if `time` parameters
-should be added automatically}
+\item{\code{type}}{string that identifies the event type to store}
 
-\item{\code{bucket}}{string with name of type of data to write (example, for
-SQL it should represent a table).}
+\item{\code{session}}{(optional) string that identifies a session where the
+event was logged}
+
+\item{\code{details}}{atomic element of list with data to save in storage}
+
+\item{\code{time}}{date time value indicates the moment the record was
+generated in UTC. By default it should be NULL and determined
+automatically, but in cases where it should be defined, use Sys.time()
+to generate it.}
 }
 \if{html}{\out{</div>}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStorage-read_user_data"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStorage-read_user_data}{}}}
-\subsection{Method \code{read_user_data()}}{
-read all user data
+\if{html}{\out{<a id="method-DataStorage-read_event_data"></a>}}
+\if{latex}{\out{\hypertarget{method-DataStorage-read_event_data}{}}}
+\subsection{Method \code{read_event_data()}}{
+read all user data from SQLite
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorage$read_user_data(date_from, date_to)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{date_from}}{date representing the starting day of results}
-
-\item{\code{date_to}}{date representing the last day of results}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStorage-read_session_data"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStorage-read_session_data}{}}}
-\subsection{Method \code{read_session_data()}}{
-read all session data
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorage$read_session_data(date_from, date_to)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorage$read_event_data(date_from, date_to)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -109,7 +89,7 @@ read all session data
 \if{html}{\out{<a id="method-DataStorage-close"></a>}}
 \if{latex}{\out{\hypertarget{method-DataStorage-close}{}}}
 \subsection{Method \code{close()}}{
-read all session data
+Close the connection if necessary
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataStorage$close()}\if{html}{\out{</div>}}
 }

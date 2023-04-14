@@ -16,8 +16,7 @@ box::use(
 #' @param to string with ending date that can be converted to a Date class
 #' @param token string with signature of the message
 #' @param id string with identification of which secret to use
-#' @param FUN function to call to read data
-#' (read_user_data or read_session_data)
+#' @param FUN function to call to read data (read_event_data)
 #' @export
 handler <- function(from, to, token, id, FUN) {
   is_token_valid <- validate_token(

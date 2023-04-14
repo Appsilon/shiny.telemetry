@@ -43,9 +43,10 @@ test_that("DataStoragePlumber should be able to insert and read", {
 
       endpoint <- gsub("^/", "", url$path)
       request <- list(args = url$query)
-      if (grepl("user_log|session_details", url$path)) {
+      if (grepl("insert", url$path)) {
         request <- list(args = req$body$data)
       }
+
       result <- api$routes[[endpoint]]$exec(request, res = list(status = 2))
       response <- httr2::response(
         status_code = result$status,
@@ -94,29 +95,26 @@ test_that("Plumber API works", {
 
   # Read user_log information (should be empty)
   req <- mock_request(from = (Sys.Date() - 365), to = (Sys.Date() + 365))
-  result <- api$routes$read_user_data$exec(req, res = list(status = 2))
+  result <- api$routes$read_data$exec(req, res = list(status = 2))
 
   expect_equal(result$status, 200)
   result$result %>% jsonlite::unserializeJSON() %>% NROW() %>% expect_equal(0)
 
   dat_user_log <- list(
     time = as.character(Sys.time()),
-    dashboard = "Plumber test",
-    version = "v0.0.0",
+    app_name = "Plumber test",
     session = "some_session",
-    username = "some_username",
-    action = "input",
-    id = "some_id",
-    value = "new_value"
+    type = "input",
+    details = list(id = "some_id", value = "new_value")
   ) %>% jsonlite::serializeJSON()
 
   req_user_log <- mock_request(data = dat_user_log)
 
-  api$routes$user_log$exec(req_user_log, res = list(status = 2)) %>%
+  api$routes$insert$exec(req_user_log, res = list(status = 2)) %>%
     purrr::pluck("status") %>%
     expect_equal(200)
 
-  result <- api$routes$read_user_data$exec(req, res = list(status = 2))
+  result <- api$routes$read_data$exec(req, res = list(status = 2))
 
   expect_equal(result$status, 200)
 
@@ -166,20 +164,17 @@ test_that("Plumber API token only accepts valid messages", {
     .secret = Sys.getenv("PLUMBER_SECRET")
   )
 
-  result <- api$routes$read_user_data$exec(req, res = list(status = 2))
+  result <- api$routes$read_data$exec(req, res = list(status = 2))
 
   expect_equal(result$status, 200)
   result$result %>% jsonlite::unserializeJSON() %>% NROW() %>% expect_equal(0)
 
   data_user_log <- list(
     time = as.character(Sys.time()),
-    dashboard = "Plumber test with token",
-    version = "v0.0.0",
+    app_name = "Plumber test with token",
     session = "some_session",
-    username = "some_username",
-    action = "input",
-    id = "some_id",
-    value = "new_value"
+    type = "input",
+    details = list(id = "some_id", value = "new_value")
   )
 
   req_user_log <- mock_request(
@@ -188,11 +183,11 @@ test_that("Plumber API token only accepts valid messages", {
     .serialize_data = TRUE
   )
 
-  api$routes$user_log$exec(req_user_log, res = list(status = 2)) %>%
+  api$routes$insert$exec(req_user_log, res = list(status = 2)) %>%
     purrr::pluck("status") %>%
     expect_equal(200)
 
-  result <- api$routes$read_user_data$exec(req, res = list(status = 2))
+  result <- api$routes$read_data$exec(req, res = list(status = 2))
 
   expect_equal(result$status, 200)
 
@@ -211,7 +206,7 @@ test_that("Plumber API token only accepts valid messages", {
     .serialize_data = TRUE
   )
 
-  api$routes$user_log$exec(req_user_log, res = list(status = 2)) %>%
+  api$routes$insert$exec(req_user_log, res = list(status = 2)) %>%
     purrr::pluck("status") %>%
     expect_equal(401)
 

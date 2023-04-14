@@ -20,26 +20,25 @@ the supported providers (see [DataStorage]).
 }
 \examples{
 telemetry <- Telemetry$new(
-  data_storage = DataStorageRSQLite$new(
+  data_storage = DataStorageSQLite$new(
     db_path = tempfile(pattern = "telemetry", fileext = ".sqlite")
   )
 )
 
 telemetry <- Telemetry$new(
   data_storage = DataStorageLogFile$new(
-    log_file_path = tempfile(pattern = "user_stats", fileext = ".txt"),
-    session_file_path = tempfile(pattern = "session_details", fileext = ".txt")
+    log_file_path = tempfile(pattern = "user_stats", fileext = ".txt")
   )
 )
 
 \dontrun{
 telemetry$start_session(logout = FALSE)
 
-telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
+telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01") |> tail()
 
 telemetry$start_session(logout = FALSE)
 
-telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
+telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01") |> tail()
 }
 }
 \seealso{
@@ -51,9 +50,7 @@ telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 \item{\code{data_storage}}{instance of a class that inherits from
 [DataStorage]. See the documentation on that class for more information.}
 
-\item{\code{dashboard}}{string with name of dashboard}
-
-\item{\code{version}}{string with version of the dashboard}
+\item{\code{app_name}}{string with name of dashboard}
 }
 \if{html}{\out{</div>}}
 }
@@ -68,10 +65,11 @@ telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 \item \href{#method-Telemetry-log_logout}{\code{Telemetry$log_logout()}}
 \item \href{#method-Telemetry-log_click}{\code{Telemetry$log_click()}}
 \item \href{#method-Telemetry-log_browser_version}{\code{Telemetry$log_browser_version()}}
-\item \href{#method-Telemetry-log_session}{\code{Telemetry$log_session()}}
 \item \href{#method-Telemetry-log_button}{\code{Telemetry$log_button()}}
 \item \href{#method-Telemetry-log_all_inputs}{\code{Telemetry$log_all_inputs()}}
 \item \href{#method-Telemetry-log_input}{\code{Telemetry$log_input()}}
+\item \href{#method-Telemetry-log_input_manual}{\code{Telemetry$log_input_manual()}}
+\item \href{#method-Telemetry-log_custom_event}{\code{Telemetry$log_custom_event()}}
 \item \href{#method-Telemetry-clone}{\code{Telemetry$clone()}}
 }
 }
@@ -82,26 +80,25 @@ telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
 Constructor that initializes Telemetry instance with parameters.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Telemetry$new(
-  name = "(dashboard)",
-  version = "v0.0.0",
-  data_storage = DataStorageRSQLite$new(db_path = file.path("telemetry.sqlite"))
+  app_name = "(dashboard)",
+  data_storage = DataStorageSQLite$new(db_path = file.path("telemetry.sqlite"))
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{(optional) string that identifies the name of the dashboard.
+\item{\code{app_name}}{(optional) string that identifies the name of the dashboard.
 By default it will store data with `(dashboard)`.}
-
-\item{\code{version}}{(optional) string that identifies the version of the
-dashboard. By default it will use `v0.0.0`.}
 
 \item{\code{data_storage}}{(optional) DataStorage instance where telemetry
 data is being stored.
 It can take any of data storage providers by this package,
 By default it will store in a SQLite local database in the current
 working directory with filename `telemetry.sqlite`}
+
+\item{\code{version}}{(optional) string that identifies the version of the
+dashboard. By default it will use `v0.0.0`.}
 }
 \if{html}{\out{</div>}}
 }
@@ -285,26 +282,6 @@ Shiny session.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Telemetry-log_session"></a>}}
-\if{latex}{\out{\hypertarget{method-Telemetry-log_session}{}}}
-\subsection{Method \code{log_session()}}{
-Log session details
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_session(detail, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{detail}}{string with details about the session.}
-
-\item{\code{session}}{ShinySession object or NULL to identify the current
-Shiny session.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Telemetry-log_button"></a>}}
 \if{latex}{\out{\hypertarget{method-Telemetry-log_button}{}}}
 \subsection{Method \code{log_button()}}{
@@ -391,6 +368,64 @@ track the value of the input that are changing. `FALSE` by default.}
 
 \item{\code{input_type}}{'text' to registered bare input value, 'json' to parse
 value from JSON format.}
+
+\item{\code{session}}{ShinySession object or NULL to identify the current
+Shiny session.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Telemetry-log_input_manual"></a>}}
+\if{latex}{\out{\hypertarget{method-Telemetry-log_input_manual}{}}}
+\subsection{Method \code{log_input_manual()}}{
+Log a manual input value.
+
+
+This can be called in telemetry and is also used as a layer between
+log_input family of functions and actual log event.
+It creates the correct payload to log the event internally.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_input_manual(
+  input_id,
+  value = NULL,
+  session = shiny::getDefaultReactiveDomain()
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{input_id}}{string that identifies the generic input in the Shiny
+application so that the function can track and log changes to it.}
+
+\item{\code{value}}{(optional) scalar value or list with the value to register.}
+
+\item{\code{session}}{ShinySession object or NULL to identify the current
+Shiny session.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Telemetry-log_custom_event"></a>}}
+\if{latex}{\out{\hypertarget{method-Telemetry-log_custom_event}{}}}
+\subsection{Method \code{log_custom_event()}}{
+Log a manual event
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_custom_event(
+  event_type,
+  details = NULL,
+  session = shiny::getDefaultReactiveDomain()
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{event_type}}{string that identifies the event type}
+
+\item{\code{details}}{(optional) scalar value or list with the value to register.}
 
 \item{\code{session}}{ShinySession object or NULL to identify the current
 Shiny session.}

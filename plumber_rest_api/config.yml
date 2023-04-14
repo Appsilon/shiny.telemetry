@@ -14,7 +14,6 @@ default:
     logfile:
       params:
         log_file_path: "user_stats.txt"
-        session_file_path: "session_details.txt"
 
 test:
   log_level: FATAL

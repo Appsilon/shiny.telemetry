@@ -20,26 +20,25 @@
 #' @export
 #' @examples
 #' telemetry <- Telemetry$new(
-#'   data_storage = DataStorageRSQLite$new(
+#'   data_storage = DataStorageSQLite$new(
 #'     db_path = tempfile(pattern = "telemetry", fileext = ".sqlite")
 #'   )
 #' )
 #'
 #' telemetry <- Telemetry$new(
 #'   data_storage = DataStorageLogFile$new(
-#'     log_file_path = tempfile(pattern = "user_stats", fileext = ".txt"),
-#'     session_file_path = tempfile(pattern = "session_details", fileext = ".txt")
+#'     log_file_path = tempfile(pattern = "user_stats", fileext = ".txt")
 #'   )
 #' )
 #'
 #' \dontrun{
 #' telemetry$start_session(logout = FALSE)
 #'
-#' telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
+#' telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01") |> tail()
 #'
 #' telemetry$start_session(logout = FALSE)
 #'
-#' telemetry$data_storage$read_user_data("2020-01-01", "2025-01-01") |> tail()
+#' telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01") |> tail()
 #' }
 Telemetry <- R6::R6Class( # nolint object_name_linter
   classname = "Telemetry",
@@ -48,7 +47,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @description
     #' Constructor that initializes Telemetry instance with parameters.
     #'
-    #' @param name (optional) string that identifies the name of the dashboard.
+    #' @param app_name (optional) string that identifies the name of the dashboard.
     #' By default it will store data with `(dashboard)`.
     #' @param version (optional) string that identifies the version of the
     #' dashboard. By default it will use `v0.0.0`.
@@ -59,19 +58,16 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' working directory with filename `telemetry.sqlite`
 
     initialize = function(
-      name = "(dashboard)",
-      version = "v0.0.0",
-      data_storage = DataStorageRSQLite$new(
+      app_name = "(dashboard)",
+      data_storage = DataStorageSQLite$new(
         db_path = file.path("telemetry.sqlite")
       )
     ) {
-      checkmate::assert_string(name)
-      checkmate::assert_string(version)
+      checkmate::assert_string(app_name)
 
       private$.data_storage <- data_storage
 
-      private$.name <- name
-      private$.version <- version
+      private$.name <- app_name
     },
 
     #' @description
@@ -202,7 +198,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     log_navigation_manual = function(
       navigation_id, value, session = shiny::getDefaultReactiveDomain()
     ) {
-
       logger::log_debug(
         "Writing 'navigation' event with ",
         "id: '{navigation_id}' and value: '{value}'",
@@ -210,8 +205,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
 
       private$.log_event(
-        event = "navigation",
-        value = value,
+        type = "navigation",
+        details = list(id = navigation_id, value = value),
         session = session
       )
     },
@@ -228,9 +223,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       logger::log_debug("event: login", namespace = "shiny.telemetry")
 
-      private$.log_event(
-        event = "login user",
-        value = username,
+      private$log_generic(
+        type = "login",
+        details = list(username = username),
         session = session
       )
     },
@@ -248,9 +243,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       shiny::onSessionEnded(function() {
         logger::log_debug("event: logout", namespace = "shiny.telemetry")
 
-        private$.log_event(
-          event = "logout user",
-          value = username,
+        private$log_generic(
+          type = "logout",
+          details = list(username = username),
           session = session
         )
       }, session)
@@ -268,9 +263,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       logger::log_debug("event: click: {id}", namespace = "shiny.telemetry")
 
-      private$.log_event(
-        event = "click",
-        id = id,
+      private$log_generic(
+        type = "click",
+        details = list(id = id),
         session = session
       )
     },
@@ -302,35 +297,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
           "event: browser_version: {browser}", namespace = "shiny.telemetry"
         )
 
-        private$.log_event(
-          event = "browser",
-          value = browser,
+        private$log_generic(
+          type = "browser",
+          details = list(value = browser),
           session = session
         )
       })
-    },
-
-    #' @description
-    #' Log session details
-    #'
-    #' @param detail string with details about the session.
-    #' @param session ShinySession object or NULL to identify the current
-    #' Shiny session.
-
-    log_session = function(
-      detail, session = shiny::getDefaultReactiveDomain()
-    ) {
-      checkmate::assert_string(detail)
-
-      logger::log_debug(
-        "event: session_details: {detail}",
-        namespace = "shiny.telemetry"
-      )
-
-      private$.log_session(
-        detail = detail,
-        session = session
-      )
     },
 
     #' @description
@@ -404,6 +376,52 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         event_type = "input",
         session = session
       )
+    },
+
+    #' @description
+    #' Log a manual input value.
+    #'
+    #'
+    #' This can be called in telemetry and is also used as a layer between
+    #' log_input family of functions and actual log event.
+    #' It creates the correct payload to log the event internally.
+    #'
+    #' @param input_id string that identifies the generic input in the Shiny
+    #' application so that the function can track and log changes to it.
+    #' @param value (optional) scalar value or list with the value to register.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
+
+    log_input_manual = function(
+      input_id, value = NULL, session = shiny::getDefaultReactiveDomain()
+    ) {
+      logger::log_debug(
+        "event: input '{input_id}' change: ",
+        "{dplyr::coalesce(value, \"'NULL' (note: it might not be tracked)\")}",
+        namespace = "shiny.telemetry"
+      )
+
+      private$.log_event(
+        type = "input",
+        details = list(id = input_id, value = value),
+        session = session
+      )
+    },
+
+    #' @description
+    #' Log a manual event
+    #'
+    #' @param event_type string that identifies the event type
+    #' @param details (optional) scalar value or list with the value to register.
+    #' @param session ShinySession object or NULL to identify the current
+    #' Shiny session.
+
+    log_custom_event = function(
+      event_type, details = NULL, session = shiny::getDefaultReactiveDomain()
+    ) {
+      private$.log_event(
+        type = event_type, details = details, session = session
+      )
     }
 
   ),
@@ -414,13 +432,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
     data_storage = function() private$.data_storage,
 
-    #' @field dashboard string with name of dashboard
+    #' @field app_name string with name of dashboard
 
-    dashboard = function() private$.name,
+    app_name = function() private$.name
 
-    #' @field version string with version of the dashboard
-
-    version = function() private$.version
   ),
   private = list(
 
@@ -431,21 +446,16 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     # Methods
 
     log_generic = function(
-      event = NULL,
-      id = NULL,
-      value = NULL,
-      session = NULL,
-      add_username = TRUE,
-      use_detail = FALSE,
-      bucket = NULL
+      type = NULL,
+      details = NULL,
+      session = NULL
     ) {
-      checkmate::assert_string(event, null.ok = TRUE)
-      checkmate::assert_string(id, null.ok = TRUE)
+      checkmate::assert_string(type, null.ok = TRUE)
 
       checkmate::assert(
         .combine = "or",
-        checkmate::check_list(value, null.ok = TRUE),
-        checkmate::check_atomic(value)
+        checkmate::check_list(details, null.ok = TRUE),
+        checkmate::check_scalar(details)
       )
       checkmate::assert(
         .combine = "or",
@@ -453,42 +463,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         checkmate::check_class(session, "session_proxy")
       )
 
-      payload <- list(
-        dashboard = self$dashboard,
-        version = self$version
-      )
-
-      if (!is.null(session)) {
-        payload$session <- session$token
-      }
-
-      if (checkmate::test_list(value)) {
-        value <- jsonlite::toJSON(value)
-      }
-
-      if (!is.null(event)) {
-        payload$action <- event
-      }
-
-      if (!is.null(id)) {
-        payload$id <- id
-      }
-
-      if (isTRUE(add_username)) {
-        payload$username <- private$get_user(session)
-      }
-
-      if (!is.null(value)) {
-        if (isTRUE(use_detail)) {
-          payload$detail <- value
-        } else {
-          payload$value <- value
-        }
-      }
-
       self$data_storage$insert(
-        values = payload,
-        bucket = bucket
+        app_name = self$app_name,
+        type = type,
+        session = purrr::pluck(session, "token"),
+        details = details
       )
     },
 
@@ -549,43 +528,16 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             if (!identical(old, new)) {
 
               if (name %in% navigation_inputs) {
-                logger::log_debug(
-                  "Writing 'navigation' event with ",
-                  "id: '{name}' and value: '{new[[name]]}'",
-                  namespace = "shiny.telemetry"
-                )
-                private$.log_event(
-                  event = "navigation",
-                  id = name,
-                  value = new[[name]],
-                  session = session
-                )
+                self$log_navigation_manual(name, new[[name]], session)
                 next
               }
 
               log_value <- NULL
-
               if (isTRUE(track_values)) {
-                if (is.null(old[[name]])) old[[name]] <- "null"
-                logger::log_debug(
-                  "event: input change: {name} ",
-                  ":: {old[[name]]} -> {new[[name]]}",
-                  namespace = "shiny.telemetry"
-                )
                 log_value <- new[[name]]
-              } else {
-                logger::log_debug(
-                  "event: input change: {name} :: (no value tracking)",
-                  namespace = "shiny.telemetry"
-                )
               }
 
-              private$.log_event(
-                event = "input",
-                id = name,
-                value = log_value,
-                session = session
-              )
+              self$log_input_manual(name, log_value, session)
             }
           }
         }
@@ -650,7 +602,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             )
 
             private$.log_event(
-              event = event_type, id = input_id, session = session
+              type = event_type,
+              details = list(id = input_id),
+              session = session
             )
           }
 
@@ -661,25 +615,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     },
 
     .log_event = function(
-      event = NULL, id = NULL, value = NULL, session = NULL
+      type = NULL, details = NULL, session = NULL
     ) {
       private$log_generic(
-        event = event,
-        id = id,
-        value = value,
-        session = session,
-        add_username = TRUE,
-        bucket = self$data_storage$action_bucket
-      )
-    },
-
-    .log_session = function(detail = NULL, session = NULL) {
-      private$log_generic(
-        value = detail,
-        session = session,
-        add_username = FALSE,
-        use_detail = TRUE,
-        bucket = self$data_storage$session_bucket
+        type = type,
+        details = details,
+        session = session
       )
     },
 
@@ -720,13 +661,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         )
 
         purrr::walk2(
-          input_value,
           input_ids,
-          ~ private$.log_event(
-            event = event_type,
-            id = .y,
-            value = .x,
-            session = session
+          input_value,
+          ~ self$log_custom_event(
+            event_type, list(id = .x, value = .y), session
           )
         )
       }
