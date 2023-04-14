@@ -1,31 +1,52 @@
 library(shiny)
+library(semantic.dashboard)
+library(shiny.semantic)
 library(shiny.telemetry)
 library(dplyr)
 library(config)
 
-ui <- fluidPage(
-  use_telemetry(),
-  titlePanel("Old Faithful Geyser Data"),
-  sidebarLayout(
-    sidebarPanel(
-      sliderInput(
-        "bins", "Number of bins:", min = 1, max = 50, value = 30
+ui <- dashboardPage(
+  dashboardHeader(title = "Basic dashboard"),
+  dashboardSidebar(sidebarMenu(
+    menuItem(tabName = "dashboard", text = "Home", icon = icon("home")),
+    menuItem(tabName = "widgets", text = "Another Tab", icon = icon("heart"))
+  )),
+  dashboardBody(
+    use_telemetry(),
+    tabItems(
+      # First tab content
+      tabItem(
+        tabName = "dashboard",
+        box(
+          title = "Controls",
+          sliderInput("bins", "Number of observations:", 1, 50, 30),
+          action_button("apply_slider", "Apply", class = "green"),
+          width = 4, color = "teal"
+        ),
+        box(
+          title = "Old Faithful Geyser Histogram",
+          plotOutput("plot1", height = 400),
+          width = 11, color = "blue"
+        ),
+        segment(
+          class = "basic",
+          h3("Sample application instrumented by Shiny.telemetry"),
+          p(glue::glue("Note: using {config::get('data_storage')$class_name} as data backend.")),
+          p("Information logged:"),
+          tags$ul(
+            tags$li("Start of session"),
+            tags$li("Every time slider changes"),
+            tags$li("Click of 'Apply' button"),
+            tags$li("Tab navigation when clicking on the links in the left sidebar")
+          )
+        )
       ),
-      actionButton("apply_slider", "Apply")
-    ),
-    mainPanel(
-      plotOutput("distPlot")
-    )
-  ),
-  tags$hr(),
-  tags$div(
-    tags$h3("Sample application instrumented by Shiny.telemetry"),
-    tags$p(glue::glue("Note: using {config::get('data_storage')$class_name} as data backend.")),
-    tags$p("Information logged:"),
-    tags$ul(
-      tags$li("Start of session"),
-      tags$li("Every time slider changes"),
-      tags$li("Click of 'Apply' button")
+
+      # Second tab content
+      tabItem(
+        tabName = "widgets",
+        h2(class = "ui header primary", "Widgets tab content", style = "margin: 2rem")
+      )
     )
   )
 )
@@ -54,17 +75,19 @@ if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
 }
 
 server <- function(input, output, session) {
-  telemetry$start_session()
+
+  telemetry$start_session(
+    track_values = TRUE,
+    navigation_input_id = "uisidebar"
+  )
 
   # server code
-  output$distPlot <- renderPlot({
+  output$plot1 <- renderPlot({
     input$apply_slider
     x <- faithful[, 2]
     bins <- seq(min(x), max(x), length.out = isolate(input$bins) + 1)
-    hist(x, breaks = bins, col = "darkgray", border = "white")
+    hist(x, breaks = bins, col = "#0099F9", border = "white")
   })
-
-  telemetry$log_click("another click")
 }
 
 shinyApp(ui = ui, server = server)
