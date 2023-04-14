@@ -198,7 +198,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     log_navigation_manual = function(
       navigation_id, value, session = shiny::getDefaultReactiveDomain()
     ) {
-
       logger::log_debug(
         "Writing 'navigation' event with ",
         "id: '{navigation_id}' and value: '{value}'",
@@ -529,7 +528,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             if (!identical(old, new)) {
 
               if (name %in% navigation_inputs) {
-                self$log_navigation_manual(id, new[[name]], session)
+                self$log_navigation_manual(name, new[[name]], session)
                 next
               }
 
