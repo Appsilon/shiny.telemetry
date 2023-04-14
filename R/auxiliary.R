@@ -30,7 +30,7 @@ build_query_sql <- function(bucket, date_from = NULL, date_to = NULL) {
   }
 
   if (!is.null(date_to)) {
-    date_to_aux <- (lubridate::as_date(date_to) + 1) %>%
+    date_to_aux <- (lubridate::as_date(date_to) + 1) %>% # nolint: object_usage_linter
       lubridate::as_datetime()
     where <- c(where, "time < {as.double(date_to_aux)}")
   }
