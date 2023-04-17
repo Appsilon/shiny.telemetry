@@ -356,7 +356,7 @@ prepare_admin_panel_components <- function(
       purrr::prepend(1)
 
     nested_users_data %>%
-      dplyr::distinct(username, date, new_users) %>%
+      dplyr::distinct("username", "date", "new_users") %>%
       dplyr::full_join(total_users_per_day, by = "date") %>%
       dplyr::full_join(date_base(), by = "date") %>%
       tidyr::replace_na(list(users = 0, new_users = 0)) %>%
