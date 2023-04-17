@@ -26,7 +26,7 @@ get_users_per_day <- function(log_data) {
     dplyr::mutate(
       user_type = dplyr::if_else(is.na(.data$username), "anonymous", "users")
     ) %>%
-    dplyr::group_by(.data$date, user_type) %>%
+    dplyr::group_by(.data$date, .data$user_type) %>%
     dplyr::summarise(users = dplyr::n()) %>%
     tidyr::pivot_wider(names_from = "user_type", values_from = "users") %>%
     # Make sure every day has values for anonymous and users columns
@@ -95,7 +95,7 @@ get_active_users <- function(log_data) {
 }
 
 get_per_day_plot_data <- function(base, per_day) {
-  metadata <- tibble::tribble(
+  metadata <- dplyr::tribble(
     ~index,      ~color,    ~id, ~statistic,
     "users",     "#fbbd08",  1L, "logged users (unique)",
     "anonymous", "#b21e1e",  1L, "anonymous users (unique)",
@@ -189,7 +189,7 @@ prepare_admin_panel_components <- function(
     }
 
     plot_arguments <- plot_data %>%
-      dplyr::group_by(id) %>%
+      dplyr::group_by(.data$id) %>%
       dplyr::group_map(function(x, ...) {
         x %>%
         plotly::plot_ly(
@@ -199,7 +199,7 @@ prepare_admin_panel_components <- function(
       })
 
     plot_arguments$nrows <- n_plots
-    plot_arguments$shareX = TRUE
+    plot_arguments$shareX <- TRUE
 
     do.call(plotly::subplot, plot_arguments) %>%
       plotly::layout(
@@ -345,7 +345,6 @@ prepare_admin_panel_components <- function(
       dplyr::filter(.data$type == "login") %>%
       dplyr::as_tibble() %>%
       dplyr::group_by(.data$date) %>%
-      dplyr::filter(type == "login") %>%
       tidyr::nest(data = c("username"))
 
     nested_users_data$new_users <- nested_users_data$data %>%
