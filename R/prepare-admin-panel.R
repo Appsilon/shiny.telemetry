@@ -20,11 +20,22 @@ date_filters <- function() {
 
 get_users_per_day <- function(log_data) {
   log_data %>%
-    dplyr::select("date", "username") %>%
+    dplyr::select("date", "username", "session") %>%
     dplyr::distinct() %>%
-    dplyr::select("date") %>%
-    dplyr::group_by(.data$date) %>%
-    dplyr::summarise(users = dplyr::n())
+    # Create anonymous or users type
+    dplyr::mutate(
+      user_type = dplyr::if_else(is.na(.data$username), "anonymous", "users")
+    ) %>%
+    dplyr::group_by(.data$date, user_type) %>%
+    dplyr::summarise(users = dplyr::n()) %>%
+    tidyr::pivot_wider(names_from = "user_type", values_from = "users") %>%
+    # Make sure every day has values for anonymous and users columns
+    dplyr::bind_rows(
+      dplyr::tibble(anonymous = integer(0), users = integer(0))
+      ) %>%
+    dplyr::mutate(
+      dplyr::across(dplyr::where(is.integer), ~tidyr::replace_na(.x, 0))
+    )
 }
 
 get_sessions_per_day <- function(log_data) {
@@ -41,10 +52,7 @@ get_time_per_day <- function(log_data) {
     dplyr::mutate(time = as.POSIXct(.data$time)) %>%
     dplyr::group_by(.data$date, .data$session) %>%
     dplyr::summarise(
-      time = round(
-        as.numeric(max(.data$time) - min(.data$time), units = "hours"),
-        2
-      )
+      time = as.numeric(max(.data$time) - min(.data$time), units = "hours")
     ) %>%
     dplyr::group_by(.data$date) %>%
     dplyr::summarise(time = mean(.data$time))
@@ -87,24 +95,22 @@ get_active_users <- function(log_data) {
 }
 
 get_per_day_plot_data <- function(base, per_day) {
+  metadata <- tibble::tribble(
+    ~index,      ~color,    ~id, ~statistic,
+    "users",     "#fbbd08",  1L, "logged users (unique)",
+    "anonymous", "#b21e1e",  1L, "anonymous users (unique)",
+    "type",      "#00827c",  3L, "total navigations and inputs",
+    "sessions",  "#1a69a4",  1L, "total opened sessions",
+    "time",      "#fa23f3",  2L, "avg session time (hours)"
+  )
+
   dplyr::left_join(base, per_day, by = "date") %>%
     tidyr::pivot_longer(
-      c(-"date"), names_to = "statistic", values_to = "value"
+      c(-"date"), names_to = "index", values_to = "value"
     ) %>%
-    dplyr::arrange(.data$date, .data$statistic, .data$value) %>%
+    dplyr::arrange(.data$date, .data$index, .data$value) %>%
     tidyr::replace_na(list(value = 0)) %>%
-    dplyr::mutate(id = dplyr::case_when(
-      statistic == "users" ~ 1L,
-      statistic == "action" ~ 3L,
-      statistic == "sessions" ~ 1L,
-      statistic == "time" ~ 2L
-    )) %>%
-    dplyr::mutate(statistic = dplyr::case_when(
-      statistic == "users" ~ "logged users (unique)",
-      statistic == "action" ~ "total navigations and inputs",
-      statistic == "sessions" ~ "total opened sessions",
-      statistic == "time" ~ "avg session time (hours)"
-    ))
+    dplyr::left_join(metadata, by = "index")
 }
 
 #' prepare_admin_panel_components
@@ -181,14 +187,21 @@ prepare_admin_panel_components <- function(
         font = list(size = 16)
       )
     }
-    plot_data %>%
-      plotly::plot_ly(
-        x = ~date, y = ~value, color = ~statistic,
-        colors = c("#fbbd08", "#b21e1e", "#00827c", "#1a69a4"),
-        yaxis = ~paste0("y", id)
-      ) %>%
-      plotly::add_bars() %>%
-      plotly::subplot(nrows = n_plots, shareX = TRUE) %>%
+
+    plot_arguments <- plot_data %>%
+      dplyr::group_by(id) %>%
+      dplyr::group_map(function(x, ...) {
+        x %>%
+        plotly::plot_ly(
+          x = ~date, y = ~value, color = ~statistic, colors = ~color
+        ) %>%
+          plotly::add_bars()
+      })
+
+    plot_arguments$nrows <- n_plots
+    plot_arguments$shareX = TRUE
+
+    do.call(plotly::subplot, plot_arguments) %>%
       plotly::layout(
         legend = list(orientation = "h"),
         xaxis = list(
