@@ -20,6 +20,16 @@ test_common <- function(data_storage) {
   expect_true(checkmate::test_tibble(user_data_empty))
   expect_equal(NROW(user_data_empty), 0)
 
+  #
+  # Required fields when reading data (without any rows in data storage)
+  #  username, id and value are not stored directly, but within details field
+  user_data_empty %>%
+    colnames() %>%
+    sort() %>%
+    expect_equal(c(
+      "app_name", "date", "id", "session", "time", "type", "username", "value"
+    ))
+
   # Write and read data
   expect_error(data_storage$insert(), arg_missing_msg("app_name"))
   expect_error(data_storage$insert("dash"), arg_missing_msg("type"))
@@ -54,9 +64,20 @@ test_common <- function(data_storage) {
   expect_true(checkmate::test_tibble(user_data))
   expect_equal(NROW(user_data), 4)
 
+  # Empty call (no dates)
   data_storage$read_event_data() %>%
     NROW() %>%
     expect_equal(4)
+
+  #
+  # Required fields when reading data
+  #  username, id and value are not stored directly, but within details field
+  data_storage$read_event_data() %>%
+    colnames() %>%
+    sort() %>%
+    expect_equal(c(
+      "app_name", "date", "id", "session", "time", "type", "username", "value"
+    ))
 
   data_storage$insert(
     app_name = app_name,

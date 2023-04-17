@@ -50,6 +50,7 @@ test_that("Telemetry logs events to storage and reads (integration)", {
   telemetry$log_click(id = "manual_click", session = session)
 
   telemetry$log_login(session = session)
+  telemetry$log_login("ben", session = session)
   telemetry$log_logout(session = session)
 
   telemetry$log_button(input_id = "sample_button", session = session)
@@ -106,7 +107,7 @@ test_that("Telemetry logs events to storage and reads (integration)", {
 
   results <- data_storage$read_event_data(date_from, date_to)
 
-  expect_equal(NROW(results), 11)
+  expect_equal(NROW(results), 12)
 
   results %>%
     dplyr::filter(.data$id == "sample_a") %>%
@@ -148,9 +149,18 @@ test_that("Telemetry logs events to storage and reads (integration)", {
     purrr::pluck("value") %>%
     expect_equal("Chrome 108")
 
-
   results %>%
     dplyr::filter(.data$type == "login") %>%
+    NROW() %>%
+    expect_equal(2)
+
+  results %>%
+    dplyr::filter(.data$type == "login", is.na(username)) %>%
+    NROW() %>%
+    expect_equal(1)
+
+  results %>%
+    dplyr::filter(.data$type == "login", username == "ben") %>%
     NROW() %>%
     expect_equal(1)
 
