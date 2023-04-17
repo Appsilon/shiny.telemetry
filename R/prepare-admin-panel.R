@@ -335,13 +335,17 @@ prepare_admin_panel_components <- function(
 
   users_plot_data <- shiny::reactive({
     total_users_per_day <- selected_log_data() %>%
+      dplyr::filter(.data$type == "login") %>%
       dplyr::select("date", "username") %>%
       dplyr::distinct() %>%
       dplyr::group_by(.data$date) %>%
       dplyr::summarise(users = dplyr::n())
 
-    nested_users_data <- dplyr::as_tibble(selected_log_data()) %>%
+    nested_users_data <- selected_log_data() %>%
+      dplyr::filter(.data$type == "login") %>%
+      dplyr::as_tibble() %>%
       dplyr::group_by(.data$date) %>%
+      dplyr::filter(type == "login") %>%
       tidyr::nest(data = c("username"))
 
     nested_users_data$new_users <- nested_users_data$data %>%
