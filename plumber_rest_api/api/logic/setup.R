@@ -9,6 +9,7 @@ box::use(
   purrr[pluck, set_names],
   stringr[str_trim, str_sub],
   logger[log_warn, log_debug, log_info],
+  dplyr[`%>%`],
 )
 
 STORAGE_METHODS <- list(
@@ -64,9 +65,9 @@ setup_secrets <- function(tokens_raw) {
     return(NULL)
   }
 
-  str_trim(tokens_raw) |>
-    strsplit(" +") |>
-    pluck(1) |>
+  str_trim(tokens_raw) %>%
+    strsplit(" +") %>%
+    pluck(1) %>%
     set_names(~sapply(., shiny.telemetry::build_id_from_secret))
 }
 

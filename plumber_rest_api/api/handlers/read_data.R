@@ -3,6 +3,7 @@ box::use(
   shiny.telemetry[build_token, date_from_null, date_to_null],
   jsonlite[serializeJSON, unbox],
   logger[log_info, log_debug, log_error, log_warn],
+  dplyr[`%>%`],
 )
 
 box::use(
@@ -50,7 +51,7 @@ handler <- function(from, to, token, id, FUN) {
 
   list(
     status = 200,
-    result = FUN(from, to) |>
+    result = FUN(from, to) %>%
       serializeJSON()
   )
 }

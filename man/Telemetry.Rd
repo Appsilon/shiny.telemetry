@@ -34,11 +34,11 @@ telemetry <- Telemetry$new(
 \dontrun{
 telemetry$start_session(logout = FALSE)
 
-telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01") |> tail()
+telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01") \%>\% tail()
 
 telemetry$start_session(logout = FALSE)
 
-telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01") |> tail()
+telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01") \%>\% tail()
 }
 }
 \seealso{

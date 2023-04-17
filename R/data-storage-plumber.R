@@ -150,12 +150,12 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
 
       logger::log_debug(
        "values (names): ({NROW(names(values))}) ",
-       "{names(values) |> paste(collapse = \",\")}",
+       "{names(values) %>% paste(collapse = \",\")}",
        namespace = "shiny.telemetry"
       )
       logger::log_debug(
         "values (class): ({NROW(values)}) ",
-        "{sapply(values, class) |> paste(collapse = \", \")}",
+        "{sapply(values, class) %>% paste(collapse = \", \")}",
         namespace = "shiny.telemetry"
       )
       logger::log_debug(
@@ -165,7 +165,7 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
         "  values,",
         "  ~ substr(",
         "    digest::digest(.x, algo = 'sha256'), start = 1, stop = 6)",
-        "  ) |> ",
+        "  ) %>% ",
         "paste(collapse = \", \")",
         "}",
         namespace = "shiny.telemetry"
