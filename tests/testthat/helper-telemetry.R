@@ -1,13 +1,6 @@
-# Test that performs integration checks on how Telemetry class works with a
-#  valid data storage provider.
-test_that("Telemetry logs events to storage and reads (integration)", {
-  event_file_path <- tempfile(fileext = ".txt")
+test_common_telemetry <- function(data_storage) {
+  require(testthat)
 
-  withr::defer({
-    if (file.exists(event_file_path)) file.remove(event_file_path)
-  })
-
-  data_storage <- DataStorageLogFile$new(log_file_path = event_file_path)
   telemetry <- Telemetry$new(data_storage = data_storage)
 
   testthat::local_mocked_bindings(
@@ -32,6 +25,8 @@ test_that("Telemetry logs events to storage and reads (integration)", {
     .package = "shiny"
   )
 
+  date_from <- Sys.Date() - 365 * 10
+  date_to <- Sys.Date() + 10
 
   session <- shiny::MockShinySession$new()
   class(session) <- c(class(session), "ShinySession")
@@ -101,10 +96,6 @@ test_that("Telemetry logs events to storage and reads (integration)", {
     session = session
   )
 
-
-  date_from <- Sys.Date() - 365 * 10
-  date_to <- Sys.Date() + 10
-
   results <- data_storage$read_event_data(date_from, date_to)
 
   expect_equal(NROW(results), 12)
@@ -149,19 +140,20 @@ test_that("Telemetry logs events to storage and reads (integration)", {
     purrr::pluck("value") %>%
     expect_equal("Chrome 108")
 
+
   results %>%
     dplyr::filter(.data$type == "login") %>%
     NROW() %>%
     expect_equal(2)
 
   results %>%
-    dplyr::filter(.data$type == "login", is.na(username)) %>%
+    dplyr::filter(.data$type == "login", is.na(.data$username)) %>%
     NROW() %>%
     expect_equal(1)
 
   results %>%
-    dplyr::filter(.data$type == "login", username == "ben") %>%
+    dplyr::filter(.data$type == "login", .data$username == "ben") %>%
     NROW() %>%
     expect_equal(1)
 
-})
+}

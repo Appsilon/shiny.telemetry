@@ -13,7 +13,7 @@ logger::log_threshold(logger::FATAL, namespace = "shiny.telemetry")
 
 Sys.setenv(R_CONFIG_ACTIVE = "test")
 
-test_that("DataStoragePlumber should be able to insert and read", {
+test_that("[Plumber] DataStorage should be able to insert and read", {
   db_path <- tempfile(pattern = "events", fileext = ".sqlite")
 
   old_env <- capture_evironment_variables(
@@ -74,7 +74,7 @@ test_that("DataStoragePlumber should be able to insert and read", {
     .package = "httr2"
   )
 
-  test_common(data_storage)
+  test_common_data_storage(data_storage)
 })
 
 test_that("Plumber API works", {
