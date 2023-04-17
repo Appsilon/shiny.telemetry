@@ -4,7 +4,7 @@ date_filters <- function() {
       shiny::tags$div(shiny::HTML("From")),
       shiny.semantic::date_input(
         "date_from",
-        value = Sys.Date() - 30,
+        value = lubridate::today(tzone = "UTC") - 30,
         icon = NULL,
         style = "width: 135px;"
       )
@@ -12,7 +12,7 @@ date_filters <- function() {
     shiny::tags$div(
       shiny::tags$div(shiny::HTML("To")),
       shiny.semantic::date_input(
-        "date_to", value = Sys.Date(), icon = NULL, style = "width: 135px;"
+        "date_to", value = lubridate::today(tzone = "UTC"), icon = NULL, style = "width: 135px;"
       )
     )
   )
@@ -759,8 +759,8 @@ prepare_admin_panel_components <- function(
 
   output$sessions_general <- timevis::renderTimevis({
     timevis::timevis(sessions_data(), options = list(
-      start = as.POSIXct(sprintf("%s 00:00:00", as.Date(sessions_data()$end) - 1)),
-      end = as.POSIXct(as.Date(sessions_data()$end) + 1),
+      start = lubridate::as_date(sessions_data()$end) - 1,
+      end = lubridate::as_date(sessions_data()$end) + 1,
       margin = list(item = 0.5)
     ))
   })
@@ -768,6 +768,7 @@ prepare_admin_panel_components <- function(
   sessions_summary <- shiny::reactive({
     selected_log_data() %>%
       dplyr::group_by(.data$session) %>%
+      tidyr::fill("username") %>%
       dplyr::summarise(
         username = unique(.data$username),
         session_start_date = min(.data$time),

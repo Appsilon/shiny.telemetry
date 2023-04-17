@@ -1,5 +1,6 @@
 CMD
 DataStorage
+DataStorageSQLite
 JSON
 Javascript
 Logfile
@@ -15,7 +16,9 @@ customizable
 filesystem
 hostname
 json
+lubridate
 runApp
 sqlfile
 sqlite
+tzone
 ℹ️

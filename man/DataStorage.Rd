@@ -60,8 +60,8 @@ event was logged}
 
 \item{\code{time}}{date time value indicates the moment the record was
 generated in UTC. By default it should be NULL and determined
-automatically, but in cases where it should be defined, use Sys.time()
-to generate it.}
+automatically, but in cases where it should be defined, use `Sys.time()`
+or `lubridate::now(tzone = "UTC")` to generate it.}
 }
 \if{html}{\out{</div>}}
 }
@@ -70,17 +70,18 @@ to generate it.}
 \if{html}{\out{<a id="method-DataStorage-read_event_data"></a>}}
 \if{latex}{\out{\hypertarget{method-DataStorage-read_event_data}{}}}
 \subsection{Method \code{read_event_data()}}{
-read all user data from SQLite
+read all user data from SQLite.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorage$read_event_data(date_from, date_to)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorage$read_event_data(date_from = NULL, date_to = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{date_from}}{date representing the starting day of results}
+\item{\code{date_from}}{(optional) date representing the starting day of
+results.}
 
-\item{\code{date_to}}{date representing the last day of results}
+\item{\code{date_to}}{(optional) date representing the last day of results.}
 }
 \if{html}{\out{</div>}}
 }

@@ -43,3 +43,11 @@ build_id_from_secret <- function(secret) {
   digest::digest(secret, algo = "sha256") %>%
     substr(start = 1, stop = 8)
 }
+
+#' Common date_from to recognize as NULL
+#' @export
+date_from_null <- "0000-01-01"
+
+#' Common date_to to recognize as NULL
+#' @export
+date_to_null <- "9999-12-31"

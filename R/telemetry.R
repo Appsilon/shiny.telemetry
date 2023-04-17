@@ -395,9 +395,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     log_input_manual = function(
       input_id, value = NULL, session = shiny::getDefaultReactiveDomain()
     ) {
+      checkmate::assert_string(input_id)
+
       logger::log_debug(
         "event: input '{input_id}' change: ",
-        "{dplyr::coalesce(value, \"'NULL' (note: it might not be tracked)\")}",
+        "{dplyr::coalesce(as.character(value), \"'NULL' (note: it might not be tracked)\")}",
         namespace = "shiny.telemetry"
       )
 

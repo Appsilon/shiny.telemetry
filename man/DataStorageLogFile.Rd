@@ -9,14 +9,20 @@ API for read/write operations
 }
 \examples{
 data_storage <- DataStorageLogFile$new(
-  log_file_path = tempfile(pattern = "user_stats", fileext = ".json")
+  log_file_path = tempfile(pattern = "user_stats", fileext = ".txt")
 )
 
 data_storage$insert("example", "test_event", "session1")
 data_storage$insert("example", "input", "s1", list(id = "id"))
 data_storage$insert("example", "input", "s1", list(id = "id2", value = 32))
 
-data_storage$read_event_data(Sys.Date() - 365, Sys.Date() + 365)
+data_storage$insert(
+  "example", "test_event_3_days_ago", "session1",
+  time = lubridate::as_datetime(lubridate::today() - 3)
+)
+
+data_storage$read_event_data()
+data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageLogFile}

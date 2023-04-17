@@ -8,8 +8,8 @@ test_common <- function(data_storage) {
 
   # Necessary constants for the tests
 
-  date_from <- Sys.Date() - 365 * 10
-  date_to <- Sys.Date() + 10
+  date_from <- lubridate::today(tzone = "UTC") - 365 * 10
+  date_to <- lubridate::today(tzone = "UTC") + 10
 
   app_name <- "test_dashboard"
 
@@ -53,4 +53,38 @@ test_common <- function(data_storage) {
 
   expect_true(checkmate::test_tibble(user_data))
   expect_equal(NROW(user_data), 4)
+
+  data_storage$read_event_data() %>%
+    NROW() %>%
+    expect_equal(4)
+
+  data_storage$insert(
+    app_name = app_name,
+    type = "click",
+    details = list(id = "some_button_id_2"),
+    session = "some_session_id",
+    time = lubridate::as_datetime(lubridate::today() + 5)
+  ) %>% expect_silent()
+
+  data_storage$insert(
+    app_name = app_name,
+    type = "click",
+    details = list(id = "some_button_id_2"),
+    session = "some_session_id",
+    time = lubridate::as_datetime(lubridate::today() + 1)
+  ) %>% expect_silent()
+
+  data_storage$read_event_data(
+    lubridate::today() + 1,
+    lubridate::today() + 5
+  ) %>%
+    NROW() %>%
+    expect_equal(2)
+
+  data_storage$read_event_data(
+    lubridate::today() + 2,
+    lubridate::today() + 5
+  ) %>%
+    NROW() %>%
+    expect_equal(1)
 }
