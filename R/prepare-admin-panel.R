@@ -335,6 +335,7 @@ prepare_admin_panel_components <- function(
 
   users_plot_data <- shiny::reactive({
     total_users_per_day <- selected_log_data() %>%
+      dplyr::arrange(.data$date) %>%
       dplyr::filter(.data$type == "login") %>%
       dplyr::select("date", "username") %>%
       dplyr::distinct() %>%
@@ -345,23 +346,25 @@ prepare_admin_panel_components <- function(
       dplyr::filter(.data$type == "login") %>%
       dplyr::as_tibble() %>%
       dplyr::group_by(.data$date) %>%
-      tidyr::nest(data = c("username"))
+      dplyr::arrange(.data$date)
 
-    nested_users_data$new_users <- nested_users_data$data %>%
-      purrr::map(function(x) unique(unlist(x))) %>%
-      (function(.dot) {
-        Reduce(union, .dot, accumulate = TRUE)
-      })() %>%
+    nested_users_data$new_users <- nested_users_data$username %>%
+      purrr::accumulate(union) %>%
       purrr::map(length) %>%
-      (function(.dot) {
-        c(.dot[[1]], diff(unlist(.dot)))
-      })()
+      unlist() %>%
+      diff() %>%
+      purrr::prepend(1)
 
     nested_users_data %>%
-      dplyr::select(-"data") %>%
+      dplyr::distinct(username, date, new_users) %>%
       dplyr::full_join(total_users_per_day, by = "date") %>%
       dplyr::full_join(date_base(), by = "date") %>%
       tidyr::replace_na(list(users = 0, new_users = 0)) %>%
+      dplyr::group_by(date) %>%
+      dplyr::summarise(
+        new_users = sum(.data$new_users),
+        users = max(.data$users)
+      ) %>%
       dplyr::mutate(previous_users = .data$users - .data$new_users)
   })
 
