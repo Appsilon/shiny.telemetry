@@ -35,34 +35,42 @@ test_that("get_per_day_plot_data", {
   base <- data.frame(date = date_initial)
 
   per_day <- dplyr::tribble(
-    ~date,                 ~users, ~sessions, ~time, ~action,
-    date_initial + 0,      3,         4,     0,        5,
-    date_initial + 1,     31,        41,     8,       99
+    ~date,            ~anonymous, ~users, ~sessions, ~time, ~type,
+    date_initial + 0,          1,      3,         4,     0,        5,
+    date_initial + 1,          1,     31,        41,     8,       99
   )
 
   per_day_plot_data <- dplyr::tribble(
-    ~date,            ~statistic,                     ~value, ~id,
-    date_initial + 0, "logged users (unique)",             3,   1,
-    date_initial + 0, "total opened sessions",             4,   1,
-    date_initial + 0, "avg session time (hours)",          0,   2,
-    date_initial + 0, "total navigations and inputs",      5,   3,
+    ~date,            ~statistic,                     ~value, ~id, ~index,
+    date_initial + 0, "logged users (unique)",             3,   1, "users",
+    date_initial + 0, "anonymous users (unique)",          1,   1, "anonymous",
+    date_initial + 0, "total opened sessions",             4,   1, "sessions",
+    date_initial + 0, "avg session time (hours)",          0,   2, "time",
+    date_initial + 0, "total navigations and inputs",      5,   3, "type",
     #
-    date_initial + 1, "logged users (unique)",            31,   1,
-    date_initial + 1, "total opened sessions",            41,   1,
-    date_initial + 1, "avg session time (hours)",          8,   2,
-    date_initial + 1, "total navigations and inputs",     99,   3,
+    date_initial + 1, "logged users (unique)",            31,   1, "users",
+    date_initial + 1, "anonymous users (unique)",          1,   1, "anonymous",
+    date_initial + 1, "total opened sessions",            41,   1, "sessions",
+    date_initial + 1, "avg session time (hours)",          8,   2, "time",
+    date_initial + 1, "total navigations and inputs",     99,   3, "type",
     #
-    date_initial + 2, "logged users (unique)",             0,   1,
-    date_initial + 2, "total opened sessions",             0,   1,
-    date_initial + 2, "avg session time (hours)",          0,   2,
-    date_initial + 2, "total navigations and inputs",      0,   3
-  ) %>%
-    dplyr::arrange(dplyr::across(tidyr::matches("[a-zA-Z]")))
+    date_initial + 2, "logged users (unique)",             0,   1, "users",
+    date_initial + 2, "anonymous users (unique)",          0,   1, "anonymous",
+    date_initial + 2, "total opened sessions",             0,   1, "sessions",
+    date_initial + 2, "avg session time (hours)",          0,   2, "time",
+    date_initial + 2, "total navigations and inputs",      0,   3, "type",
+  )
 
   expect_equal(
     get_per_day_plot_data(base, per_day) %>%
-      dplyr::arrange(dplyr::across(tidyr::matches("[a-zA-Z]"))),
-    per_day_plot_data %>% dplyr::filter(date == date_initial)
+      dplyr::select(-"color") %>%
+      dplyr::arrange(dplyr::across(all_of(c("date", "index")))) %>%
+      dplyr::select(sort(colnames(per_day_plot_data))),
+
+    per_day_plot_data %>%
+      dplyr::filter(date == date_initial) %>%
+      dplyr::arrange(dplyr::across(all_of(c("date", "index")))) %>%
+      dplyr::select(sort(colnames(per_day_plot_data)))
   )
 
   # 2 days
@@ -70,8 +78,12 @@ test_that("get_per_day_plot_data", {
 
   expect_equal(
     get_per_day_plot_data(base2, per_day) %>%
-      dplyr::arrange(dplyr::across(tidyr::matches("[a-zA-Z]"))),
-    per_day_plot_data,
+      dplyr::select(-"color") %>%
+      dplyr::arrange(dplyr::across(all_of(c("date", "index")))) %>%
+      dplyr::select(sort(colnames(per_day_plot_data))),
+    per_day_plot_data %>%
+      dplyr::arrange(dplyr::across(all_of(c("date", "index")))) %>%
+      dplyr::select(sort(colnames(per_day_plot_data))),
     ignore_attr = TRUE
   )
 })
