@@ -53,10 +53,8 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
           time = lubridate::as_datetime(.data$time)
         )
 
-      if (NROW(db_data) > 0) {
-        return(db_data)
-      }
-
+      # Ensure standard value types always return on resutls
+      #  :: (id, value, username)
       db_data %>%
         dplyr::bind_rows(dplyr::tibble(
           time = as.POSIXct(character(0)),

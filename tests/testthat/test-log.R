@@ -34,6 +34,18 @@ test_that("Telemetry tests with mock data_storage layer", {
   )
 
   #
+  # Test login and logout (last one shouldn't produce anything)
+
+  telemetry$log_login(
+    username = "ben",
+    session = session
+  ) %>% expect_message("Writing type=login value: .*\"username\":\"ben\".*")
+
+  telemetry$log_logout(
+    session = session
+  ) %>% expect_silent()
+
+  #
   # Test simple usage of log_input
   session$setInputs(sample = 53, sample2 = 31)
 
