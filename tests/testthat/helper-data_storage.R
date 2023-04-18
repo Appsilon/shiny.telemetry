@@ -2,7 +2,7 @@ arg_missing_msg <- function(var_name) {
   glue::glue("argument \"{var_name}\" is missing, with no default")
 }
 
-test_common <- function(data_storage) {
+test_common_data_storage <- function(data_storage) {
   require(testthat)
   withr::defer(data_storage$close())
 

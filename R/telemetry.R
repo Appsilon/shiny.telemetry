@@ -20,26 +20,41 @@
 #' @export
 #' @examples
 #' telemetry <- Telemetry$new(
-#'   data_storage = DataStorageSQLite$new(
-#'     db_path = tempfile(pattern = "telemetry", fileext = ".sqlite")
-#'   )
-#' )
-#'
-#' telemetry <- Telemetry$new(
 #'   data_storage = DataStorageLogFile$new(
 #'     log_file_path = tempfile(pattern = "user_stats", fileext = ".txt")
 #'   )
 #' )
 #'
-#' \dontrun{
-#' telemetry$start_session(logout = FALSE)
+#' #
+#' # Create dummy session (only for example purposes)
+#' session <- shiny::MockShinySession$new()
+#' class(session) <- c(class(session), "ShinySession")
 #'
-#' telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01") %>% tail()
+#' telemetry$start_session(session = session)
 #'
-#' telemetry$start_session(logout = FALSE)
+#' telemetry$log_click("a_button", session = session)
 #'
-#' telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01") %>% tail()
-#' }
+#' telemetry$log_custom_event("a_button", list(value = 2023), session = session)
+#' telemetry$log_custom_event("a_button", list(custom_field = 23), session = session)
+#'
+#' # Manual call loging with custom username
+#' telemetry$log_login("ben", session = session)
+#'
+#' telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01")
+#'
+#' #
+#' # Using SQLite
+#'
+#' telemetry <- Telemetry$new(
+#'   data_storage = DataStorageSQLite$new(
+#'     db_path = tempfile(pattern = "telemetry", fileext = ".sqlite")
+#'   )
+#' )
+#'
+#' telemetry$log_custom_event("a_button", list(value = 2023), session = session)
+#' telemetry$log_custom_event("a_button", list(custom_field = 23), session = session)
+#'
+#' telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01")
 Telemetry <- R6::R6Class( # nolint object_name_linter
   classname = "Telemetry",
   public = list(

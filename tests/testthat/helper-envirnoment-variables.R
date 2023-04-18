@@ -4,10 +4,13 @@
 #' capture_evironment_variables(c("Z_AAA", "Z_BBB"))
 capture_evironment_variables <- function(...) {
   var_names <- list(...)
-  var_names %>% purrr::map(
-    ~ Sys.getenv(.x)
-  ) %>%
-    rlang::set_names(var_names)
+  rlang::set_names(
+    purrr::map(
+      var_names,
+      ~ Sys.getenv(.x)
+    ),
+    var_names
+  )
 }
 
 #'
