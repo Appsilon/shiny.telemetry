@@ -20,6 +20,7 @@ Suggests:
     spelling,
     rcmdcheck,
     RPostgreSQL,
+    RMariaDB,
     timevis,
     RColorBrewer,
     plotly,
