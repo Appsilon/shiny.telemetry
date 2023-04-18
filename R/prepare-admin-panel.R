@@ -841,8 +841,8 @@ prepare_admin_panel_components <- function(
 
   output$sessions_general <- timevis::renderTimevis({
     timevis::timevis(sessions_data(), options = list(
-      start = lubridate::as_date(sessions_data()$end) - 1,
-      end = lubridate::as_date(sessions_data()$end) + 1,
+      start = min(lubridate::as_date(sessions_data()$start)) - 1,
+      end = max(lubridate::as_date(sessions_data()$end)) + 1,
       margin = list(item = 0.5)
     ))
   })
@@ -895,8 +895,8 @@ prepare_admin_panel_components <- function(
   output$session_actions <- timevis::renderTimevis({
     shiny::validate(shiny::need(selected_session_data(), label = "selected_session"))
     timevis::timevis(selected_session_data(), options = list(
-      start = min(selected_session_data()$time),
-      end = max(selected_session_data()$time)
+      start = min(lubridate::as_date(selected_session_data()$time)) - 1,
+      end = max(lubridate::as_date(selected_session_data()$time)) + 1
     ))
   })
 }
