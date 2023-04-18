@@ -1990,8 +1990,8 @@
       }
     },
     "processx": {
-      "Source": "RSPM",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2324,8 +2324,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "dc1c82bd8d0dd63a3d2456690c073486abf1917e",
-      "GithubSha1": "dc1c82bd8d0dd63a3d2456690c073486abf1917e",
+      "GithubRef": "c13e43c4c21efcc3ff4711fee63943f378edef31",
+      "GithubSha1": "c13e43c4c21efcc3ff4711fee63943f378edef31",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2342,18 +2342,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-18 08:41:11 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-18 12:37:10 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "dc1c82bd8d0dd63a3d2456690c073486abf1917e",
-        "RemoteSha": "dc1c82bd8d0dd63a3d2456690c073486abf1917e",
+        "RemoteRef": "c13e43c4c21efcc3ff4711fee63943f378edef31",
+        "RemoteSha": "c13e43c4c21efcc3ff4711fee63943f378edef31",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "dc1c82bd8d0dd63a3d2456690c073486abf1917e",
-        "GithubSHA1": "dc1c82bd8d0dd63a3d2456690c073486abf1917e"
+        "GithubRef": "c13e43c4c21efcc3ff4711fee63943f378edef31",
+        "GithubSHA1": "c13e43c4c21efcc3ff4711fee63943f378edef31"
       }
     },
     "sodium": {
@@ -2959,7 +2959,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "231e02d0c33b0f32c07752fc0f824d2a"
+      "checksum": "30764793dd8b20030fdc7b9d24bdfb41"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"
