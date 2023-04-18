@@ -15,7 +15,7 @@ library(DT)
 # Please install shiny.telemetry with all dependencies
 library(shiny.telemetry)
 
-# Default storage backend using LogFile
+# Default storage backend using PostgreSQL
 data_storage <- DataStoragePostgreSQL$new(
   user = "postgres", password = "mysecretpassword"
 )

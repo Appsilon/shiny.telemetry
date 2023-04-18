@@ -48,7 +48,7 @@ ui <- dashboardPage(
         segment(
           class = "basic",
           h3("Sample application instrumented by Shiny.telemetry"),
-          p(glue::glue("Note: using MariaDB as data backend.")),
+          p(glue::glue("Note: using PostgreSQL as data backend.")),
           p("Information logged:"),
           tags$ul(
             tags$li("Start of session"),
@@ -74,7 +74,7 @@ ui <- dashboardPage(
   )
 )
 
-# Default Telemetry with data storage backend using MariaDB
+# Default Telemetry with data storage backend using PostgreSQL
 telemetry <- Telemetry$new(
   app_name = "demo",
   data_storage = DataStoragePostgreSQL$new(
