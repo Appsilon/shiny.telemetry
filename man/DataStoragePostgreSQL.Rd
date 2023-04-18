@@ -55,7 +55,7 @@ Initialize the data storage class
   password = NULL,
   hostname = "127.0.0.1",
   port = 5432,
-  db_name = "shiny_telemetry"
+  dbname = "shiny_telemetry"
 )}\if{html}{\out{</div>}}
 }
 
@@ -70,7 +70,7 @@ Initialize the data storage class
 
 \item{\code{port}}{numeric value with the port number of PostgreSQL instance.}
 
-\item{\code{db_name}}{string with the name of the databse in the PostgreSQL
+\item{\code{dbname}}{string with the name of the database in the PostgreSQL
 instance.}
 }
 \if{html}{\out{</div>}}

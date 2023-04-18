@@ -36,7 +36,7 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
     #' @param password string with the password for the username.
     #' @param hostname string with hostname of PostgreSQL instance.
     #' @param port numeric value with the port number of PostgreSQL instance.
-    #' @param db_name string with the name of the databse in the PostgreSQL
+    #' @param dbname string with the name of the database in the PostgreSQL
     #' instance.
 
     initialize = function(
@@ -44,24 +44,24 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
       password = NULL,
       hostname = "127.0.0.1",
       port = 5432,
-      db_name = "shiny_telemetry"
+      dbname = "shiny_telemetry"
     ) {
       super$initialize()
       checkmate::assert_string(password)
       checkmate::assert_string(username)
       checkmate::assert_string(hostname)
       checkmate::assert_int(port)
-      checkmate::assert_string(db_name)
+      checkmate::assert_string(dbname)
 
       logger::log_debug(
         "Parameters for PostgresSQL:\n",
         "  *          username: {username}\n",
         "  * password (sha256): {digest::digest(password, algo = 'sha256')}\n",
         "  *     hostname:port: {hostname}:{port}\n",
-        "  *           db name: {db_name}\n",
+        "  *           db name: {dbname}\n",
         namespace = "shiny.telemetry"
       )
-      private$connect(username, password, hostname, port, db_name)
+      private$connect(username, password, hostname, port, dbname)
       private$initialize_connection()
     }
 
@@ -75,13 +75,13 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
 
     # Private methods
 
-    connect = function(user, password, hostname, port, db_name) {
+    connect = function(user, password, hostname, port, dbname) {
       # Initialize connection with database
       private$db_con <- odbc::dbConnect(
         RPostgreSQL::PostgreSQL(),
         user = user,
         password = password,
-        dbname = db_name,
+        dbname = dbname,
         host = hostname,
         port = port
       )
