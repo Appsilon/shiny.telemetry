@@ -188,12 +188,35 @@ prepare_admin_panel_components <- function(
       )
     }
 
+    plot_data <- plot_data %>%
+      dplyr::mutate(
+        text = dplyr::if_else(
+          index == "time",
+          value %>%
+            round(digits = 5) %>%
+            lubridate::duration(unit = "hours") %>%
+            as.character(),
+          ""
+        ),
+        text = dplyr::if_else(
+          index == "time",
+          glue::glue("<br /><i>(around {text})</i>"),
+          ""
+        )
+      )
+
     plot_arguments <- plot_data %>%
       dplyr::group_by(.data$id) %>%
       dplyr::group_map(function(x, ...) {
         x %>%
         plotly::plot_ly(
-          x = ~date, y = ~value, color = ~statistic, colors = ~color
+          x = ~date, y = ~value, color = ~statistic, colors = ~color,
+          text = ~text,
+          hovertemplate = paste(
+            "%{label}",
+            "<br />Value: %{y}",
+            "%{text}"
+          )
         ) %>%
           plotly::add_bars()
       })
@@ -356,7 +379,7 @@ prepare_admin_panel_components <- function(
       purrr::prepend(1)
 
     nested_users_data %>%
-      dplyr::distinct("username", "date", "new_users") %>%
+      dplyr::distinct(.data$username, .data$date, .data$new_users) %>%
       dplyr::full_join(total_users_per_day, by = "date") %>%
       dplyr::full_join(date_base(), by = "date") %>%
       tidyr::replace_na(list(users = 0, new_users = 0)) %>%
@@ -412,14 +435,20 @@ prepare_admin_panel_components <- function(
   output$users_per_hour <- plotly::renderPlotly({
     colz <- prepare_color_scale(heatmap_data()$users, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(heatmap_data()$date))
-    plotly::plot_ly(heatmap_data(),
-                    x = ~date, y = ~day_hour, z = ~users,
-                    type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-                    text = ~paste(
-                      "Date:", date,
-                      "</br>Hour:", day_hour,
-                      "</br>Users: ", users
-                    )
+    plotly::plot_ly(
+      heatmap_data(),
+      x = ~date,
+      y = ~day_hour,
+      z = ~users,
+      type = "heatmap",
+      colorscale = colz,
+      showscale = FALSE,
+      hoverinfo = "text",
+      text = ~paste(
+        "<br />Date:", date,
+        "<br />Hour:", day_hour,
+        "<br />Users: ", users
+      )
     ) %>%
       plotly::layout(
         title = "Total users logged each hour", yaxis = list(title = ""),
@@ -470,14 +499,20 @@ prepare_admin_panel_components <- function(
   output$user_actions <- plotly::renderPlotly({
     colz <- prepare_color_scale(actions_per_users_data()$actions, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(actions_per_users_data()$date))
-    plotly::plot_ly(actions_per_users_data(),
-                    x = ~date, y = ~day_hour, z = ~actions,
-                    type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-                    text = ~paste(
-                      "Date:", date,
-                      "</br>Hour:", day_hour,
-                      "</br>Actions: ", actions
-                    )
+    plotly::plot_ly(
+      actions_per_users_data(),
+      x = ~date,
+      y = ~day_hour,
+      z = ~actions,
+      type = "heatmap",
+      colorscale = colz,
+      showscale = FALSE,
+      hoverinfo = "text",
+      text = ~paste(
+        "<br />Date:", date,
+        "<br />Hour:", day_hour,
+        "<br />Actions: ", actions
+      )
     ) %>%
       plotly::layout(
         yaxis = list(title = ""), title = "Operations performed by user each hour",
@@ -602,14 +637,20 @@ prepare_admin_panel_components <- function(
   output$global_action_plot <- plotly::renderPlotly({
     colz <- prepare_color_scale(global_action_data()$times, "Blues")
     x_axis_ticks <- prepare_date_axis_ticks(unique(global_action_data()$date))
-    plotly::plot_ly(global_action_data(),
-                    x = ~date, y = ~type, z = ~times,
-                    type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-                    text = ~paste(
-                      "Date:", date,
-                      "</br>Event:", type,
-                      "</br>Amount: ", times
-                    )
+    plotly::plot_ly(
+      global_action_data(),
+      x = ~date,
+      y = ~type,
+      z = ~times,
+      type = "heatmap",
+      colorscale = colz,
+      showscale = FALSE,
+      hoverinfo = "text",
+      text = ~paste(
+        "<br />Date:", date,
+        "<br />Event:", type,
+        "<br />Amount: ", times
+      )
     ) %>%
       plotly::layout(
         title = "Total actions performed each day", yaxis = list(title = ""),
@@ -690,7 +731,7 @@ prepare_admin_panel_components <- function(
       (function(.dot) {
         dplyr::left_join(id_date_base, .dot, by = c("id", "date"))
       })() %>%
-      dplyr::left_join(s_action_aggregated_data()) %>%
+      dplyr::left_join(s_action_aggregated_data(), by = "id") %>%
       tidyr::replace_na(list(times = 0)) %>%
       dplyr::mutate(
         input_label = sprintf("%s (total %s)", .data$id, .data$times_total)
@@ -698,14 +739,20 @@ prepare_admin_panel_components <- function(
 
     colz <- prepare_color_scale(heatmap_data()$users, "Blues")
 
-    plotly::plot_ly(id_data,
-                    x = ~date, y = ~input_label, z = ~times,
-                    type = "heatmap", colorscale = colz, showscale = FALSE, hoverinfo = "text",
-                    text = ~paste(
-                      "Date:", date,
-                      "</br>Input ID:", id,
-                      "</br>Amount: ", times
-                    )
+    plotly::plot_ly(
+      id_data,
+      x = ~date,
+      y = ~input_label,
+      z = ~times,
+      type = "heatmap",
+      colorscale = colz,
+      showscale = FALSE,
+      hoverinfo = "text",
+      text = ~paste(
+        "<br />Date:", date,
+        "<br />Input ID:", id,
+        "<br />Amount: ", times
+      )
     ) %>%
       plotly::layout(
         title = "Actions executed each day", yaxis = list(title = ""),
