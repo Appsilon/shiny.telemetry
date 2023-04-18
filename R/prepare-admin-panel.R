@@ -191,16 +191,16 @@ prepare_admin_panel_components <- function(
     plot_data <- plot_data %>%
       dplyr::mutate(
         text = dplyr::if_else(
-          index == "time",
-          value %>%
+          .data$index == "time",
+          .data$value %>%
             round(digits = 5) %>%
             lubridate::duration(unit = "hours") %>%
             as.character(),
           ""
         ),
         text = dplyr::if_else(
-          index == "time",
-          glue::glue("<br /><i>(around {text})</i>"),
+          .data$index == "time",
+          glue::glue("<br /><i>(around {.data$text})</i>"),
           ""
         )
       )
