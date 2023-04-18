@@ -17,6 +17,9 @@ build_query_sql(
 \item{date_from}{date representing the starting day of results. Can be NULL.}
 
 \item{date_to}{date representing the last day of results. Can be NULL.}
+
+\item{timestamp_wrapper}{string with function to wrap up seconds in database
+query}
 }
 \value{
 string with SQL query

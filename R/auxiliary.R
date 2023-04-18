@@ -3,6 +3,8 @@
 #' @param date_from date representing the starting day of results. Can be NULL.
 #' @param date_to date representing the last day of results. Can be NULL.
 #' @param bucket string with name of table
+#' @param timestamp_wrapper string with function to wrap up seconds in database
+#' query
 #'
 #' @return string with SQL query
 #'
