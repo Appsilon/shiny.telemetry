@@ -17,7 +17,7 @@ library(DT)
 library(shiny.telemetry)
 
 # Default storage backend using LogFile
-data_storage = DataStoragePostgres$new(
+data_storage = DataStoragePostgreSQL$new(
   user = "postgres", password = "mysecretpassword"
 )
 

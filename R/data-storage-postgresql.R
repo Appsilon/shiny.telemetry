@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' data_storage <- DataStoragePostgres$new(user = "postgres", password = "mysecretpassword")
+#' data_storage <- DataStoragePostgreSQL$new(user = "postgres", password = "mysecretpassword")
 #'
 #' data_storage$insert("example", "test_event", "session1")
 #' data_storage$insert("example", "input", "s1", list(id = "id1"))
@@ -23,8 +23,8 @@
 #' data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
 #' data_storage$close()
 #' }
-DataStoragePostgres <- R6::R6Class( # nolint object_name_linter
-  classname = "DataStoragePostgres",
+DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
+  classname = "DataStoragePostgreSQL",
   inherit = DataStorageSQLFamily,
   #
   # Public
@@ -32,19 +32,24 @@ DataStoragePostgres <- R6::R6Class( # nolint object_name_linter
 
     #' @description
     #' Initialize the data storage class
-    #' @param db_path string with path to sqlfile
+    #' @param username string with a PostgreSQL username.
+    #' @param password string with the password for the username.
+    #' @param hostname string with hostname of PostgreSQL instance.
+    #' @param port numeric value with the port number of PostgreSQL instance.
+    #' @param db_name string with the name of the databse in the PostgreSQL
+    #' instance.
 
     initialize = function(
       username = NULL,
       password = NULL,
-      host = "127.0.0.1",
+      hostname = "127.0.0.1",
       port = 5432,
       db_name = "shiny_telemetry"
     ) {
       super$initialize()
       checkmate::assert_string(password)
       checkmate::assert_string(username)
-      checkmate::assert_string(host)
+      checkmate::assert_string(hostname)
       checkmate::assert_int(port)
       checkmate::assert_string(db_name)
 
@@ -52,11 +57,11 @@ DataStoragePostgres <- R6::R6Class( # nolint object_name_linter
         "Parameters for PostgresSQL:\n",
         "  *          username: {username}\n",
         "  * password (sha256): {digest::digest(password, algo = 'sha256')}\n",
-        "  *         host:port: {host}:{port}\n",
+        "  *     hostname:port: {hostname}:{port}\n",
         "  *           db name: {db_name}\n",
         namespace = "shiny.telemetry"
       )
-      private$connect(username, password, host, port, db_name)
+      private$connect(username, password, hostname, port, db_name)
       private$initialize_connection()
     }
 
@@ -70,14 +75,14 @@ DataStoragePostgres <- R6::R6Class( # nolint object_name_linter
 
     # Private methods
 
-    connect = function(user, password, host, port, db_name) {
+    connect = function(user, password, hostname, port, db_name) {
       # Initialize connection with database
       private$db_con <- odbc::dbConnect(
         RPostgreSQL::PostgreSQL(),
         user = user,
         password = password,
         dbname = db_name,
-        host = host,
+        host = hostname,
         port = port
       )
     }

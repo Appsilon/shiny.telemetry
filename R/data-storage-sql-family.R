@@ -12,9 +12,8 @@ DataStorageSQLFamily <- R6::R6Class( # nolint object_name_linter
 
     #' @description
     #' Initialize the data storage class
-    #' @param db_path string with path to sqlfile
 
-    initialize = function(...) {
+    initialize = function() {
       super$initialize()
     }
 

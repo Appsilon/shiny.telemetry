@@ -4,7 +4,12 @@
 \alias{build_query_sql}
 \title{Build query to read from table in DataStorageSQLite provider}
 \usage{
-build_query_sql(bucket, date_from = NULL, date_to = NULL)
+build_query_sql(
+  bucket,
+  date_from = NULL,
+  date_to = NULL,
+  timestamp_wrapper = NULL
+)
 }
 \arguments{
 \item{bucket}{string with name of table}
@@ -26,4 +31,7 @@ shiny.telemetry:::build_query_sql("table_name", Sys.Date() - 365)
 shiny.telemetry:::build_query_sql("table_name", date_to = Sys.Date() + 365)
 shiny.telemetry:::build_query_sql("table_name", Sys.Date() - 365, Sys.Date() + 365)
 shiny.telemetry:::build_query_sql("table_name", as.Date("2023-04-13"), as.Date("2000-01-01"))
+shiny.telemetry:::build_query_sql(
+  "table_name", as.Date("2023-04-13"), as.Date("2000-01-01"), timestamp_wrapper = "to_timestamp"
+)
 }
