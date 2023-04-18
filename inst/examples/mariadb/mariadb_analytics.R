@@ -13,11 +13,10 @@ library(config)
 library(DT)
 
 # Please install shiny.telemetry with all dependencies
-# remotes::install_github("Appsilon/shiny.telemetry", dependencies = TRUE)
 library(shiny.telemetry)
 
 # Default storage backend using LogFile
-data_storage = DataStorageMariaDB$new(
+data_storage <- DataStorageMariaDB$new(
   user = "mariadb", password = "mysecretpassword"
 )
 

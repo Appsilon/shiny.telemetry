@@ -31,7 +31,7 @@ build_query_sql <- function(
     ifelse(!is.null(date_from) || !is.null(date_to), "WHERE", "")
   )
 
-  build_timestamp <- function(value) {
+  build_timestamp <- function(value) {  # nolint: object_usage_linter
     seconds <- lubridate::as_datetime(value) %>% as.double()
     if (is.null(timestamp_wrapper)) {
       return(seconds)
