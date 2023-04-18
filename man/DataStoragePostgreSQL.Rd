@@ -2,9 +2,9 @@
 % Please edit documentation in R/data-storage-postgresql.R
 \name{DataStoragePostgreSQL}
 \alias{DataStoragePostgreSQL}
-\title{Data storage class with Postgres provider}
+\title{Data storage class with PostgreSQL provider}
 \description{
-Implementation of the DataStorage R6 class to Postgres backend using a
+Implementation of the DataStorage R6 class to PostgreSQL backend using a
 unified API for read/write operations
 }
 \examples{

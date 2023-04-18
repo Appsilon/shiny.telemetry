@@ -1,7 +1,7 @@
-#' Data storage class with Postgres provider
+#' Data storage class with PostgreSQL provider
 #'
 #' @description
-#' Implementation of the DataStorage R6 class to Postgres backend using a
+#' Implementation of the DataStorage R6 class to PostgreSQL backend using a
 #' unified API for read/write operations
 #'
 #' @export
@@ -54,7 +54,7 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_string(dbname)
 
       logger::log_debug(
-        "Parameters for PostgresSQL:\n",
+        "Parameters for PostgreSQL:\n",
         "  *          username: {username}\n",
         "  * password (sha256): {digest::digest(password, algo = 'sha256')}\n",
         "  *     hostname:port: {hostname}:{port}\n",
