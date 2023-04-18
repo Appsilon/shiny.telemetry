@@ -76,7 +76,10 @@ There are 3 different types of data providers that can range from local filesyst
 
 * SQLite using `DataStorageSQLite` class
 * Logfile using `DataStorageLogFile` class
-* Plumber REST API using one of the providers above as backend using `DataStoragePlumber` class
+* MariaDB using `DataStorageMariaDB` class
+* PostgreSQL using `DataStoragePostgreSQL` class
+* Plumber REST API using `DataStoragePlumber` class
+  * In turn, the Plumber data provider will use one of the other classes above as the method of data storage.
 
 The setup for plumber requires a valid Plumber instance running on the network and the communication can be protected. See Plumber deployment documentation for more information.
 
