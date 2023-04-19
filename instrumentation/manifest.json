@@ -801,7 +801,7 @@
     },
     "fontawesome": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "Repository": "https://cloud.r-project.org",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -809,10 +809,10 @@
       "description": {
         "Type": "Package",
         "Package": "fontawesome",
-        "Version": "0.5.0",
+        "Version": "0.5.1",
         "Title": "Easily Work with 'Font Awesome' Icons",
         "Description": "Easily and flexibly insert 'Font Awesome' icons into 'R Markdown'\n    documents and 'Shiny' apps. These icons can be inserted into HTML content\n    through inline 'SVG' tags or 'i' tags. There is also a utility function for\n    exporting 'Font Awesome' icons as 'PNG' images for those situations where\n    raster graphics are needed.",
-        "Authors@R": "c(\n    person(\"Richard\", \"Iannone\", , \"rich@rstudio.com\", c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0003-3925-190X\")),\n    person(\"Christophe\", \"Dervieux\", , \"cderv@rstudio.com\", role = \"ctb\",\n           comment = c(ORCID = \"0000-0003-4474-2498\")),\n    person(\"Winston\", \"Chang\", , \"winston@rstudio.com\", role = \"ctb\"),\n    person(\"Dave\", \"Gandy\", role = c(\"ctb\", \"cph\"),\n           comment = \"Font-Awesome font\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n    )",
+        "Authors@R": "c(\n    person(\"Richard\", \"Iannone\", , \"rich@posit.co\", c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0003-3925-190X\")),\n    person(\"Christophe\", \"Dervieux\", , \"cderv@posit.co\", role = \"ctb\",\n           comment = c(ORCID = \"0000-0003-4474-2498\")),\n    person(\"Winston\", \"Chang\", , \"winston@posit.co\", role = \"ctb\"),\n    person(\"Dave\", \"Gandy\", role = c(\"ctb\", \"cph\"),\n           comment = \"Font-Awesome font\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n    )",
         "License": "MIT + file LICENSE",
         "URL": "https://github.com/rstudio/fontawesome,\nhttps://rstudio.github.io/fontawesome/",
         "BugReports": "https://github.com/rstudio/fontawesome/issues",
@@ -824,12 +824,12 @@
         "Suggests": "covr, dplyr (>= 1.0.8), knitr (>= 1.31), testthat (>= 3.0.0),\nrsvg",
         "Config/testthat/edition": "3",
         "NeedsCompilation": "no",
-        "Packaged": "2023-01-25 19:30:38 UTC; rich",
+        "Packaged": "2023-04-18 17:20:05 UTC; rich",
         "Author": "Richard Iannone [aut, cre] (<https://orcid.org/0000-0003-3925-190X>),\n  Christophe Dervieux [ctb] (<https://orcid.org/0000-0003-4474-2498>),\n  Winston Chang [ctb],\n  Dave Gandy [ctb, cph] (Font-Awesome font),\n  Posit Software, PBC [cph, fnd]",
-        "Maintainer": "Richard Iannone <rich@rstudio.com>",
+        "Maintainer": "Richard Iannone <rich@posit.co>",
         "Repository": "CRAN",
-        "Date/Publication": "2023-01-25 20:30:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 08:57:06 UTC; unix"
+        "Date/Publication": "2023-04-18 20:30:02 UTC",
+        "Built": "R 4.2.3; ; 2023-04-19 12:15:54 UTC; unix"
       }
     },
     "fs": {
@@ -1920,8 +1920,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "c13e43c4c21efcc3ff4711fee63943f378edef31",
-      "GithubSha1": "c13e43c4c21efcc3ff4711fee63943f378edef31",
+      "GithubRef": "89546683fcffcd54849e223c3949b9c9ed5ba188",
+      "GithubSha1": "89546683fcffcd54849e223c3949b9c9ed5ba188",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -1933,23 +1933,23 @@
         "License": "LGPL-3",
         "Encoding": "UTF-8",
         "LazyData": "true",
-        "Suggests": "plumber,\nbox,\nstringr,\nhere,\ntestthat (>= 3.0.0),\nmockery,\nwithr,\nlintr,\nspelling,\nrcmdcheck,\nRPostgreSQL,\ntimevis,\nRColorBrewer,\nplotly,\nDT,\nshinyjs,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nconfig",
+        "Suggests": "plumber,\nbox,\nstringr,\nhere,\ntestthat (>= 3.0.0),\nmockery,\nwithr,\nlintr,\nspelling,\nrcmdcheck,\nRPostgreSQL,\nRMariaDB,\ntimevis,\nRColorBrewer,\nplotly,\nDT,\nshinyjs,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nconfig",
         "Imports": "purrr,\ntidyr,\ndplyr,\nodbc,\njsonlite,\nlogger,\nR6,\nRSQLite,\nrlang,\ncheckmate,\nglue,\nshiny,\nhttr2,\ndigest,\nlubridate",
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-18 12:37:10 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-19 12:16:02 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "c13e43c4c21efcc3ff4711fee63943f378edef31",
-        "RemoteSha": "c13e43c4c21efcc3ff4711fee63943f378edef31",
+        "RemoteRef": "89546683fcffcd54849e223c3949b9c9ed5ba188",
+        "RemoteSha": "89546683fcffcd54849e223c3949b9c9ed5ba188",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "c13e43c4c21efcc3ff4711fee63943f378edef31",
-        "GithubSHA1": "c13e43c4c21efcc3ff4711fee63943f378edef31"
+        "GithubRef": "89546683fcffcd54849e223c3949b9c9ed5ba188",
+        "GithubSHA1": "89546683fcffcd54849e223c3949b9c9ed5ba188"
       }
     },
     "sourcetools": {
@@ -2218,7 +2218,7 @@
     },
     "tinytex": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "Repository": "https://cloud.r-project.org",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2227,8 +2227,8 @@
         "Package": "tinytex",
         "Type": "Package",
         "Title": "Helper Functions to Install and Maintain TeX Live, and Compile\nLaTeX Documents",
-        "Version": "0.44",
-        "Authors@R": "c(\n  person(\"Yihui\", \"Xie\", role = c(\"aut\", \"cre\", \"cph\"), email = \"xie@yihui.name\", comment = c(ORCID = \"0000-0003-0645-5666\")),\n  person(family = \"RStudio, PBC\", role = \"cph\"),\n  person(\"Christophe\", \"Dervieux\", role = \"ctb\", comment = c(ORCID = \"0000-0003-4474-2498\")),\n  person(\"Devon\", \"Ryan\", role = \"ctb\", email = \"dpryan79@gmail.com\", comment = c(ORCID = \"0000-0002-8549-0971\")),\n  person(\"Ethan\", \"Heinzen\", role = \"ctb\"),\n  person(\"Fernando\", \"Cagua\", role = \"ctb\"),\n  person()\n  )",
+        "Version": "0.45",
+        "Authors@R": "c(\n  person(\"Yihui\", \"Xie\", role = c(\"aut\", \"cre\", \"cph\"), email = \"xie@yihui.name\", comment = c(ORCID = \"0000-0003-0645-5666\")),\n  person(given = \"Posit Software, PBC\", role = c(\"cph\", \"fnd\")),\n  person(\"Christophe\", \"Dervieux\", role = \"ctb\", comment = c(ORCID = \"0000-0003-4474-2498\")),\n  person(\"Devon\", \"Ryan\", role = \"ctb\", email = \"dpryan79@gmail.com\", comment = c(ORCID = \"0000-0002-8549-0971\")),\n  person(\"Ethan\", \"Heinzen\", role = \"ctb\"),\n  person(\"Fernando\", \"Cagua\", role = \"ctb\"),\n  person()\n  )",
         "Description": "Helper functions to install and maintain the 'LaTeX' distribution\n  named 'TinyTeX' (<https://yihui.org/tinytex/>), a lightweight, cross-platform,\n  portable, and easy-to-maintain version of 'TeX Live'. This package also\n  contains helper functions to compile 'LaTeX' documents, and install missing\n  'LaTeX' packages automatically.",
         "Imports": "xfun (>= 0.29)",
         "Suggests": "testit, rstudioapi",
@@ -2238,12 +2238,12 @@
         "Encoding": "UTF-8",
         "RoxygenNote": "7.2.3",
         "NeedsCompilation": "no",
-        "Packaged": "2023-02-01 18:14:05 UTC; yihui",
-        "Author": "Yihui Xie [aut, cre, cph] (<https://orcid.org/0000-0003-0645-5666>),\n  RStudio, PBC [cph],\n  Christophe Dervieux [ctb] (<https://orcid.org/0000-0003-4474-2498>),\n  Devon Ryan [ctb] (<https://orcid.org/0000-0002-8549-0971>),\n  Ethan Heinzen [ctb],\n  Fernando Cagua [ctb]",
+        "Packaged": "2023-04-18 13:52:40 UTC; yihui",
+        "Author": "Yihui Xie [aut, cre, cph] (<https://orcid.org/0000-0003-0645-5666>),\n  Posit Software, PBC [cph, fnd],\n  Christophe Dervieux [ctb] (<https://orcid.org/0000-0003-4474-2498>),\n  Devon Ryan [ctb] (<https://orcid.org/0000-0002-8549-0971>),\n  Ethan Heinzen [ctb],\n  Fernando Cagua [ctb]",
         "Maintainer": "Yihui Xie <xie@yihui.name>",
         "Repository": "CRAN",
-        "Date/Publication": "2023-02-01 19:00:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:02:44 UTC; unix"
+        "Date/Publication": "2023-04-18 14:30:07 UTC",
+        "Built": "R 4.2.3; ; 2023-04-19 12:15:56 UTC; unix"
       }
     },
     "utf8": {
@@ -2435,7 +2435,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "eb3d81911cc6a5da3df75f1fa257d9c6"
+      "checksum": "f943a0467495d6226a5ac7a104579b73"
     },
     "app.R": {
       "checksum": "9f0eba0f09bda485101c886f593407a5"

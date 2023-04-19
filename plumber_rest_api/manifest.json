@@ -986,7 +986,7 @@
     },
     "fontawesome": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "Repository": "https://cloud.r-project.org",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2056,8 +2056,8 @@
       }
     },
     "ps": {
-      "Source": "RSPM",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2324,8 +2324,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "c13e43c4c21efcc3ff4711fee63943f378edef31",
-      "GithubSha1": "c13e43c4c21efcc3ff4711fee63943f378edef31",
+      "GithubRef": "89546683fcffcd54849e223c3949b9c9ed5ba188",
+      "GithubSha1": "89546683fcffcd54849e223c3949b9c9ed5ba188",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2337,23 +2337,23 @@
         "License": "LGPL-3",
         "Encoding": "UTF-8",
         "LazyData": "true",
-        "Suggests": "plumber,\nbox,\nstringr,\nhere,\ntestthat (>= 3.0.0),\nmockery,\nwithr,\nlintr,\nspelling,\nrcmdcheck,\nRPostgreSQL,\ntimevis,\nRColorBrewer,\nplotly,\nDT,\nshinyjs,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nconfig",
+        "Suggests": "plumber,\nbox,\nstringr,\nhere,\ntestthat (>= 3.0.0),\nmockery,\nwithr,\nlintr,\nspelling,\nrcmdcheck,\nRPostgreSQL,\nRMariaDB,\ntimevis,\nRColorBrewer,\nplotly,\nDT,\nshinyjs,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nconfig",
         "Imports": "purrr,\ntidyr,\ndplyr,\nodbc,\njsonlite,\nlogger,\nR6,\nRSQLite,\nrlang,\ncheckmate,\nglue,\nshiny,\nhttr2,\ndigest,\nlubridate",
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-18 12:37:10 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-19 12:16:02 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "c13e43c4c21efcc3ff4711fee63943f378edef31",
-        "RemoteSha": "c13e43c4c21efcc3ff4711fee63943f378edef31",
+        "RemoteRef": "89546683fcffcd54849e223c3949b9c9ed5ba188",
+        "RemoteSha": "89546683fcffcd54849e223c3949b9c9ed5ba188",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "c13e43c4c21efcc3ff4711fee63943f378edef31",
-        "GithubSHA1": "c13e43c4c21efcc3ff4711fee63943f378edef31"
+        "GithubRef": "89546683fcffcd54849e223c3949b9c9ed5ba188",
+        "GithubSHA1": "89546683fcffcd54849e223c3949b9c9ed5ba188"
       }
     },
     "sodium": {
@@ -2959,7 +2959,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "30764793dd8b20030fdc7b9d24bdfb41"
+      "checksum": "3f8db4aab7d287d83cb9a4640bceb95e"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"
