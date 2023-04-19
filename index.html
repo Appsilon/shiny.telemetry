@@ -161,7 +161,13 @@
 <ul>
 <li>SQLite using <code>DataStorageSQLite</code> class</li>
 <li>Logfile using <code>DataStorageLogFile</code> class</li>
-<li>Plumber REST API using one of the providers above as backend using <code>DataStoragePlumber</code> class</li>
+<li>MariaDB using <code>DataStorageMariaDB</code> class</li>
+<li>PostgreSQL using <code>DataStoragePostgreSQL</code> class</li>
+<li>Plumber REST API using <code>DataStoragePlumber</code> class
+<ul>
+<li>In turn, the Plumber data provider will use one of the other classes above as the method of data storage.</li>
+</ul>
+</li>
 </ul>
 <p>The setup for plumber requires a valid Plumber instance running on the network and the communication can be protected. See Plumber deployment documentation for more information.</p>
 </div>
