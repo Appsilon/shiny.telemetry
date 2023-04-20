@@ -8,6 +8,7 @@ Implementation of the DataStorage R6 class to a JSON log file backend using a un
 API for read/write operations
 }
 \examples{
+\dontrun{
 data_storage <- DataStorageLogFile$new(
   log_file_path = tempfile(pattern = "user_stats", fileext = ".txt")
 )
@@ -23,6 +24,7 @@ data_storage$insert(
 
 data_storage$read_event_data()
 data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
+}
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageLogFile}
