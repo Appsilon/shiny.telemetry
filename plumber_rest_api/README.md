@@ -2,7 +2,7 @@
 
 > REST API that receives write and read requests for telemetry data from a Shiny Dashboard _(using `shiny.telemetry` R 📦)_
 
-This [plumber](https://www.rplumber.io/) REST API serves as a middleware between a [Shiny](https://shiny.rstudio.com/) Application that is being monitored by `shiny.telemetry` and a data backend that write the logging information to persistent storage. 
+This [plumber](https://www.rplumber.io/) REST API serves as a middleware between a [Shiny](https://shiny.rstudio.com/) Application that is being monitored by `shiny.telemetry` and a data backend that write the logging information to persistent storage.
 
 The data backend is provided by the `shiny.telemetry` R package.
 
@@ -80,7 +80,7 @@ To setup the message signature it is required to define:
 * In the Plumber API Environment: `SECRET_TOKENS="<string-token-a> <string-token-b>`
 * In the Shiny Application instrumented by `shiny.telemetry`: `PLUMBER_SECRET=<string-token-a>`
     * In this case, for "Shiny Application A"
-    
+
 ℹ️ Important: the different tokens defined in the API are separated by spaces.
 
 ## Appsilon
@@ -88,11 +88,10 @@ To setup the message signature it is required to define:
 <img src="https://avatars0.githubusercontent.com/u/6096772" align="right" alt="" width="6%" />
 
 Appsilon is a **Posit (formerly RStudio) Full Service Certified Partner**.<br/>
-Learn more
-at [appsilon.com](https://appsilon.com).
+Learn more at [appsilon.com](https://appsilon.com).
 
 Get in touch [opensource@appsilon.com](mailto:opensource@appsilon.com)
 
-Check our [Open Source tools](https://shiny.tools).
+Check the [Rhinoverse](https://rhinoverse.dev).
 
-<a href = "https://appsilon.com/careers/" target="_blank"><img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!"/></a>
+<a href = "https://appsilon.com/careers/" target="_blank"><img src="https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/WeAreHiring1.png" alt="We are hiring!"/></a>
