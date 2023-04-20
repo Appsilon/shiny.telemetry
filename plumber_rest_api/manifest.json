@@ -986,7 +986,7 @@
     },
     "fontawesome": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1990,8 +1990,8 @@
       }
     },
     "processx": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2056,8 +2056,8 @@
       }
     },
     "ps": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2324,8 +2324,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "89546683fcffcd54849e223c3949b9c9ed5ba188",
-      "GithubSha1": "89546683fcffcd54849e223c3949b9c9ed5ba188",
+      "GithubRef": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e",
+      "GithubSha1": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2342,18 +2342,18 @@
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-19 12:16:02 UTC; unix",
+        "Built": "R 4.2.3; ; 2023-04-20 10:37:04 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "89546683fcffcd54849e223c3949b9c9ed5ba188",
-        "RemoteSha": "89546683fcffcd54849e223c3949b9c9ed5ba188",
+        "RemoteRef": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e",
+        "RemoteSha": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "89546683fcffcd54849e223c3949b9c9ed5ba188",
-        "GithubSHA1": "89546683fcffcd54849e223c3949b9c9ed5ba188"
+        "GithubRef": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e",
+        "GithubSHA1": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e"
       }
     },
     "sodium": {
@@ -2773,7 +2773,7 @@
     },
     "vctrs": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "Repository": "https://cloud.r-project.org",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2959,7 +2959,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "3f8db4aab7d287d83cb9a4640bceb95e"
+      "checksum": "c8f90fe048d1679b29bfdc82c583c91c"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"
@@ -2995,7 +2995,7 @@
       "checksum": "9d7b496a437a7ea4ffe91b25fc698960"
     },
     "README.md": {
-      "checksum": "4f84296db1ac0154f9faf853e35be365"
+      "checksum": "5aa33f0354380519046a4a6cc7aaf05c"
     }
   },
   "users": null
