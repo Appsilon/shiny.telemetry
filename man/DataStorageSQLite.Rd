@@ -8,6 +8,7 @@ Implementation of the DataStorage R6 class to SQLite backend using a unified
 API for read/write operations
 }
 \examples{
+\dontrun{
 data_storage <- DataStorageSQLite$new(
   db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
 )
@@ -23,6 +24,7 @@ data_storage$insert(
 
 data_storage$read_event_data()
 data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
+}
 }
 \section{Super classes}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{\link[shiny.telemetry:DataStorageSQLFamily]{shiny.telemetry::DataStorageSQLFamily}} -> \code{DataStorageSQLite}

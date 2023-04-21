@@ -19,6 +19,7 @@ can be customizable when instantiating the class, by using another one of
 the supported providers (see [DataStorage]).
 }
 \examples{
+\dontrun{
 telemetry <- Telemetry$new(
   data_storage = DataStorageLogFile$new(
     log_file_path = tempfile(pattern = "user_stats", fileext = ".txt")
@@ -55,6 +56,7 @@ telemetry$log_custom_event("a_button", list(value = 2023), session = session)
 telemetry$log_custom_event("a_button", list(custom_field = 23), session = session)
 
 telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01")
+}
 }
 \seealso{
 [shiny.telemetry::DataStorage] which this function wraps.

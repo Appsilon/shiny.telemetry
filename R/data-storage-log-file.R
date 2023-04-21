@@ -7,6 +7,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' data_storage <- DataStorageLogFile$new(
 #'   log_file_path = tempfile(pattern = "user_stats", fileext = ".txt")
 #' )
@@ -22,6 +23,7 @@
 #'
 #' data_storage$read_event_data()
 #' data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
+#' }
 DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageLogFile",
   inherit = DataStorage,

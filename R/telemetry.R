@@ -19,6 +19,7 @@
 #' @seealso [shiny.telemetry::DataStorage] which this function wraps.
 #' @export
 #' @examples
+#' \dontrun{
 #' telemetry <- Telemetry$new(
 #'   data_storage = DataStorageLogFile$new(
 #'     log_file_path = tempfile(pattern = "user_stats", fileext = ".txt")
@@ -55,6 +56,7 @@
 #' telemetry$log_custom_event("a_button", list(custom_field = 23), session = session)
 #'
 #' telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01")
+#' }
 Telemetry <- R6::R6Class( # nolint object_name_linter
   classname = "Telemetry",
   public = list(
