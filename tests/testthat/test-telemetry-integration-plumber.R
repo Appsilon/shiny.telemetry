@@ -1,6 +1,8 @@
 # Test that performs integration checks on how Telemetry class works with a
 #  valid data storage provider.
 test_that("[Plumber] Telemetry writes and reads events (integration)", {
+  skip_on_cran()
+
   db_path <- tempfile(pattern = "events", fileext = ".sqlite")
 
   old_env <- capture_evironment_variables(

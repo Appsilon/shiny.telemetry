@@ -14,6 +14,8 @@ logger::log_threshold(logger::FATAL, namespace = "shiny.telemetry")
 Sys.setenv(R_CONFIG_ACTIVE = "test")
 
 test_that("[Plumber] DataStorage should be able to insert and read", {
+  skip_on_cran()
+
   db_path <- tempfile(pattern = "events", fileext = ".sqlite")
 
   old_env <- capture_evironment_variables(
@@ -78,6 +80,8 @@ test_that("[Plumber] DataStorage should be able to insert and read", {
 })
 
 test_that("Plumber API works", {
+  skip_on_cran()
+
   db_path <- tempfile(pattern = "events", fileext = ".sqlite")
 
   old_env <- capture_evironment_variables(
@@ -138,6 +142,8 @@ test_that("Plumber API works", {
 
 
 test_that("Plumber API token only accepts valid messages", {
+  skip_on_cran()
+
   db_path <- tempfile(pattern = "events", fileext = ".sqlite")
 
   old_env <- capture_evironment_variables(
