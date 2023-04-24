@@ -1700,7 +1700,7 @@
         "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
         "Repository": "RSPM",
         "Date/Publication": "2022-02-20 13:00:02 UTC",
-        "Built": "R 4.3.0; ; 2023-04-24 13:29:24 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-24 15:05:15 UTC; unix"
       }
     },
     "odbc": {
@@ -1962,7 +1962,7 @@
         "Maintainer": "Barret Schloerke <barret@rstudio.com>",
         "Repository": "RSPM",
         "Date/Publication": "2022-09-06 19:10:02 UTC",
-        "Built": "R 4.3.0; ; 2023-04-24 13:29:27 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-24 15:05:18 UTC; unix"
       }
     },
     "praise": {
@@ -2328,8 +2328,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "960b2a964ad373ec666b2e063981362b83c4b811",
-      "GithubSha1": "960b2a964ad373ec666b2e063981362b83c4b811",
+      "GithubRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
+      "GithubSha1": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2347,18 +2347,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre],\n  André Veríssimo [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.0; ; 2023-04-24 13:28:32 UTC; unix",
+        "Built": "R 4.3.0; ; 2023-04-24 15:04:04 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "960b2a964ad373ec666b2e063981362b83c4b811",
-        "RemoteSha": "960b2a964ad373ec666b2e063981362b83c4b811",
+        "RemoteRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
+        "RemoteSha": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "960b2a964ad373ec666b2e063981362b83c4b811",
-        "GithubSHA1": "960b2a964ad373ec666b2e063981362b83c4b811"
+        "GithubRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
+        "GithubSHA1": "a0bf8797435c2b546c62a8327fab711a12c12dd9"
       }
     },
     "sodium": {
@@ -2966,7 +2966,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "258dd8f95a310777d94ce7e842133d75"
+      "checksum": "d16a19e6427fceb32777d4f0b5f81435"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"

@@ -1851,7 +1851,7 @@
         "Maintainer": "Developers Appsilon <support+opensource@appsilon.com>",
         "Repository": "RSPM",
         "Date/Publication": "2021-11-09 18:50:02 UTC",
-        "Built": "R 4.3.0; ; 2023-04-24 13:28:02 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-24 15:03:28 UTC; unix"
       }
     },
     "shiny": {
@@ -1916,7 +1916,7 @@
         "Maintainer": "Developers Appsilon <support+opensource@appsilon.com>",
         "Repository": "RSPM",
         "Date/Publication": "2021-11-07 16:00:02 UTC",
-        "Built": "R 4.3.0; ; 2023-04-24 13:27:58 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-24 15:03:24 UTC; unix"
       }
     },
     "shiny.telemetry": {
@@ -1924,8 +1924,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "960b2a964ad373ec666b2e063981362b83c4b811",
-      "GithubSha1": "960b2a964ad373ec666b2e063981362b83c4b811",
+      "GithubRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
+      "GithubSha1": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -1943,18 +1943,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre],\n  André Veríssimo [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.0; ; 2023-04-24 13:28:32 UTC; unix",
+        "Built": "R 4.3.0; ; 2023-04-24 15:04:04 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "960b2a964ad373ec666b2e063981362b83c4b811",
-        "RemoteSha": "960b2a964ad373ec666b2e063981362b83c4b811",
+        "RemoteRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
+        "RemoteSha": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "960b2a964ad373ec666b2e063981362b83c4b811",
-        "GithubSHA1": "960b2a964ad373ec666b2e063981362b83c4b811"
+        "GithubRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
+        "GithubSHA1": "a0bf8797435c2b546c62a8327fab711a12c12dd9"
       }
     },
     "sourcetools": {
@@ -2442,7 +2442,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "4879cf8fedd22dfe78b95e476dcf2cb4"
+      "checksum": "99fee8edd73a9f58cbb515f4ff464791"
     },
     "app.R": {
       "checksum": "9f0eba0f09bda485101c886f593407a5"

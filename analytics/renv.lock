@@ -33,7 +33,7 @@
       "Package": "MASS",
       "Version": "7.3-59",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "grDevices",
