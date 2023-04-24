@@ -115,7 +115,8 @@
 </h2>
 <p>The <code>shiny.telemetry</code> package can be installed from GitHub by using the remotes package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Appsilon/shiny.telemetry"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Appsilon/shiny.telemetry"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>With <code>dependencies = TRUE</code> the suggested packages (required to run some examples) will be installed in addition to mandatory dependencies.</p>
 </div>
 <div class="section level2">
 <h2 id="how-to-use-in-a-shiny-dashboard">How to use in a Shiny Dashboard?<a class="anchor" aria-label="anchor" href="#how-to-use-in-a-shiny-dashboard"></a>
@@ -127,12 +128,14 @@
 <li>Changes in the inputs <em>(doesn’t track values by default)</em>
 </li>
 </ul>
-<p>The code below runs a minimal example of a shiny application that uses <code>shiny.telemetry</code>. In this example, this package will keep the session information and all changes to the <code>numericInput</code>.</p>
-<p>ℹ️ <em>note</em>: When using the dashboard nothing is happening from the user’s perspective as all operation run in the background <em>(either in the server or in Javascript)</em>.</p>
+<p>The code below runs a minimal example of a Shiny application that uses <code>shiny.telemetry</code>. The package will keep track of the session information and all changes to the <code>numericInput</code>.</p>
+<p><em>Note</em>: When using the dashboard nothing is happening from the user’s perspective as all operation run in the background <em>(either in the server or in Javascript)</em>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">shiny.telemetry</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">telemetry</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Telemetry.html">Telemetry</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span> <span class="co"># 1. Initialize telemetry with default options</span></span>
+<span></span>
 <span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span>
 <span>  ui <span class="op">=</span> <span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="reference/use_telemetry.html">use_telemetry</a></span><span class="op">(</span><span class="op">)</span>, <span class="co"># 2. Add necessary Javascript to Shiny</span></span>
@@ -148,7 +151,7 @@
 <ol style="list-style-type: decimal">
 <li>Global <code>Telemetry</code> object that is used across the different sessions</li>
 <li>Add necessary Javascript to the UI by calling <code><a href="reference/use_telemetry.html">use_telemetry()</a></code>. It is used to track browser version.</li>
-<li>Initialize the session-specific tracking by calling method <code>start_session()</code> of the <code>Telemetry</code> object</li>
+<li>Initialize the session-specific tracking by calling method <code>start_session()</code> of the <code>Telemetry</code> object.</li>
 </ol>
 </div>
 <div class="section level2">
@@ -156,22 +159,30 @@
 </h2>
 <p>The developers and administrators of the dashboard can access the data that is gathered by <code>shiny.telemetry</code> via a Telemetry object or directly from <code>DataStorage</code> via the appropriate provider.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># After running the instrumented</span></span>
+<code class="sourceCode R"><span><span class="co"># After running the instrumented app</span></span>
 <span><span class="fu">shiny.telemetry</span><span class="fu">::</span><span class="va"><a href="reference/Telemetry.html">Telemetry</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_events</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2050-01-01"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># default provider and path for Telemetry$new()</span></span>
+<span><span class="co"># Default provider and path for Telemetry$new()</span></span>
 <span><span class="fu">shiny.telemetry</span><span class="fu">::</span><span class="va"><a href="reference/DataStorageSQLite.html">DataStorageSQLite</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>db_path <span class="op">=</span> <span class="st">"telemetry.sqlite"</span><span class="op">)</span><span class="op">$</span><span class="fu">read_events</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2050-01-01"</span><span class="op">)</span></span></code></pre></div>
-<p>The package has an analytics sample dashboard to help access the data. It is located at <code>inst/examples/app/analytics</code> and it should be modified so that it references the correct <code>DataStorage</code> provider and configuration.</p>
+<p>The package includes an analytics dashboard to view the data. It is located at <code>inst/examples/app/analytics</code> and it should be modified so that it references the correct <code>DataStorage</code> provider and configuration.</p>
 </div>
 <div class="section level2">
 <h2 id="data-providers">Data providers<a class="anchor" aria-label="anchor" href="#data-providers"></a>
 </h2>
-<p>There are 3 different types of data providers that can range from local filesystem storage to a remote plumber REST API instance.</p>
+<p>There are 3 different types of data providers that can range from local filesystem storage to a remote Plumber REST API instance.</p>
+<ul>
+<li>Local file:
 <ul>
 <li>SQLite using <code>DataStorageSQLite</code> class</li>
 <li>Logfile using <code>DataStorageLogFile</code> class</li>
+</ul>
+</li>
+<li>Remote SQL database:
+<ul>
 <li>MariaDB using <code>DataStorageMariaDB</code> class</li>
 <li>PostgreSQL using <code>DataStoragePostgreSQL</code> class</li>
+</ul>
+</li>
 <li>Plumber REST API using <code>DataStoragePlumber</code> class
 <ul>
 <li>In turn, the Plumber data provider will use one of the other classes above as the method of data storage.</li>
@@ -183,10 +194,10 @@
 <div class="section level2">
 <h2 id="debugging-the-telemetry-calls">Debugging the Telemetry calls<a class="anchor" aria-label="anchor" href="#debugging-the-telemetry-calls"></a>
 </h2>
-<p>The package uses the <code>logger</code> package internally with the <code>shiny.telemetry</code> namespace. To debug the <code>shiny.telemetry</code> calls in the dashboard, change the threshold of this namespace to <code>DEBUG</code>.</p>
+<p>The package uses the <code>logger</code> package internally with the <code>shiny.telemetry</code> namespace. To debug the <code>shiny.telemetry</code> calls in the dashboard, change the threshold of this namespace to <code>DEBUG</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">logger</span><span class="fu">::</span><span class="fu"><a href="https://daroczig.github.io/logger/reference/log_threshold.html" class="external-link">log_threshold</a></span><span class="op">(</span><span class="st">"DEBUG"</span>, namespace <span class="op">=</span> <span class="st">"shiny.telemetry"</span><span class="op">)</span></span></code></pre></div>
-<p>ℹ️ <em>note</em>: This command can be run before the Shiny call or by adding it to the <code>.Rprofile</code>.</p>
+<p><em>note</em>: This command can be run before the Shiny call or by adding it to the <code>.Rprofile</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="appsilon">Appsilon<a class="anchor" aria-label="anchor" href="#appsilon"></a>
