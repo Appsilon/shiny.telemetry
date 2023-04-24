@@ -1,7 +1,7 @@
 {
   "version": 1,
   "locale": "C",
-  "platform": "4.2.3",
+  "platform": "4.3.0",
   "metadata": {
     "appmode": "shiny",
     "primary_rmd": null,
@@ -11,7 +11,7 @@
   },
   "packages": {
     "DBI": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -41,13 +41,13 @@
         "Packaged": "2022-06-18 01:24:38 UTC; kirill",
         "Author": "R Special Interest Group on Databases (R-SIG-DB) [aut],\n  Hadley Wickham [aut],\n  Kirill Müller [aut, cre] (<https://orcid.org/0000-0002-1416-3412>),\n  R Consortium [fnd]",
         "Maintainer": "Kirill Müller <krlmlr+r@mailbox.org>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-06-18 07:10:15 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:05:54 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:46:30 UTC; unix"
       }
     },
     "R6": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -69,13 +69,14 @@
         "Packaged": "2021-08-06 20:18:46 UTC; winston",
         "Author": "Winston Chang [aut, cre]",
         "Maintainer": "Winston Chang <winston@stdout.org>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-08-19 14:00:05 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 08:54:06 UTC; unix"
+        "Encoding": "UTF-8",
+        "Built": "R 4.3.0; ; 2023-04-21 21:51:10 UTC; unix"
       }
     },
     "RSQLite": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -106,13 +107,13 @@
         "Packaged": "2023-04-03 09:39:54 UTC; kirill",
         "Author": "Kirill Müller [aut, cre] (<https://orcid.org/0000-0002-1416-3412>),\n  Hadley Wickham [aut],\n  David A. James [aut],\n  Seth Falcon [aut],\n  D. Richard Hipp [ctb] (for the included SQLite sources),\n  Dan Kennedy [ctb] (for the included SQLite sources),\n  Joe Mistachkin [ctb] (for the included SQLite sources),\n  SQLite Authors [ctb] (for the included SQLite sources),\n  Liam Healy [ctb] (for the included SQLite sources),\n  R Consortium [fnd],\n  RStudio [cph]",
         "Maintainer": "Kirill Müller <kirill@cynkra.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-04-03 11:40:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:06:54 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 23:46:52 UTC; unix"
       }
     },
     "Rcpp": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -135,13 +136,14 @@
         "RoxygenNote": "6.1.1",
         "NeedsCompilation": "yes",
         "Packaged": "2023-01-12 14:11:18 UTC; edd",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-22 16:30:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:53:38 UTC; unix"
+        "Encoding": "UTF-8",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:20 UTC; unix"
       }
     },
     "askpass": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -167,13 +169,13 @@
         "Packaged": "2019-01-13 12:08:17 UTC; jeroen",
         "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>)",
         "Maintainer": "Jeroen Ooms <jeroen@berkeley.edu>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2019-01-13 12:50:03 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:04:34 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:18 UTC; unix"
       }
     },
     "backports": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -197,13 +199,13 @@
         "RoxygenNote": "7.1.2",
         "Packaged": "2021-12-13 10:49:30 UTC; michel",
         "Author": "Michel Lang [cre, aut] (<https://orcid.org/0000-0001-9754-0393>),\n  R Core Team [aut]",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-12-13 11:30:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:03:03 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:51:08 UTC; unix"
       }
     },
     "base64enc": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -222,13 +224,14 @@
         "URL": "http://www.rforge.net/base64enc",
         "NeedsCompilation": "yes",
         "Packaged": "2015-02-04 20:31:00 UTC; svnuser",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2015-07-28 08:03:37",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:56:56 UTC; unix"
+        "Encoding": "UTF-8",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:47:28 UTC; unix"
       }
     },
     "bit": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -254,13 +257,13 @@
         "RoxygenNote": "7.2.0",
         "NeedsCompilation": "yes",
         "Packaged": "2022-11-13 21:22:09 UTC; jo",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-11-15 21:20:16 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:05:39 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:43 UTC; unix"
       }
     },
     "bit64": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -281,18 +284,18 @@
         "ByteCompile": "yes",
         "URL": "https://github.com/truecluster/bit64",
         "Encoding": "UTF-8",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Repository/R-Forge/Project": "ff",
         "Repository/R-Forge/Revision": "177",
         "Repository/R-Forge/DateTimeStamp": "2018-08-17 17:45:18",
         "Date/Publication": "2020-08-30 07:20:02 UTC",
         "NeedsCompilation": "yes",
         "Packaged": "2020-08-29 10:56:45 UTC; jo",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:05:45 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:57 UTC; unix"
       }
     },
     "blob": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -318,13 +321,13 @@
         "Packaged": "2023-03-17 09:42:50 UTC; kirill",
         "Author": "Hadley Wickham [aut],\n  Kirill Müller [cre],\n  RStudio [cph, fnd]",
         "Maintainer": "Kirill Müller <kirill@cynkra.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-03-17 12:00:06 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:05:52 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:47:56 UTC; unix"
       }
     },
     "bslib": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -353,13 +356,13 @@
         "Packaged": "2022-12-15 16:02:29 UTC; cpsievert",
         "Author": "Carson Sievert [aut, cre] (<https://orcid.org/0000-0002-4958-2844>),\n  Joe Cheng [aut],\n  RStudio [cph],\n  Bootstrap contributors [ctb] (Bootstrap library),\n  Twitter, Inc [cph] (Bootstrap library),\n  Javi Aguilar [ctb, cph] (Bootstrap colorpicker library),\n  Thomas Park [ctb, cph] (Bootswatch library),\n  PayPal [ctb, cph] (Bootstrap accessibility plugin)",
         "Maintainer": "Carson Sievert <carson@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-12-16 10:30:06 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 08:59:46 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:57:16 UTC; unix"
       }
     },
     "cachem": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -384,13 +387,13 @@
         "Packaged": "2023-02-24 01:25:16 UTC; winston",
         "Author": "Winston Chang [aut, cre],\n  RStudio [cph, fnd]",
         "Maintainer": "Winston Chang <winston@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-02-24 08:32:30 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:59:41 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:24 UTC; unix"
       }
     },
     "checkmate": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -419,13 +422,13 @@
         "Packaged": "2022-04-20 07:14:04 UTC; michel",
         "Author": "Michel Lang [cre, aut] (<https://orcid.org/0000-0001-9754-0393>),\n  Bernd Bischl [ctb],\n  Dénes Tóth [ctb] (<https://orcid.org/0000-0003-4262-3217>)",
         "Maintainer": "Michel Lang <michellang@gmail.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-04-21 07:30:05 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:03:05 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 22:20:19 UTC; unix"
       }
     },
     "cli": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -451,13 +454,13 @@
         "Packaged": "2023-03-22 13:59:32 UTC; gaborcsardi",
         "Author": "Gábor Csárdi [aut, cre],\n  Hadley Wickham [ctb],\n  Kirill Müller [ctb],\n  RStudio [cph, fnd]",
         "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-03-23 12:52:05 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:59:49 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:44:50 UTC; unix"
       }
     },
     "commonmark": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -481,13 +484,13 @@
         "Packaged": "2023-03-17 18:02:44 UTC; jeroen",
         "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  John MacFarlane [cph] (Author of cmark)",
         "Maintainer": "Jeroen Ooms <jeroen@berkeley.edu>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-03-17 18:40:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:57:15 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:32 UTC; unix"
       }
     },
     "config": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -513,13 +516,13 @@
         "Packaged": "2020-12-15 13:05:30 UTC; apdev",
         "Author": "JJ Allaire [aut],\n  Andrie de Vries [cre],\n  RStudio [cph, fnd]",
         "Maintainer": "Andrie de Vries <apdevries@gmail.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2020-12-17 11:00:06 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:05:28 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 23:11:59 UTC; unix"
       }
     },
     "cpp11": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -546,13 +549,13 @@
         "Packaged": "2022-10-12 08:07:26 UTC; romainfrancois",
         "Author": "Jim Hester [aut] (<https://orcid.org/0000-0002-2739-7082>),\n  Romain François [aut, cre],\n  Benjamin Kietzman [ctb],\n  RStudio [cph, fnd]",
         "Maintainer": "Romain François <romain@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-10-12 08:43:54 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:04:46 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:46:43 UTC; unix"
       }
     },
     "crayon": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -576,13 +579,13 @@
         "Packaged": "2022-09-29 06:24:10 UTC; gaborcsardi",
         "Author": "Gábor Csárdi [aut, cre],\n  Brodie Gaslam [ctb]",
         "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-09-29 16:20:24 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 08:57:11 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:45:59 UTC; unix"
       }
     },
     "curl": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -609,13 +612,13 @@
         "Packaged": "2023-01-12 13:33:22 UTC; jeroen",
         "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Hadley Wickham [ctb],\n  RStudio [cph]",
         "Maintainer": "Jeroen Ooms <jeroen@berkeley.edu>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-12 18:10:01 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:04:29 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:45:50 UTC; unix"
       }
     },
     "digest": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -638,13 +641,14 @@
         "VignetteBuilder": "simplermarkdown",
         "NeedsCompilation": "yes",
         "Packaged": "2022-12-10 18:30:14 UTC; edd",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-12-11 07:40:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:56:50 UTC; unix"
+        "Encoding": "UTF-8",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:45 UTC; unix"
       }
     },
     "dplyr": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -654,14 +658,14 @@
         "Type": "Package",
         "Package": "dplyr",
         "Title": "A Grammar of Data Manipulation",
-        "Version": "1.1.1",
+        "Version": "1.1.2",
         "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Romain\", \"François\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-2444-4226\")),\n    person(\"Lionel\", \"Henry\", role = \"aut\"),\n    person(\"Kirill\", \"Müller\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-1416-3412\")),\n    person(\"Davis\", \"Vaughan\", , \"davis@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0003-4777-038X\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
         "Description": "A fast, consistent tool for working with data frame like\n    objects, both in memory and out of memory.",
         "License": "MIT + file LICENSE",
         "URL": "https://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr",
         "BugReports": "https://github.com/tidyverse/dplyr/issues",
         "Depends": "R (>= 3.5.0)",
-        "Imports": "cli (>= 3.4.0), generics, glue (>= 1.3.2), lifecycle (>=\n1.0.3), magrittr (>= 1.5), methods, pillar (>= 1.5.1), R6,\nrlang (>= 1.1.0), tibble (>= 3.2.0), tidyselect (>= 1.2.0),\nutils, vctrs (>= 0.6.0)",
+        "Imports": "cli (>= 3.4.0), generics, glue (>= 1.3.2), lifecycle (>=\n1.0.3), magrittr (>= 1.5), methods, pillar (>= 1.9.0), R6,\nrlang (>= 1.1.0), tibble (>= 3.2.0), tidyselect (>= 1.2.0),\nutils, vctrs (>= 0.6.0)",
         "Suggests": "bench, broom, callr, covr, DBI, dbplyr (>= 2.2.1), ggplot2,\nknitr, Lahman, lobstr, microbenchmark, nycflights13, purrr,\nrmarkdown, RMySQL, RPostgreSQL, RSQLite, stringi (>= 1.7.6),\ntestthat (>= 3.1.5), tidyr (>= 1.3.0), withr",
         "VignetteBuilder": "knitr",
         "Config/Needs/website": "tidyverse, shiny, pkgdown, tidyverse/tidytemplate",
@@ -670,16 +674,16 @@
         "LazyData": "true",
         "RoxygenNote": "7.2.3",
         "NeedsCompilation": "yes",
-        "Packaged": "2023-03-21 21:01:28 UTC; hadleywickham",
+        "Packaged": "2023-04-19 19:29:34 UTC; hadleywickham",
         "Author": "Hadley Wickham [aut, cre] (<https://orcid.org/0000-0003-4757-117X>),\n  Romain François [aut] (<https://orcid.org/0000-0002-2444-4226>),\n  Lionel Henry [aut],\n  Kirill Müller [aut] (<https://orcid.org/0000-0002-1416-3412>),\n  Davis Vaughan [aut] (<https://orcid.org/0000-0003-4777-038X>),\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2023-03-22 13:20:07 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:01:05 UTC; unix"
+        "Repository": "RSPM",
+        "Date/Publication": "2023-04-20 14:00:03 UTC",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:51:47 UTC; unix"
       }
     },
     "ellipsis": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -703,13 +707,13 @@
         "Packaged": "2021-04-29 12:06:44 UTC; lionel",
         "Author": "Hadley Wickham [aut, cre],\n  RStudio [cph]",
         "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-04-29 12:40:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:57:00 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:20 UTC; unix"
       }
     },
     "evaluate": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -734,13 +738,13 @@
         "Packaged": "2023-01-17 19:08:31 UTC; yihui",
         "Author": "Hadley Wickham [aut],\n  Yihui Xie [aut, cre] (<https://orcid.org/0000-0003-0645-5666>),\n  Michael Lawrence [ctb],\n  Thomas Kluyver [ctb],\n  Jeroen Ooms [ctb],\n  Barret Schloerke [ctb],\n  Adam Ryczkowski [ctb],\n  Hiroaki Yutani [ctb],\n  Michel Lang [ctb],\n  Karolis Koncevičius [ctb]",
         "Maintainer": "Yihui Xie <xie@yihui.name>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-17 20:20:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:01:20 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:46:27 UTC; unix"
       }
     },
     "fansi": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -766,13 +770,13 @@
         "Packaged": "2023-01-22 17:39:01 UTC; bg",
         "Author": "Brodie Gaslam [aut, cre],\n  Elliott Sales De Andrade [ctb],\n  R Core Team [cph] (UTF8 byte length calcs from src/util.c)",
         "Maintainer": "Brodie Gaslam <brodie.gaslam@yahoo.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-22 19:20:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:00:23 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:45:16 UTC; unix"
       }
     },
     "fastmap": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -794,9 +798,9 @@
         "Packaged": "2023-02-24 16:01:27 UTC; winston",
         "Author": "Winston Chang [aut, cre],\n  RStudio [cph, fnd],\n  Tessil [cph] (hopscotch_map library)",
         "Maintainer": "Winston Chang <winston@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-02-24 16:30:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:56:57 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:07 UTC; unix"
       }
     },
     "fontawesome": {
@@ -829,11 +833,11 @@
         "Maintainer": "Richard Iannone <rich@posit.co>",
         "Repository": "RSPM",
         "Date/Publication": "2023-04-18 20:30:02 UTC",
-        "Built": "R 4.2.0; ; 2023-04-19 11:46:17 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:47:50 UTC; unix"
       }
     },
     "fs": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -864,13 +868,13 @@
         "Packaged": "2023-02-06 11:56:15 UTC; gaborcsardi",
         "Author": "Jim Hester [aut],\n  Hadley Wickham [aut],\n  Gábor Csárdi [aut, cre],\n  libuv project contributors [cph] (libuv library),\n  Joyent, Inc. and other Node contributors [cph] (libuv library),\n  RStudio [cph, fnd]",
         "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-02-06 21:22:33 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:57:28 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:51:13 UTC; unix"
       }
     },
     "generics": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -896,13 +900,13 @@
         "Packaged": "2022-07-05 14:52:13 UTC; davis",
         "Author": "Hadley Wickham [aut, cre],\n  Max Kuhn [aut],\n  Davis Vaughan [aut],\n  RStudio [cph]",
         "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-07-05 19:40:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:00:21 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:44:54 UTC; unix"
       }
     },
     "glue": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -930,13 +934,13 @@
         "Packaged": "2022-02-23 22:50:40 UTC; jenny",
         "Author": "Jim Hester [aut] (<https://orcid.org/0000-0002-2739-7082>),\n  Jennifer Bryan [aut, cre] (<https://orcid.org/0000-0002-6983-2759>),\n  RStudio [cph, fnd]",
         "Maintainer": "Jennifer Bryan <jenny@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-02-24 07:50:20 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:57:25 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:44:49 UTC; unix"
       }
     },
     "highr": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -962,13 +966,13 @@
         "Packaged": "2022-12-22 06:43:07 UTC; yihui",
         "Author": "Yihui Xie [aut, cre] (<https://orcid.org/0000-0003-0645-5666>),\n  Yixuan Qiu [aut],\n  Christopher Gandrud [ctb],\n  Qiang Li [ctb]",
         "Maintainer": "Yihui Xie <xie@yihui.name>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-12-22 07:00:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:01:25 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:46:33 UTC; unix"
       }
     },
     "hms": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -996,13 +1000,13 @@
         "Packaged": "2023-03-21 16:52:11 UTC; kirill",
         "Author": "Kirill Müller [aut, cre] (<https://orcid.org/0000-0002-1416-3412>),\n  R Consortium [fnd],\n  RStudio [fnd]",
         "Maintainer": "Kirill Müller <kirill@cynkra.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-03-21 18:10:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:05:58 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:47:57 UTC; unix"
       }
     },
     "htmltools": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1030,13 +1034,13 @@
         "Packaged": "2023-03-22 22:59:42 UTC; cpsievert",
         "Author": "Joe Cheng [aut],\n  Carson Sievert [aut, cre] (<https://orcid.org/0000-0002-4958-2844>),\n  Barret Schloerke [aut] (<https://orcid.org/0000-0001-9986-114X>),\n  Winston Chang [aut] (<https://orcid.org/0000-0002-1576-2126>),\n  Yihui Xie [aut],\n  Jeff Allen [aut],\n  RStudio [cph]",
         "Maintainer": "Carson Sievert <carson@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-03-23 09:50:06 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:57:02 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:47:37 UTC; unix"
       }
     },
     "htmlwidgets": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1062,13 +1066,13 @@
         "Packaged": "2023-03-17 15:34:40 UTC; cpsievert",
         "Author": "Ramnath Vaidyanathan [aut, cph],\n  Yihui Xie [aut],\n  JJ Allaire [aut],\n  Joe Cheng [aut],\n  Carson Sievert [aut, cre] (<https://orcid.org/0000-0002-4958-2844>),\n  Kenton Russell [aut, cph],\n  Ellis Hughes [ctb],\n  RStudio [cph]",
         "Maintainer": "Carson Sievert <carson@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-03-17 16:50:06 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:02:52 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 22:22:03 UTC; unix"
       }
     },
     "httpuv": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1096,13 +1100,13 @@
         "Packaged": "2023-02-08 20:09:18 UTC; winston",
         "Author": "Joe Cheng [aut],\n  Winston Chang [aut, cre],\n  RStudio, PBC [cph],\n  Hector Corrada Bravo [ctb],\n  Jeroen Ooms [ctb],\n  Andrzej Krzemienski [cph] (optional.hpp)",
         "Maintainer": "Winston Chang <winston@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-02-14 10:00:06 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:54:51 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:55:06 UTC; unix"
       }
     },
     "httr2": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1129,13 +1133,13 @@
         "Packaged": "2022-09-25 15:13:37 UTC; hadleywickham",
         "Author": "Hadley Wickham [aut, cre],\n  RStudio [cph, fnd]",
         "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-09-25 17:50:03 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:08:11 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-22 00:30:04 UTC; unix"
       }
     },
     "jquerylib": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1157,13 +1161,13 @@
         "Packaged": "2021-04-26 16:40:21 UTC; cpsievert",
         "Author": "Carson Sievert [aut, cre] (<https://orcid.org/0000-0002-4958-2844>),\n  Joe Cheng [aut],\n  RStudio [cph],\n  jQuery Foundation [cph] (jQuery library and jQuery UI library),\n  jQuery contributors [ctb, cph] (jQuery library; authors listed in\n    inst/lib/jquery-AUTHORS.txt)",
         "Maintainer": "Carson Sievert <carson@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-04-26 17:10:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 08:59:40 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:47:50 UTC; unix"
       }
     },
     "jsonlite": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1187,13 +1191,13 @@
         "NeedsCompilation": "yes",
         "Packaged": "2022-12-05 23:21:23 UTC; jeroen",
         "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Duncan Temple Lang [ctb],\n  Lloyd Hilaiel [cph] (author of bundled libyajl)",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-12-06 08:10:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:56:44 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:44:49 UTC; unix"
       }
     },
     "knitr": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1221,13 +1225,13 @@
         "Packaged": "2023-01-20 05:51:44 UTC; yihui",
         "Author": "Yihui Xie [aut, cre] (<https://orcid.org/0000-0003-0645-5666>),\n  Abhraneel Sarma [ctb],\n  Adam Vogt [ctb],\n  Alastair Andrew [ctb],\n  Alex Zvoleff [ctb],\n  Amar Al-Zubaidi [ctb],\n  Andre Simon [ctb] (the CSS files under inst/themes/ were derived from\n    the Highlight package http://www.andre-simon.de),\n  Aron Atkins [ctb],\n  Aaron Wolen [ctb],\n  Ashley Manton [ctb],\n  Atsushi Yasumoto [ctb] (<https://orcid.org/0000-0002-8335-495X>),\n  Ben Baumer [ctb],\n  Brian Diggs [ctb],\n  Brian Zhang [ctb],\n  Bulat Yapparov [ctb],\n  Cassio Pereira [ctb],\n  Christophe Dervieux [ctb],\n  David Hall [ctb],\n  David Hugh-Jones [ctb],\n  David Robinson [ctb],\n  Doug Hemken [ctb],\n  Duncan Murdoch [ctb],\n  Elio Campitelli [ctb],\n  Ellis Hughes [ctb],\n  Emily Riederer [ctb],\n  Fabian Hirschmann [ctb],\n  Fitch Simeon [ctb],\n  Forest Fang [ctb],\n  Frank E Harrell Jr [ctb] (the Sweavel package at inst/misc/Sweavel.sty),\n  Garrick Aden-Buie [ctb],\n  Gregoire Detrez [ctb],\n  Hadley Wickham [ctb],\n  Hao Zhu [ctb],\n  Heewon Jeon [ctb],\n  Henrik Bengtsson [ctb],\n  Hiroaki Yutani [ctb],\n  Ian Lyttle [ctb],\n  Hodges Daniel [ctb],\n  Jacob Bien [ctb],\n  Jake Burkhead [ctb],\n  James Manton [ctb],\n  Jared Lander [ctb],\n  Jason Punyon [ctb],\n  Javier Luraschi [ctb],\n  Jeff Arnold [ctb],\n  Jenny Bryan [ctb],\n  Jeremy Ashkenas [ctb, cph] (the CSS file at\n    inst/misc/docco-classic.css),\n  Jeremy Stephens [ctb],\n  Jim Hester [ctb],\n  Joe Cheng [ctb],\n  Johannes Ranke [ctb],\n  John Honaker [ctb],\n  John Muschelli [ctb],\n  Jonathan Keane [ctb],\n  JJ Allaire [ctb],\n  Johan Toloe [ctb],\n  Jonathan Sidi [ctb],\n  Joseph Larmarange [ctb],\n  Julien Barnier [ctb],\n  Kaiyin Zhong [ctb],\n  Kamil Slowikowski [ctb],\n  Karl Forner [ctb],\n  Kevin K. Smith [ctb],\n  Kirill Mueller [ctb],\n  Kohske Takahashi [ctb],\n  Lorenz Walthert [ctb],\n  Lucas Gallindo [ctb],\n  Marius Hofert [ctb],\n  Martin Modrák [ctb],\n  Michael Chirico [ctb],\n  Michael Friendly [ctb],\n  Michal Bojanowski [ctb],\n  Michel Kuhlmann [ctb],\n  Miller Patrick [ctb],\n  Nacho Caballero [ctb],\n  Nick Salkowski [ctb],\n  Niels Richard Hansen [ctb],\n  Noam Ross [ctb],\n  Obada Mahdi [ctb],\n  Pavel N. Krivitsky [ctb] (<https://orcid.org/0000-0002-9101-3362>),\n  Pedro Faria [ctb],\n  Qiang Li [ctb],\n  Ramnath Vaidyanathan [ctb],\n  Richard Cotton [ctb],\n  Robert Krzyzanowski [ctb],\n  Rodrigo Copetti [ctb],\n  Romain Francois [ctb],\n  Ruaridh Williamson [ctb],\n  Sagiru Mati [ctb] (<https://orcid.org/0000-0003-1413-3974>),\n  Scott Kostyshak [ctb],\n  Sebastian Meyer [ctb],\n  Sietse Brouwer [ctb],\n  Simon de Bernard [ctb],\n  Sylvain Rousseau [ctb],\n  Taiyun Wei [ctb],\n  Thibaut Assus [ctb],\n  Thibaut Lamadon [ctb],\n  Thomas Leeper [ctb],\n  Tim Mastny [ctb],\n  Tom Torsney-Weir [ctb],\n  Trevor Davis [ctb],\n  Viktoras Veitas [ctb],\n  Weicheng Zhu [ctb],\n  Wush Wu [ctb],\n  Zachary Foster [ctb],\n  Zhian N. Kamvar [ctb] (<https://orcid.org/0000-0003-1458-7108>)",
         "Maintainer": "Yihui Xie <xie@yihui.name>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-25 10:20:08 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:01:27 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:47:21 UTC; unix"
       }
     },
     "later": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1254,13 +1258,13 @@
         "Packaged": "2021-08-18 14:03:28 UTC; barret",
         "Author": "Winston Chang [aut, cre],\n  Joe Cheng [aut],\n  RStudio [cph],\n  Marcus Geelnard [ctb, cph] (TinyCThread library,\n    https://tinycthread.github.io/),\n  Evan Nemerson [ctb, cph] (TinyCThread library,\n    https://tinycthread.github.io/)",
         "Maintainer": "Winston Chang <winston@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-08-18 16:30:06 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:54:21 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:47:03 UTC; unix"
       }
     },
     "lifecycle": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1287,13 +1291,13 @@
         "Packaged": "2022-10-07 08:50:55 UTC; lionel",
         "Author": "Lionel Henry [aut, cre],\n  Hadley Wickham [aut] (<https://orcid.org/0000-0003-4757-117X>),\n  RStudio [cph, fnd]",
         "Maintainer": "Lionel Henry <lionel@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-10-07 09:50:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 08:59:59 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:46:36 UTC; unix"
       }
     },
     "logger": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1320,9 +1324,9 @@
         "Packaged": "2021-10-18 21:25:57 UTC; daroczig",
         "Author": "Gergely Daróczi [aut, cre] (<https://orcid.org/0000-0003-3149-8537>),\n  System1 [fnd]",
         "Maintainer": "Gergely Daróczi <daroczig@rapporter.net>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-10-19 05:30:08 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:06:48 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-22 00:27:45 UTC; unix"
       }
     },
     "lubridate": {
@@ -1360,11 +1364,11 @@
         "Author": "Vitalie Spinu [aut, cre],\n  Garrett Grolemund [aut],\n  Hadley Wickham [aut],\n  Davis Vaughan [ctb],\n  Ian Lyttle [ctb],\n  Imanuel Costigan [ctb],\n  Jason Law [ctb],\n  Doug Mitarotonda [ctb],\n  Joseph Larmarange [ctb],\n  Jonathan Boiser [ctb],\n  Chel Hee Lee [ctb]",
         "Repository": "RSPM",
         "Date/Publication": "2023-02-10 01:30:02 UTC",
-        "Built": "R 4.2.0; x86_64-pc-linux-gnu; 2023-02-13 13:11:17 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:47:15 UTC; unix"
       }
     },
     "magrittr": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1391,13 +1395,13 @@
         "Packaged": "2022-03-29 09:34:37 UTC; lionel",
         "Author": "Stefan Milton Bache [aut, cph] (Original author and creator of\n    magrittr),\n  Hadley Wickham [aut],\n  Lionel Henry [cre],\n  RStudio [cph, fnd]",
         "Maintainer": "Lionel Henry <lionel@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-03-30 07:30:09 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:54:38 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:21 UTC; unix"
       }
     },
     "memoise": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1420,13 +1424,13 @@
         "Packaged": "2021-11-24 21:24:50 UTC; jhester",
         "Author": "Hadley Wickham [aut],\n  Jim Hester [aut],\n  Winston Chang [aut, cre],\n  Kirill Müller [aut],\n  Daniel Cook [aut],\n  Mark Edmondson [ctb]",
         "Maintainer": "Winston Chang <winston@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-11-26 16:11:10 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 08:59:43 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:46:33 UTC; unix"
       }
     },
     "mime": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1449,13 +1453,13 @@
         "Packaged": "2021-09-28 02:06:04 UTC; yihui",
         "Author": "Yihui Xie [aut, cre] (<https://orcid.org/0000-0003-0645-5666>),\n  Jeffrey Horner [ctb],\n  Beilei Bian [ctb]",
         "Maintainer": "Yihui Xie <xie@yihui.name>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-09-28 05:00:05 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:56:42 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:13 UTC; unix"
       }
     },
     "odbc": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1485,13 +1489,13 @@
         "Packaged": "2023-01-16 14:28:18 UTC; hadleywickham",
         "Author": "Jim Hester [aut],\n  Hadley Wickham [aut, cre],\n  Oliver Gjoneski [ctb] (detule),\n  lexicalunit [cph] (nanodbc library),\n  Google Inc. [cph] (cctz library),\n  RStudio [cph, fnd]",
         "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-17 10:50:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:06:00 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-22 01:18:35 UTC; unix"
       }
     },
     "openssl": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1517,13 +1521,13 @@
         "Packaged": "2023-03-09 22:32:32 UTC; jeroen",
         "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Oliver Keyes [ctb]",
         "Maintainer": "Jeroen Ooms <jeroen@berkeley.edu>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-03-09 23:10:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:04:36 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:32 UTC; unix"
       }
     },
     "pillar": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1554,13 +1558,13 @@
         "Packaged": "2023-03-21 08:42:46 UTC; kirill",
         "Author": "Kirill Müller [aut, cre] (<https://orcid.org/0000-0002-1416-3412>),\n  Hadley Wickham [aut],\n  RStudio [cph]",
         "Maintainer": "Kirill Müller <kirill@cynkra.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-03-22 08:10:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:00:52 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:47:44 UTC; unix"
       }
     },
     "pkgconfig": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1582,13 +1586,13 @@
         "Encoding": "UTF-8",
         "NeedsCompilation": "no",
         "Packaged": "2019-09-22 08:42:40 UTC; gaborcsardi",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2019-09-22 09:20:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:00:56 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:46:12 UTC; unix"
       }
     },
     "plogr": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1612,13 +1616,13 @@
         "Packaged": "2018-03-24 11:02:06 UTC; muelleki",
         "Author": "Kirill Müller [aut, cre],\n  Sergey Podobry [cph] (Author of the bundled plog library)",
         "Maintainer": "Kirill Müller <krlmlr+r@mailbox.org>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2018-03-25 15:25:27 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:06:50 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 23:45:01 UTC; unix"
       }
     },
     "promises": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1646,13 +1650,13 @@
         "Packaged": "2021-02-11 18:18:47 UTC; barret",
         "Author": "Joe Cheng [aut, cre],\n  RStudio [cph, fnd]",
         "Maintainer": "Joe Cheng <joe@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-02-11 19:00:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:54:40 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:51:46 UTC; unix"
       }
     },
     "purrr": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1681,13 +1685,13 @@
         "Packaged": "2023-01-09 14:36:20 UTC; hadleywickham",
         "Author": "Hadley Wickham [aut, cre] (<https://orcid.org/0000-0003-4757-117X>),\n  Lionel Henry [aut],\n  RStudio [cph, fnd]",
         "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-10 14:40:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:02:54 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:47:45 UTC; unix"
       }
     },
     "rappdirs": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1713,13 +1717,13 @@
         "Packaged": "2021-01-28 22:29:57 UTC; hadley",
         "Author": "Hadley Wickham [trl, cre, cph],\n  RStudio [cph],\n  Sridhar Ratnakumar [aut],\n  Trent Mick [aut],\n  ActiveState [cph] (R/appdir.r, R/cache.r, R/data.r, R/log.r translated\n    from appdirs),\n  Eddy Petrisor [ctb],\n  Trevor Davis [trl, aut],\n  Gabor Csardi [ctb],\n  Gregory Jefferis [ctb]",
         "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-01-31 05:40:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:57:51 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:15 UTC; unix"
       }
     },
     "rlang": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1748,13 +1752,13 @@
         "Packaged": "2023-03-13 10:09:28 UTC; lionel",
         "Author": "Lionel Henry [aut, cre],\n  Hadley Wickham [aut],\n  mikefc [cph] (Hash implementation based on Mike's xxhashlite),\n  Yann Collet [cph] (Author of the embedded xxHash library),\n  Posit, PBC [cph, fnd]",
         "Maintainer": "Lionel Henry <lionel@posit.co>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-03-14 08:20:06 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:54:08 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:45:52 UTC; unix"
       }
     },
     "rmarkdown": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1782,13 +1786,13 @@
         "NeedsCompilation": "no",
         "Packaged": "2023-03-25 21:50:22 UTC; yihui",
         "Author": "JJ Allaire [aut],\n  Yihui Xie [aut, cre] (<https://orcid.org/0000-0003-0645-5666>),\n  Christophe Dervieux [aut] (<https://orcid.org/0000-0003-4474-2498>),\n  Jonathan McPherson [aut],\n  Javier Luraschi [aut],\n  Kevin Ushey [aut],\n  Aron Atkins [aut],\n  Hadley Wickham [aut],\n  Joe Cheng [aut],\n  Winston Chang [aut],\n  Richard Iannone [aut] (<https://orcid.org/0000-0003-3925-190X>),\n  Andrew Dunning [ctb] (<https://orcid.org/0000-0003-0464-5036>),\n  Atsushi Yasumoto [ctb, cph] (<https://orcid.org/0000-0002-8335-495X>,\n    Number sections Lua filter),\n  Barret Schloerke [ctb],\n  Carson Sievert [ctb] (<https://orcid.org/0000-0002-4958-2844>),\n  Devon Ryan [ctb] (<https://orcid.org/0000-0002-8549-0971>),\n  Frederik Aust [ctb] (<https://orcid.org/0000-0003-4900-788X>),\n  Jeff Allen [ctb],\n  JooYoung Seo [ctb] (<https://orcid.org/0000-0002-4064-6012>),\n  Malcolm Barrett [ctb],\n  Rob Hyndman [ctb],\n  Romain Lesur [ctb],\n  Roy Storey [ctb],\n  Ruben Arslan [ctb],\n  Sergio Oller [ctb],\n  Posit Software, PBC [cph, fnd],\n  jQuery UI contributors [ctb, cph] (jQuery UI library; authors listed in\n    inst/rmd/h/jqueryui-AUTHORS.txt),\n  Mark Otto [ctb] (Bootstrap library),\n  Jacob Thornton [ctb] (Bootstrap library),\n  Bootstrap contributors [ctb] (Bootstrap library),\n  Twitter, Inc [cph] (Bootstrap library),\n  Alexander Farkas [ctb, cph] (html5shiv library),\n  Scott Jehl [ctb, cph] (Respond.js library),\n  Ivan Sagalaev [ctb, cph] (highlight.js library),\n  Greg Franko [ctb, cph] (tocify library),\n  John MacFarlane [ctb, cph] (Pandoc templates),\n  Google, Inc. [ctb, cph] (ioslides library),\n  Dave Raggett [ctb] (slidy library),\n  W3C [cph] (slidy library),\n  Dave Gandy [ctb, cph] (Font-Awesome),\n  Ben Sperry [ctb] (Ionicons),\n  Drifty [cph] (Ionicons),\n  Aidan Lister [ctb, cph] (jQuery StickyTabs),\n  Benct Philip Jonsson [ctb, cph] (pagebreak Lua filter),\n  Albert Krewinkel [ctb, cph] (pagebreak Lua filter)",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-03-26 22:00:03 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:02:46 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:57:54 UTC; unix"
       }
     },
     "sass": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1815,13 +1819,13 @@
         "Packaged": "2023-01-23 19:37:40 UTC; cpsievert",
         "Author": "Joe Cheng [aut],\n  Timothy Mastny [aut],\n  Richard Iannone [aut] (<https://orcid.org/0000-0003-3925-190X>),\n  Barret Schloerke [aut] (<https://orcid.org/0000-0001-9986-114X>),\n  Carson Sievert [aut, cre] (<https://orcid.org/0000-0002-4958-2844>),\n  Christophe Dervieux [ctb] (<https://orcid.org/0000-0003-4474-2498>),\n  RStudio [cph, fnd],\n  Sass Open Source Foundation [ctb, cph] (LibSass library),\n  Greter Marcel [ctb, cph] (LibSass library),\n  Mifsud Michael [ctb, cph] (LibSass library),\n  Hampton Catlin [ctb, cph] (LibSass library),\n  Natalie Weizenbaum [ctb, cph] (LibSass library),\n  Chris Eppstein [ctb, cph] (LibSass library),\n  Adams Joseph [ctb, cph] (json.cpp),\n  Trifunovic Nemanja [ctb, cph] (utf8.h)",
         "Maintainer": "Carson Sievert <carson@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-24 01:10:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:57:53 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:55:02 UTC; unix"
       }
     },
     "semantic.dashboard": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1845,13 +1849,13 @@
         "Packaged": "2021-11-09 13:10:14 UTC; jakub",
         "Author": "Filip Stachura [aut],\n  Dominik Krzeminski [aut],\n  Krystian Igras [aut],\n  Michał Maj [ctb],\n  Michał Drzazga [ctb],\n  Developers Appsilon [cre],\n  Appsilon [cph]",
         "Maintainer": "Developers Appsilon <support+opensource@appsilon.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-11-09 18:50:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:03:10 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-24 13:28:02 UTC; unix"
       }
     },
     "shiny": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1880,13 +1884,13 @@
         "Packaged": "2022-12-13 20:45:56 UTC; winston",
         "Author": "Winston Chang [aut, cre] (<https://orcid.org/0000-0002-1576-2126>),\n  Joe Cheng [aut],\n  JJ Allaire [aut],\n  Carson Sievert [aut] (<https://orcid.org/0000-0002-4958-2844>),\n  Barret Schloerke [aut] (<https://orcid.org/0000-0001-9986-114X>),\n  Yihui Xie [aut],\n  Jeff Allen [aut],\n  Jonathan McPherson [aut],\n  Alan Dipert [aut],\n  Barbara Borges [aut],\n  RStudio [cph],\n  jQuery Foundation [cph] (jQuery library and jQuery UI library),\n  jQuery contributors [ctb, cph] (jQuery library; authors listed in\n    inst/www/shared/jquery-AUTHORS.txt),\n  jQuery UI contributors [ctb, cph] (jQuery UI library; authors listed in\n    inst/www/shared/jqueryui/AUTHORS.txt),\n  Mark Otto [ctb] (Bootstrap library),\n  Jacob Thornton [ctb] (Bootstrap library),\n  Bootstrap contributors [ctb] (Bootstrap library),\n  Twitter, Inc [cph] (Bootstrap library),\n  Prem Nawaz Khan [ctb] (Bootstrap accessibility plugin),\n  Victor Tsaran [ctb] (Bootstrap accessibility plugin),\n  Dennis Lembree [ctb] (Bootstrap accessibility plugin),\n  Srinivasu Chakravarthula [ctb] (Bootstrap accessibility plugin),\n  Cathy O'Connor [ctb] (Bootstrap accessibility plugin),\n  PayPal, Inc [cph] (Bootstrap accessibility plugin),\n  Stefan Petre [ctb, cph] (Bootstrap-datepicker library),\n  Andrew Rowls [ctb, cph] (Bootstrap-datepicker library),\n  Brian Reavis [ctb, cph] (selectize.js library),\n  Salmen Bejaoui [ctb, cph] (selectize-plugin-a11y library),\n  Denis Ineshin [ctb, cph] (ion.rangeSlider library),\n  Sami Samhuri [ctb, cph] (Javascript strftime library),\n  SpryMedia Limited [ctb, cph] (DataTables library),\n  John Fraser [ctb, cph] (showdown.js library),\n  John Gruber [ctb, cph] (showdown.js library),\n  Ivan Sagalaev [ctb, cph] (highlight.js library),\n  R Core Team [ctb, cph] (tar implementation from R)",
         "Maintainer": "Winston Chang <winston@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-12-15 13:10:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:00:02 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:57:59 UTC; unix"
       }
     },
     "shiny.semantic": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1910,9 +1914,9 @@
         "Packaged": "2021-11-06 18:20:58 UTC; jakub",
         "Author": "Filip Stachura [aut],\n  Dominik Krzeminski [aut],\n  Krystian Igras [aut],\n  Adam Forys [aut],\n  Paweł Przytuła [aut],\n  Jakub Chojna [aut],\n  Olga Mierzwa-Sulima [aut],\n  Ashley Baldry [ctb],\n  Jakub Chojna [ctb],\n  Olga Mierzwa-Sulima [ctb],\n  Pedro Manuel Coutinho da Silva [ctb],\n  Paweł Przytuła [ctb],\n  Kamil Żyła [ctb],\n  Rabii Bouhestine [ctb],\n  Developers Appsilon [cre],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Developers Appsilon <support+opensource@appsilon.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2021-11-07 16:00:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:02:59 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-24 13:27:58 UTC; unix"
       }
     },
     "shiny.telemetry": {
@@ -1920,40 +1924,41 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e",
-      "GithubSha1": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e",
+      "GithubRef": "960b2a964ad373ec666b2e063981362b83c4b811",
+      "GithubSha1": "960b2a964ad373ec666b2e063981362b83c4b811",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
-        "Title": "Shiny app usability logs and statistics",
-        "Version": "0.0.9009",
-        "Author": "Appsilon Data Science <dev@appsilondatascience.com>",
-        "Maintainer": "Appsilon Data Science <dev@appsilondatascience.com>",
-        "Description": "Easy way for logging users activity and adding statistics panel to your Shiny app.",
+        "Title": "Shiny App Usage Telemetry",
+        "Version": "0.1.0",
+        "Authors@R": "\n  c(\n    person(\"Kamil\", \"Żyła\", role = c(\"aut\", \"cre\"), email = \"opensource+kamil@appsilon.com\"),\n    person(\"André\", \"Veríssimo\", role = \"aut\", email = \"andre.verissimo@appsilon.com\"),\n    person(\"Krystian\", \"Igras\",  role = \"aut\", email = \"krystian8207@gmail.com\"),\n    person(\"Recle\", \"Vibal\", role = \"aut\", email = \"recle.vibal@appsilon.com\"),\n    person(\"Appsilon Sp. z o.o.\", role = \"cph\", email = \"opensource@appsilon.com\")\n  )",
+        "Description": "\n  Enables instrumentation of 'Shiny' apps for tracking user session events\n  such as input changes, browser type, and session duration.\n  These events can be sent to any of the available storage backends\n  and analyzed using the included 'Shiny' app to gain insights about app usage and adoption.",
         "License": "LGPL-3",
         "Encoding": "UTF-8",
         "LazyData": "true",
-        "Suggests": "plumber,\nbox,\nstringr,\nhere,\ntestthat (>= 3.0.0),\nmockery,\nwithr,\nlintr,\nspelling,\nrcmdcheck,\nRPostgreSQL,\nRMariaDB,\ntimevis,\nRColorBrewer,\nplotly,\nDT,\nshinyjs,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nconfig",
-        "Imports": "purrr,\ntidyr,\ndplyr,\nodbc,\njsonlite,\nlogger,\nR6,\nRSQLite,\nrlang,\ncheckmate,\nglue,\nshiny,\nhttr2,\ndigest,\nlubridate",
+        "Suggests": "box,\nconfig,\nDT,\nhere,\nlintr,\nmockery,\nplotly,\nplumber,\nrcmdcheck,\nRColorBrewer,\nRMariaDB,\nRPostgreSQL,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nshinyjs,\nspelling,\nstringr,\ntestthat (>= 3.1.7),\ntimevis,\nwithr",
+        "Imports": "checkmate,\ndigest,\ndplyr (>= 1.1.0),\nglue,\nhttr2,\njsonlite,\nlogger,\nlubridate,\nodbc,\npurrr,\nR6,\nrlang,\nRSQLite,\nshiny,\ntidyr",
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
-        "Built": "R 4.2.3; ; 2023-04-20 10:37:04 UTC; unix",
+        "Author": "Kamil Żyła [aut, cre],\n  André Veríssimo [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
+        "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
+        "Built": "R 4.3.0; ; 2023-04-24 13:28:32 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e",
-        "RemoteSha": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e",
+        "RemoteRef": "960b2a964ad373ec666b2e063981362b83c4b811",
+        "RemoteSha": "960b2a964ad373ec666b2e063981362b83c4b811",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e",
-        "GithubSHA1": "aff82a2bbbdfc35c2ea2671c5a9bd594e53f1f4e"
+        "GithubRef": "960b2a964ad373ec666b2e063981362b83c4b811",
+        "GithubSHA1": "960b2a964ad373ec666b2e063981362b83c4b811"
       }
     },
     "sourcetools": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -1975,13 +1980,13 @@
         "Encoding": "UTF-8",
         "NeedsCompilation": "yes",
         "Packaged": "2023-01-31 18:03:04 UTC; kevin",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-02-01 10:10:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 08:57:08 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:44:53 UTC; unix"
       }
     },
     "stringi": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -2008,13 +2013,13 @@
         "NeedsCompilation": "yes",
         "Packaged": "2023-01-09 07:28:38 UTC; gagolews",
         "License_is_FOSS": "yes",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-11 10:10:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:01:40 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:47:27 UTC; unix"
       }
     },
     "stringr": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -2042,13 +2047,13 @@
         "Packaged": "2022-12-01 20:53:42 UTC; hadleywickham",
         "Author": "Hadley Wickham [aut, cre, cph],\n  RStudio [cph, fnd]",
         "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-12-02 10:20:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:02:41 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:48:57 UTC; unix"
       }
     },
     "sys": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -2072,13 +2077,13 @@
         "Packaged": "2022-10-18 09:37:11 UTC; jeroen",
         "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Gábor Csárdi [ctb]",
         "Maintainer": "Jeroen Ooms <jeroen@berkeley.edu>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-10-18 12:40:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:04:33 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:03 UTC; unix"
       }
     },
     "tibble": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -2110,13 +2115,13 @@
         "Packaged": "2023-03-19 09:23:10 UTC; kirill",
         "Author": "Kirill Müller [aut, cre] (<https://orcid.org/0000-0002-1416-3412>),\n  Hadley Wickham [aut],\n  Romain Francois [ctb],\n  Jennifer Bryan [ctb],\n  RStudio [cph, fnd]",
         "Maintainer": "Kirill Müller <kirill@cynkra.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-03-20 06:30:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:00:58 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:47:59 UTC; unix"
       }
     },
     "tidyr": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -2146,13 +2151,13 @@
         "Packaged": "2023-01-23 22:21:00 UTC; hadleywickham",
         "Author": "Hadley Wickham [aut, cre],\n  Davis Vaughan [aut],\n  Maximilian Girlich [aut],\n  Kevin Ushey [ctb],\n  Posit, PBC [cph, fnd]",
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-24 16:00:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:04:48 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:53:29 UTC; unix"
       }
     },
     "tidyselect": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -2180,9 +2185,9 @@
         "Packaged": "2022-10-10 14:09:03 UTC; hadleywickham",
         "Author": "Lionel Henry [aut, cre],\n  Hadley Wickham [aut],\n  RStudio [cph, fnd]",
         "Maintainer": "Lionel Henry <lionel@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-10-10 19:00:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 09:01:02 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:47:59 UTC; unix"
       }
     },
     "timechange": {
@@ -2213,7 +2218,7 @@
         "Maintainer": "Vitalie Spinu <spinuvit@gmail.com>",
         "Repository": "RSPM",
         "Date/Publication": "2023-01-11 18:20:02 UTC",
-        "Built": "R 4.2.0; x86_64-pc-linux-gnu; 2023-01-12 11:11:59 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:50 UTC; unix"
       }
     },
     "tinytex": {
@@ -2243,11 +2248,11 @@
         "Maintainer": "Yihui Xie <xie@yihui.name>",
         "Repository": "RSPM",
         "Date/Publication": "2023-04-18 14:30:07 UTC",
-        "Built": "R 4.2.0; ; 2023-04-19 11:46:14 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:46:24 UTC; unix"
       }
     },
     "utf8": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -2272,14 +2277,14 @@
         "Packaged": "2023-01-31 05:28:43 UTC; kirill",
         "Author": "Patrick O. Perry [aut, cph],\n  Kirill Müller [cre],\n  Unicode, Inc. [cph, dtc] (Unicode Character Database)",
         "Maintainer": "Kirill Müller <kirill@cynkra.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-31 18:00:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:00:27 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:33 UTC; unix"
       }
     },
     "vctrs": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2306,13 +2311,13 @@
         "Packaged": "2023-04-19 18:24:24 UTC; davis",
         "Author": "Hadley Wickham [aut],\n  Lionel Henry [aut],\n  Davis Vaughan [aut, cre],\n  data.table team [cph] (Radix sort based on data.table's forder() and\n    their contribution to R's order()),\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Davis Vaughan <davis@posit.co>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-04-19 19:30:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-20 10:36:35 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:47:08 UTC; unix"
       }
     },
     "withr": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -2340,13 +2345,13 @@
         "Packaged": "2022-03-03 21:13:01 UTC; lionel",
         "Author": "Jim Hester [aut],\n  Lionel Henry [aut, cre],\n  Kirill Müller [aut],\n  Kevin Ushey [aut],\n  Hadley Wickham [aut],\n  Winston Chang [aut],\n  Jennifer Bryan [ctb],\n  Richard Cotton [ctb],\n  RStudio [cph, fnd]",
         "Maintainer": "Lionel Henry <lionel@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2022-03-03 21:50:02 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 08:57:13 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-21 21:46:40 UTC; unix"
       }
     },
     "xfun": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -2356,8 +2361,8 @@
         "Package": "xfun",
         "Type": "Package",
         "Title": "Supporting Functions for Packages Maintained by 'Yihui Xie'",
-        "Version": "0.38",
-        "Authors@R": "c(\n  person(\"Yihui\", \"Xie\", role = c(\"aut\", \"cre\", \"cph\"), email = \"xie@yihui.name\", comment = c(ORCID = \"0000-0003-0645-5666\")),\n  person(\"Wush\", \"Wu\", role = \"ctb\"),\n  person(\"Daijiang\", \"Li\", role = \"ctb\"),\n  person(\"Xianying\", \"Tan\", role = \"ctb\"),\n  person(\"Salim\", \"Brüggemann\", role = \"ctb\", email = \"salim-b@pm.me\", comment = c(ORCID = \"0000-0002-5329-5987\")),\n  person(\"Christophe\", \"Dervieux\", role = \"ctb\"),\n  person()\n  )",
+        "Version": "0.39",
+        "Authors@R": "c(\n  person(\"Yihui\", \"Xie\", role = c(\"aut\", \"cre\", \"cph\"), email = \"xie@yihui.name\", comment = c(ORCID = \"0000-0003-0645-5666\")),\n  person(\"Wush\", \"Wu\", role = \"ctb\"),\n  person(\"Daijiang\", \"Li\", role = \"ctb\"),\n  person(\"Xianying\", \"Tan\", role = \"ctb\"),\n  person(\"Salim\", \"Brüggemann\", role = \"ctb\", email = \"salim-b@pm.me\", comment = c(ORCID = \"0000-0002-5329-5987\")),\n  person(\"Christophe\", \"Dervieux\", role = \"ctb\"),\n  person(given = \"Posit Software, PBC\", role = c(\"cph\", \"fnd\")),\n  person()\n  )",
         "Description": "Miscellaneous functions commonly used in other packages maintained by 'Yihui Xie'.",
         "Imports": "stats, tools",
         "Suggests": "testit, parallel, codetools, rstudioapi, tinytex (>= 0.30),\nmime, markdown (>= 1.5), knitr (>= 1.42), htmltools, remotes,\npak, rhub, renv, curl, jsonlite, magick, yaml, rmarkdown",
@@ -2368,16 +2373,16 @@
         "RoxygenNote": "7.2.3",
         "VignetteBuilder": "knitr",
         "NeedsCompilation": "yes",
-        "Packaged": "2023-03-24 04:21:24 UTC; yihui",
-        "Author": "Yihui Xie [aut, cre, cph] (<https://orcid.org/0000-0003-0645-5666>),\n  Wush Wu [ctb],\n  Daijiang Li [ctb],\n  Xianying Tan [ctb],\n  Salim Brüggemann [ctb] (<https://orcid.org/0000-0002-5329-5987>),\n  Christophe Dervieux [ctb]",
+        "Packaged": "2023-04-19 22:17:10 UTC; yihui",
+        "Author": "Yihui Xie [aut, cre, cph] (<https://orcid.org/0000-0003-0645-5666>),\n  Wush Wu [ctb],\n  Daijiang Li [ctb],\n  Xianying Tan [ctb],\n  Salim Brüggemann [ctb] (<https://orcid.org/0000-0002-5329-5987>),\n  Christophe Dervieux [ctb],\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Yihui Xie <xie@yihui.name>",
-        "Repository": "CRAN",
-        "Date/Publication": "2023-03-24 10:00:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:01:22 UTC; unix"
+        "Repository": "RSPM",
+        "Date/Publication": "2023-04-20 12:50:02 UTC",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:45:58 UTC; unix"
       }
     },
     "xtable": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -2397,16 +2402,17 @@
         "URL": "http://xtable.r-forge.r-project.org/",
         "Depends": "R (>= 2.10.0)",
         "License": "GPL (>= 2)",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "NeedsCompilation": "no",
         "Packaged": "2019-04-21 10:56:51 UTC; dsco036",
         "Author": "David B. Dahl [aut],\n  David Scott [aut, cre],\n  Charles Roosen [aut],\n  Arni Magnusson [aut],\n  Jonathan Swinton [aut],\n  Ajay Shah [ctb],\n  Arne Henningsen [ctb],\n  Benno Puetz [ctb],\n  Bernhard Pfaff [ctb],\n  Claudio Agostinelli [ctb],\n  Claudius Loehnert [ctb],\n  David Mitchell [ctb],\n  David Whiting [ctb],\n  Fernando da Rosa [ctb],\n  Guido Gay [ctb],\n  Guido Schulz [ctb],\n  Ian Fellows [ctb],\n  Jeff Laake [ctb],\n  John Walker [ctb],\n  Jun Yan [ctb],\n  Liviu Andronic [ctb],\n  Markus Loecher [ctb],\n  Martin Gubri [ctb],\n  Matthieu Stigler [ctb],\n  Robert Castelo [ctb],\n  Seth Falcon [ctb],\n  Stefan Edwards [ctb],\n  Sven Garbade [ctb],\n  Uwe Ligges [ctb]",
         "Date/Publication": "2019-04-21 12:20:03 UTC",
-        "Built": "R 4.2.3; ; 2023-04-04 08:56:48 UTC; unix"
+        "Encoding": "UTF-8",
+        "Built": "R 4.3.0; ; 2023-04-21 21:51:24 UTC; unix"
       }
     },
     "yaml": {
-      "Source": "CRAN",
+      "Source": "RSPM",
       "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
@@ -2427,15 +2433,16 @@
         "BugReports": "https://github.com/vubiostat/r-yaml/issues",
         "NeedsCompilation": "yes",
         "Packaged": "2023-01-18 17:20:16 UTC; garbetsp",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-01-23 18:40:02 UTC",
-        "Built": "R 4.2.3; x86_64-pc-linux-gnu; 2023-04-04 09:01:15 UTC; unix"
+        "Encoding": "UTF-8",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:44 UTC; unix"
       }
     }
   },
   "files": {
     ".Rprofile": {
-      "checksum": "5abcbe16beef9ea2baeb81544d2e8928"
+      "checksum": "4879cf8fedd22dfe78b95e476dcf2cb4"
     },
     "app.R": {
       "checksum": "9f0eba0f09bda485101c886f593407a5"
