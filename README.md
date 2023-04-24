@@ -1,4 +1,4 @@
-# shiny.telemetry
+# shiny.telemetry <a href="https://appsilon.github.io/shiny.telemetry/"><img src="man/figures/shiny-telemetry.png" alt="shiny.telemetry logo" style="float: right; height: 140px;"></a>
 
 > Easy logging of users activity and session events of your Shiny App
 
@@ -65,7 +65,7 @@ The developers and administrators of the dashboard can access the data that is g
 shiny.telemetry::Telemetry$new()$data_storage$read_events("2020-01-01", "2050-01-01")
 
 # default provider and path for Telemetry$new()
-shiny.telemetry::DataStorageSQLite$new(db_path = "telemetry.sqlite")$read_events("2020-01-01", "2050-01-01") 
+shiny.telemetry::DataStorageSQLite$new(db_path = "telemetry.sqlite")$read_events("2020-01-01", "2050-01-01")
 ```
 
 The package has an analytics sample dashboard to help access the data. It is located at `inst/examples/app/analytics` and it should be modified so that it references the correct `DataStorage` provider and configuration.
