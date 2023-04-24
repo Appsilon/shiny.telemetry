@@ -1,6 +1,7 @@
 #' Function that adds telemetry HTML elements to UI
 #'
 #' @param id (optional) string with id representing the namespace
+#' @return A `shiny.tag` object to be included in the UI of a Shiny app.
 #'
 #' @export
 use_telemetry <- function(id = "") {
