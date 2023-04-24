@@ -11,7 +11,7 @@ build_id_from_secret(secret)
 available}
 }
 \value{
-a string with an hash of the secret
+A string with an hash of the secret.
 }
 \description{
 This is used in shiny.telemetry, but also externally with the Plumber

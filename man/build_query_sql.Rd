@@ -22,7 +22,7 @@ build_query_sql(
 query}
 }
 \value{
-string with SQL query
+A string with SQL query.
 }
 \description{
 Build query to read from table in DataStorageSQLite provider

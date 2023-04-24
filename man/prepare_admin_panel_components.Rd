@@ -19,3 +19,4 @@ and writes.}
 \description{
 prepare_admin_panel_components
 }
+\keyword{internal}

@@ -166,6 +166,9 @@ Shiny session.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+Nothing. This method is called for side effects.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Telemetry-log_navigation"></a>}}
@@ -186,6 +189,9 @@ application so that the function can track and log changes to it.}
 Shiny session.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing. This method is called for side effects.
 }
 }
 \if{html}{\out{<hr>}}
@@ -213,6 +219,9 @@ Shiny session.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+Nothing. This method is called for side effects.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Telemetry-log_login"></a>}}
@@ -235,6 +244,9 @@ Log when session starts
 Shiny session.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing. This method is called for side effects.
 }
 }
 \if{html}{\out{<hr>}}
@@ -259,6 +271,9 @@ Shiny session.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+Nothing. This method is called for side effects.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Telemetry-log_click"></a>}}
@@ -279,6 +294,9 @@ Shiny session.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+Nothing. This method is called for side effects.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Telemetry-log_browser_version"></a>}}
@@ -296,6 +314,9 @@ Log the browser version
 Shiny session.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing. This method is called for side effects.
 }
 }
 \if{html}{\out{<hr>}}
@@ -326,6 +347,9 @@ Shiny session.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+Nothing. This method is called for side effects.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Telemetry-log_all_inputs"></a>}}
@@ -355,6 +379,9 @@ package.}
 Shiny session.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing. This method is called for side effects.
 }
 }
 \if{html}{\out{<hr>}}
@@ -391,6 +418,9 @@ Shiny session.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+Nothing. This method is called for side effects.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Telemetry-log_input_manual"></a>}}
@@ -423,6 +453,9 @@ Shiny session.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+Nothing. This method is called for side effects.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Telemetry-log_custom_event"></a>}}
@@ -448,6 +481,9 @@ Log a manual event
 Shiny session.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing. This method is called for side effects.
 }
 }
 \if{html}{\out{<hr>}}

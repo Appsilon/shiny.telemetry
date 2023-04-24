@@ -65,6 +65,9 @@ or `lubridate::now(tzone = "UTC")` to generate it.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+Nothing. This method is called for side effects.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataStorage-read_event_data"></a>}}
