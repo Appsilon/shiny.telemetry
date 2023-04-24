@@ -107,6 +107,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' By default, no navigation is tracked.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     start_session = function(
       track_inputs = TRUE,
@@ -185,6 +187,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' application so that the function can track and log changes to it.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     log_navigation = function(
       input_id, session = shiny::getDefaultReactiveDomain()
@@ -211,6 +215,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param value string that indicates a value for the navigation
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     log_navigation_manual = function(
       navigation_id, value, session = shiny::getDefaultReactiveDomain()
@@ -234,6 +240,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param username string with username from current session
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     log_login = function(
       username = NULL, session = shiny::getDefaultReactiveDomain()
@@ -253,6 +261,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param username string with username from current session
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     log_logout = function(
       username = NULL, session = shiny::getDefaultReactiveDomain()
@@ -274,6 +284,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param id string that identifies a manual click to the dashboard.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     log_click = function(id, session = shiny::getDefaultReactiveDomain()) {
       checkmate::assert_string(id)
@@ -292,6 +304,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #'
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     log_browser_version = function(
       session = shiny::getDefaultReactiveDomain()
@@ -332,6 +346,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' track the value of the input that are changing. `FALSE` by default.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     log_button = function(
       input_id,
@@ -352,6 +368,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' package.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     log_all_inputs = function(
       track_values = FALSE,
@@ -377,6 +395,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' value from JSON format.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     log_input = function(
       input_id,
@@ -408,6 +428,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param value (optional) scalar value or list with the value to register.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     log_input_manual = function(
       input_id, value = NULL, session = shiny::getDefaultReactiveDomain()
@@ -434,6 +456,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param details (optional) scalar value or list with the value to register.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     log_custom_event = function(
       event_type, details = NULL, session = shiny::getDefaultReactiveDomain()

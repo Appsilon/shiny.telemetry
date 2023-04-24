@@ -12,7 +12,7 @@
 #' communication. It can be NULL on both telemetry and in plumber API to
 #' disable this communication feature
 #'
-#' @return a string that contains an hash to uniquely identify the parameters
+#' @return A string that contains an hash to uniquely identify the parameters.
 #' @export
 #'
 #' @examples
@@ -34,7 +34,7 @@ build_token <- function(values, secret = NULL) {
 #' @param secret string that contains information that should not be publicly
 #' available
 #'
-#' @return a string with an hash of the secret
+#' @return A string with an hash of the secret.
 #' @export
 #'
 #' @examples

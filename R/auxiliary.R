@@ -6,7 +6,7 @@
 #' @param timestamp_wrapper string with function to wrap up seconds in database
 #' query
 #'
-#' @return string with SQL query
+#' @return A string with SQL query.
 #'
 #' @examples
 #'

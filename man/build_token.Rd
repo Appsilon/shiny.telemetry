@@ -14,7 +14,7 @@ communication. It can be NULL on both telemetry and in plumber API to
 disable this communication feature}
 }
 \value{
-a string that contains an hash to uniquely identify the parameters
+A string that contains an hash to uniquely identify the parameters.
 }
 \description{
 Function that takes creates a signature for the `values` using a secret.

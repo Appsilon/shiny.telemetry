@@ -27,6 +27,8 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' generated in UTC. By default it should be NULL and determined
     #' automatically, but in cases where it should be defined, use `Sys.time()`
     #' or `lubridate::now(tzone = "UTC")` to generate it.
+    #'
+    #' @return Nothing. This method is called for side effects.
 
     insert = function(
       app_name, type, session = NULL, details = NULL, time = NULL
