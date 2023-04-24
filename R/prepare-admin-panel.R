@@ -120,6 +120,8 @@ get_per_day_plot_data <- function(base, per_day) {
 #' @param session session object inherited from server function.
 #' @param data_storage data_storage instance that will handle all backend read
 #' and writes.
+#'
+#' @keywords internal
 prepare_admin_panel_components <- function(
     input, output, session, data_storage
 ) {
