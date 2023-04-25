@@ -16,6 +16,3 @@ library(shiny.telemetry)
 
 library(checkmate)
 library(config)
-
-library(future)
-library(promises)
