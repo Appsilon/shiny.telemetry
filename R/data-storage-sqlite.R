@@ -38,7 +38,6 @@ DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
     initialize = function(
       db_path = "user_stats.sqlite"
     ) {
-      super$initialize()
 
       logger::log_debug("path to db: {db_path}", namespace = "shiny.telemetry")
       private$connect(db_path)

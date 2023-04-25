@@ -36,7 +36,6 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
     #' @param log_file_path string with path to JSON log file user actions
 
     initialize = function(log_file_path) {
-      super$initialize()
       logger::log_debug(
         "path to file: {log_file_path}",
         namespace = "shiny.telemetry"

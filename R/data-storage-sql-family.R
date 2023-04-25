@@ -9,14 +9,6 @@ DataStorageSQLFamily <- R6::R6Class( # nolint object_name_linter
   #
   # Public
   public = list(
-
-    #' @description
-    #' Initialize the data storage class
-
-    initialize = function() {
-      super$initialize()
-    }
-
   ),
   #
   # Private

@@ -46,7 +46,6 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
       port = 5432,
       dbname = "shiny_telemetry"
     ) {
-      super$initialize()
       checkmate::assert_string(password)
       checkmate::assert_string(username)
       checkmate::assert_string(hostname)

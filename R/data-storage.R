@@ -12,7 +12,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' @description initialize data storage object common with all providers
 
     initialize = function() {
-
+      stop(paste(class(self)[1], "is an abstract class that can't be initialized."))
     },
 
     #' @description Insert new data
