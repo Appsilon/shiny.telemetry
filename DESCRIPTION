@@ -1,6 +1,6 @@
 Package: shiny.telemetry
 Type: Package
-Title: Shiny App Usage Telemetry
+Title: 'Shiny' App Usage Telemetry
 Version: 0.1.0
 Authors@R:
   c(
@@ -15,6 +15,8 @@ Description:
   such as input changes, browser type, and session duration.
   These events can be sent to any of the available storage backends
   and analyzed using the included 'Shiny' app to gain insights about app usage and adoption.
+URL: https://appsilon.github.io/shiny.telemetry/, https://github.com/Appsilon/shiny.telemetry
+BugReports: https://github.com/Appsilon/shiny.telemetry/issues
 License: LGPL-3
 Encoding: UTF-8
 LazyData: true
