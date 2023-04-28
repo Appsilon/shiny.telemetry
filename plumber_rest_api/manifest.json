@@ -486,8 +486,8 @@
       }
     },
     "checkmate": {
-      "Source": "RSPM",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1700,7 +1700,7 @@
         "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
         "Repository": "RSPM",
         "Date/Publication": "2022-02-20 13:00:02 UTC",
-        "Built": "R 4.3.0; ; 2023-04-24 15:05:15 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-25 00:11:40 UTC; unix"
       }
     },
     "odbc": {
@@ -1962,7 +1962,7 @@
         "Maintainer": "Barret Schloerke <barret@rstudio.com>",
         "Repository": "RSPM",
         "Date/Publication": "2022-09-06 19:10:02 UTC",
-        "Built": "R 4.3.0; ; 2023-04-24 15:05:18 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-24 23:42:07 UTC; unix"
       }
     },
     "praise": {
@@ -2328,8 +2328,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
-      "GithubSha1": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
+      "GithubRef": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
+      "GithubSha1": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2347,18 +2347,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre],\n  André Veríssimo [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.0; ; 2023-04-24 15:04:04 UTC; unix",
+        "Built": "R 4.3.0; ; 2023-04-28 15:08:18 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
-        "RemoteSha": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
+        "RemoteRef": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
+        "RemoteSha": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
-        "GithubSHA1": "a0bf8797435c2b546c62a8327fab711a12c12dd9"
+        "GithubRef": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
+        "GithubSHA1": "59b75758db42d04a5650dfeb1bc2fa47397709cf"
       }
     },
     "sodium": {
@@ -2966,7 +2966,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "d16a19e6427fceb32777d4f0b5f81435"
+      "checksum": "0ad36ced83e045afde0c3706a6066729"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"

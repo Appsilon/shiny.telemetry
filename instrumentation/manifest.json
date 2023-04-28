@@ -393,8 +393,8 @@
       }
     },
     "checkmate": {
-      "Source": "RSPM",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -404,7 +404,7 @@
         "Type": "Package",
         "Title": "Fast and Versatile Argument Checks",
         "Description": "Tests and assertions to perform frequent argument checks. A\n    substantial part of the package was written in C to minimize any worries\n    about execution time overhead.",
-        "Version": "2.1.0",
+        "Version": "2.2.0",
         "Authors@R": "c(\n    person(\"Michel\", \"Lang\", NULL, \"michellang@gmail.com\",\n      role = c(\"cre\", \"aut\"), comment = c(ORCID = \"0000-0001-9754-0393\")),\n    person(\"Bernd\", \"Bischl\", NULL, \"bernd_bischl@gmx.net\", role = \"ctb\"),\n    person(\"Dénes\", \"Tóth\", NULL, \"toth.denes@kogentum.hu\", role = \"ctb\",\n      comment = c(ORCID = \"0000-0003-4262-3217\"))\n    )",
         "URL": "https://mllg.github.io/checkmate/,\nhttps://github.com/mllg/checkmate",
         "URLNote": "https://github.com/mllg/checkmate",
@@ -417,14 +417,14 @@
         "Suggests": "R6, fastmatch, data.table (>= 1.9.8), devtools, ggplot2,\nknitr, magrittr, microbenchmark, rmarkdown, testthat (>=\n3.0.4), tinytest (>= 1.1.0), tibble",
         "License": "BSD_3_clause + file LICENSE",
         "VignetteBuilder": "knitr",
-        "RoxygenNote": "7.1.2",
-        "Collate": "'AssertCollection.R' 'allMissing.R' 'anyInfinite.R'\n'anyMissing.R' 'anyNaN.R' 'asInteger.R' 'assert.R' 'helper.R'\n'makeExpectation.R' 'makeTest.R' 'makeAssertion.R'\n'checkAccess.R' 'checkArray.R' 'checkAtomic.R'\n'checkAtomicVector.R' 'checkCharacter.R' 'checkChoice.R'\n'checkClass.R' 'checkComplex.R' 'checkCount.R'\n'checkDataFrame.R' 'checkDataTable.R' 'checkDate.R'\n'checkDirectoryExists.R' 'checkDisjunct.R' 'checkDouble.R'\n'checkEnvironment.R' 'checkFALSE.R' 'checkFactor.R'\n'checkFileExists.R' 'checkFlag.R' 'checkFormula.R'\n'checkFunction.R' 'checkInt.R' 'checkInteger.R'\n'checkIntegerish.R' 'checkList.R' 'checkLogical.R'\n'checkMatrix.R' 'checkMultiClass.R' 'checkNamed.R'\n'checkNames.R' 'checkNull.R' 'checkNumber.R' 'checkNumeric.R'\n'checkOS.R' 'checkPOSIXct.R' 'checkPathForOutput.R' 'checkR6.R'\n'checkRaw.R' 'checkScalar.R' 'checkScalarNA.R'\n'checkSetEqual.R' 'checkString.R' 'checkSubset.R' 'checkTRUE.R'\n'checkTibble.R' 'checkVector.R' 'coalesce.R' 'isIntegerish.R'\n'matchArg.R' 'qassert.R' 'qassertr.R' 'vname.R' 'wfwl.R'\n'zzz.R'",
-        "Packaged": "2022-04-20 07:14:04 UTC; michel",
+        "RoxygenNote": "7.2.3",
+        "Collate": "'AssertCollection.R' 'allMissing.R' 'anyInfinite.R'\n'anyMissing.R' 'anyNaN.R' 'asInteger.R' 'assert.R' 'helper.R'\n'makeExpectation.R' 'makeTest.R' 'makeAssertion.R'\n'checkAccess.R' 'checkArray.R' 'checkAtomic.R'\n'checkAtomicVector.R' 'checkCharacter.R' 'checkChoice.R'\n'checkClass.R' 'checkComplex.R' 'checkCount.R'\n'checkDataFrame.R' 'checkDataTable.R' 'checkDate.R'\n'checkDirectoryExists.R' 'checkDisjunct.R' 'checkDouble.R'\n'checkEnvironment.R' 'checkFALSE.R' 'checkFactor.R'\n'checkFileExists.R' 'checkFlag.R' 'checkFormula.R'\n'checkFunction.R' 'checkInt.R' 'checkInteger.R'\n'checkIntegerish.R' 'checkList.R' 'checkLogical.R'\n'checkMatrix.R' 'checkMultiClass.R' 'checkNamed.R'\n'checkNames.R' 'checkNull.R' 'checkNumber.R' 'checkNumeric.R'\n'checkOS.R' 'checkPOSIXct.R' 'checkPathForOutput.R'\n'checkPermutation.R' 'checkR6.R' 'checkRaw.R' 'checkScalar.R'\n'checkScalarNA.R' 'checkSetEqual.R' 'checkString.R'\n'checkSubset.R' 'checkTRUE.R' 'checkTibble.R' 'checkVector.R'\n'coalesce.R' 'isIntegerish.R' 'matchArg.R' 'qassert.R'\n'qassertr.R' 'vname.R' 'wfwl.R' 'zzz.R'",
+        "Packaged": "2023-04-26 11:39:50 UTC; michel",
         "Author": "Michel Lang [cre, aut] (<https://orcid.org/0000-0001-9754-0393>),\n  Bernd Bischl [ctb],\n  Dénes Tóth [ctb] (<https://orcid.org/0000-0003-4262-3217>)",
         "Maintainer": "Michel Lang <michellang@gmail.com>",
-        "Repository": "RSPM",
-        "Date/Publication": "2022-04-21 07:30:05 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 22:20:19 UTC; unix"
+        "Repository": "CRAN",
+        "Date/Publication": "2023-04-27 09:22:31 UTC",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-28 15:07:41 UTC; unix"
       }
     },
     "cli": {
@@ -846,7 +846,7 @@
       "description": {
         "Package": "fs",
         "Title": "Cross-Platform File System Operations Based on 'libuv'",
-        "Version": "1.6.1",
+        "Version": "1.6.2",
         "Authors@R": "c(\n    person(\"Jim\", \"Hester\", role = \"aut\"),\n    person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = \"aut\"),\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"libuv project contributors\", role = \"cph\",\n           comment = \"libuv library\"),\n    person(\"Joyent, Inc. and other Node contributors\", role = \"cph\",\n           comment = \"libuv library\"),\n    person(\"RStudio\", role = c(\"cph\", \"fnd\"))\n  )",
         "Description": "A cross-platform interface to file system operations, built\n    on top of the 'libuv' C library.",
         "License": "MIT + file LICENSE",
@@ -865,12 +865,12 @@
         "Config/testthat/edition": "3",
         "Config/Needs/website": "tidyverse/tidytemplate",
         "NeedsCompilation": "yes",
-        "Packaged": "2023-02-06 11:56:15 UTC; gaborcsardi",
+        "Packaged": "2023-04-24 13:43:26 UTC; gaborcsardi",
         "Author": "Jim Hester [aut],\n  Hadley Wickham [aut],\n  Gábor Csárdi [aut, cre],\n  libuv project contributors [cph] (libuv library),\n  Joyent, Inc. and other Node contributors [cph] (libuv library),\n  RStudio [cph, fnd]",
         "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
         "Repository": "RSPM",
-        "Date/Publication": "2023-02-06 21:22:33 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:51:13 UTC; unix"
+        "Date/Publication": "2023-04-25 08:30:02 UTC",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-26 16:27:20 UTC; unix"
       }
     },
     "generics": {
@@ -1851,7 +1851,7 @@
         "Maintainer": "Developers Appsilon <support+opensource@appsilon.com>",
         "Repository": "RSPM",
         "Date/Publication": "2021-11-09 18:50:02 UTC",
-        "Built": "R 4.3.0; ; 2023-04-24 15:03:28 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-27 03:25:43 UTC; unix"
       }
     },
     "shiny": {
@@ -1916,7 +1916,7 @@
         "Maintainer": "Developers Appsilon <support+opensource@appsilon.com>",
         "Repository": "RSPM",
         "Date/Publication": "2021-11-07 16:00:02 UTC",
-        "Built": "R 4.3.0; ; 2023-04-24 15:03:24 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-04-25 00:00:49 UTC; unix"
       }
     },
     "shiny.telemetry": {
@@ -1924,8 +1924,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
-      "GithubSha1": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
+      "GithubRef": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
+      "GithubSha1": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -1943,18 +1943,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre],\n  André Veríssimo [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.0; ; 2023-04-24 15:04:04 UTC; unix",
+        "Built": "R 4.3.0; ; 2023-04-28 15:08:18 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
-        "RemoteSha": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
+        "RemoteRef": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
+        "RemoteSha": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "a0bf8797435c2b546c62a8327fab711a12c12dd9",
-        "GithubSHA1": "a0bf8797435c2b546c62a8327fab711a12c12dd9"
+        "GithubRef": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
+        "GithubSHA1": "59b75758db42d04a5650dfeb1bc2fa47397709cf"
       }
     },
     "sourcetools": {
@@ -2442,7 +2442,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "99fee8edd73a9f58cbb515f4ff464791"
+      "checksum": "63548cc41da2e3f8f9e0744306d19ba2"
     },
     "app.R": {
       "checksum": "9f0eba0f09bda485101c886f593407a5"
