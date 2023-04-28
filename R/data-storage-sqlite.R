@@ -7,10 +7,8 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' data_storage <- DataStorageSQLite$new(
-#'   db_path = tempfile(pattern = "user_stats", fileext = ".sqlite")
-#' )
+#' db_path <- tempfile(fileext = ".sqlite")
+#' data_storage <- DataStorageSQLite$new(db_path = db_path)
 #'
 #' data_storage$insert("example", "test_event", "session1")
 #' data_storage$insert("example", "input", "s1", list(id = "id1"))
@@ -23,7 +21,8 @@
 #'
 #' data_storage$read_event_data()
 #' data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
-#' }
+#'
+#' file.remove(db_path)
 DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageSQLite",
   inherit = DataStorageSQLFamily,
