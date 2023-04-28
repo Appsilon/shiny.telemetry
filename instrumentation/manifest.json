@@ -424,7 +424,7 @@
         "Maintainer": "Michel Lang <michellang@gmail.com>",
         "Repository": "CRAN",
         "Date/Publication": "2023-04-27 09:22:31 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-28 15:07:41 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-28 15:13:08 UTC; unix"
       }
     },
     "cli": {
@@ -1924,8 +1924,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
-      "GithubSha1": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
+      "GithubRef": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c",
+      "GithubSha1": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -1943,18 +1943,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre],\n  André Veríssimo [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.0; ; 2023-04-28 15:08:18 UTC; unix",
+        "Built": "R 4.3.0; ; 2023-04-28 15:13:37 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
-        "RemoteSha": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
+        "RemoteRef": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c",
+        "RemoteSha": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "59b75758db42d04a5650dfeb1bc2fa47397709cf",
-        "GithubSHA1": "59b75758db42d04a5650dfeb1bc2fa47397709cf"
+        "GithubRef": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c",
+        "GithubSHA1": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c"
       }
     },
     "sourcetools": {
@@ -2442,7 +2442,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "63548cc41da2e3f8f9e0744306d19ba2"
+      "checksum": "8ba9c2edc08f376dc166bcad03146f9d"
     },
     "app.R": {
       "checksum": "9f0eba0f09bda485101c886f593407a5"
