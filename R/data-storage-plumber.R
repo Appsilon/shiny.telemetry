@@ -68,7 +68,6 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       secret = NULL,
       authorization = NULL
     ) {
-      super$initialize()
 
       private$hostname <- hostname
       private$port <- port
