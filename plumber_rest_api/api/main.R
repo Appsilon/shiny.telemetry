@@ -1,8 +1,6 @@
 box::use(
   config,
   glue[glue],
-  future[plan],
-  promises[future_promise],
   logger[
     log_info, log_debug, log_error, log_warn, log_threshold, log_layout,
     layout_glue_colors
