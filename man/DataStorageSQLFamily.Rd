@@ -13,7 +13,6 @@ providers
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-DataStorageSQLFamily-new}{\code{DataStorageSQLFamily$new()}}
 \item \href{#method-DataStorageSQLFamily-clone}{\code{DataStorageSQLFamily$clone()}}
 }
 }
@@ -21,21 +20,12 @@ providers
 <details open><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="close"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-close'><code>shiny.telemetry::DataStorage$close()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="initialize"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-initialize'><code>shiny.telemetry::DataStorage$initialize()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="insert"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-insert'><code>shiny.telemetry::DataStorage$insert()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="shiny.telemetry" data-topic="DataStorage" data-id="read_event_data"><a href='../../shiny.telemetry/html/DataStorage.html#method-DataStorage-read_event_data'><code>shiny.telemetry::DataStorage$read_event_data()</code></a></span></li>
 </ul>
 </details>
 }}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DataStorageSQLFamily-new"></a>}}
-\if{latex}{\out{\hypertarget{method-DataStorageSQLFamily-new}{}}}
-\subsection{Method \code{new()}}{
-Initialize the data storage class
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorageSQLFamily$new()}\if{html}{\out{</div>}}
-}
-
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataStorageSQLFamily-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-DataStorageSQLFamily-clone}{}}}
