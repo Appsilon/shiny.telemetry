@@ -498,7 +498,7 @@
       "GithubSha1": null,
       "description": {
         "Package": "cachem",
-        "Version": "1.0.7",
+        "Version": "1.0.8",
         "Title": "Cache R Objects with Automatic Pruning",
         "Description": "Key-value stores with automatic pruning. Caches can limit\n    either their total size or the age of the oldest object (or both),\n    automatically pruning objects to maintain the constraints.",
         "Authors@R": "c(\n    person(\"Winston\", \"Chang\", , \"winston@rstudio.com\", c(\"aut\", \"cre\")),\n    person(family = \"RStudio\", role = c(\"cph\", \"fnd\")))",
@@ -506,23 +506,23 @@
         "Encoding": "UTF-8",
         "ByteCompile": "true",
         "URL": "https://cachem.r-lib.org/, https://github.com/r-lib/cachem",
-        "Imports": "rlang, fastmap",
+        "Imports": "rlang, fastmap (>= 1.1.1)",
         "Suggests": "testthat",
-        "RoxygenNote": "7.2.0",
+        "RoxygenNote": "7.2.3",
         "Config/Needs/routine": "lobstr",
         "Config/Needs/website": "pkgdown",
         "NeedsCompilation": "yes",
-        "Packaged": "2023-02-24 01:25:16 UTC; winston",
+        "Packaged": "2023-05-01 15:38:38 UTC; winston",
         "Author": "Winston Chang [aut, cre],\n  RStudio [cph, fnd]",
         "Maintainer": "Winston Chang <winston@rstudio.com>",
         "Repository": "RSPM",
-        "Date/Publication": "2023-02-24 08:32:30 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:24 UTC; unix"
+        "Date/Publication": "2023-05-01 16:40:02 UTC",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-03 00:20:55 UTC; unix"
       }
     },
     "checkmate": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1656,26 +1656,25 @@
         "Package": "later",
         "Type": "Package",
         "Title": "Utilities for Scheduling Functions to Execute Later with Event\nLoops",
-        "Version": "1.3.0",
+        "Version": "1.3.1",
         "Authors@R": "c(\n    person(\"Winston\", \"Chang\", role = c(\"aut\", \"cre\"), email = \"winston@rstudio.com\"),\n    person(\"Joe\", \"Cheng\", role = c(\"aut\"), email = \"joe@rstudio.com\"),\n    person(family = \"RStudio\", role = \"cph\"),\n    person(\"Marcus\", \"Geelnard\", role = c(\"ctb\", \"cph\"), comment = \"TinyCThread library, https://tinycthread.github.io/\"),\n    person(\"Evan\", \"Nemerson\", role = c(\"ctb\", \"cph\"), comment = \"TinyCThread library, https://tinycthread.github.io/\")\n    )",
         "Description": "Executes arbitrary R or C functions some time after the current\n    time, after the R execution stack has emptied. The functions are scheduled\n    in an event loop.",
-        "URL": "https://github.com/r-lib/later",
+        "URL": "https://r-lib.github.io/later/, https://github.com/r-lib/later",
         "BugReports": "https://github.com/r-lib/later/issues",
         "License": "MIT + file LICENSE",
         "Imports": "Rcpp (>= 0.12.9), rlang",
         "LinkingTo": "Rcpp",
-        "RoxygenNote": "7.1.1",
-        "SystemRequirements": "C++11",
+        "RoxygenNote": "7.2.3",
         "Suggests": "knitr, rmarkdown, testthat (>= 2.1.0)",
         "VignetteBuilder": "knitr",
         "Encoding": "UTF-8",
         "NeedsCompilation": "yes",
-        "Packaged": "2021-08-18 14:03:28 UTC; barret",
+        "Packaged": "2023-05-01 21:09:55 UTC; winston",
         "Author": "Winston Chang [aut, cre],\n  Joe Cheng [aut],\n  RStudio [cph],\n  Marcus Geelnard [ctb, cph] (TinyCThread library,\n    https://tinycthread.github.io/),\n  Evan Nemerson [ctb, cph] (TinyCThread library,\n    https://tinycthread.github.io/)",
         "Maintainer": "Winston Chang <winston@rstudio.com>",
         "Repository": "RSPM",
-        "Date/Publication": "2021-08-18 16:30:06 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:47:03 UTC; unix"
+        "Date/Publication": "2023-05-02 18:10:02 UTC",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 07:39:03 UTC; unix"
       }
     },
     "lattice": {
@@ -2329,7 +2328,7 @@
       "GithubSha1": null,
       "description": {
         "Package": "rlang",
-        "Version": "1.1.0",
+        "Version": "1.1.1",
         "Title": "Functions for Base Types and Core R and 'Tidyverse' Features",
         "Description": "A toolbox for working with base types, core R features\n  like the condition system, and core 'Tidyverse' features like tidy\n  evaluation.",
         "Authors@R": "c(\n    person(\"Lionel\", \"Henry\", ,\"lionel@posit.co\", c(\"aut\", \"cre\")),\n    person(\"Hadley\", \"Wickham\", ,\"hadley@posit.co\", \"aut\"),\n    person(given = \"mikefc\",\n           email = \"mikefc@coolbutuseless.com\", \n           role = \"cph\", \n           comment = \"Hash implementation based on Mike's xxhashlite\"),\n    person(given = \"Yann\",\n           family = \"Collet\",\n           role = \"cph\", \n           comment = \"Author of the embedded xxHash library\"),\n    person(given = \"Posit, PBC\", role = c(\"cph\", \"fnd\"))\n    )",
@@ -2347,12 +2346,12 @@
         "Config/testthat/edition": "3",
         "Config/Needs/website": "dplyr, tidyverse/tidytemplate",
         "NeedsCompilation": "yes",
-        "Packaged": "2023-03-13 10:09:28 UTC; lionel",
+        "Packaged": "2023-04-28 10:48:43 UTC; lionel",
         "Author": "Lionel Henry [aut, cre],\n  Hadley Wickham [aut],\n  mikefc [cph] (Hash implementation based on Mike's xxhashlite),\n  Yann Collet [cph] (Author of the embedded xxHash library),\n  Posit, PBC [cph, fnd]",
         "Maintainer": "Lionel Henry <lionel@posit.co>",
         "Repository": "RSPM",
-        "Date/Publication": "2023-03-14 08:20:06 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:45:52 UTC; unix"
+        "Date/Publication": "2023-04-28 22:30:03 UTC",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-01 18:18:48 UTC; unix"
       }
     },
     "rmarkdown": {
@@ -2390,8 +2389,8 @@
       }
     },
     "sass": {
-      "Source": "RSPM",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2399,7 +2398,7 @@
       "description": {
         "Type": "Package",
         "Package": "sass",
-        "Version": "0.4.5",
+        "Version": "0.4.6",
         "Title": "Syntactically Awesome Style Sheets ('Sass')",
         "Description": "An 'SCSS' compiler, powered by the 'LibSass' library. With this,\n    R developers can use variables, inheritance, and functions to generate\n    dynamic style sheets. The package uses the 'Sass CSS' extension language,\n    which is stable, powerful, and CSS compatible.",
         "Authors@R": "c(\n    person(\"Joe\", \"Cheng\", , \"joe@rstudio.com\", \"aut\"),\n    person(\"Timothy\", \"Mastny\", , \"tim.mastny@gmail.com\", \"aut\"),\n    person(\"Richard\", \"Iannone\", , \"rich@rstudio.com\", \"aut\",\n       comment = c(ORCID = \"0000-0003-3925-190X\")),\n    person(\"Barret\", \"Schloerke\", , \"barret@rstudio.com\", \"aut\",\n           comment = c(ORCID = \"0000-0001-9986-114X\")),\n    person(\"Carson\", \"Sievert\", , \"carson@rstudio.com\", c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-4958-2844\")),\n    person(\"Christophe\", \"Dervieux\", , \"cderv@rstudio.com\", c(\"ctb\"),\n           comment = c(ORCID = \"0000-0003-4474-2498\")),\n    person(family = \"RStudio\", role = c(\"cph\", \"fnd\")),\n    person(family = \"Sass Open Source Foundation\", role = c(\"ctb\", \"cph\"),\n           comment = \"LibSass library\"),\n    person(\"Greter\", \"Marcel\", role = c(\"ctb\", \"cph\"),\n           comment = \"LibSass library\"),\n    person(\"Mifsud\", \"Michael\", role = c(\"ctb\", \"cph\"),\n           comment = \"LibSass library\"),\n    person(\"Hampton\", \"Catlin\", role = c(\"ctb\", \"cph\"),\n           comment = \"LibSass library\"),\n    person(\"Natalie\", \"Weizenbaum\", role = c(\"ctb\", \"cph\"),\n           comment = \"LibSass library\"),\n    person(\"Chris\", \"Eppstein\", role = c(\"ctb\", \"cph\"),\n           comment = \"LibSass library\"),\n    person(\"Adams\", \"Joseph\", role = c(\"ctb\", \"cph\"),\n           comment = \"json.cpp\"),\n    person(\"Trifunovic\", \"Nemanja\", role = c(\"ctb\", \"cph\"),\n           comment = \"utf8.h\")\n    )",
@@ -2414,12 +2413,12 @@
         "VignetteBuilder": "knitr",
         "Config/testthat/edition": "3",
         "NeedsCompilation": "yes",
-        "Packaged": "2023-01-23 19:37:40 UTC; cpsievert",
+        "Packaged": "2023-05-03 22:45:10 UTC; cpsievert",
         "Author": "Joe Cheng [aut],\n  Timothy Mastny [aut],\n  Richard Iannone [aut] (<https://orcid.org/0000-0003-3925-190X>),\n  Barret Schloerke [aut] (<https://orcid.org/0000-0001-9986-114X>),\n  Carson Sievert [aut, cre] (<https://orcid.org/0000-0002-4958-2844>),\n  Christophe Dervieux [ctb] (<https://orcid.org/0000-0003-4474-2498>),\n  RStudio [cph, fnd],\n  Sass Open Source Foundation [ctb, cph] (LibSass library),\n  Greter Marcel [ctb, cph] (LibSass library),\n  Mifsud Michael [ctb, cph] (LibSass library),\n  Hampton Catlin [ctb, cph] (LibSass library),\n  Natalie Weizenbaum [ctb, cph] (LibSass library),\n  Chris Eppstein [ctb, cph] (LibSass library),\n  Adams Joseph [ctb, cph] (json.cpp),\n  Trifunovic Nemanja [ctb, cph] (utf8.h)",
         "Maintainer": "Carson Sievert <carson@rstudio.com>",
-        "Repository": "RSPM",
-        "Date/Publication": "2023-01-24 01:10:02 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:55:02 UTC; unix"
+        "Repository": "CRAN",
+        "Date/Publication": "2023-05-03 23:30:02 UTC",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 07:39:33 UTC; unix"
       }
     },
     "scales": {
@@ -2555,15 +2554,17 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c",
-      "GithubSha1": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c",
+      "GithubRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
+      "GithubSha1": "589bebe48d58a2bd327d6087e751e4a5db558f08",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
-        "Title": "Shiny App Usage Telemetry",
+        "Title": "'Shiny' App Usage Telemetry",
         "Version": "0.1.0",
         "Authors@R": "\n  c(\n    person(\"Kamil\", \"Żyła\", role = c(\"aut\", \"cre\"), email = \"opensource+kamil@appsilon.com\"),\n    person(\"André\", \"Veríssimo\", role = \"aut\", email = \"andre.verissimo@appsilon.com\"),\n    person(\"Krystian\", \"Igras\",  role = \"aut\", email = \"krystian8207@gmail.com\"),\n    person(\"Recle\", \"Vibal\", role = \"aut\", email = \"recle.vibal@appsilon.com\"),\n    person(\"Appsilon Sp. z o.o.\", role = \"cph\", email = \"opensource@appsilon.com\")\n  )",
         "Description": "\n  Enables instrumentation of 'Shiny' apps for tracking user session events\n  such as input changes, browser type, and session duration.\n  These events can be sent to any of the available storage backends\n  and analyzed using the included 'Shiny' app to gain insights about app usage and adoption.",
+        "URL": "https://appsilon.github.io/shiny.telemetry/, https://github.com/Appsilon/shiny.telemetry",
+        "BugReports": "https://github.com/Appsilon/shiny.telemetry/issues",
         "License": "LGPL-3",
         "Encoding": "UTF-8",
         "LazyData": "true",
@@ -2574,18 +2575,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre],\n  André Veríssimo [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.0; ; 2023-04-28 15:13:37 UTC; unix",
+        "Built": "R 4.3.0; ; 2023-05-04 07:42:06 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c",
-        "RemoteSha": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c",
+        "RemoteRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
+        "RemoteSha": "589bebe48d58a2bd327d6087e751e4a5db558f08",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c",
-        "GithubSHA1": "c1ac1f69ca3154e00ebb8d375f4d8aaa7025f55c"
+        "GithubRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
+        "GithubSHA1": "589bebe48d58a2bd327d6087e751e4a5db558f08"
       }
     },
     "shinyjs": {
@@ -3020,7 +3021,8 @@
         "Package": "viridisLite",
         "Type": "Package",
         "Title": "Colorblind-Friendly Color Maps (Lite Version)",
-        "Version": "0.4.1",
+        "Version": "0.4.2",
+        "Date": "2023-05-02",
         "Authors@R": "c(\n      person(\"Simon\", \"Garnier\", email = \"garnier@njit.edu\", role = c(\"aut\", \"cre\")),\n      person(\"Noam\", \"Ross\", email = \"noam.ross@gmail.com\", role = c(\"ctb\", \"cph\")),\n      person(\"Bob\", \"Rudis\", email = \"bob@rud.is\", role = c(\"ctb\", \"cph\")),\n      person(\"Marco\", \"Sciaini\", email = \"sciaini.marco@gmail.com\", role = c(\"ctb\", \"cph\")),\n      person(\"Antônio Pedro\", \"Camargo\", role = c(\"ctb\", \"cph\")),\n      person(\"Cédric\", \"Scherer\", email = \"scherer@izw-berlin.de\", role = c(\"ctb\", \"cph\"))\n  )",
         "Maintainer": "Simon Garnier <garnier@njit.edu>",
         "Description": "Color maps designed to improve graph readability for readers with \n    common forms of color blindness and/or color vision deficiency. The color \n    maps are also perceptually-uniform, both in regular form and also when \n    converted to black-and-white for printing. This is the 'lite' version of the \n    'viridis' package that also contains 'ggplot2' bindings for discrete and \n    continuous color and fill scales and can be found at \n    <https://cran.r-project.org/package=viridis>.",
@@ -3030,13 +3032,13 @@
         "Suggests": "hexbin (>= 1.27.0), ggplot2 (>= 1.0.1), testthat, covr",
         "URL": "https://sjmgarnier.github.io/viridisLite/,\nhttps://github.com/sjmgarnier/viridisLite/",
         "BugReports": "https://github.com/sjmgarnier/viridisLite/issues/",
-        "RoxygenNote": "7.2.1",
+        "RoxygenNote": "7.2.3",
         "NeedsCompilation": "no",
-        "Packaged": "2022-08-22 13:36:57 UTC; simon",
+        "Packaged": "2023-05-02 21:38:46 UTC; simon",
         "Author": "Simon Garnier [aut, cre],\n  Noam Ross [ctb, cph],\n  Bob Rudis [ctb, cph],\n  Marco Sciaini [ctb, cph],\n  Antônio Pedro Camargo [ctb, cph],\n  Cédric Scherer [ctb, cph]",
         "Repository": "RSPM",
-        "Date/Publication": "2022-08-22 14:20:03 UTC",
-        "Built": "R 4.3.0; ; 2023-04-21 21:46:32 UTC; unix"
+        "Date/Publication": "2023-05-02 23:50:02 UTC",
+        "Built": "R 4.3.0; ; 2023-05-04 07:42:00 UTC; unix"
       }
     },
     "withr": {
@@ -3165,7 +3167,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "3e62a21347a8cd74611e349bf8a46375"
+      "checksum": "08432ae201b04eb35c463df47a7c5b50"
     },
     "app.R": {
       "checksum": "b190debeea46fa54ea261bddd22b3e85"
