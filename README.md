@@ -124,6 +124,6 @@ Learn more at [appsilon.com](https://appsilon.com).
 
 Get in touch [opensource@appsilon.com](mailto:opensource@appsilon.com)
 
-Check the [Rhinoverse](https://rhinoverse.dev).
+Explore the [Rhinoverse](https://rhinoverse.dev) - a family of R packages built around [Rhino](https://appsilon.github.io/rhino/)!
 
 <a href = "https://appsilon.com/careers/" target="_blank"><img src="https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/WeAreHiring1.png" alt="We are hiring!"/></a>
