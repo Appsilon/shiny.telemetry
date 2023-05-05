@@ -78,8 +78,8 @@
       }
     },
     "MASS": {
-      "Source": "RSPM",
-      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -87,10 +87,10 @@
       "description": {
         "Package": "MASS",
         "Priority": "recommended",
-        "Version": "7.3-59",
-        "Date": "2023-04-03",
-        "Revision": "$Rev: 3618 $",
-        "Depends": "R (>= 4.2.0), grDevices, graphics, stats, utils",
+        "Version": "7.3-60",
+        "Date": "2023-05-02",
+        "Revision": "$Rev: 3621 $",
+        "Depends": "R (>= 4.0), grDevices, graphics, stats, utils",
         "Imports": "methods",
         "Suggests": "lattice, nlme, nnet, survival",
         "Authors@R": "c(person(\"Brian\", \"Ripley\", role = c(\"aut\", \"cre\", \"cph\"),\n                    email = \"ripley@stats.ox.ac.uk\"),\n\t     person(\"Bill\", \"Venables\", role = \"ctb\"),\n\t     person(c(\"Douglas\", \"M.\"), \"Bates\", role = \"ctb\"),\n\t     person(\"Kurt\", \"Hornik\", role = \"trl\",\n                     comment = \"partial port ca 1998\"),\n\t     person(\"Albrecht\", \"Gebhardt\", role = \"trl\",\n                     comment = \"partial port ca 1998\"),\n\t     person(\"David\", \"Firth\", role = \"ctb\"))",
@@ -102,13 +102,12 @@
         "URL": "http://www.stats.ox.ac.uk/pub/MASS4/",
         "Contact": "<MASS@stats.ox.ac.uk>",
         "NeedsCompilation": "yes",
-        "Packaged": "2023-04-03 15:09:54 UTC; ripley",
+        "Packaged": "2023-05-02 16:42:41 UTC; ripley",
         "Author": "Brian Ripley [aut, cre, cph],\n  Bill Venables [ctb],\n  Douglas M. Bates [ctb],\n  Kurt Hornik [trl] (partial port ca 1998),\n  Albrecht Gebhardt [trl] (partial port ca 1998),\n  David Firth [ctb]",
         "Maintainer": "Brian Ripley <ripley@stats.ox.ac.uk>",
-        "Repository": "RSPM",
-        "Date/Publication": "2023-04-21 10:54:22 UTC",
-        "Encoding": "UTF-8",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-24 17:55:27 UTC; unix"
+        "Repository": "CRAN",
+        "Date/Publication": "2023-05-04 07:32:21 UTC",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-05 10:19:54 UTC; unix"
       }
     },
     "Matrix": {
@@ -1674,7 +1673,7 @@
         "Maintainer": "Winston Chang <winston@rstudio.com>",
         "Repository": "RSPM",
         "Date/Publication": "2023-05-02 18:10:02 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 07:39:03 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 22:21:01 UTC; unix"
       }
     },
     "lattice": {
@@ -2389,8 +2388,8 @@
       }
     },
     "sass": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -2416,9 +2415,9 @@
         "Packaged": "2023-05-03 22:45:10 UTC; cpsievert",
         "Author": "Joe Cheng [aut],\n  Timothy Mastny [aut],\n  Richard Iannone [aut] (<https://orcid.org/0000-0003-3925-190X>),\n  Barret Schloerke [aut] (<https://orcid.org/0000-0001-9986-114X>),\n  Carson Sievert [aut, cre] (<https://orcid.org/0000-0002-4958-2844>),\n  Christophe Dervieux [ctb] (<https://orcid.org/0000-0003-4474-2498>),\n  RStudio [cph, fnd],\n  Sass Open Source Foundation [ctb, cph] (LibSass library),\n  Greter Marcel [ctb, cph] (LibSass library),\n  Mifsud Michael [ctb, cph] (LibSass library),\n  Hampton Catlin [ctb, cph] (LibSass library),\n  Natalie Weizenbaum [ctb, cph] (LibSass library),\n  Chris Eppstein [ctb, cph] (LibSass library),\n  Adams Joseph [ctb, cph] (json.cpp),\n  Trifunovic Nemanja [ctb, cph] (utf8.h)",
         "Maintainer": "Carson Sievert <carson@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-05-03 23:30:02 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 07:39:33 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 22:21:15 UTC; unix"
       }
     },
     "scales": {
@@ -2554,8 +2553,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
-      "GithubSha1": "589bebe48d58a2bd327d6087e751e4a5db558f08",
+      "GithubRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
+      "GithubSha1": "51a3ee9ee5c8383c458298b610b830005d89b98c",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -2575,18 +2574,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre],\n  André Veríssimo [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.0; ; 2023-05-04 07:42:06 UTC; unix",
+        "Built": "R 4.3.0; ; 2023-05-05 10:20:06 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
-        "RemoteSha": "589bebe48d58a2bd327d6087e751e4a5db558f08",
+        "RemoteRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
+        "RemoteSha": "51a3ee9ee5c8383c458298b610b830005d89b98c",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
-        "GithubSHA1": "589bebe48d58a2bd327d6087e751e4a5db558f08"
+        "GithubRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
+        "GithubSHA1": "51a3ee9ee5c8383c458298b610b830005d89b98c"
       }
     },
     "shinyjs": {
@@ -3038,7 +3037,7 @@
         "Author": "Simon Garnier [aut, cre],\n  Noam Ross [ctb, cph],\n  Bob Rudis [ctb, cph],\n  Marco Sciaini [ctb, cph],\n  Antônio Pedro Camargo [ctb, cph],\n  Cédric Scherer [ctb, cph]",
         "Repository": "RSPM",
         "Date/Publication": "2023-05-02 23:50:02 UTC",
-        "Built": "R 4.3.0; ; 2023-05-04 07:42:00 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-05-04 22:20:46 UTC; unix"
       }
     },
     "withr": {
@@ -3167,7 +3166,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "08432ae201b04eb35c463df47a7c5b50"
+      "checksum": "00bdac0320ee2165b32e5018bbd753a9"
     },
     "app.R": {
       "checksum": "b190debeea46fa54ea261bddd22b3e85"

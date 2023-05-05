@@ -1762,8 +1762,8 @@
       }
     },
     "sass": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1834,8 +1834,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
-      "GithubSha1": "589bebe48d58a2bd327d6087e751e4a5db558f08",
+      "GithubRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
+      "GithubSha1": "51a3ee9ee5c8383c458298b610b830005d89b98c",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -1855,18 +1855,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre],\n  André Veríssimo [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.0; ; 2023-05-04 07:42:06 UTC; unix",
+        "Built": "R 4.3.0; ; 2023-05-05 10:20:06 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
-        "RemoteSha": "589bebe48d58a2bd327d6087e751e4a5db558f08",
+        "RemoteRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
+        "RemoteSha": "51a3ee9ee5c8383c458298b610b830005d89b98c",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
-        "GithubSHA1": "589bebe48d58a2bd327d6087e751e4a5db558f08"
+        "GithubRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
+        "GithubSHA1": "51a3ee9ee5c8383c458298b610b830005d89b98c"
       }
     },
     "sodium": {
@@ -2383,7 +2383,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "fe946c3644398e5bab6642286112a50f"
+      "checksum": "6b834d467d6ecae4be1625503477e75f"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"

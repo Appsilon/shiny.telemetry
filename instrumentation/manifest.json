@@ -1259,7 +1259,7 @@
         "Maintainer": "Winston Chang <winston@rstudio.com>",
         "Repository": "RSPM",
         "Date/Publication": "2023-05-02 18:10:02 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 07:39:03 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 22:21:01 UTC; unix"
       }
     },
     "lifecycle": {
@@ -1791,8 +1791,8 @@
       }
     },
     "sass": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
       "GithubRepo": null,
       "GithubUsername": null,
       "GithubRef": null,
@@ -1818,9 +1818,9 @@
         "Packaged": "2023-05-03 22:45:10 UTC; cpsievert",
         "Author": "Joe Cheng [aut],\n  Timothy Mastny [aut],\n  Richard Iannone [aut] (<https://orcid.org/0000-0003-3925-190X>),\n  Barret Schloerke [aut] (<https://orcid.org/0000-0001-9986-114X>),\n  Carson Sievert [aut, cre] (<https://orcid.org/0000-0002-4958-2844>),\n  Christophe Dervieux [ctb] (<https://orcid.org/0000-0003-4474-2498>),\n  RStudio [cph, fnd],\n  Sass Open Source Foundation [ctb, cph] (LibSass library),\n  Greter Marcel [ctb, cph] (LibSass library),\n  Mifsud Michael [ctb, cph] (LibSass library),\n  Hampton Catlin [ctb, cph] (LibSass library),\n  Natalie Weizenbaum [ctb, cph] (LibSass library),\n  Chris Eppstein [ctb, cph] (LibSass library),\n  Adams Joseph [ctb, cph] (json.cpp),\n  Trifunovic Nemanja [ctb, cph] (utf8.h)",
         "Maintainer": "Carson Sievert <carson@rstudio.com>",
-        "Repository": "CRAN",
+        "Repository": "RSPM",
         "Date/Publication": "2023-05-03 23:30:02 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 07:39:33 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 22:21:15 UTC; unix"
       }
     },
     "semantic.dashboard": {
@@ -1923,8 +1923,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
-      "GithubSha1": "589bebe48d58a2bd327d6087e751e4a5db558f08",
+      "GithubRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
+      "GithubSha1": "51a3ee9ee5c8383c458298b610b830005d89b98c",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -1944,18 +1944,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre],\n  André Veríssimo [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.0; ; 2023-05-04 07:42:06 UTC; unix",
+        "Built": "R 4.3.0; ; 2023-05-05 10:20:06 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
-        "RemoteSha": "589bebe48d58a2bd327d6087e751e4a5db558f08",
+        "RemoteRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
+        "RemoteSha": "51a3ee9ee5c8383c458298b610b830005d89b98c",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "589bebe48d58a2bd327d6087e751e4a5db558f08",
-        "GithubSHA1": "589bebe48d58a2bd327d6087e751e4a5db558f08"
+        "GithubRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
+        "GithubSHA1": "51a3ee9ee5c8383c458298b610b830005d89b98c"
       }
     },
     "sourcetools": {
@@ -2443,7 +2443,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "fcbb8bd28f02b0c445e9573c4875c345"
+      "checksum": "7c5b9c2f42919bbd9d3cbf8d12b3a91b"
     },
     "app.R": {
       "checksum": "9f0eba0f09bda485101c886f593407a5"
