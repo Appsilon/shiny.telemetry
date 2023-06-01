@@ -583,7 +583,7 @@
         "Maintainer": "Romain François <romain@rstudio.com>",
         "Repository": "RSPM",
         "Date/Publication": "2022-10-12 08:43:54 UTC",
-        "Built": "R 4.3.0; ; 2023-04-21 21:46:43 UTC; unix"
+        "Built": "R 4.3.0; ; 2023-05-30 13:02:07 UTC; unix"
       }
     },
     "crayon": {
@@ -1072,7 +1072,7 @@
         "Maintainer": "Winston Chang <winston@rstudio.com>",
         "Repository": "RSPM",
         "Date/Publication": "2023-02-14 10:00:06 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:55:06 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 22:22:10 UTC; unix"
       }
     },
     "httr2": {
@@ -1625,7 +1625,7 @@
         "Maintainer": "Joe Cheng <joe@rstudio.com>",
         "Repository": "RSPM",
         "Date/Publication": "2021-02-11 19:00:02 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:51:46 UTC; unix"
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-05-04 22:21:36 UTC; unix"
       }
     },
     "purrr": {
@@ -1834,8 +1834,8 @@
       "Repository": null,
       "GithubRepo": "shiny.telemetry",
       "GithubUsername": "appsilon",
-      "GithubRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
-      "GithubSha1": "51a3ee9ee5c8383c458298b610b830005d89b98c",
+      "GithubRef": "064d5d765ed6cb7a86549a6d7133293946ebe157",
+      "GithubSha1": "064d5d765ed6cb7a86549a6d7133293946ebe157",
       "description": {
         "Package": "shiny.telemetry",
         "Type": "Package",
@@ -1848,25 +1848,25 @@
         "License": "LGPL-3",
         "Encoding": "UTF-8",
         "LazyData": "true",
-        "Suggests": "box,\nconfig,\nDT,\nhere,\nlintr,\nmockery,\nplotly,\nplumber,\nrcmdcheck,\nRColorBrewer,\nRMariaDB,\nRPostgreSQL,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nshinyjs,\nspelling,\nstringr,\ntestthat (>= 3.1.7),\ntimevis,\nwithr",
+        "Suggests": "box,\nconfig,\ncovr,\nDT,\nhere,\nlintr,\nmockery,\nplotly,\nplumber,\nrcmdcheck,\nRColorBrewer,\nRMariaDB,\nRPostgreSQL,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nshinyjs,\nspelling,\nstringr,\ntestthat (>= 3.1.7),\ntimevis,\nwithr",
         "Imports": "checkmate,\ndigest,\ndplyr (>= 1.1.0),\nglue,\nhttr2,\njsonlite,\nlogger,\nlubridate,\nodbc,\npurrr,\nR6,\nrlang,\nRSQLite,\nshiny,\ntidyr",
         "RoxygenNote": "7.2.3",
         "Config/testthat/edition": "3",
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre],\n  André Veríssimo [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.0; ; 2023-05-05 10:20:06 UTC; unix",
+        "Built": "R 4.3.0; ; 2023-06-01 13:33:01 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
-        "RemoteSha": "51a3ee9ee5c8383c458298b610b830005d89b98c",
+        "RemoteRef": "064d5d765ed6cb7a86549a6d7133293946ebe157",
+        "RemoteSha": "064d5d765ed6cb7a86549a6d7133293946ebe157",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "51a3ee9ee5c8383c458298b610b830005d89b98c",
-        "GithubSHA1": "51a3ee9ee5c8383c458298b610b830005d89b98c"
+        "GithubRef": "064d5d765ed6cb7a86549a6d7133293946ebe157",
+        "GithubSHA1": "064d5d765ed6cb7a86549a6d7133293946ebe157"
       }
     },
     "sodium": {
@@ -2383,7 +2383,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "6b834d467d6ecae4be1625503477e75f"
+      "checksum": "71e555bbcdbcd604ec109ceab2aa8017"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"
