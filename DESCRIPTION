@@ -23,6 +23,7 @@ LazyData: true
 Suggests:
   box,
   config,
+  covr,
   DT,
   here,
   lintr,
