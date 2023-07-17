@@ -509,7 +509,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       self$data_storage$insert(
         app_name = self$app_name,
         type = type,
-        session = purrr::pluck(session, "token"),
+        session = session$token,
         details = details
       )
     },
