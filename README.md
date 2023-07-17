@@ -74,10 +74,10 @@ The developers and administrators of the dashboard can access the data that is g
 
 ```R
 # After running the instrumented app
-shiny.telemetry::Telemetry$new()$data_storage$read_events("2020-01-01", "2050-01-01")
+shiny.telemetry::Telemetry$new()$data_storage$read_event_data("2020-01-01", "2050-01-01")
 
 # Default provider and path for Telemetry$new()
-shiny.telemetry::DataStorageSQLite$new(db_path = "telemetry.sqlite")$read_events("2020-01-01", "2050-01-01")
+shiny.telemetry::DataStorageSQLite$new(db_path = "telemetry.sqlite")$read_event_data("2020-01-01", "2050-01-01")
 ```
 
 The package includes an analytics dashboard to view the data.
