@@ -107,6 +107,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' By default, no navigation is tracked.
     #' @param session ShinySession object or NULL to identify the current
     #' Shiny session.
+    #' @param username Character with username. If set, it will overwrite username
+    #' from session object.
     #'
     #' @return Nothing. This method is called for side effects.
 
@@ -117,7 +119,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       logout = TRUE,
       browser_version = TRUE,
       navigation_input_id = NULL,
-      session = shiny::getDefaultReactiveDomain()
+      session = shiny::getDefaultReactiveDomain(),
+      username = NULL
     ) {
 
       checkmate::assert_flag(track_inputs)
@@ -128,7 +131,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       checkmate::assert_character(navigation_input_id, null.ok = TRUE)
 
-      username <- private$get_user(session)
+      username <- private$get_user(session, username)
 
       checkmate::assert(
         .combine = "or",
@@ -713,7 +716,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       }
     },
 
-    get_user = function(session = shiny::getDefaultReactiveDomain()) {
+    get_user = function(
+      session = shiny::getDefaultReactiveDomain(),
+      force_username = NULL
+    ) {
+      if (!is.null(force_username)) return(force_username)
       if (is.null(session) || is.null(session$user)) return(NULL)
       session$user
     }
