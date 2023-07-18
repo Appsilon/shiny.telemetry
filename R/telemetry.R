@@ -718,9 +718,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
     get_user = function(
       session = shiny::getDefaultReactiveDomain(),
-      username = NULL
+      force_username = NULL
     ) {
-      if (!is.null(username)) return(username)
+      if (!is.null(force_username)) return(force_username)
       if (is.null(session) || is.null(session$user)) return(NULL)
       session$user
     }
