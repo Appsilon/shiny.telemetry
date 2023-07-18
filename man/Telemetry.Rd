@@ -133,7 +133,8 @@ Setup basic telemetry
   logout = TRUE,
   browser_version = TRUE,
   navigation_input_id = NULL,
-  session = shiny::getDefaultReactiveDomain()
+  session = shiny::getDefaultReactiveDomain(),
+  username = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -163,6 +164,9 @@ By default, no navigation is tracked.}
 
 \item{\code{session}}{ShinySession object or NULL to identify the current
 Shiny session.}
+
+\item{\code{username}}{Character with username. If set, it will overwrite username
+from session object.}
 }
 \if{html}{\out{</div>}}
 }
