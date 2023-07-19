@@ -31,7 +31,7 @@ url: https://appsilon.github.io/shiny.telemetry/
 navbar:
   bg: primary
   structure:
-    left: [home, reference]
+    left: [home, reference, changelog]
     right: [search, github, twitter, mastodon]
   components:
     home:
@@ -42,6 +42,10 @@ navbar:
       icon: fa-file-code-o
       text: "Reference"
       href: reference/index.html
+    changelog:
+      icon: fa-newspaper-o
+      text: "Changelog"
+      href: news/index.html
     github:
       icon: fa-github fa-lg
       href: https://github.com/Appsilon/shiny.telemetry
