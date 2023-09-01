@@ -6,6 +6,9 @@ jobs:
   main:
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
+    if: >
+      !contains(github.event.commits[0].message, '[skip rcmd]')
+
     runs-on: ${{ matrix.config.os }}
 
     timeout-minutes: 30
