@@ -12,8 +12,8 @@ jobs:
 
     env:
       # MariaDB
-      TEST_MARIADB_USER: mariadb
-      TEST_MARIADB_PASSWORD: mysecretpassword
+      TEST_MARIADB_USER: root
+      TEST_MARIADB_PASSWORD: root
       TEST_MARIADB_PORT: 3306
       TEST_MARIADB_DBNAME: shiny_telemetry
       TEST_MARIADB_HOSTNAME: '127.0.0.1'

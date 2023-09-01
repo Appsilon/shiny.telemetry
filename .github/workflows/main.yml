@@ -41,6 +41,10 @@ jobs:
           error-on: '"note"'
 
   linter:
+    name: SuperLinter 🦸‍♀️
+
+    runs-on: ubuntu-latest
+
     steps:
       ################################
       # Run Linter against code base #
