@@ -1,0 +1,101 @@
+on: push
+
+name: R-CMD-check
+
+jobs:
+  main:
+    name: Test Coverage 📔
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 30
+
+    env:
+      # MariaDB
+      TEST_MARIADB_USER: mariadb
+      TEST_MARIADB_PASSWORD: mysecretpassword
+      TEST_MARIADB_PORT: 3306
+      TEST_MARIADB_DBNAME: shiny_telemetry
+      TEST_MARIADB_HOSTNAME: '127.0.0.1'
+      # PostgreSQL
+      TEST_POSTGRESQL_USER: postgres
+      TEST_POSTGRESQL_PASSWORD: mysecretpassword
+      TEST_POSTGRESQL_PORT: 5432
+      TEST_POSTGRESQL_DBNAME: shiny_telemetry
+      TEST_POSTGRESQL_HOSTNAME: '127.0.0.1'
+
+    # Service containers to run with `main` job
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: $TEST_POSTGRES_PASSWORD
+          POSTGRES_USER: $TEST_POSTGRESQL_USER
+          POSTGRES_DB: $TEST_POSTGRESQL_DBNAME
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {os: ubuntu-22.04, r: 'release'}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - name: Install R package dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: local::. # Necessary to avoid object usage linter errors.
+
+      - name: Start MySQL
+        env:
+          DB_DATABSE: 'shiny_telemetry'
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e "CREATE DATABASE IF NOT EXISTS $TEST_MARIADB_USER;" -u$DB_USER -p$TEST_MARIADB_PASSWORD
+
+      - name: R CMD check
+        if: always()
+        uses: r-lib/actions/check-r-package@v2
+        with:
+          error-on: '"note"'
+
+      - name: Lint
+        if: always()
+        shell: Rscript {0}
+        run: |
+          lints <- lintr::lint_package()
+          for (lint in lints) print(lint)
+          quit(status = length(lints) > 0)
+
+      - name: Spell Check
+        if : always()
+        shell: Rscript {0}
+        run: |
+          spell_check <- spelling::spell_check_package(use_wordlist = TRUE)
+          if (nrow(spell_check) > 0) {
+            print(spell_check)
+          }
+          quit(status = nrow(spell_check) > 0)
+
+      - name: Test coverage
+        run: |
+          Rscript -e 'covr::codecov()'
