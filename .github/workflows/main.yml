@@ -20,11 +20,11 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - {os: macOS-latest,   r: 'release'}
-        - {os: windows-latest, r: 'release'}
-        - {os: ubuntu-22.04, r: 'devel'}
-        - {os: ubuntu-22.04, r: 'release'}
-        - {os: ubuntu-22.04, r: 'oldrel'}
+          - {os: macOS-latest, r: 'release'}
+          - {os: windows-latest, r: 'release'}
+          - {os: ubuntu-latest, r: 'devel'}
+          - {os: ubuntu-latest, r: 'release'}
+          - {os: ubuntu-latest, r: 'oldrel'}
 
     ##################
     # Load all steps #
@@ -50,7 +50,8 @@ jobs:
       - name: Install R package dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::. # Necessary to avoid object usage linter errors.
+          # Necessary to avoid object usage linter errors.
+          extra-packages: local::.
 
       ###########################
       # Perform the R CMD check #
@@ -86,6 +87,6 @@ jobs:
       - name: Lint Code Base
         uses: super-linter/super-linter/slim@v5
         env:
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
