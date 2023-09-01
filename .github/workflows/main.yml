@@ -3,8 +3,8 @@ on: [push, pull_request]
 name: R-CMD-check
 
 jobs:
-  main:
-    name: R CMD Check 🧬 ${{ matrix.config.os }} (${{ matrix.config.r }})
+  r-cmd:
+    name: R CMD Check ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     runs-on: ${{ matrix.config.os }}
 

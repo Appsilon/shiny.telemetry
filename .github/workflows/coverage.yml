@@ -32,22 +32,15 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
-          POSTGRES_PASSWORD: ${TEST_POSTGRES_PASSWORD}
-          POSTGRES_USER: ${TEST_POSTGRESQL_USER}
-          POSTGRES_DB: ${TEST_POSTGRESQL_DBNAME}
+          POSTGRES_PASSWORD: ${{ env.TEST_POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ env.TEST_POSTGRESQL_USER }}
+          POSTGRES_DB: ${{ env.TEST_POSTGRESQL_DBNAME }}
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
-
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-        - {os: ubuntu-22.04, r: 'release'}
 
     steps:
       - name: Checkout repository
