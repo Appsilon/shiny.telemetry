@@ -92,14 +92,9 @@ jobs:
         run: |
           setwd("analytics")
           renv::init(bare = TRUE)
-          renv::status()
           renv::install(paste0("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
-          renv::status()
           renv::install("MASS")
-          renv::status()
           renv::install()
-          renv::status()
-          print("Snapshotting")
           renv::snapshot()
           renv::install("rsconnect")
           rsconnect::writeManifest()
@@ -109,7 +104,7 @@ jobs:
         shell: Rscript {0}
         run: |
           setwd("instrumentation")
-          renv::init()
+          renv::init(bare = TRUE)
           renv::install(paste0("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
           renv::install()
           renv::snapshot()
