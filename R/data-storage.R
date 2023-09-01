@@ -160,12 +160,25 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
             #  empty strings.
             tmp_result <- .x  %>%
               jsonlite::fromJSON() %>%
-              purrr::compact() %>%
-              as.data.frame()  %>%
+              purrr::compact()
+
+            tmp_result <- tmp_result %>%
+              purrr::map(function(.x2) {
+                if (checkmate::test_atomic_vector(.x2, min.len = 2)) {
+                  return(list(.x2))
+                }
+                if (length(.x2) > 1) {
+                  return(jsonlite::toJSON(.x2, auto_unbox = TRUE))
+                }
+                .x2
+              })
+
+            tmp_result <- do.call(cbind, tmp_result) %>%
+              as.data.frame() %>%
               # All un-nested columns have to be character type.
               dplyr::mutate(dplyr::across(
                 dplyr::everything(),
-                as.character
+                format
               ))
 
             # Catch for when `details` json is valid, but empty.
