@@ -23,19 +23,19 @@ jobs:
     ###############################################
     # Environment variables so tests with DBs run #
     ###############################################
-    env:
-      # MariaDB
-      TEST_MARIADB_USER: root
-      TEST_MARIADB_PASSWORD: root
-      TEST_MARIADB_PORT: 3306
-      TEST_MARIADB_DBNAME: shiny_telemetry
-      TEST_MARIADB_HOSTNAME: '127.0.0.1'
-      # PostgreSQL
-      TEST_POSTGRESQL_USER: postgres
-      TEST_POSTGRESQL_PASSWORD: mysecretpassword
-      TEST_POSTGRESQL_PORT: 5432
-      TEST_POSTGRESQL_DBNAME: shiny_telemetry
-      TEST_POSTGRESQL_HOSTNAME: '127.0.0.1'
+    # env:
+    #   # MariaDB
+    #   TEST_MARIADB_USER: root
+    #   TEST_MARIADB_PASSWORD: root
+    #   TEST_MARIADB_PORT: 3306
+    #   TEST_MARIADB_DBNAME: shiny_telemetry
+    #   TEST_MARIADB_HOSTNAME: '127.0.0.1'
+    #   # PostgreSQL
+    #   TEST_POSTGRESQL_USER: postgres
+    #   TEST_POSTGRESQL_PASSWORD: mysecretpassword
+    #   TEST_POSTGRESQL_PORT: 5432
+    #   TEST_POSTGRESQL_DBNAME: shiny_telemetry
+    #   TEST_POSTGRESQL_HOSTNAME: '127.0.0.1'
 
     ###########################################
     # Services container to run with main job #
@@ -85,17 +85,17 @@ jobs:
           # Necessary to avoid object usage linter errors.
           extra-packages: local::.
 
-      - name: Start MySQL
-        ##################
-        # Start MySQL DB #
-        ##################
-        env:
-          DB_DATABSE: 'shiny_telemetry'
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: |
-          sudo /etc/init.d/mysql start
-          mysql -e "CREATE DATABASE IF NOT EXISTS $TEST_MARIADB_DBNAME;" -u$TEST_MARIADB_USER -p$TEST_MARIADB_PASSWORD
+      # - name: Start MySQL
+      #   ##################
+      #   # Start MySQL DB #
+      #   ##################
+      #   env:
+      #     DB_DATABSE: 'shiny_telemetry'
+      #     DB_USER: ${{ secrets.DB_USER }}
+      #     DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      #   run: |
+      #     sudo /etc/init.d/mysql start
+      #     mysql -e "CREATE DATABASE IF NOT EXISTS $TEST_MARIADB_DBNAME;" -u$TEST_MARIADB_USER -p$TEST_MARIADB_PASSWORD
 
       - name: R CMD check
         ###########################
