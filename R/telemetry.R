@@ -542,11 +542,13 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
       session$userData$shiny_input_values <- input_values
 
-      logger::log_debug(logger::skip_formatter(
-        paste(
-          "shiny inputs initialized:",
-          paste(names(input_values), collapse = ", ")
-        )),
+      logger::log_debug(
+        logger::skip_formatter(
+          paste(
+            "shiny inputs initialized:",
+            paste(names(input_values), collapse = ", ")
+          )
+        ),
         namespace = "shiny.telemetry"
       )
 
@@ -639,7 +641,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
           if (
             is.null(matching_values) ||
-            (!is.null(matching_values) && input_value %in% matching_values)
+              (!is.null(matching_values) && input_value %in% matching_values)
           ) {
 
             logger::log_debug(
@@ -690,7 +692,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       if (
         is.null(matching_values) ||
-        (!is.null(matching_values) && input_value %in% matching_values)
+          (!is.null(matching_values) && input_value %in% matching_values)
       ) {
         # save each value separately (if more than 1)
         n_values <- length(input_value)
