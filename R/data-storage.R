@@ -148,6 +148,10 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_data_frame(x)
       checkmate::assert_string(column_name)
 
+      if (is.null(x[[column_name]])) {
+        return(x)
+      }
+
       x[[column_name]] <- x[[column_name]] %>%
         purrr::map(
           function(.x) {
