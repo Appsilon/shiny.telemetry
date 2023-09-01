@@ -728,14 +728,9 @@
     },
     "shiny.telemetry": {
       "Package": "shiny.telemetry",
-      "Version": "0.1.0.9001",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "Appsilon",
-      "RemoteRepo": "shiny.telemetry",
-      "RemoteRef": "main",
-      "RemoteSha": "ddce531b6165d87e11715a1eea78fa18d8ecff8d",
+      "Version": "0.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Requirements": [
         "R6",
         "RSQLite",
@@ -753,7 +748,7 @@
         "shiny",
         "tidyr"
       ],
-      "Hash": "31fcde1c9b97bdd02fbd8995c0ff0ed3"
+      "Hash": "a78ef473a127a0a8b16c8bf6151f57cc"
     },
     "sodium": {
       "Package": "sodium",

@@ -93,6 +93,7 @@ jobs:
           setwd("analytics")
           renv::init()
           renv::install(paste0("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
+          renv::install("MASS")
           renv::install()
           renv::snapshot()
           renv::install("rsconnect")
@@ -115,9 +116,8 @@ jobs:
         shell: Rscript {0}
         run: |
           setwd("plumber_rest_api")
-          renv::restore(exclude = "shiny.telemetry")
+          renv::restore()
           renv::install(paste0("appsilon/shiny.telemetry@", Sys.getenv("SHA")))
-          renv::install()
           renv::snapshot()
           renv::install("rsconnect")
           rsconnect::writeManifest()
