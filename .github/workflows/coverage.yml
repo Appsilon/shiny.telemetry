@@ -3,13 +3,26 @@ on: push
 name: R CMD checks with DBs
 
 jobs:
+  ######################################
+  # R CMD check with Databases running #
+  ######################################
   test-coverage:
     name: Checks with DBs 🛠 & Coverage 📔
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.config.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: ubuntu-latest, r: 'release'}
+
 
     timeout-minutes: 30
 
+    ###############################################
+    # Environment variables so tests with DBs run #
+    ###############################################
     env:
       # MariaDB
       TEST_MARIADB_USER: root
@@ -24,7 +37,9 @@ jobs:
       TEST_POSTGRESQL_DBNAME: shiny_telemetry
       TEST_POSTGRESQL_HOSTNAME: '127.0.0.1'
 
-    # Service containers to run with `main` job
+    ###########################################
+    # Services container to run with main job #
+    ###########################################
     services:
       # Label used to access the service container
       postgres:
@@ -43,20 +58,37 @@ jobs:
           --health-retries 5
 
     steps:
+      ##################
+      # Load all steps #
+      ##################
+
       - name: Checkout repository
+        ##########################
+        # Checkout the code base #
+        ##########################
         uses: actions/checkout@v3
 
       - name: Install R
+        #############
+        # Install R #
+        #############
         uses: r-lib/actions/setup-r@v2
         with:
-          r-version: release
+          r-version: ${{ matrix.config.r }}
 
       - name: Install R package dependencies
+        ##########################
+        # Install R Dependencies #
+        ##########################
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::. # Necessary to avoid object usage linter errors.
+          # Necessary to avoid object usage linter errors.
+          extra-packages: local::.
 
       - name: Start MySQL
+        ##################
+        # Start MySQL DB #
+        ##################
         env:
           DB_DATABSE: 'shiny_telemetry'
           DB_USER: ${{ secrets.DB_USER }}
@@ -66,12 +98,18 @@ jobs:
           mysql -e "CREATE DATABASE IF NOT EXISTS $TEST_MARIADB_DBNAME;" -u$TEST_MARIADB_USER -p$TEST_MARIADB_PASSWORD
 
       - name: R CMD check
+        ###########################
+        # Perform the R CMD check #
+        ###########################
         if: always()
         uses: r-lib/actions/check-r-package@v2
         with:
           error-on: '"note"'
 
       - name: Lint
+        ######################
+        # Lint the code base #
+        ######################
         if: always()
         shell: Rscript {0}
         run: |
@@ -80,6 +118,9 @@ jobs:
           quit(status = length(lints) > 0)
 
       - name: Spell Check
+        ###############
+        # Spell check #
+        ###############
         if : always()
         shell: Rscript {0}
         run: |
@@ -90,5 +131,8 @@ jobs:
           quit(status = nrow(spell_check) > 0)
 
       - name: Test coverage
+        ###########################
+        # Perform the R CMD check #
+        ###########################
         run: |
           Rscript -e 'covr::codecov()'
