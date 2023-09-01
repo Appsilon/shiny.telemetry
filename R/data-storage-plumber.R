@@ -148,9 +148,9 @@ DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
       }
 
       logger::log_debug(
-       "values (names): ({NROW(names(values))}) ",
-       "{names(values) %>% paste(collapse = \",\")}",
-       namespace = "shiny.telemetry"
+        "values (names): ({NROW(names(values))}) ",
+        "{names(values) %>% paste(collapse = \",\")}",
+        namespace = "shiny.telemetry"
       )
       logger::log_debug(
         "values (class): ({NROW(values)}) ",
