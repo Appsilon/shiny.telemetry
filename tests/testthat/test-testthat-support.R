@@ -29,26 +29,6 @@ test_that("skip_if_storage_config_missing config with wrong data types", {
     class = "skip"
   )
 
-#' Skip if storage configuration is not defined
-#' @param storage_config list of characters with configuration
-#' @keywords internal
-skip_if_storage_config_missing <- function(storage_config) {
-  message_string <- "DataStorage config: Not available"
-
-  skip_if_not(
-    checkmate::test_list(storage_config, min.len = 1, types = "character"),
-    message_string
-  )
-
-  skip_if_not(
-    all(vapply(
-      storage_config,
-      function(.x) checkmate::test_string(.x, min.chars = 1), logical(1)
-    )),
-    message_string
-  )
-}
-
   expect_condition(
     skip_if_storage_config_missing(list(SOME_CONFIG = "NULL", OTHER = NULL)),
     "DataStorage config: Not available",
@@ -105,4 +85,3 @@ test_that("skip_if_storage_config_missing config with valid configurations", {
     )
   )
 })
-
