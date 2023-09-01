@@ -1,6 +1,6 @@
 on: push
 
-name: R CMD checks with DBs
+name: Extra checks with DBs
 
 jobs:
   ######################################
