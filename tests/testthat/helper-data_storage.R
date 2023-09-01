@@ -2,7 +2,7 @@ arg_missing_msg <- function(var_name) {
   glue::glue("argument \"{var_name}\" is missing, with no default")
 }
 
-test_common_data_storage <- function(data_storage) {
+test_common_data_storage <- function(data_storage, dashboard_name = "test_dashboard") {
   require(testthat)
   withr::defer(data_storage$close())
 
@@ -11,11 +11,10 @@ test_common_data_storage <- function(data_storage) {
   date_from <- lubridate::today(tzone = "UTC") - 365 * 10
   date_to <- lubridate::today(tzone = "UTC") + 10
 
-  app_name <- "test_dashboard"
-
   # Empty results should be allowed to run smoothly and without problems
 
-  user_data_empty <- data_storage$read_event_data(date_from, date_to)
+  user_data_empty <- data_storage$read_event_data(date_from, date_to) %>%
+    dplyr::filter(grepl(dashboard_name, .data$app_name))
 
   expect_true(checkmate::test_tibble(user_data_empty))
   expect_equal(NROW(user_data_empty), 0)
@@ -35,37 +34,39 @@ test_common_data_storage <- function(data_storage) {
   expect_error(data_storage$insert("dash"), arg_missing_msg("type"))
 
   data_storage$insert(
-    app_name = app_name,
+    app_name = dashboard_name,
     type = "without_session"
   )
 
   data_storage$insert(
-    app_name = app_name,
+    app_name = dashboard_name,
     type = "logout",
     session = "some_session_id"
   )
 
   data_storage$insert(
-    app_name = app_name,
+    app_name = dashboard_name,
     type = "click",
     details = list(id = "some_button_id"),
     session = "some_session_id"
   )
 
   data_storage$insert(
-    app_name = app_name,
+    app_name = dashboard_name,
     type = "click",
     details = list(id = "some_button_id_2"),
     session = "some_session_id"
   )
 
-  user_data <- data_storage$read_event_data(date_from, date_to)
+  user_data <- data_storage$read_event_data(date_from, date_to) %>%
+    dplyr::filter(grepl(dashboard_name, .data$app_name))
 
   expect_true(checkmate::test_tibble(user_data))
   expect_equal(NROW(user_data), 4)
 
   # Empty call (no dates)
   data_storage$read_event_data() %>%
+    dplyr::filter(grepl(dashboard_name, .data$app_name)) %>%
     NROW() %>%
     expect_equal(4)
 
@@ -73,6 +74,7 @@ test_common_data_storage <- function(data_storage) {
   # Required fields when reading data
   #  username, id and value are not stored directly, but within details field
   data_storage$read_event_data() %>%
+    dplyr::filter(grepl(dashboard_name, .data$app_name)) %>%
     colnames() %>%
     sort() %>%
     expect_equal(c(
@@ -80,7 +82,7 @@ test_common_data_storage <- function(data_storage) {
     ))
 
   data_storage$insert(
-    app_name = app_name,
+    app_name = dashboard_name,
     type = "click",
     details = list(id = "some_button_id_2"),
     session = "some_session_id",
@@ -88,7 +90,7 @@ test_common_data_storage <- function(data_storage) {
   )
 
   data_storage$insert(
-    app_name = app_name,
+    app_name = dashboard_name,
     type = "click",
     details = list(id = "some_button_id_2"),
     session = "some_session_id",
@@ -99,6 +101,7 @@ test_common_data_storage <- function(data_storage) {
     lubridate::today() + 1,
     lubridate::today() + 5
   ) %>%
+    dplyr::filter(grepl(dashboard_name, .data$app_name)) %>%
     NROW() %>%
     expect_equal(2)
 
@@ -106,10 +109,12 @@ test_common_data_storage <- function(data_storage) {
     lubridate::today() + 2,
     lubridate::today() + 5
   ) %>%
+    dplyr::filter(grepl(dashboard_name, .data$app_name)) %>%
     NROW() %>%
     expect_equal(1)
 }
 
+<<<<<<< HEAD
 test_common_empty_details <- function(data_storage) {
   require(testthat)
   withr::defer(data_storage$close())
@@ -183,4 +188,24 @@ test_common_len_gt_1_alt <- function(data_storage) {
     purrr::pluck("value") %>%
     unname() %>%
     expect_equal(format(paste(1:10, collapse = ", ")))
+}
+
+#' Skip if storage configuration is not defined
+#' @param storage_config list of characters with configuration
+#' @keywords internal
+skip_if_storage_config_missing <- function(storage_config) {
+  message_string <- "DataStorage config: Not available"
+
+  skip_if_not(
+    checkmate::test_list(storage_config, min.len = 1, types = "character"),
+    message_string
+  )
+
+  skip_if_not(
+    all(vapply(
+      storage_config,
+      function(.x) checkmate::test_string(.x, min.chars = 1), logical(1)
+    )),
+    message_string
+  )
 }
