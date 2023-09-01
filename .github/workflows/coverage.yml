@@ -1,10 +1,10 @@
 on: push
 
-name: Test Coverage 📔
+name: Extended checks & Coverage
 
 jobs:
-  main:
-    name: Test Coverage 📔
+  test-coverage:
+    name: Extended checks 🛠 & Coverage 📔
 
     runs-on: ubuntu-latest
 
@@ -63,7 +63,7 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e "CREATE DATABASE IF NOT EXISTS $TEST_MARIADB_USER;" -u$DB_USER -p$TEST_MARIADB_PASSWORD
+          mysql -e "CREATE DATABASE IF NOT EXISTS TEST_MARIADB_DBNAME;" -u$TEST_MARIADB_USER -p$TEST_MARIADB_PASSWORD
 
       - name: R CMD check
         if: always()

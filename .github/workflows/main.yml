@@ -39,3 +39,15 @@ jobs:
         uses: r-lib/actions/check-r-package@v2
         with:
           error-on: '"note"'
+
+  linter:
+    steps:
+      ################################
+      # Run Linter against code base #
+      ################################
+      - name: Lint Code Base
+        uses: super-linter/super-linter/slim@v5
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
