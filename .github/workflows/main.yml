@@ -61,32 +61,3 @@ jobs:
         uses: r-lib/actions/check-r-package@v2
         with:
           error-on: '"note"'
-
-  ##############
-  # Linter job #
-  ##############
-  linter:
-    name: SuperLinter 🦸‍♀️
-
-    runs-on: ubuntu-latest
-
-    steps:
-      ##########################
-      # Checkout the code base #
-      ##########################
-      - name: Checkout Code
-        uses: actions/checkout@v3
-        with:
-          # Full git history is needed to get a proper
-          # list of changed files within `super-linter`
-          fetch-depth: 0
-
-      ################################
-      # Run Linter against code base #
-      ################################
-      - name: Lint Code Base
-        uses: super-linter/super-linter/slim@v5
-        env:
-          VALIDATE_ALL_CODEBASE: true
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

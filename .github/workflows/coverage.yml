@@ -1,10 +1,10 @@
 on: push
 
-name: Extended checks & Coverage
+name: R CMD checks with DBs
 
 jobs:
   test-coverage:
-    name: Extended checks 🛠 & Coverage 📔
+    name: Checks with DBs 🛠 & Coverage 📔
 
     runs-on: ubuntu-latest
 
