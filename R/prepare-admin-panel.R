@@ -32,7 +32,7 @@ get_users_per_day <- function(log_data) {
     # Make sure every day has values for anonymous and users columns
     dplyr::bind_rows(
       dplyr::tibble(anonymous = integer(0), users = integer(0))
-      ) %>%
+    ) %>%
     dplyr::mutate(
       dplyr::across(dplyr::where(is.integer), ~tidyr::replace_na(.x, 0))
     )
@@ -68,7 +68,7 @@ get_actions_per_day <- function(log_data) {
 }
 
 get_per_day_data <- function(
-    users_per_day_data, sessions_per_day, time_per_day, actions_per_day
+  users_per_day_data, sessions_per_day, time_per_day, actions_per_day
 ) {
   users_per_day_data %>%
     dplyr::full_join(sessions_per_day, by = "date") %>%
@@ -123,7 +123,7 @@ get_per_day_plot_data <- function(base, per_day) {
 #'
 #' @keywords internal
 prepare_admin_panel_components <- function(
-    input, output, session, data_storage
+  input, output, session, data_storage
 ) {
   hour_levels <- c("12am", paste0(1:11, "am"), "12pm", paste0(1:11, "pm"))
 
@@ -211,15 +211,15 @@ prepare_admin_panel_components <- function(
       dplyr::group_by(.data$id) %>%
       dplyr::group_map(function(x, ...) {
         x %>%
-        plotly::plot_ly(
-          x = ~date, y = ~value, color = ~statistic, colors = ~color,
-          text = ~text,
-          hovertemplate = paste(
-            "%{label}",
-            "<br />Value: %{y}",
-            "%{text}"
-          )
-        ) %>%
+          plotly::plot_ly(
+            x = ~date, y = ~value, color = ~statistic, colors = ~color,
+            text = ~text,
+            hovertemplate = paste(
+              "%{label}",
+              "<br />Value: %{y}",
+              "%{text}"
+            )
+          ) %>%
           plotly::add_bars()
       })
 
@@ -264,7 +264,8 @@ prepare_admin_panel_components <- function(
       users_per_day(),
       sessions_per_day(),
       time_per_day(),
-      actions_per_day())
+      actions_per_day()
+    )
   })
 
   per_day_plot_data <- shiny::reactive({

@@ -28,7 +28,7 @@ test_that("Telemetry tests with mock data_storage layer", {
     observeEvent = function(
       eventExpr, handlerExpr, ... # nolint object_name_linter
     ) {
-        shiny::isolate(handlerExpr)
+      shiny::isolate(handlerExpr)
     },
     .package = "shiny"
   )
