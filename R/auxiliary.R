@@ -16,7 +16,8 @@
 #' build_query_sql("table_name", Sys.Date() - 365, Sys.Date() + 365)
 #' build_query_sql("table_name", as.Date("2023-04-13"), as.Date("2000-01-01"))
 #' build_query_sql(
-#'   "table_name", as.Date("2023-04-13"), as.Date("2000-01-01"), timestamp_wrapper = "to_timestamp({seconds})"
+#' "table_name", as.Date("2023-04-13"), as.Date("2000-01-01"),
+#' timestamp_wrapper = "to_timestamp({seconds})"
 #' )
 build_query_sql <- function(
   bucket, date_from = NULL, date_to = NULL, timestamp_wrapper = NULL
