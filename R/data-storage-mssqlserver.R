@@ -2,7 +2,12 @@
 #'
 #' @description
 #' Implementation of the DataStorage R6 class to MS SQL Server backend using a
-#' unified API for read/write operations
+#' unified API for read/write operations. This provider requires a configured 
+#' and named ODBC driver to be set up on your system, for example, "ODBC 
+#' Driver 17 for SQL Server" or "ODBC Driver 18 for SQL Server".
+#' 
+#' Note that MS SQL Server support requires a subtly different database schema:
+#' the 'time' field is stored as a 'DATETIME' rather than a 'TIMESTAMP'.
 #'
 #' @export
 #'
@@ -40,10 +45,12 @@ DataStorageMSSQLServer <- R6::R6Class( # nolint object_name_linter
     #' @param hostname string with hostname of the MS SQL Server instance.
     #' @param port numeric value with the port number of MS SQL Server instance.
     #' @param dbname string with the name of the database in the MS SQL Server
-    #' @param driver string with the name of the ODBC driver class for MS SQL.
+    #' instance.
+    #' @param driver string with the name of the ODBC driver class for MS SQL,
+    #' for example "ODBC Driver 17 for SQL Server".
     #' @param trust_server_certificate string with "NO" or "YES", setting 
     #' whether or not to trust the server's certificate implicitly.
-    #' instance.
+
 
     initialize = function(
       username = NULL,
@@ -72,7 +79,12 @@ DataStorageMSSQLServer <- R6::R6Class( # nolint object_name_linter
         "  * trust_server_certificate: {trust_server_certificate}\n",
         namespace = "shiny.telemetry"
       )
-      private$connect(username, password, hostname, port, dbname, driver,
+      private$connect(username,
+                      password,
+                      hostname,
+                      port,
+                      dbname,
+                      driver,
                       trust_server_certificate)
       private$initialize_connection()
     }
