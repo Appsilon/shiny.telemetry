@@ -1658,18 +1658,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre], André Veríssimo [aut], Krystian Igras [aut], Recle Vibal [aut], Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.1; ; 2023-09-05 14:11:59 UTC; unix",
+        "Built": "R 4.3.1; ; 2023-09-05 15:34:27 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "bf33cf125dea0dfe26b311ec12024d18691f266a",
-        "RemoteSha": "bf33cf125dea0dfe26b311ec12024d18691f266a",
+        "RemoteRef": "d96ae26e9b18797e8fa79097e355fdfaef2c80ca",
+        "RemoteSha": "d96ae26e9b18797e8fa79097e355fdfaef2c80ca",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "bf33cf125dea0dfe26b311ec12024d18691f266a",
-        "GithubSHA1": "bf33cf125dea0dfe26b311ec12024d18691f266a"
+        "GithubRef": "d96ae26e9b18797e8fa79097e355fdfaef2c80ca",
+        "GithubSHA1": "d96ae26e9b18797e8fa79097e355fdfaef2c80ca"
       }
     },
     "sodium": {
@@ -2122,7 +2122,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "d2aa3fd0b7e4dcbd3d4cd1595f566c50"
+      "checksum": "12d4e4f454de86f53ec2ed7fdabb9f89"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"
@@ -2155,7 +2155,7 @@
       "checksum": "5aa33f0354380519046a4a6cc7aaf05c"
     },
     "renv.lock": {
-      "checksum": "e35d94cba2629707507c182fea795e81"
+      "checksum": "86ea56718c71314df297de553c1570ff"
     }
   },
   "users": null

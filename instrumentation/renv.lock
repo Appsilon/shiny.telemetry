@@ -794,8 +794,8 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "appsilon",
       "RemoteRepo": "shiny.telemetry",
-      "RemoteRef": "bf33cf125dea0dfe26b311ec12024d18691f266a",
-      "RemoteSha": "bf33cf125dea0dfe26b311ec12024d18691f266a",
+      "RemoteRef": "d96ae26e9b18797e8fa79097e355fdfaef2c80ca",
+      "RemoteSha": "d96ae26e9b18797e8fa79097e355fdfaef2c80ca",
       "Requirements": [
         "R6",
         "RSQLite",
@@ -813,7 +813,7 @@
         "shiny",
         "tidyr"
       ],
-      "Hash": "642f10f8aaba76ebd0807c0c167003e4"
+      "Hash": "832c047e111bcc5f0801b00fbd3701d7"
     },
     "sourcetools": {
       "Package": "sourcetools",
