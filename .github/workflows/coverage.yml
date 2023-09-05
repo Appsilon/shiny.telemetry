@@ -73,7 +73,6 @@ jobs:
           --health-retries 5
       mssql:
         image: mcr.microsoft.com/mssql/server
-        container_name: mssql
         ports:
           - 1433:1433
         environment:
