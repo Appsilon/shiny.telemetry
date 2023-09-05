@@ -1,9 +1,11 @@
+Appsilon
 CMD
+DATETIME
 DataStorage
-DataStorageSQLite
 JSON
 Javascript
 Logfile
+ODBC
 RStudio
 Rhinoverse
 ShinySession
@@ -21,4 +23,3 @@ runApp
 sqlfile
 sqlite
 tzone
-ℹ️
