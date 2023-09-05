@@ -6,8 +6,8 @@ jobs:
   ###################
   # R CMD check job #
   ###################
-  r-cmd:
-    name: R CMD Check ${{ matrix.config.os }} (${{ matrix.config.r }})
+  main:
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     runs-on: ${{ matrix.config.os }}
 
@@ -20,11 +20,11 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest, r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest, r: 'devel'}
-          - {os: ubuntu-latest, r: 'release'}
-          - {os: ubuntu-latest, r: 'oldrel'}
+        - {os: macOS-latest, r: 'release'}
+        - {os: windows-latest, r: 'release'}
+        - {os: ubuntu-22.04, r: 'devel'}
+        - {os: ubuntu-22.04, r: 'release'}
+        - {os: ubuntu-22.04, r: 'oldrel'}
 
     steps:
       ##################
@@ -87,9 +87,3 @@ jobs:
           }
           quit(status = nrow(spell_check) > 0)
 
-      - name: Test coverage
-        ###########################
-        # Perform the R CMD check #
-        ###########################
-        run: |
-          Rscript -e 'covr::codecov()'
