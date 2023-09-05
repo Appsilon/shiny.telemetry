@@ -36,6 +36,15 @@ jobs:
       TEST_POSTGRESQL_PORT: 5432
       TEST_POSTGRESQL_DBNAME: shiny_telemetry
       TEST_POSTGRESQL_HOSTNAME: '127.0.0.1'
+      # MS SQL
+      TEST_MSSQLSERVER_USER: sa
+      TEST_MSSQLSERVER_PASSWORD: mysecretpassword
+      TEST_MSSQLSERVER_PORT: 1333
+      TEST_MSSQLSERVER_DBNAME: shiny_telemetry
+      TEST_MSSQLSERVER_HOSTNAME: '127.0.0.1'
+      TEST_MSSQLSERVER_DRIVER:
+      TEST_MSSQLSERVER_TRUST_SERVER_CERTIFICATE: 'FALSE'
+      TEST_MSSQLSERVER_DRIVER: 'ODBC Driver 18 for SQL Server'
 
     ###########################################
     # Services container to run with main job #
@@ -58,6 +67,14 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+      mssql:
+        image: mcr.microsoft.com/mssql/server
+        container_name: mssql
+        ports:
+          - 1433:1433
+        environment:
+          ACCEPT_EULA: Y
+          MSSQL_SA_PASSWORD: mysecretpassword
 
     steps:
       ##################
@@ -86,6 +103,9 @@ jobs:
         with:
           # Necessary to avoid object usage linter errors.
           extra-packages: local::.
+
+      - name: Install Microsoft ODBC
+        run: sudo ACCEPT_EULA=Y apt-get install msodbcsql18 -y
 
       - name: Start MySQL
         ##################
