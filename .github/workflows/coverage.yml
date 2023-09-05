@@ -118,16 +118,12 @@ jobs:
         # Create MS SQL database #
         ##########################
         run: |
-          sqlcmd -U $TEST_MSSQLSERVER_USER -P $TEST_MSSQLSERVER_PASSWORD -H $TEST_MSSQLSERVER_HOSTNAME -C -Q "CREATE DATABASE $TEST_MSSQLSERVER_DBNAME"
+          sqlcmd -e -U $TEST_MSSQLSERVER_USER -P $TEST_MSSQLSERVER_PASSWORD -H $TEST_MSSQLSERVER_HOSTNAME:TEST_MSSQLSERVER_PORT -C -Q "CREATE DATABASE $TEST_MSSQLSERVER_DBNAME"
 
       - name: Start MySQL
         ##################
         # Start MySQL DB #
         ##################
-        env:
-          DB_DATABSE: 'shiny_telemetry'
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           sudo /etc/init.d/mysql start
           mysql -e "CREATE DATABASE IF NOT EXISTS $TEST_MARIADB_DBNAME;" -u$TEST_MARIADB_USER -p$TEST_MARIADB_PASSWORD
