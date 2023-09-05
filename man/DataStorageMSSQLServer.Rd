@@ -5,8 +5,8 @@
 \title{Data storage class with MS SQL Server provider}
 \description{
 Implementation of the DataStorage R6 class to MS SQL Server backend using a
-unified API for read/write operations. This provider requires a configured 
-and named ODBC driver to be set up on your system, for example, "ODBC 
+unified API for read/write operations. This provider requires a configured
+and named ODBC driver to be set up on your system, for example, "ODBC
 Driver 17 for SQL Server" or "ODBC Driver 18 for SQL Server".
 
 Note that MS SQL Server support requires a subtly different database schema:
@@ -14,9 +14,9 @@ the 'time' field is stored as a 'DATETIME' rather than a 'TIMESTAMP'.
 }
 \examples{
 \dontrun{
-data_storage <- DataStorageMSSQLServer$new(user = "sqlserver", 
+data_storage <- DataStorageMSSQLServer$new(user = "sqlserver",
 password = "mysecretpassword", hostname = "servername", port = 1433,
-dbname = "my_db", driver = "ODBC Driver 17 for SQL Server", 
+dbname = "my_db", driver = "ODBC Driver 17 for SQL Server",
 trust_server_certificate = "NO")
 
 data_storage$insert("example", "test_event", "session1")
@@ -86,7 +86,7 @@ instance.}
 \item{\code{driver}}{string with the name of the ODBC driver class for MS SQL,
 for example "ODBC Driver 17 for SQL Server".}
 
-\item{\code{trust_server_certificate}}{string with "NO" or "YES", setting 
+\item{\code{trust_server_certificate}}{string with "NO" or "YES", setting
 whether or not to trust the server's certificate implicitly.}
 }
 \if{html}{\out{</div>}}
