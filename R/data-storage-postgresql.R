@@ -70,7 +70,7 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
   private = list(
     # Private Fields
     db_con = NULL,
-    timestamp_wrapper = "to_timestamp",
+    timestamp_wrapper = "to_timestamp({seconds})",
 
     # Private methods
 
