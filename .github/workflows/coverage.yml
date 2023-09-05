@@ -108,7 +108,17 @@ jobs:
           extra-packages: local::.
 
       - name: Install Microsoft ODBC
-        run: sudo ACCEPT_EULA=Y apt-get install msodbcsql18 -y
+        ###################################
+        # Install MS SQL driver and tools #
+        ###################################
+        run: sudo ACCEPT_EULA=Y apt-get install msodbcsql18 mssql-tools18 -y
+
+      - name: Create MSSQL database
+        ##########################
+        # Create MS SQL database #
+        ##########################
+        run: |
+          sqlcmd -U $TEST_MSSQLSERVER_USER -P $TEST_MSSQLSERVER_PASSWORD -H $TEST_MSSQLSERVER_HOSTNAME -C -Q "CREATE DATABASE $TEST_MSSQLSERVER_DBNAME"
 
       - name: Start MySQL
         ##################
