@@ -261,11 +261,10 @@ prepare_admin_panel_components <- function(
 
   per_day_data <- shiny::reactive({
     get_per_day_data(
-      users_per_day(),
-      sessions_per_day(),
-      time_per_day(),
-      actions_per_day()
-    )
+                     users_per_day(),
+                     sessions_per_day(),
+                     time_per_day(),
+                     actions_per_day())
   })
 
   per_day_plot_data <- shiny::reactive({
