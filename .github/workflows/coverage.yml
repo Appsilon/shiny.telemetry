@@ -43,7 +43,7 @@ jobs:
       TEST_POSTGRESQL_HOSTNAME: '127.0.0.1'
       # MS SQL
       TEST_MSSQLSERVER_USER: sa
-      TEST_MSSQLSERVER_PASSWORD: mysecretpassword
+      TEST_MSSQLSERVER_PASSWORD: 'my-Secr3t_Password'
       TEST_MSSQLSERVER_PORT: 1433
       TEST_MSSQLSERVER_DBNAME: shiny_telemetry
       TEST_MSSQLSERVER_HOSTNAME: '127.0.0.1'
@@ -77,7 +77,7 @@ jobs:
           - 1433:1433
         env:
           ACCEPT_EULA: Y
-          MSSQL_SA_PASSWORD: mysecretpassword
+          MSSQL_SA_PASSWORD: 'my-Secr3t_Password'
 
     steps:
       ##################
