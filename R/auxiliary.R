@@ -4,7 +4,7 @@
 #' @param date_to date representing the last day of results. Can be NULL.
 #' @param bucket string with name of table
 #' @param timestamp_wrapper string with function to wrap up seconds in database
-#' query
+#' query. This is a glue::glue() formatted string using the parameter 'seconds'.
 #'
 #' @return A string with SQL query.
 #'
@@ -16,7 +16,7 @@
 #' build_query_sql("table_name", Sys.Date() - 365, Sys.Date() + 365)
 #' build_query_sql("table_name", as.Date("2023-04-13"), as.Date("2000-01-01"))
 #' build_query_sql(
-#'   "table_name", as.Date("2023-04-13"), as.Date("2000-01-01"), timestamp_wrapper = "to_timestamp"
+#'   "table_name", as.Date("2023-04-13"), as.Date("2000-01-01"), timestamp_wrapper = "to_timestamp({seconds})"
 #' )
 build_query_sql <- function(
   bucket, date_from = NULL, date_to = NULL, timestamp_wrapper = NULL
@@ -36,7 +36,7 @@ build_query_sql <- function(
     if (is.null(timestamp_wrapper)) {
       return(seconds)
     }
-    glue::glue("{timestamp_wrapper}({seconds})")
+    return(glue::glue(timestamp_wrapper))
   }
 
   where <- list(.sep = " AND ")

@@ -71,7 +71,7 @@ DataStorageMariaDB <- R6::R6Class( # nolint object_name_linter
   private = list(
     # Private Fields
     db_con = NULL,
-    timestamp_wrapper = "FROM_UNIXTIME",
+    timestamp_wrapper = "FROM_UNIXTIME({seconds})",
 
     # Private methods
 
