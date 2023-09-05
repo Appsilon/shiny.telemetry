@@ -542,14 +542,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
       session$userData$shiny_input_values <- input_values
 
-      logger::log_debug(
-        logger::skip_formatter(
-          paste(
-            "shiny inputs initialized:",
-            paste(names(input_values), collapse = ", ")
-          )
-        ),
-        namespace = "shiny.telemetry"
+      logger::log_debug(logger::skip_formatter(
+                                               paste(
+                                                 "shiny inputs initialized:",
+                                                 paste(names(input_values), collapse = ", ")
+                                               )),
+      namespace = "shiny.telemetry"
       )
 
       # Log initial value for navigation
