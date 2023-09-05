@@ -95,6 +95,7 @@ that can range from local filesystem storage to a remote Plumber REST API instan
 * Remote SQL database:
   * MariaDB using `DataStorageMariaDB` class
   * PostgreSQL using `DataStoragePostgreSQL` class
+  * MS SQL Server using `DataStorageMSSQLServer` class
 * Plumber REST API using `DataStoragePlumber` class
   * In turn, the Plumber data provider will use one of the other classes above
   as the method of data storage.
