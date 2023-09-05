@@ -128,7 +128,7 @@
     },
     "askpass": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/latest",
       "description": {
         "Package": "askpass",
         "Type": "Package",
@@ -598,7 +598,7 @@
     },
     "dplyr": {
       "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Repository": "https://packagemanager.posit.co/cran/latest",
       "description": {
         "Type": "Package",
         "Package": "dplyr",
@@ -1658,18 +1658,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre], André Veríssimo [aut], Krystian Igras [aut], Recle Vibal [aut], Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.1; ; 2023-09-04 09:05:24 UTC; unix",
+        "Built": "R 4.3.1; ; 2023-09-05 10:11:41 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "5e9f28e693c74c88080bc1772ec5a30b1b86d8d4",
-        "RemoteSha": "5e9f28e693c74c88080bc1772ec5a30b1b86d8d4",
+        "RemoteRef": "253c136a2d012545ed229f2108b905c89aa9228f",
+        "RemoteSha": "253c136a2d012545ed229f2108b905c89aa9228f",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "5e9f28e693c74c88080bc1772ec5a30b1b86d8d4",
-        "GithubSHA1": "5e9f28e693c74c88080bc1772ec5a30b1b86d8d4"
+        "GithubRef": "253c136a2d012545ed229f2108b905c89aa9228f",
+        "GithubSHA1": "253c136a2d012545ed229f2108b905c89aa9228f"
       }
     },
     "sodium": {
@@ -2122,7 +2122,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "109c09510e720e0996ac878a920567fc"
+      "checksum": "8cc1c219bb534c494f9ebe350dfb10a9"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"
@@ -2155,7 +2155,7 @@
       "checksum": "5aa33f0354380519046a4a6cc7aaf05c"
     },
     "renv.lock": {
-      "checksum": "86459389657ef6215f371c7142d1a1ec"
+      "checksum": "b1f5af4173c10c2589c8af623b3a34d5"
     }
   },
   "users": null

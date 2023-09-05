@@ -239,31 +239,30 @@
       }
     },
     "askpass": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/latest",
       "description": {
         "Package": "askpass",
         "Type": "Package",
-        "Title": "Safe Password Entry for R, Git, and SSH",
-        "Version": "1.1",
+        "Title": "Password Entry Utilities for R, Git, and SSH",
+        "Version": "1.2.0",
         "Authors@R": "person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"),\nemail = \"jeroen@berkeley.edu\", comment = c(ORCID = \"0000-0002-4035-0289\"))",
         "Description": "Cross-platform utilities for prompting the user for credentials or a\npassphrase, for example to authenticate with a server or read a protected key.\nIncludes native programs for MacOS and Windows, hence no 'tcltk' is required.\nPassword entry can be invoked in two different ways: directly from R via the\naskpass() function, or indirectly as password-entry back-end for 'ssh-agent'\nor 'git-credential' via the SSH_ASKPASS and GIT_ASKPASS environment variables.\nThereby the user can be prompted for credentials or a passphrase if needed\nwhen R calls out to git or ssh.",
         "License": "MIT + file LICENSE",
-        "URL": "https://github.com/jeroen/askpass#readme",
-        "BugReports": "https://github.com/jeroen/askpass/issues",
+        "URL": "https://github.com/r-lib/askpass",
+        "BugReports": "https://github.com/r-lib/askpass/issues",
         "Encoding": "UTF-8",
-        "LazyData": "true",
         "Imports": "sys (>= 2.1)",
-        "RoxygenNote": "6.1.1",
+        "RoxygenNote": "7.2.3",
         "Suggests": "testthat",
         "Language": "en-US",
         "NeedsCompilation": "yes",
-        "Packaged": "2019-01-13 12:08:17 UTC; jeroen",
+        "Packaged": "2023-09-03 19:16:12 UTC; jeroen",
         "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>)",
         "Maintainer": "Jeroen Ooms <jeroen@berkeley.edu>",
         "Repository": "RSPM",
-        "Date/Publication": "2019-01-13 12:50:03 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:46:18 UTC; unix"
+        "Date/Publication": "2023-09-03 20:00:02 UTC",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-09-04 11:31:18 UTC; unix"
       }
     },
     "backports": {
@@ -764,13 +763,13 @@
       }
     },
     "dplyr": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/latest",
       "description": {
         "Type": "Package",
         "Package": "dplyr",
         "Title": "A Grammar of Data Manipulation",
-        "Version": "1.1.2",
+        "Version": "1.1.3",
         "Authors@R": "c(\nperson(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\"),\ncomment = c(ORCID = \"0000-0003-4757-117X\")),\nperson(\"Romain\", \"François\", role = \"aut\",\ncomment = c(ORCID = \"0000-0002-2444-4226\")),\nperson(\"Lionel\", \"Henry\", role = \"aut\"),\nperson(\"Kirill\", \"Müller\", role = \"aut\",\ncomment = c(ORCID = \"0000-0002-1416-3412\")),\nperson(\"Davis\", \"Vaughan\", , \"davis@posit.co\", role = \"aut\",\ncomment = c(ORCID = \"0000-0003-4777-038X\")),\nperson(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n)",
         "Description": "A fast, consistent tool for working with data frame like\nobjects, both in memory and out of memory.",
         "License": "MIT + file LICENSE",
@@ -786,12 +785,12 @@
         "LazyData": "true",
         "RoxygenNote": "7.2.3",
         "NeedsCompilation": "yes",
-        "Packaged": "2023-04-19 19:29:34 UTC; hadleywickham",
+        "Packaged": "2023-08-25 22:28:32 UTC; hadleywickham",
         "Author": "Hadley Wickham [aut, cre] (<https://orcid.org/0000-0003-4757-117X>),\nRomain François [aut] (<https://orcid.org/0000-0002-2444-4226>),\nLionel Henry [aut],\nKirill Müller [aut] (<https://orcid.org/0000-0002-1416-3412>),\nDavis Vaughan [aut] (<https://orcid.org/0000-0003-4777-038X>),\nPosit Software, PBC [cph, fnd]",
         "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "RSPM",
-        "Date/Publication": "2023-04-20 14:00:03 UTC",
-        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-04-21 21:51:47 UTC; unix"
+        "Date/Publication": "2023-09-03 16:20:02 UTC",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2023-09-04 11:32:52 UTC; unix"
       }
     },
     "ellipsis": {
@@ -2289,18 +2288,18 @@
         "Language": "en-US",
         "Author": "Kamil Żyła [aut, cre], André Veríssimo [aut], Krystian Igras [aut], Recle Vibal [aut], Appsilon Sp. z o.o. [cph]",
         "Maintainer": "Kamil Żyła <opensource+kamil@appsilon.com>",
-        "Built": "R 4.3.1; ; 2023-09-04 09:05:24 UTC; unix",
+        "Built": "R 4.3.1; ; 2023-09-05 10:11:41 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "5e9f28e693c74c88080bc1772ec5a30b1b86d8d4",
-        "RemoteSha": "5e9f28e693c74c88080bc1772ec5a30b1b86d8d4",
+        "RemoteRef": "253c136a2d012545ed229f2108b905c89aa9228f",
+        "RemoteSha": "253c136a2d012545ed229f2108b905c89aa9228f",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "5e9f28e693c74c88080bc1772ec5a30b1b86d8d4",
-        "GithubSHA1": "5e9f28e693c74c88080bc1772ec5a30b1b86d8d4"
+        "GithubRef": "253c136a2d012545ed229f2108b905c89aa9228f",
+        "GithubSHA1": "253c136a2d012545ed229f2108b905c89aa9228f"
       }
     },
     "shinyjs": {
@@ -2809,7 +2808,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "950d3761879d3d5b726fa8f02afa67cb"
+      "checksum": "fe35617c330b6a26bb00b2d69571b02f"
     },
     "app.R": {
       "checksum": "b190debeea46fa54ea261bddd22b3e85"
@@ -2818,7 +2817,7 @@
       "checksum": "2c8fcf3c29e18ff1277d16035a31f0b2"
     },
     "renv.lock": {
-      "checksum": "d026eeb8d1d24d1e8fbbe76bd4dbbe07"
+      "checksum": "2a0abd6bd448f1730f202cf3595e349b"
     },
     "www/styles.css": {
       "checksum": "56705fbddcc16218aefb166d6f6b61e5"
