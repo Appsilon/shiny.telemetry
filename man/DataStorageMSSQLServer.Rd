@@ -2,14 +2,17 @@
 % Please edit documentation in R/data-storage-mssqlserver.R
 \name{DataStorageMSSQLServer}
 \alias{DataStorageMSSQLServer}
-\title{Data storage class with PostgreSQL provider}
+\title{Data storage class with MS SQL Server provider}
 \description{
-Implementation of the DataStorage R6 class to PostgreSQL backend using a
+Implementation of the DataStorage R6 class to MS SQL Server backend using a
 unified API for read/write operations
 }
 \examples{
 \dontrun{
-data_storage <- DataStoragePostgreSQL$new(user = "postgres", password = "mysecretpassword")
+data_storage <- DataStorageMSSQLServer$new(user = "sqlserver", 
+password = "mysecretpassword", hostname = "servername", port = 1433,
+dbname = "my_db", driver = "ODBC Driver 17 for SQL Server", 
+trust_server_certificate = "NO")
 
 data_storage$insert("example", "test_event", "session1")
 data_storage$insert("example", "input", "s1", list(id = "id1"))
