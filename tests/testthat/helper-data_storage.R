@@ -37,27 +37,27 @@ test_common_data_storage <- function(data_storage) {
   data_storage$insert(
     app_name = app_name,
     type = "without_session"
-  ) %>% expect_silent()
+  )
 
   data_storage$insert(
     app_name = app_name,
     type = "logout",
     session = "some_session_id"
-  ) %>% expect_silent()
+  )
 
   data_storage$insert(
     app_name = app_name,
     type = "click",
     details = list(id = "some_button_id"),
     session = "some_session_id"
-  ) %>% expect_silent()
+  )
 
   data_storage$insert(
     app_name = app_name,
     type = "click",
     details = list(id = "some_button_id_2"),
     session = "some_session_id"
-  ) %>% expect_silent()
+  )
 
   user_data <- data_storage$read_event_data(date_from, date_to)
 
@@ -85,7 +85,7 @@ test_common_data_storage <- function(data_storage) {
     details = list(id = "some_button_id_2"),
     session = "some_session_id",
     time = lubridate::as_datetime(lubridate::today() + 5)
-  ) %>% expect_silent()
+  )
 
   data_storage$insert(
     app_name = app_name,
@@ -93,7 +93,7 @@ test_common_data_storage <- function(data_storage) {
     details = list(id = "some_button_id_2"),
     session = "some_session_id",
     time = lubridate::as_datetime(lubridate::today() + 1)
-  ) %>% expect_silent()
+  )
 
   data_storage$read_event_data(
     lubridate::today() + 1,
