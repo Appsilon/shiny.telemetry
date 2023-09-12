@@ -109,3 +109,82 @@ test_common_data_storage <- function(data_storage) {
     NROW() %>%
     expect_equal(1)
 }
+
+test_common_empty_details <- function(data_storage) {
+  require(testthat)
+  withr::defer(data_storage$close())
+
+  app_name <- "test_dashboard_empty_details"
+
+  data_storage$insert(app_name = app_name, type = "without_session")
+
+  data_storage$read_event_data() %>%
+    NROW() %>%
+    expect_equal(1)
+}
+
+test_common_len_gt_1 <- function(data_storage) {
+  require(testthat)
+  withr::defer(data_storage$close())
+
+  app_name <- "test_dashboard"
+
+  data_storage$insert(
+    app_name = app_name,
+    type = "click",
+    details = list(id = "vector_selected", value = 1:10, custom = 2),
+    session = "some_session_id"
+  )
+
+  result <- data_storage$read_event_data()
+
+  result %>%
+    purrr::pluck("value") %>%
+    expect_type("character")
+
+  result %>%
+    purrr::pluck("value") %>%
+    unname() %>%
+    expect_equal(format(paste(1:10, collapse = ", ")))
+}
+
+test_common_len_gt_1_alt <- function(data_storage) {
+  require(testthat)
+  withr::defer(data_storage$close())
+
+  app_name <- "test_dashboard"
+
+  data_storage$insert(
+    app_name = "app_name",
+    type = "without_session"
+  )
+
+  data_storage$insert(
+    app_name = "app_name",
+    type = "click",
+    details = list(id = "some_button_id_2"),
+    session = "some_session_id"
+  )
+
+  data_storage$insert(
+    app_name = "app_name",
+    type = "click",
+    details = list(id = "vector_selected", value = 1:10, custom = 2),
+    session = "some_session_id"
+  )
+
+  result <- data_storage$read_event_data()
+
+  result %>%
+    dplyr::filter(id == "vector_selected") %>%
+    purrr::pluck("value") %>%
+    expect_type("character")
+
+  result %>%
+    dplyr::filter(id == "vector_selected") %>%
+    purrr::pluck("value") %>%
+    unname() %>%
+    expect_equal(format(paste(1:10, collapse = ", ")))
+}
+
+

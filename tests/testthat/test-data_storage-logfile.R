@@ -13,75 +13,23 @@ test_that("[LogFile] DataStorage should be able to insert and read events withou
   withr::defer(file.remove(log_file_path))
 
   data_storage <- DataStorageLogFile$new(log_file_path = log_file_path)
-  withr::defer(data_storage$close())
-
-  data_storage$insert(app_name = "app_name", type = "without_session")
-
-  expect_equal(NROW(data_storage$read_event_data()), 1)
+  test_common_empty_details(data_storage)
 })
 
-test_that("[LogFile] DataStorage should be able to insert and read custom fields with length > 1", {
+test_that("[LogFile] Insert and read custom fields with length > 1", {
   log_file_path <- tempfile(fileext = ".txt")
   withr::defer(file.remove(log_file_path))
 
   data_storage <- DataStorageLogFile$new(log_file_path = log_file_path)
-  withr::defer(data_storage$close())
 
-  data_storage$insert(
-    app_name = "app_name",
-    type = "click",
-    details = list(id = "vector_selected", value = 1:10, custom = 2),
-    session = "some_session_id"
-  )
-
-  result <- data_storage$read_event_data()
-
-  result %>%
-    purrr::pluck("value") %>%
-    expect_type("character")
-
-  result %>%
-    purrr::pluck("value") %>%
-    unname() %>%
-    expect_equal(format(paste(1:10, collapse = ", ")))
+  test_common_len_gt_1(data_storage)
 })
 
-test_that("[LogFile] DataStorage should be able to insert and read custom fields with length > 1 on a pre-populated file", {
+test_that("[LogFile] Insert and read custom fields with length > 1 on a pre-populated file", {
   log_file_path <- tempfile(fileext = ".txt")
   withr::defer(file.remove(log_file_path))
 
   data_storage <- DataStorageLogFile$new(log_file_path = log_file_path)
-  withr::defer(data_storage$close())
 
-  data_storage$insert(
-    app_name = "app_name",
-    type = "without_session"
-  )
-
-  data_storage$insert(
-    app_name = "app_name",
-    type = "click",
-    details = list(id = "some_button_id_2"),
-    session = "some_session_id"
-  )
-
-  data_storage$insert(
-    app_name = "app_name",
-    type = "click",
-    details = list(id = "vector_selected", value = 1:10, custom = 2),
-    session = "some_session_id"
-  )
-
-  result <- data_storage$read_event_data()
-
-  result %>%
-    dplyr::filter(id == "vector_selected") %>%
-    purrr::pluck("value") %>%
-    expect_type("character")
-
-  result %>%
-    dplyr::filter(id == "vector_selected") %>%
-    purrr::pluck("value") %>%
-    unname() %>%
-    expect_equal(format(paste(1:10, collapse = ", ")))
+  test_common_len_gt_1_alt(data_storage)
 })
