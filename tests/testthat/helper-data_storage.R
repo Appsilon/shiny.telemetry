@@ -118,9 +118,7 @@ test_common_empty_details <- function(data_storage) {
 
   data_storage$insert(app_name = app_name, type = "without_session")
 
-  data_storage$read_event_data() %>%
-    NROW() %>%
-    expect_equal(1)
+  expect_equal(NROW(data_storage$read_event_data()), 1)
 }
 
 test_common_len_gt_1 <- function(data_storage) {
