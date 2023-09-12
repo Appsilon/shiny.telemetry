@@ -15,15 +15,9 @@ test_that("[LogFile] DataStorage should be able to insert and read events withou
   data_storage <- DataStorageLogFile$new(log_file_path = log_file_path)
   withr::defer(data_storage$close())
 
-  data_storage$insert(
-    app_name = "app_name",
-    type = "without_session"
-  )
+  data_storage$insert(app_name = "app_name", type = "without_session")
 
-  data_storage$read_event_data() %>%
-    expect_silent() %>%
-    NROW() %>%
-    expect_equal(1)
+  expect_equal(NROW(data_storage$read_event_data()), 1)
 })
 
 test_that("[LogFile] DataStorage should be able to insert and read custom fields with length > 1", {
