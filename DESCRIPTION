@@ -4,8 +4,8 @@ Title: 'Shiny' App Usage Telemetry
 Version: 0.1.0.9002
 Authors@R:
   c(
-    person("Kamil", "Żyła", role = c("aut", "cre"), email = "opensource+kamil@appsilon.com"),
-    person("André", "Veríssimo", role = "aut", email = "andre.verissimo@appsilon.com"),
+    person("André", "Veríssimo", role = c("aut", "cre"), email = "opensource+andre@appsilon.com"),
+    person("Kamil", "Żyła", role = c("aut"), email = "kamil@appsilon.com"),
     person("Krystian", "Igras",  role = "aut", email = "krystian8207@gmail.com"),
     person("Recle", "Vibal", role = "aut", email = "recle.vibal@appsilon.com"),
     person("Appsilon Sp. z o.o.", role = "cph", email = "opensource@appsilon.com")
