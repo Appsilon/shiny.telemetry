@@ -465,7 +465,7 @@
     },
     "knitr": {
       "Package": "knitr",
-      "Version": "1.43",
+      "Version": "1.44",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
@@ -477,7 +477,7 @@
         "xfun",
         "yaml"
       ],
-      "Hash": "9775eb076713f627c07ce41d8199d8f6"
+      "Hash": "60885b9f746c9dfaef110d070b5f7dc0"
     },
     "later": {
       "Package": "later",
@@ -794,8 +794,8 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "appsilon",
       "RemoteRepo": "shiny.telemetry",
-      "RemoteRef": "d96ae26e9b18797e8fa79097e355fdfaef2c80ca",
-      "RemoteSha": "d96ae26e9b18797e8fa79097e355fdfaef2c80ca",
+      "RemoteRef": "dcc06e6b9f8e2f79ec4c4b9dd6a266b360b8b328",
+      "RemoteSha": "dcc06e6b9f8e2f79ec4c4b9dd6a266b360b8b328",
       "Requirements": [
         "R6",
         "RSQLite",
@@ -813,7 +813,7 @@
         "shiny",
         "tidyr"
       ],
-      "Hash": "832c047e111bcc5f0801b00fbd3701d7"
+      "Hash": "f294af6117ccf0295a3d75ad0cf06dfd"
     },
     "sourcetools": {
       "Package": "sourcetools",
