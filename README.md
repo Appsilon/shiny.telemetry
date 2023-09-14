@@ -116,6 +116,21 @@ logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
 
 _note_: This command can be run before the Shiny call or by adding it to the `.Rprofile`.
 
+## Contributing
+_*Have you read the [Contributing Guidelines](https://github.com/Appsilon/.github/blob/main/CONTRIBUTING.md)?*_
+
+### pre-commit
+This project uses [pre-commit][] hooks. The hooks are a series of automated checks run locally.
+These automate mundane tasks such as running spellchecking, linter, and other potential issues
+before you even push your changes!
+
+To get started you need to install the pre-commit tool. You can use an R `{precommit}` package or
+refer to [its vignette on pre-commit installation][]. Additionally, `{pkgdown}` and `{lintr}`
+packages are required to be installed either globally or within `{renv}` (if your project uses it).
+
+[pre-commit]: https://pre-commit.com
+[its vignette on pre-commit installation]: https://lorenzwalthert.github.io/precommit/articles/precommit.html#installation
+
 ## Appsilon
 
 <img src="https://avatars0.githubusercontent.com/u/6096772" align="right" alt="" width="6%" />

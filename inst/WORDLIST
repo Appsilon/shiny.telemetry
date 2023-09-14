@@ -18,7 +18,9 @@ customizable
 filesystem
 hostname
 json
+linter
 lubridate
+pre
 runApp
 sqlfile
 sqlite
