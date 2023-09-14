@@ -1,4 +1,3 @@
-
 #' Data Storage abstract class to handle all the read/write operations
 #'
 #' @description
@@ -10,7 +9,6 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
   public = list(
 
     #' @description initialize data storage object common with all providers
-
     initialize = function() {
       stop(paste(class(self)[1], "is an abstract class that can't be initialized."))
     },
@@ -30,9 +28,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #'
     #' @return Nothing. This method is called for side effects.
 
-    insert = function(
-      app_name, type, session = NULL, details = NULL, time = NULL
-    ) {
+    insert = function(app_name, type, session = NULL, details = NULL, time = NULL) {
       values <- private$insert_checks(
         app_name, type, session, details, time
       )
@@ -78,9 +74,7 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
 
     #' @field event_bucket string that identifies the bucket to store user
     #' related and action data
-
     event_bucket = function() "event_log"
-
   ),
   private = list(
     check_date = function(date_value, .var_name) {
@@ -90,31 +84,30 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
         return(NULL)
       }
 
-      tryCatch({
-        date_value <- as.Date(date_value)
-        checkmate::assert_date(date_value, .var.name = .var_name)
-        date_value
-      }, error = function(err) {
-        date_value
-        rlang::abort(glue::glue(
-          "Assertion on '{.var_name}' failed: Must be of class 'Date' ",
-          "or a valid date format of class 'String' ('yyyy-mm-dd')."
-        ))
-      })
+      tryCatch(
+        {
+          date_value <- as.Date(date_value)
+          checkmate::assert_date(date_value, .var.name = .var_name)
+          date_value
+        },
+        error = function(err) {
+          date_value
+          rlang::abort(glue::glue(
+            "Assertion on '{.var_name}' failed: Must be of class 'Date' ",
+            "or a valid date format of class 'String' ('yyyy-mm-dd')."
+          ))
+        }
+      )
     },
-
     close_connection = function() {
       rlang::abort("Method not implemented.")
     },
-
     write = function(values, bucket) {
       rlang::abort("Method not implemented.")
     },
-
     read_data = function(date_from, date_to, bucket) {
       rlang::abort("Method not implemented.")
     },
-
     insert_checks = function(app_name, type, session, details, time) {
       checkmate::assert_string(app_name)
       checkmate::assert_string(type, null.ok = TRUE)
