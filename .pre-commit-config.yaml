@@ -75,6 +75,7 @@ repos:
               quit(status = 1)
             }"
         files: '(\.[rR]profile|\.R|\.Rmd|\.Rnw|\.r|\.rmd|\.rnw)$'
+      # NOTE: this requries installing {testthat} globally or within project's renv
       - id: testthat
         name: testthat
         language: script

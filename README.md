@@ -132,6 +132,14 @@ it).
 [pre-commit]: https://pre-commit.com
 [its vignette on pre-commit installation]: https://lorenzwalthert.github.io/precommit/articles/precommit.html#installation
 
+#### Known Issues
+- If you use MacOS and have installed R via homebrew, then chances are that pre-commit will fail to
+  setup an environment. A workaround is installing R by other means, e.g. by using [rig][].
+- `{lintr}` might report false positive warnings about `object_usage_linter`. This can be fixed by
+  install the package with your contributions prior to running the linter.
+
+[rig]: https://github.com/r-lib/rig
+
 ## Appsilon
 
 <img src="https://avatars0.githubusercontent.com/u/6096772" align="right" alt="" width="6%" />

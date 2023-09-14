@@ -5,6 +5,7 @@ DataStorage
 JSON
 Javascript
 Logfile
+MacOS
 ODBC
 RStudio
 Rhinoverse
@@ -16,6 +17,7 @@ appsilon
 cloneable
 customizable
 filesystem
+homebrew
 hostname
 json
 linter
