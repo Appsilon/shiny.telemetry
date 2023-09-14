@@ -10,3 +10,4 @@ pkgdown
 ^renovate\.json$
 ^\.whitesource$
 ^plumber_rest_api$
+^\.pre-commit-config\.yaml$
