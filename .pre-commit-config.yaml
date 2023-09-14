@@ -31,6 +31,35 @@ repos:
         args: [--style_pkg=styler, --style_fun=tidyverse_style]
       - id: use-tidy-description
       - id: spell-check
+        exclude: >
+          (?x)^(
+          .*\.[rR]|
+          .*\.feather|
+          .*\.jpeg|
+          .*\.pdf|
+          .*\.png|
+          .*\.py|
+          .*\.RData|
+          .*\.rds|
+          .*\.Rds|
+          .*\.Rproj|
+          .*\.sh|
+          (.*/|)\.gitignore|
+          (.*/|)\.pre-commit-.*|
+          (.*/|)\.Rbuildignore|
+          (.*/|)\.Renviron|
+          (.*/|)\.Rprofile|
+          (.*/|)\.travis\.yml|
+          (.*/|)appveyor\.yml|
+          (.*/|)NAMESPACE|
+          (.*/|)renv/settings\.dcf|
+          (.*/|)renv\.lock|
+          (.*/|)WORDLIST|
+          \.github/workflows/.*|
+          data/.*|
+          (.*/|)DESCRIPTION|
+          )$
+
       - id: deps-in-desc
       # NOTE: this list has to be updated on pacakge dependencies change.
       # Generate it with `precommit::snippet_generate("additional-deps-roxygenize")`.
