@@ -125,8 +125,9 @@ These automate mundane tasks such as running spellchecking, linter, and other po
 before you even push your changes!
 
 To get started you need to install the pre-commit tool. You can use an R `{precommit}` package or
-refer to [its vignette on pre-commit installation][]. Additionally, `{pkgdown}` and `{lintr}`
-packages are required to be installed either globally or within `{renv}` (if your project uses it).
+refer to [its vignette on pre-commit installation][]. Additionally, `{lintr}`, `{pkgdown}`, and
+`{testthat}` packages have to be installed either globally or within `{renv}` (if your project uses
+it).
 
 [pre-commit]: https://pre-commit.com
 [its vignette on pre-commit installation]: https://lorenzwalthert.github.io/precommit/articles/precommit.html#installation

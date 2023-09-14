@@ -75,6 +75,11 @@ repos:
               quit(status = 1)
             }"
         files: '(\.[rR]profile|\.R|\.Rmd|\.Rnw|\.r|\.rmd|\.rnw)$'
+      - id: testthat
+        name: testthat
+        language: script
+        entry: /usr/bin/env Rscript -e "testthat::test_local(reporter = 'fail')"
+        files: '(\.[rR]profile|\.R|\.Rmd|\.Rnw|\.r|\.rmd|\.rnw)$'
       - id: forbid-to-commit
         name: Don't commit common R artifacts
         entry: Cannot commit .Rhistory, .RData, .Rds or .rds, DS_Store.
