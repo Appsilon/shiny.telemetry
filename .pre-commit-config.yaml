@@ -1,5 +1,9 @@
 # All available hooks: https://pre-commit.com/hooks.html
 # R specific hooks: https://github.com/lorenzwalthert/precommit
+default_install_hook_types:
+  - pre-commit
+  - pre-merge-commit
+
 repos:
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
