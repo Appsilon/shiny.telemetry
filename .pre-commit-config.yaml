@@ -27,8 +27,6 @@ repos:
       - id: no-debug-statement
       # TODO: enable once a v0.3.2.9020 tag is added
       # - id: no-print-statement
-      - id: style-files
-        args: [--style_pkg=styler, --style_fun=tidyverse_style]
       - id: use-tidy-description
       - id: spell-check
         exclude: >
