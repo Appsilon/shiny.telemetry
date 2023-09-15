@@ -132,6 +132,11 @@ it).
 [pre-commit]: https://pre-commit.com
 [its vignette on pre-commit installation]: https://lorenzwalthert.github.io/precommit/articles/precommit.html#installation
 
+#### Modifying Package Dependencies
+If package dependencies are being changed, then the list of `additional_dependencies` for
+`roxygenize` hook has to be updated. The list can be generated with
+`precommit::snippet_generate("additional-deps-roxygenize")`.
+
 #### Known Issues
 - If you use MacOS and have installed R via homebrew, then chances are that pre-commit will fail to
   setup an environment. A workaround is installing R by other means, e.g. by using [rig][].
