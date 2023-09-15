@@ -97,12 +97,15 @@ repos:
             n_lints <- length(lints)
             if (n_lints > threshold) {
               print(lints[1:threshold])
-              cat('There are', n_lints - threshold, 'more messages.')
+              cat('There are', n_lints - threshold, 'more messages.\n')
             } else {
               print(lints)
             }
             if (n_lints > 0) {
-              cat('Have you installed the package before running the linter?')
+              has_object_usage_lints <- any(sapply(lints, function(l) l$linter == "object_usage_linter"))
+              if (has_object_usage_lints) {
+                cat('Have you installed the package before running the linter?\n')
+              }
               quit(status = 1)
             }"
         files: '(\.[rR]profile|\.R|\.Rmd|\.Rnw|\.r|\.rmd|\.rnw)$'
