@@ -124,18 +124,22 @@ This project uses [pre-commit][] hooks. The hooks are a series of automated chec
 These automate mundane tasks such as running spellchecking, linter, and other potential issues
 before you even push your changes!
 
-To get started you need to install the pre-commit tool. You can use an R `{precommit}` package or
-refer to [its vignette on pre-commit installation][]. Additionally, `{lintr}`, `{pkgdown}`, and
-`{testthat}` packages have to be installed either globally or within `{renv}` (if your project uses
-it).
-
 [pre-commit]: https://pre-commit.com
-[its vignette on pre-commit installation]: https://lorenzwalthert.github.io/precommit/articles/precommit.html#installation
+
+#### Getting Started
+To get started you need to install the pre-commit tool. Additionally, `{lintr}`, `{pkgdown}`, and
+`{testthat}` packages have to be installed either globally or within `{renv}` (if your project uses
+it). To install pre-commit, pick a method that suits you the best:
+
+- using pip (package installer for Python): `pip install pre-commit` or `pip3 install pre-commit`
+- using homebrew: `brew install pre-commit`
+
+Once you have installed pre-commit, run `pre-commit install` to set up the hooks.
 
 #### Modifying Package Dependencies
 If package dependencies are being changed, then the list of `additional_dependencies` for
-`roxygenize` hook has to be updated. The list can be generated with
-`precommit::snippet_generate("additional-deps-roxygenize")`.
+`roxygenize` hook has to be updated. The list can be generated using a helper function from
+`{precommit}` package: `precommit::snippet_generate("additional-deps-roxygenize")`.
 
 #### Known Issues
 - If you use MacOS and have installed R via homebrew, then chances are that pre-commit will fail to
