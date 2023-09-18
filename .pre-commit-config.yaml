@@ -19,14 +19,13 @@ repos:
         files: '^\.Rbuildignore$'
 
   - repo: https://github.com/lorenzwalthert/precommit
-    rev: v0.3.2.9019
+    rev: v0.3.2.9021
     hooks:
       - id: parsable-R
         fail_fast: true
       - id: no-browser-statement
       - id: no-debug-statement
-      # TODO: enable once a v0.3.2.9020 tag is added
-      # - id: no-print-statement
+      - id: no-print-statement
       - id: use-tidy-description
       - id: spell-check
         exclude: >
