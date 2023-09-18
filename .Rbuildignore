@@ -3,6 +3,7 @@
 .lintr
 \.Renviron$
 ^.*\.Rproj$
+^CONTRIBUTING\.md$
 ^\.Rproj\.user$
 ^\.pre-commit-config\.yaml$
 ^\.whitesource$
