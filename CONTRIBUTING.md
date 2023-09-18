@@ -15,6 +15,9 @@ it). To install pre-commit, pick a method that suits you the best:
 
 - using pip (package installer for Python): `pip install pre-commit` or `pip3 install pre-commit`
 - using homebrew: `brew install pre-commit`
+- using `{precommit}` package: follow [the installation section in its vignette][]
+
+[the installation section in its vignette]: https://lorenzwalthert.github.io/precommit/articles/precommit.html#installation
 
 Once you have installed pre-commit, run `pre-commit install` to set up the hooks.
 
