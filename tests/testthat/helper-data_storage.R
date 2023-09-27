@@ -241,33 +241,3 @@ test_common_len_gt_1_alt <- function(data_storage, dashboard_name = "test_dashbo
 arg_missing_msg <- function(var_name) {
   glue::glue("argument \"{var_name}\" is missing, with no default")
 }
-
-#' Skip if storage configuration is not defined
-#' @param storage_config list of characters with configuration
-#' @param provider_name string with name of data storage provider
-#' @keywords internal
-skip_if_storage_config_missing <- function(storage_config, provider_name = NULL) {
-  provider_string <- ""
-  if (!is.null(provider_name)) {
-    provider_string <- glue::glue(" `{provider_name}`")
-  }
-  message_string <- glue::glue(
-    "DataStorage",
-    "{provider_string}",
-    " config: Not available"
-  )
-
-
-  skip_if_not(
-    checkmate::test_list(storage_config, min.len = 1, types = "character"),
-    message_string
-  )
-
-  skip_if_not(
-    all(vapply(
-      storage_config,
-      function(.x) checkmate::test_string(.x, min.chars = 1), logical(1)
-    )),
-    message_string
-  )
-}

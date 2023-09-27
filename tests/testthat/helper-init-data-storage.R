@@ -1,4 +1,34 @@
 
+#' Skip if storage configuration is not defined
+#' @param storage_config list of characters with configuration
+#' @param provider_name string with name of data storage provider
+#' @keywords internal
+skip_if_storage_config_missing <- function(storage_config, provider_name = NULL) {
+  provider_string <- ""
+  if (!is.null(provider_name)) {
+    provider_string <- glue::glue(" `{provider_name}`")
+  }
+  message_string <- glue::glue(
+    "DataStorage",
+    "{provider_string}",
+    " config: Not available"
+  )
+
+
+  testthat::skip_if_not(
+    checkmate::test_list(storage_config, min.len = 1, types = "character"),
+    message_string
+  )
+
+  testthat::skip_if_not(
+    all(vapply(
+      storage_config,
+      function(.x) checkmate::test_string(.x, min.chars = 1), logical(1)
+    )),
+    message_string
+  )
+}
+
 init_test_postgres <- function(.local_envir = parent.frame()) {
   storage_config <- list(
     user = Sys.getenv("TEST_POSTGRESQL_USER"),
@@ -7,7 +37,7 @@ init_test_postgres <- function(.local_envir = parent.frame()) {
     dbname = Sys.getenv("TEST_POSTGRESQL_DBNAME"),
     hostname = Sys.getenv("TEST_POSTGRESQL_HOSTNAME")
   )
-  skip_on_cran()
+  testthat::skip_on_cran()
   skip_if_storage_config_missing(storage_config, "PostgreSQL")
 
   storage_config$port <- as.numeric(storage_config$port)
@@ -24,7 +54,7 @@ init_test_mariadb <- function(.local_envir = parent.frame()) {
     hostname = Sys.getenv("TEST_MARIADB_HOSTNAME")
   )
 
-  skip_on_cran()
+  testthat::skip_on_cran()
   skip_if_storage_config_missing(storage_config, "MariaDB/MySQL")
 
   storage_config$port <- as.numeric(storage_config$port)
@@ -43,7 +73,7 @@ init_test_mssql <- function(.local_envir = parent.frame()) {
     trust_server_certificate = Sys.getenv("TEST_MSSQLSERVER_TRUST_SERVER_CERTIFICATE")
   )
 
-  skip_on_cran()
+  testthat::skip_on_cran()
   skip_if_storage_config_missing(storage_config, "MSSQLServer")
 
   storage_config$port <- as.numeric(storage_config$port)
