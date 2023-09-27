@@ -1,4 +1,3 @@
-
 test_that("[LogFile] DataStorage should be able to insert and read", {
   log_file_path <- tempfile(fileext = ".txt")
   withr::defer(file.remove(log_file_path))

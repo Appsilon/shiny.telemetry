@@ -1,0 +1,121 @@
+# All available hooks: https://pre-commit.com/hooks.html
+# R specific hooks: https://github.com/lorenzwalthert/precommit
+default_install_hook_types:
+  - pre-commit
+  - pre-merge-commit
+
+repos:
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+        exclude: '\.Rd'
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+      - id: file-contents-sorter
+        files: '^\.Rbuildignore$'
+
+  - repo: https://github.com/lorenzwalthert/precommit
+    rev: v0.3.2.9021
+    hooks:
+      - id: parsable-R
+        fail_fast: true
+      - id: no-browser-statement
+      - id: no-debug-statement
+      - id: no-print-statement
+      - id: use-tidy-description
+      - id: spell-check
+        exclude: >
+          (?x)^(
+          .*\.[rR]|
+          .*\.feather|
+          .*\.jpeg|
+          .*\.pdf|
+          .*\.png|
+          .*\.py|
+          .*\.RData|
+          .*\.rds|
+          .*\.Rds|
+          .*\.Rproj|
+          .*\.sh|
+          (.*/|)\.gitignore|
+          (.*/|)\.pre-commit-.*|
+          (.*/|)\.Rbuildignore|
+          (.*/|)\.Renviron|
+          (.*/|)\.Rprofile|
+          (.*/|)\.travis\.yml|
+          (.*/|)appveyor\.yml|
+          (.*/|)NAMESPACE|
+          (.*/|)renv/settings\.dcf|
+          (.*/|)renv\.lock|
+          (.*/|)WORDLIST|
+          \.github/workflows/.*|
+          data/.*|
+          (.*/|)DESCRIPTION|
+          )$
+
+      - id: deps-in-desc
+      # NOTE: this list has to be updated on pacakge dependencies change.
+      # Generate it with `precommit::snippet_generate("additional-deps-roxygenize")`.
+      - id: roxygenize
+        additional_dependencies:
+          - checkmate
+          - digest
+          - dplyr
+          - glue
+          - httr2
+          - jsonlite
+          - logger
+          - lubridate
+          - odbc
+          - purrr
+          - R6
+          - rlang
+          - RSQLite
+          - shiny
+          - tidyr
+      # NOTE: this requries installing {pkgdown} globally or within project's renv
+      - id: pkgdown
+
+  - repo: local
+    hooks:
+      # NOTE: this requries installing {lintr} globally or within project's renv
+      - id: lintr
+        name: lintr
+        language: script
+        entry: |
+          /usr/bin/env Rscript -e "
+            lints <- list()
+            for (f in commandArgs(trailingOnly = TRUE)) {
+              lints <- c(lints, lintr::lint(f))
+            }
+            threshold <- 5
+            n_lints <- length(lints)
+            if (n_lints > threshold) {
+              print(lints[1:threshold])
+              cat('There are', n_lints - threshold, 'more messages.\n')
+            } else {
+              print(lints)
+            }
+            if (n_lints > 0) {
+              has_object_usage_lints <- any(sapply(lints, function(l) l$linter == "object_usage_linter"))
+              if (has_object_usage_lints) {
+                cat('Have you installed the package before running the linter?\n')
+              }
+              quit(status = 1)
+            }"
+        files: '(\.[rR]profile|\.R|\.Rmd|\.Rnw|\.r|\.rmd|\.rnw)$'
+      # NOTE: this requries installing {testthat} globally or within project's renv
+      - id: testthat
+        name: testthat
+        language: script
+        entry: /usr/bin/env Rscript -e "testthat::test_local(reporter = 'fail')"
+        files: '(\.[rR]profile|\.R|\.Rmd|\.Rnw|\.r|\.rmd|\.rnw)$'
+      - id: forbid-to-commit
+        name: Don't commit common R artifacts
+        entry: Cannot commit .Rhistory, .RData, .Rds or .rds, DS_Store.
+        language: fail
+        files: '\.(Rhistory|RData|Rds|rds|DS_Store)$'

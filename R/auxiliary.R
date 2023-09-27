@@ -16,12 +16,11 @@
 #' build_query_sql("table_name", Sys.Date() - 365, Sys.Date() + 365)
 #' build_query_sql("table_name", as.Date("2023-04-13"), as.Date("2000-01-01"))
 #' build_query_sql(
-#' "table_name", as.Date("2023-04-13"), as.Date("2000-01-01"),
-#' timestamp_wrapper = "to_timestamp({seconds})"
+#'   "table_name", as.Date("2023-04-13"), as.Date("2000-01-01"),
+#'   timestamp_wrapper = "to_timestamp({seconds})"
 #' )
 build_query_sql <- function(
-  bucket, date_from = NULL, date_to = NULL, timestamp_wrapper = NULL
-) {
+    bucket, date_from = NULL, date_to = NULL, timestamp_wrapper = NULL) {
   checkmate::assert_date(date_from, null.ok = TRUE)
   checkmate::assert_date(date_to, null.ok = TRUE)
 
@@ -32,7 +31,7 @@ build_query_sql <- function(
     ifelse(!is.null(date_from) || !is.null(date_to), "WHERE", "")
   )
 
-  build_timestamp <- function(value) {  # nolint: object_usage_linter
+  build_timestamp <- function(value) { # nolint: object_usage_linter
     seconds <- lubridate::as_datetime(value) %>% as.double()
     if (is.null(timestamp_wrapper)) {
       return(seconds)
@@ -80,7 +79,7 @@ process_row_details <- function(details_json) {
   # fromJSON() cannot be called with vector input, it needs to
   #  iterated one by one. It also does not allow for NULL, NA nor
   #  empty strings.
-  tmp_result <- details_json  %>%
+  tmp_result <- details_json %>%
     jsonlite::fromJSON() %>%
     purrr::compact()
 
