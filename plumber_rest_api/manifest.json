@@ -1111,7 +1111,7 @@
     },
     "lubridate": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "lubridate",
@@ -1658,23 +1658,23 @@
         "Language": "en-US",
         "Author": "André Veríssimo [aut, cre],\n  Kamil Żyła [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "André Veríssimo <opensource+andre@appsilon.com>",
-        "Built": "R 4.3.1; ; 2023-09-13 09:55:39 UTC; unix",
+        "Built": "R 4.3.1; ; 2023-09-27 18:16:05 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "7cd1602cb047670cb624291b5b198d32dc8ee0d1",
-        "RemoteSha": "7cd1602cb047670cb624291b5b198d32dc8ee0d1",
+        "RemoteRef": "3bc0af762fa7ef26892f45fc0a62b210b04a81c8",
+        "RemoteSha": "3bc0af762fa7ef26892f45fc0a62b210b04a81c8",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "7cd1602cb047670cb624291b5b198d32dc8ee0d1",
-        "GithubSHA1": "7cd1602cb047670cb624291b5b198d32dc8ee0d1"
+        "GithubRef": "3bc0af762fa7ef26892f45fc0a62b210b04a81c8",
+        "GithubSHA1": "3bc0af762fa7ef26892f45fc0a62b210b04a81c8"
       }
     },
     "sodium": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "sodium",
         "Type": "Package",
@@ -2041,7 +2041,7 @@
     },
     "withr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "withr",
         "Title": "Run Code 'With' Temporarily Modified Global State",
@@ -2122,7 +2122,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "88f84068c11ae9196000600bf9517db4"
+      "checksum": "8521c831c5bc85e5985b869e5dd0af4b"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"
@@ -2155,7 +2155,7 @@
       "checksum": "5aa33f0354380519046a4a6cc7aaf05c"
     },
     "renv.lock": {
-      "checksum": "41921d13c339558f0782123647211393"
+      "checksum": "3e702313b79ade13f3764df660085753"
     }
   },
   "users": null
