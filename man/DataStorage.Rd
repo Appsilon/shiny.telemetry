@@ -75,7 +75,7 @@ Nothing. This method is called for side effects.
 \subsection{Method \code{read_event_data()}}{
 read all user data from SQLite.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DataStorage$read_event_data(date_from = NULL, date_to = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DataStorage$read_event_data(date_from = NULL, date_to = NULL, app_name = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -85,6 +85,9 @@ read all user data from SQLite.
 results.}
 
 \item{\code{date_to}}{(optional) date representing the last day of results.}
+
+\item{\code{app_name}}{(optional) string identifying the Dashboard-specific event
+data}
 }
 \if{html}{\out{</div>}}
 }
