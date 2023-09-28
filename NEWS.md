@@ -1,4 +1,4 @@
-# shiny.telemetry (development version)
+# shiny.telemetry 0.1.1
 
 - Fixed the way of getting the session token.
 - Allowed optional username overwrite.

@@ -1,7 +1,7 @@
 Package: shiny.telemetry
 Type: Package
 Title: 'Shiny' App Usage Telemetry
-Version: 0.1.0.9003
+Version: 0.2.0
 Authors@R:
   c(
     person("André", "Veríssimo", role = c("aut", "cre"), email = "opensource+andre@appsilon.com"),
