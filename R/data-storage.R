@@ -40,16 +40,24 @@ DataStorage <- R6::R6Class( # nolint object_name_linter
     #' @param date_from (optional) date representing the starting day of
     #' results.
     #' @param date_to (optional) date representing the last day of results.
+    #' @param app_name (optional) string identifying the Dashboard-specific event
+    #' data
 
-    read_event_data = function(date_from = NULL, date_to = NULL) {
+    read_event_data = function(date_from = NULL, date_to = NULL, app_name = NULL) {
       date_from <- private$check_date(date_from, .var_name = "date_from")
       date_to <- private$check_date(date_to, .var_name = "date_to")
+      checkmate::assert_string(app_name, null.ok = TRUE)
 
       db_data <- private$read_data(date_from, date_to, self$event_bucket) %>%
         dplyr::mutate(
           date = lubridate::as_date(.data$time),
           time = lubridate::as_datetime(.data$time)
         )
+
+      if (!is.null(app_name)) {
+        app_name_temp <- app_name
+        db_data <- dplyr::filter(db_data, .data$app_name == app_name_temp)
+      }
 
       # Ensure standard value types always return on resutls
       #  :: (id, value, username)

@@ -1,0 +1,145 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+name: Extra checks with DBs
+
+jobs:
+  ######################################
+  # R CMD check with Databases running #
+  ######################################
+  test-coverage:
+    name: Checks with DBs 🛠 & Coverage 📔
+
+    runs-on: ${{ matrix.config.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: ubuntu-latest, r: 'release'}
+
+
+    timeout-minutes: 30
+
+    ###############################################
+    # Environment variables so tests with DBs run #
+    ###############################################
+    env:
+      # MariaDB
+      TEST_MARIADB_USER: root
+      TEST_MARIADB_PASSWORD: root
+      TEST_MARIADB_PORT: 3306
+      TEST_MARIADB_DBNAME: shiny_telemetry
+      TEST_MARIADB_HOSTNAME: '127.0.0.1'
+      # PostgreSQL
+      TEST_POSTGRESQL_USER: postgres
+      TEST_POSTGRESQL_PASSWORD: mysecretpassword
+      TEST_POSTGRESQL_PORT: 5432
+      TEST_POSTGRESQL_DBNAME: shiny_telemetry
+      TEST_POSTGRESQL_HOSTNAME: '127.0.0.1'
+      # MS SQL
+      TEST_MSSQLSERVER_USER: sa
+      TEST_MSSQLSERVER_PASSWORD: 'my-Secr3t_Password'
+      TEST_MSSQLSERVER_PORT: 1433
+      TEST_MSSQLSERVER_DBNAME: shiny_telemetry
+      TEST_MSSQLSERVER_HOSTNAME: '127.0.0.1'
+      TEST_MSSQLSERVER_TRUST_SERVER_CERTIFICATE: 'YES'
+      TEST_MSSQLSERVER_DRIVER: 'ODBC Driver 18 for SQL Server'
+
+    ###########################################
+    # Services container to run with main job #
+    ###########################################
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: mysecretpassword
+          POSTGRES_USER: postgres
+          POSTGRES_DB: shiny_telemetry
+        # Set health checks to wait until postgres has started
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      mssql:
+        image: mcr.microsoft.com/mssql/server
+        ports:
+          - 1433:1433
+        env:
+          ACCEPT_EULA: Y
+          MSSQL_SA_PASSWORD: 'my-Secr3t_Password'
+
+    steps:
+      ##################
+      # Load all steps #
+      ##################
+
+      - name: Checkout repository
+        ##########################
+        # Checkout the code base #
+        ##########################
+        uses: actions/checkout@v3
+
+      - name: Install R
+        #############
+        # Install R #
+        #############
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - name: Install R package dependencies
+        ##########################
+        # Install R Dependencies #
+        ##########################
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          # Necessary to avoid object usage linter errors.
+          extra-packages: local::.
+
+      - name: Install Microsoft ODBC
+        ###################################
+        # Install MS SQL driver and tools #
+        ###################################
+        run: sudo ACCEPT_EULA=Y apt-get install msodbcsql18 mssql-tools18 -y
+
+      - name: Create MSSQL database
+        ##########################
+        # Create MS SQL database #
+        ##########################
+        run: |
+          sqlcmd -e -U $TEST_MSSQLSERVER_USER -P $TEST_MSSQLSERVER_PASSWORD -H $TEST_MSSQLSERVER_HOSTNAME:TEST_MSSQLSERVER_PORT -C -Q "CREATE DATABASE $TEST_MSSQLSERVER_DBNAME"
+
+      - name: Start MySQL
+        ##################
+        # Start MySQL DB #
+        ##################
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e "CREATE DATABASE IF NOT EXISTS $TEST_MARIADB_DBNAME;" -u$TEST_MARIADB_USER -p$TEST_MARIADB_PASSWORD
+
+      - name: R CMD check
+        ###########################
+        # Perform the R CMD check #
+        ###########################
+        if: always()
+        uses: r-lib/actions/check-r-package@v2
+        with:
+          error-on: '"note"'
+
+      - name: Test coverage
+        ###########################
+        # Perform the R CMD check #
+        ###########################
+        run: |
+          Rscript -e 'covr::codecov()'
