@@ -1643,7 +1643,7 @@
         "Package": "shiny.telemetry",
         "Type": "Package",
         "Title": "'Shiny' App Usage Telemetry",
-        "Version": "0.1.0.9002",
+        "Version": "0.1.0.9003",
         "Authors@R": "\n  c(\n    person(\"André\", \"Veríssimo\", role = c(\"aut\", \"cre\"), email = \"opensource+andre@appsilon.com\"),\n    person(\"Kamil\", \"Żyła\", role = c(\"aut\"), email = \"kamil@appsilon.com\"),\n    person(\"Krystian\", \"Igras\",  role = \"aut\", email = \"krystian8207@gmail.com\"),\n    person(\"Recle\", \"Vibal\", role = \"aut\", email = \"recle.vibal@appsilon.com\"),\n    person(\"Appsilon Sp. z o.o.\", role = \"cph\", email = \"opensource@appsilon.com\")\n  )",
         "Description": "\n  Enables instrumentation of 'Shiny' apps for tracking user session events\n  such as input changes, browser type, and session duration.\n  These events can be sent to any of the available storage backends\n  and analyzed using the included 'Shiny' app to gain insights about app usage and adoption.",
         "URL": "https://appsilon.github.io/shiny.telemetry/, https://github.com/Appsilon/shiny.telemetry",
@@ -1658,18 +1658,18 @@
         "Language": "en-US",
         "Author": "André Veríssimo [aut, cre],\n  Kamil Żyła [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "André Veríssimo <opensource+andre@appsilon.com>",
-        "Built": "R 4.3.1; ; 2023-09-27 18:16:05 UTC; unix",
+        "Built": "R 4.3.1; ; 2023-09-28 08:11:46 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "3bc0af762fa7ef26892f45fc0a62b210b04a81c8",
-        "RemoteSha": "3bc0af762fa7ef26892f45fc0a62b210b04a81c8",
+        "RemoteRef": "725a97b978224cb0b88f48f6a3ac26f503c40258",
+        "RemoteSha": "725a97b978224cb0b88f48f6a3ac26f503c40258",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "3bc0af762fa7ef26892f45fc0a62b210b04a81c8",
-        "GithubSHA1": "3bc0af762fa7ef26892f45fc0a62b210b04a81c8"
+        "GithubRef": "725a97b978224cb0b88f48f6a3ac26f503c40258",
+        "GithubSHA1": "725a97b978224cb0b88f48f6a3ac26f503c40258"
       }
     },
     "sodium": {
@@ -2122,7 +2122,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "8521c831c5bc85e5985b869e5dd0af4b"
+      "checksum": "e79f2f98b1e66383959815b9b2a29216"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"
@@ -2155,7 +2155,7 @@
       "checksum": "5aa33f0354380519046a4a6cc7aaf05c"
     },
     "renv.lock": {
-      "checksum": "3e702313b79ade13f3764df660085753"
+      "checksum": "d3979b7596055a786184a2711fc814ba"
     }
   },
   "users": null
