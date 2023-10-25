@@ -117,7 +117,8 @@ logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
 _note_: This command can be run before the Shiny call or by adding it to the `.Rprofile`.
 
 ## Contributing
-See [CONTRIBUTING](./CONTRIBUTING.md).
+
+See [CONTRIBUTING](https://appsilon.github.io/shiny.telemetry/CONTRIBUTING.html).
 
 ## Appsilon
 
