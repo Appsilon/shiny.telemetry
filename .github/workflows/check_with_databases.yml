@@ -111,6 +111,7 @@ jobs:
             any::rcmdcheck
             any::spelling
             any::lintr
+            any::covr
 
       - name: Install Microsoft ODBC
         ###################################
