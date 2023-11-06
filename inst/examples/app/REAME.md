@@ -1,14 +1,17 @@
 ## Example application for {shiny.telemetry}
 
+> Simple Shiny dashboard with inputs and tabular navigation to test run `shiny.telemetry`
+
 These 2 folders contain an example application that tracks all inputs using `shiny.telemtry` and the accompanying analytics dashboard.
+
+#### Run the example
 
 To run the application, install the necessary dependencies:
 
 ```R
 install.packages(
   c(
-    "shiny", "semantic.dashboard", "shiny.semantic", "shiny.telemetry",
-    "dplyr", "config", "shiny.telemtry"
+    "shiny.telemetry", "dplyr", "config"
   ),
   dependencies = c("Depends", "Imports", "Suggests")
 )
