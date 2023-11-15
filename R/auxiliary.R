@@ -60,7 +60,7 @@ build_query_sql <- function(
   }
 
   query <- c(query, do.call(glue::glue, where))
-  do.call(glue::glue, query) %>% stringr::str_trim()
+  trimws(do.call(glue::glue, query))
 }
 
 #' Process a row's detail (from DB) in JSON format to a data.frame

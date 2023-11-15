@@ -1,3 +1,4 @@
+---
 on:
   push:
     branches:
@@ -105,7 +106,12 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           # Necessary to avoid object usage linter errors.
-          extra-packages: local::.
+          extra-packages: |
+            local::.
+            any::rcmdcheck
+            any::spelling
+            any::lintr
+            any::covr
 
       - name: Install Microsoft ODBC
         ###################################
