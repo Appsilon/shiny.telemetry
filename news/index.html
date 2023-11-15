@@ -20,7 +20,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -83,13 +83,24 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="shinytelemetry-development-version">shiny.telemetry (development version)<a class="anchor" aria-label="anchor" href="#shinytelemetry-development-version"></a></h2>
-<ul><li>Fixed the way of getting the session token.</li>
-<li>Allowed optional username overwrite.</li>
-<li>Added MS SQL Server support (see <code>DataStorageMSSQLServer</code> class).</li>
-<li>Added CI tests all DBI-based DataStorage providers.</li>
-<li>Added optional parameter to <code>read_event_data</code> that filters by <code>app_name</code>.</li>
+<h2 class="pkg-version" data-toc-text="0.2.0" id="shinytelemetry-020">shiny.telemetry 0.2.0<a class="anchor" aria-label="anchor" href="#shinytelemetry-020"></a></h2>
+<div class="section level4">
+<h4 id="new-features-0-2-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h4>
+<ul><li>Allowed optional username overwrite (<a href="https://github.com/Appsilon/shiny.telemetry/issues/123" class="external-link">#123</a>).</li>
+<li>Added MS SQL Server support (see <code>DataStorageMSSQLServer</code> class) (<a href="https://github.com/Appsilon/shiny.telemetry/issues/128" class="external-link">#128</a>).</li>
+<li>Added CI tests to all <code>DBI</code>-based <code>DataStorage</code> providers (<a href="https://github.com/Appsilon/shiny.telemetry/issues/129" class="external-link">#129</a>).</li>
+<li>Added optional parameter to <code>read_event_data</code> that filters by <code>app_name</code> (<a href="https://github.com/Appsilon/shiny.telemetry/issues/129" class="external-link">#129</a>).</li>
 </ul></div>
+<div class="section level4">
+<h4 id="bug-fixes-0-2-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0"></a></h4>
+<ul><li>Fixed the way of getting the session token (<a href="https://github.com/Appsilon/shiny.telemetry/issues/120" class="external-link">#120</a>).</li>
+<li>Fixed loading of complex nested payloads (<a href="https://github.com/Appsilon/shiny.telemetry/issues/133" class="external-link">#133</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="miscellaneous-0-2-0">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-2-0"></a></h4>
+<ul><li>Added <code>pre-commit</code> hooks (<a href="https://github.com/Appsilon/shiny.telemetry/issues/140" class="external-link">#140</a>).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="shinytelemetry-010">shiny.telemetry 0.1.0<a class="anchor" aria-label="anchor" href="#shinytelemetry-010"></a></h2><p class="text-muted">CRAN release: 2023-05-05</p>
 <ul><li>First release</li>
