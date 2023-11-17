@@ -585,7 +585,7 @@
     },
     "httr2": {
       "Package": "httr2",
-      "Version": "0.2.3",
+      "Version": "1.0.0",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
@@ -594,13 +594,15 @@
         "cli",
         "curl",
         "glue",
+        "lifecycle",
         "magrittr",
         "openssl",
         "rappdirs",
         "rlang",
+        "vctrs",
         "withr"
       ],
-      "Hash": "193bb297368afbbb42dc85784a46b36e"
+      "Hash": "e2b30f1fc039a0bab047dd52bb20ef71"
     },
     "isoband": {
       "Package": "isoband",
@@ -1086,14 +1088,14 @@
     },
     "shiny.telemetry": {
       "Package": "shiny.telemetry",
-      "Version": "0.2.0",
+      "Version": "0.2.0.9000",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "appsilon",
       "RemoteRepo": "shiny.telemetry",
-      "RemoteRef": "dd4b4d4ac0ff28dd139bbb766adb96f2f946ac1d",
-      "RemoteSha": "dd4b4d4ac0ff28dd139bbb766adb96f2f946ac1d",
+      "RemoteRef": "2838e135ea17e8c472560f13f05e8fe1431a46d1",
+      "RemoteSha": "2838e135ea17e8c472560f13f05e8fe1431a46d1",
       "Requirements": [
         "R6",
         "RSQLite",
@@ -1111,7 +1113,7 @@
         "shiny",
         "tidyr"
       ],
-      "Hash": "22f553b8b8429fe281e80b810f30b016"
+      "Hash": "2e89b80c426a0615dabe932467377c5e"
     },
     "shinyjs": {
       "Package": "shinyjs",
@@ -1151,7 +1153,7 @@
     },
     "stringr": {
       "Package": "stringr",
-      "Version": "1.5.0",
+      "Version": "1.5.1",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
@@ -1164,7 +1166,7 @@
         "stringi",
         "vctrs"
       ],
-      "Hash": "671a4d384ae9d32fc47a14e98bfa3dc8"
+      "Hash": "960e2ae9e09656611e0b8214ad543207"
     },
     "sys": {
       "Package": "sys",

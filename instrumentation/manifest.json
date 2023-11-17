@@ -972,32 +972,32 @@
       }
     },
     "httr2": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/latest",
       "description": {
         "Package": "httr2",
         "Title": "Perform HTTP Requests and Process the Responses",
-        "Version": "0.2.3",
-        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = c(\"aut\", \"cre\")),\n    person(\"RStudio\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Version": "1.0.0",
+        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = c(\"aut\", \"cre\")),\n    person(\"RStudio\", role = c(\"cph\", \"fnd\")),\n    person(\"Maximilian\", \"Girlich\", role = \"ctb\")\n  )",
         "Description": "Tools for creating and modifying HTTP requests, then\n    performing them and processing the results. 'httr2' is a modern\n    re-imagining of 'httr' that uses a pipe-based interface and solves\n    more of the problems that API wrapping packages face.",
         "License": "MIT + file LICENSE",
         "URL": "https://httr2.r-lib.org, https://github.com/r-lib/httr2",
         "BugReports": "https://github.com/r-lib/httr2/issues",
-        "Depends": "R (>= 3.4)",
-        "Imports": "cli (>= 3.0.0), curl, glue, magrittr, openssl, R6, rappdirs,\nrlang (>= 1.0.0), withr",
-        "Suggests": "askpass, bench, clipr, covr, docopt, httpuv, jose, jsonlite,\nknitr, purrr, rmarkdown, testthat (>= 3.0.0), tibble, webfakes,\nxml2",
+        "Depends": "R (>= 3.6)",
+        "Imports": "cli (>= 3.0.0), curl (>= 5.1.0), glue, lifecycle, magrittr,\nopenssl, R6, rappdirs, rlang (>= 1.1.0), vctrs (>= 0.6.3),\nwithr",
+        "Suggests": "askpass, bench, clipr, covr, docopt, httpuv, jose, jsonlite,\nknitr, rmarkdown, testthat (>= 3.1.8), tibble, webfakes, xml2",
         "VignetteBuilder": "knitr",
         "Config/Needs/website": "tidyverse/tidytemplate",
         "Config/testthat/edition": "3",
         "Encoding": "UTF-8",
         "RoxygenNote": "7.2.3",
         "NeedsCompilation": "no",
-        "Packaged": "2023-05-08 18:56:52 UTC; hadleywickham",
-        "Author": "Hadley Wickham [aut, cre],\n  RStudio [cph, fnd]",
+        "Packaged": "2023-11-13 16:55:37 UTC; hadleywickham",
+        "Author": "Hadley Wickham [aut, cre],\n  RStudio [cph, fnd],\n  Maximilian Girlich [ctb]",
         "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
         "Repository": "RSPM",
-        "Date/Publication": "2023-05-08 19:30:02 UTC",
-        "Built": "R 4.3.0; ; 2023-05-09 11:15:03 UTC; unix"
+        "Date/Publication": "2023-11-14 13:53:23 UTC",
+        "Built": "R 4.3.0; ; 2023-11-15 11:20:29 UTC; unix"
       }
     },
     "jquerylib": {
@@ -1722,7 +1722,7 @@
         "Type": "Package",
         "Package": "shiny.telemetry",
         "Title": "'Shiny' App Usage Telemetry",
-        "Version": "0.2.0",
+        "Version": "0.2.0.9000",
         "Authors@R": "c(\n    person(\"André\", \"Veríssimo\", , \"opensource+andre@appsilon.com\", role = c(\"aut\", \"cre\")),\n    person(\"Kamil\", \"Żyła\", , \"kamil@appsilon.com\", role = \"aut\"),\n    person(\"Krystian\", \"Igras\", , \"krystian8207@gmail.com\", role = \"aut\"),\n    person(\"Recle\", \"Vibal\", , \"recle.vibal@appsilon.com\", role = \"aut\"),\n    person(\"Appsilon Sp. z o.o.\", , , \"opensource@appsilon.com\", role = \"cph\")\n  )",
         "Description": "Enables instrumentation of 'Shiny' apps for tracking user\n    session events such as input changes, browser type, and session\n    duration.  These events can be sent to any of the available storage\n    backends and analyzed using the included 'Shiny' app to gain insights\n    about app usage and adoption.",
         "License": "LGPL-3",
@@ -1737,18 +1737,18 @@
         "RoxygenNote": "7.2.3",
         "Author": "André Veríssimo [aut, cre],\n  Kamil Żyła [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "André Veríssimo <opensource+andre@appsilon.com>",
-        "Built": "R 4.3.2; ; 2023-11-15 13:50:50 UTC; unix",
+        "Built": "R 4.3.2; ; 2023-11-17 12:57:50 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "dd4b4d4ac0ff28dd139bbb766adb96f2f946ac1d",
-        "RemoteSha": "dd4b4d4ac0ff28dd139bbb766adb96f2f946ac1d",
+        "RemoteRef": "2838e135ea17e8c472560f13f05e8fe1431a46d1",
+        "RemoteSha": "2838e135ea17e8c472560f13f05e8fe1431a46d1",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "dd4b4d4ac0ff28dd139bbb766adb96f2f946ac1d",
-        "GithubSHA1": "dd4b4d4ac0ff28dd139bbb766adb96f2f946ac1d"
+        "GithubRef": "2838e135ea17e8c472560f13f05e8fe1431a46d1",
+        "GithubSHA1": "2838e135ea17e8c472560f13f05e8fe1431a46d1"
       }
     },
     "sourcetools": {
@@ -1805,33 +1805,33 @@
       }
     },
     "stringr": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
+      "Source": "RSPM",
+      "Repository": "https://packagemanager.posit.co/cran/latest",
       "description": {
         "Package": "stringr",
         "Title": "Simple, Consistent Wrappers for Common String Operations",
-        "Version": "1.5.0",
-        "Authors@R": "\n    c(person(given = \"Hadley\",\n             family = \"Wickham\",\n             role = c(\"aut\", \"cre\", \"cph\"),\n             email = \"hadley@rstudio.com\"),\n      person(given = \"RStudio\",\n             role = c(\"cph\", \"fnd\")))",
+        "Version": "1.5.1",
+        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\", \"cph\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
         "Description": "A consistent, simple and easy to use set of wrappers around\n    the fantastic 'stringi' package. All function and argument names (and\n    positions) are consistent, all functions deal with \"NA\"'s and zero\n    length vectors in the same way, and the output from one function is\n    easy to feed into the input of another.",
         "License": "MIT + file LICENSE",
         "URL": "https://stringr.tidyverse.org,\nhttps://github.com/tidyverse/stringr",
         "BugReports": "https://github.com/tidyverse/stringr/issues",
-        "Depends": "R (>= 3.3)",
-        "Imports": "cli, glue (>= 1.6.1), lifecycle (>= 1.0.3), magrittr, rlang\n(>= 1.0.0), stringi (>= 1.5.3), vctrs",
-        "Suggests": "covr, htmltools, htmlwidgets, knitr, rmarkdown, testthat (>=\n3.0.0)",
+        "Depends": "R (>= 3.6)",
+        "Imports": "cli, glue (>= 1.6.1), lifecycle (>= 1.0.3), magrittr, rlang\n(>= 1.0.0), stringi (>= 1.5.3), vctrs (>= 0.4.0)",
+        "Suggests": "covr, dplyr, gt, htmltools, htmlwidgets, knitr, rmarkdown,\ntestthat (>= 3.0.0), tibble",
         "VignetteBuilder": "knitr",
         "Config/Needs/website": "tidyverse/tidytemplate",
         "Config/testthat/edition": "3",
         "Encoding": "UTF-8",
         "LazyData": "true",
-        "RoxygenNote": "7.2.1",
+        "RoxygenNote": "7.2.3",
         "NeedsCompilation": "no",
-        "Packaged": "2022-12-01 20:53:42 UTC; hadleywickham",
-        "Author": "Hadley Wickham [aut, cre, cph],\n  RStudio [cph, fnd]",
-        "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
+        "Packaged": "2023-11-14 15:03:52 UTC; hadleywickham",
+        "Author": "Hadley Wickham [aut, cre, cph],\n  Posit Software, PBC [cph, fnd]",
+        "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "RSPM",
-        "Date/Publication": "2022-12-02 10:20:02 UTC",
-        "Built": "R 4.3.0; ; 2023-04-21 21:48:57 UTC; unix"
+        "Date/Publication": "2023-11-14 23:10:02 UTC",
+        "Built": "R 4.3.0; ; 2023-11-15 11:20:14 UTC; unix"
       }
     },
     "sys": {
@@ -2176,7 +2176,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "39b1e8f59b174411f4e4ad60f06531cf"
+      "checksum": "3b3017e1883ecba481d1d1479e708bff"
     },
     "app.R": {
       "checksum": "9f0eba0f09bda485101c886f593407a5"
@@ -2185,7 +2185,7 @@
       "checksum": "968f17d0f34fcffeef3e184e755b94ae"
     },
     "renv.lock": {
-      "checksum": "437c9938508f1c981d286570ac5af68f"
+      "checksum": "b653d6a85ad5c6eb65253041009d2af3"
     }
   },
   "users": null
