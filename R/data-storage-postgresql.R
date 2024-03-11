@@ -37,7 +37,7 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
     #' @param hostname string with hostname of PostgreSQL instance.
     #' @param port numeric value with the port number of PostgreSQL instance.
     #' @param dbname string with the name of the database in the PostgreSQL instance.
-    #' @param driver string, to select postgres driver among c('RPostgreSQL','RPostgres').
+    #' @param driver string, to select PostgreSQL driver among c(`RPostgreSQL`,`RPostgres`).
 
     initialize = function(
       username = NULL,
@@ -63,8 +63,8 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
         namespace = "shiny.telemetry"
       )
       # private method to select the driver
-      private$driver <- private$select_driver(driver)
-      private$connect(username, password, hostname, port, dbname)
+      selected_driver <- private$select_driver(driver)
+      private$connect(username, password, hostname, port, dbname, selected_driver)
       private$initialize_connection()
     }
 
@@ -75,7 +75,6 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
     # Private Fields
     db_con = NULL,
     timestamp_wrapper = "to_timestamp({seconds})",
-    driver = NULL,
     select_driver = function(driver) {
       if (driver == "RPostgres") {
         return(RPostgres::Postgres())
@@ -84,10 +83,10 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
       }
     },
     # Private methods
-    connect = function(user, password, hostname, port, dbname) {
+    connect = function(user, password, hostname, port, dbname, driver) {
       # Initialize connection with database
       private$db_con <- odbc::dbConnect(
-        private$driver,
+        driver,
         user = user,
         password = password,
         dbname = dbname,

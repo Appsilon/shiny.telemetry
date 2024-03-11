@@ -23,6 +23,3 @@ runApp
 sqlfile
 sqlite
 tzone
-postgres
-RPostgres
-RPostgreSQL

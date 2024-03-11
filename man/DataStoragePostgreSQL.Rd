@@ -73,7 +73,7 @@ Initialize the data storage class
 
 \item{\code{dbname}}{string with the name of the database in the PostgreSQL instance.}
 
-\item{\code{driver}}{string, to select postgres driver among c('RPostgreSQL','RPostgres').}
+\item{\code{driver}}{string, to select PostgreSQL driver among c(`RPostgreSQL`,`RPostgres`).}
 }
 \if{html}{\out{</div>}}
 }
