@@ -1,5 +1,10 @@
 # shiny.telemetry (development version)
 
+### New Features
+
+
+- Updated `get_user` method to retrieve user in `shinyproxy` environment (#124).
+
 # shiny.telemetry 0.2.0
 
 ### New Features
@@ -8,7 +13,6 @@
 - Added MS SQL Server support (see `DataStorageMSSQLServer` class) (#128).
 - Added CI tests to all `DBI`-based `DataStorage` providers (#129).
 - Added optional parameter to `read_event_data` that filters by `app_name` (#129).
-- Updated `get_user` method to retrieve user in `shinyproxy` environment (#124)
 
 ### Bug fixes
 
