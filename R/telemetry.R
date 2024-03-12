@@ -721,8 +721,13 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       force_username = NULL
     ) {
       if (!is.null(force_username)) return(force_username)
-      if (is.null(session) || is.null(session$user)) return(NULL)
-      session$user
+      if (isFALSE(is.null(session)) && isFALSE(is.null(session$user))) {
+        return(session$user) # POSIT Connect
+      } else if (nzchar(Sys.getenv("SHINYPROXY_USERNAME"))) {
+        return(Sys.getenv("SHINYPROXY_USERNAME"))
+      } else {
+        return(NULL)
+      }
     }
   )
 )
