@@ -37,7 +37,7 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
     #' @param hostname string with hostname of PostgreSQL instance.
     #' @param port numeric value with the port number of PostgreSQL instance.
     #' @param dbname string with the name of the database in the PostgreSQL instance.
-    #' @param driver string, to select PostgreSQL driver among c(`RPostgreSQL`,`RPostgres`).
+    #' @param driver string, to select PostgreSQL driver among `c("RPostgreSQL", "RPostgres")`.
 
     initialize = function(
       username = NULL,
