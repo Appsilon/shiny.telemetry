@@ -4,7 +4,7 @@
 \alias{DataStorageSQLFamily}
 \title{Data storage abstract class for SQL providers}
 \description{
-Abstract subclass of the DataStorage R6 class for the SQL family of
+Abstract subclass of the \code{\link{DataStorage}} R6 class for the SQL family of
 providers
 }
 \section{Super class}{

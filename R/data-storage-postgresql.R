@@ -1,7 +1,7 @@
 #' Data storage class with PostgreSQL provider
 #'
 #' @description
-#' Implementation of the DataStorage R6 class to PostgreSQL backend using a
+#' Implementation of the [`DataStorage`] R6 class to PostgreSQL backend using a
 #' unified API for read/write operations
 #'
 #' @export

@@ -14,9 +14,9 @@
 #'
 #' The default data storage provider uses a local SQLite database, but this
 #' can be customizable when instantiating the class, by using another one of
-#' the supported providers (see [DataStorage]).
+#' the supported providers (see [`DataStorage`]).
 #'
-#' @seealso [shiny.telemetry::DataStorage] which this function wraps.
+#' @seealso [`DataStorage`] which this function wraps.
 #' @export
 #' @examples
 #' log_file_path <- tempfile(fileext = ".txt")
@@ -68,7 +68,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' By default it will store data with `(dashboard)`.
     #' @param version (optional) string that identifies the version of the
     #' dashboard. By default it will use `v0.0.0`.
-    #' @param data_storage (optional) DataStorage instance where telemetry
+    #' @param data_storage (optional) `DataStorage` instance where telemetry
     #' data is being stored.
     #' It can take any of data storage providers by this package,
     #' By default it will store in a SQLite local database in the current
@@ -105,7 +105,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' input ids and which value should be tracked as navigation events. i.e.
     #' a change in the value represent a navigation to a page or tab.
     #' By default, no navigation is tracked.
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #' @param username Character with username. If set, it will overwrite username
     #' from session object.
@@ -188,7 +188,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #'
     #' @param input_id string that identifies the generic input in the Shiny
     #' application so that the function can track and log changes to it.
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
@@ -216,7 +216,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #'
     #' @param navigation_id string that identifies navigation event.
     #' @param value string that indicates a value for the navigation
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
@@ -241,7 +241,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' Log when session starts
     #'
     #' @param username string with username from current session
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
@@ -262,7 +262,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' Log when session ends
     #'
     #' @param username string with username from current session
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
@@ -285,7 +285,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' Log an action click
     #'
     #' @param id string that identifies a manual click to the dashboard.
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
@@ -305,7 +305,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @description
     #' Log the browser version
     #'
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
@@ -347,7 +347,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' application so that the function can track and log changes to it.
     #' @param track_value flag that indicates if the basic telemetry should
     #' track the value of the input that are changing. `FALSE` by default.
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
@@ -369,7 +369,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param excluded_inputs vector of input_ids that should not be tracked.
     #' By default it doesn't track browser version, which is added by this
     #' package.
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
@@ -396,7 +396,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param matching_values An object specified possible values to register.
     #' @param input_type 'text' to registered bare input value, 'json' to parse
     #' value from JSON format.
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
@@ -429,7 +429,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param input_id string that identifies the generic input in the Shiny
     #' application so that the function can track and log changes to it.
     #' @param value (optional) scalar value or list with the value to register.
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
@@ -457,7 +457,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #'
     #' @param event_type string that identifies the event type
     #' @param details (optional) scalar value or list with the value to register.
-    #' @param session ShinySession object or NULL to identify the current
+    #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
@@ -474,7 +474,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
   active = list(
 
     #' @field data_storage instance of a class that inherits from
-    #' [DataStorage]. See the documentation on that class for more information.
+    #' [`DataStorage`]. See the documentation on that class for more information.
 
     data_storage = function() private$.data_storage,
 

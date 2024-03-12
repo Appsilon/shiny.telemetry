@@ -4,7 +4,7 @@
 \alias{DataStorageSQLite}
 \title{Data storage class with SQLite provider}
 \description{
-Implementation of the DataStorage R6 class to SQLite backend using a unified
+Implementation of the \code{\link{DataStorage}} R6 class to SQLite backend using a unified
 API for read/write operations
 }
 \examples{
@@ -56,7 +56,7 @@ Initialize the data storage class
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{db_path}}{string with path to sqlfile}
+\item{\code{db_path}}{string with path to \code{SQLite} file.}
 }
 \if{html}{\out{</div>}}
 }

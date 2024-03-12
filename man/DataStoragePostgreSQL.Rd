@@ -4,7 +4,7 @@
 \alias{DataStoragePostgreSQL}
 \title{Data storage class with PostgreSQL provider}
 \description{
-Implementation of the DataStorage R6 class to PostgreSQL backend using a
+Implementation of the \code{\link{DataStorage}} R6 class to PostgreSQL backend using a
 unified API for read/write operations
 }
 \examples{
@@ -73,7 +73,7 @@ Initialize the data storage class
 
 \item{\code{dbname}}{string with the name of the database in the PostgreSQL instance.}
 
-\item{\code{driver}}{string, to select PostgreSQL driver among `c("RPostgreSQL", "RPostgres")`.}
+\item{\code{driver}}{string, to select PostgreSQL driver among \code{c("RPostgreSQL", "RPostgres")}.}
 }
 \if{html}{\out{</div>}}
 }

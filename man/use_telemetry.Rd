@@ -10,7 +10,7 @@ use_telemetry(id = "")
 \item{id}{(optional) string with id representing the namespace}
 }
 \value{
-A `shiny.tag` object to be included in the UI of a Shiny app.
+A \code{shiny.tag} object to be included in the UI of a Shiny app.
 }
 \description{
 Function that adds telemetry HTML elements to UI

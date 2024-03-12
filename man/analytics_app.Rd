@@ -12,7 +12,7 @@ and writes.}
 }
 \value{
 An object that represents the analytics app. Printing the object or
-passing it to `shiny::runApp()` will run it.
+passing it to \code{shiny::runApp()} will run it.
 }
 \description{
 Run example telemetry analytics dashboard

@@ -7,16 +7,14 @@
 An instance of this class will define metadata and data storage provider
 for gathering telemetry analytics of a Shiny dashboard.
 
-
-The `name` and `version` parameters will describe the dashboard name and
+The \code{name} and \code{version} parameters will describe the dashboard name and
 version to track using analytics, allowing to store the analytics data from
 multiple dashboards in the same data storage provider. As well as
 discriminate different versions of the dashboard.
 
-
 The default data storage provider uses a local SQLite database, but this
 can be customizable when instantiating the class, by using another one of
-the supported providers (see [DataStorage]).
+the supported providers (see \code{\link{DataStorage}}).
 }
 \examples{
 log_file_path <- tempfile(fileext = ".txt")
@@ -59,13 +57,13 @@ telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01")
 file.remove(db_path)
 }
 \seealso{
-[shiny.telemetry::DataStorage] which this function wraps.
+\code{\link{DataStorage}} which this function wraps.
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
 \item{\code{data_storage}}{instance of a class that inherits from
-[DataStorage]. See the documentation on that class for more information.}
+\code{\link{DataStorage}}. See the documentation on that class for more information.}
 
 \item{\code{app_name}}{string with name of dashboard}
 }
@@ -106,16 +104,16 @@ Constructor that initializes Telemetry instance with parameters.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{app_name}}{(optional) string that identifies the name of the dashboard.
-By default it will store data with `(dashboard)`.}
+By default it will store data with \code{(dashboard)}.}
 
-\item{\code{data_storage}}{(optional) DataStorage instance where telemetry
+\item{\code{data_storage}}{(optional) \code{DataStorage} instance where telemetry
 data is being stored.
 It can take any of data storage providers by this package,
 By default it will store in a SQLite local database in the current
-working directory with filename `telemetry.sqlite`}
+working directory with filename \code{telemetry.sqlite}}
 
 \item{\code{version}}{(optional) string that identifies the version of the
-dashboard. By default it will use `v0.0.0`.}
+dashboard. By default it will use \code{v0.0.0}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -142,27 +140,27 @@ Setup basic telemetry
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{track_inputs}}{flag that indicates if the basic telemetry should
-track the inputs that change value. `TRUE` by default}
+track the inputs that change value. \code{TRUE} by default}
 
 \item{\code{track_values}}{flag that indicates if the basic telemetry should
-track the values of the inputs that are changing. `FALSE` by default.
-This parameter is ignored if `track_inputs` is `FALSE`}
+track the values of the inputs that are changing. \code{FALSE} by default.
+This parameter is ignored if \code{track_inputs} is \code{FALSE}}
 
 \item{\code{login}}{flag that indicates if the basic telemetry should
-track when a session starts. `TRUE` by default.}
+track when a session starts. \code{TRUE} by default.}
 
 \item{\code{logout}}{flag that indicates if the basic telemetry should
-track when the session ends. `TRUE` by default.}
+track when the session ends. \code{TRUE} by default.}
 
 \item{\code{browser_version}}{flag that indicates that the browser version
-should be tracked.`TRUE` by default.}
+should be tracked.\code{TRUE} by default.}
 
 \item{\code{navigation_input_id}}{string or vector of strings that represent
 input ids and which value should be tracked as navigation events. i.e.
 a change in the value represent a navigation to a page or tab.
 By default, no navigation is tracked.}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 
 \item{\code{username}}{Character with username. If set, it will overwrite username
@@ -189,7 +187,7 @@ Log an input change as a navigation event
 \item{\code{input_id}}{string that identifies the generic input in the Shiny
 application so that the function can track and log changes to it.}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 }
 \if{html}{\out{</div>}}
@@ -218,7 +216,7 @@ Log a navigation event manually by indicating the id (as input id)
 
 \item{\code{value}}{string that indicates a value for the navigation}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 }
 \if{html}{\out{</div>}}
@@ -244,7 +242,7 @@ Log when session starts
 \describe{
 \item{\code{username}}{string with username from current session}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 }
 \if{html}{\out{</div>}}
@@ -270,7 +268,7 @@ Log when session ends
 \describe{
 \item{\code{username}}{string with username from current session}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 }
 \if{html}{\out{</div>}}
@@ -293,7 +291,7 @@ Log an action click
 \describe{
 \item{\code{id}}{string that identifies a manual click to the dashboard.}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 }
 \if{html}{\out{</div>}}
@@ -314,7 +312,7 @@ Log the browser version
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 }
 \if{html}{\out{</div>}}
@@ -344,9 +342,9 @@ values)
 application so that the function can track and log changes to it.}
 
 \item{\code{track_value}}{flag that indicates if the basic telemetry should
-track the value of the input that are changing. `FALSE` by default.}
+track the value of the input that are changing. \code{FALSE} by default.}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 }
 \if{html}{\out{</div>}}
@@ -372,14 +370,14 @@ A short description...
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{track_values}}{flag that indicates if the basic telemetry should
-track the values of the inputs that are changing. `FALSE` by default.
-This parameter is ignored if `track_inputs` is `FALSE`.}
+track the values of the inputs that are changing. \code{FALSE} by default.
+This parameter is ignored if \code{track_inputs} is \code{FALSE}.}
 
 \item{\code{excluded_inputs}}{vector of input_ids that should not be tracked.
 By default it doesn't track browser version, which is added by this
 package.}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 }
 \if{html}{\out{</div>}}
@@ -410,14 +408,14 @@ A short description...
 application so that the function can track and log changes to it.}
 
 \item{\code{track_value}}{flag that indicates if the basic telemetry should
-track the value of the input that are changing. `FALSE` by default.}
+track the value of the input that are changing. \code{FALSE} by default.}
 
 \item{\code{matching_values}}{An object specified possible values to register.}
 
 \item{\code{input_type}}{'text' to registered bare input value, 'json' to parse
 value from JSON format.}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 }
 \if{html}{\out{</div>}}
@@ -431,7 +429,6 @@ Nothing. This method is called for side effects.
 \if{latex}{\out{\hypertarget{method-Telemetry-log_input_manual}{}}}
 \subsection{Method \code{log_input_manual()}}{
 Log a manual input value.
-
 
 This can be called in telemetry and is also used as a layer between
 log_input family of functions and actual log event.
@@ -452,7 +449,7 @@ application so that the function can track and log changes to it.}
 
 \item{\code{value}}{(optional) scalar value or list with the value to register.}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 }
 \if{html}{\out{</div>}}
@@ -481,7 +478,7 @@ Log a manual event
 
 \item{\code{details}}{(optional) scalar value or list with the value to register.}
 
-\item{\code{session}}{ShinySession object or NULL to identify the current
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
 }
 \if{html}{\out{</div>}}

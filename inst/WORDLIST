@@ -1,17 +1,10 @@
 Appsilon
 CMD
-DATETIME
-DataStorage
 JSON
 Javascript
 Logfile
-ODBC
-RPostgreSQL
-RPostgres
 RStudio
 Rhinoverse
-ShinySession
-Sys
 UI
 analytics
 appsilon
@@ -20,8 +13,4 @@ customizable
 filesystem
 hostname
 json
-lubridate
-runApp
 sqlfile
-sqlite
-tzone

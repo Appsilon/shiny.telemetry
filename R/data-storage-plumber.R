@@ -1,7 +1,7 @@
 #' Data storage class with SQLite provider
 #'
 #' @description
-#' Implementation of the DataStorage R6 class to SQLite backend using a unified
+#' Implementation of the [`DataStorage`] R6 class to SQLite backend using a unified
 #' API for read/write operations
 #'
 #' @export
