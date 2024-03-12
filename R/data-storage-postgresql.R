@@ -36,21 +36,23 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
     #' @param password string with the password for the username.
     #' @param hostname string with hostname of PostgreSQL instance.
     #' @param port numeric value with the port number of PostgreSQL instance.
-    #' @param dbname string with the name of the database in the PostgreSQL
-    #' instance.
+    #' @param dbname string with the name of the database in the PostgreSQL instance.
+    #' @param driver string, to select PostgreSQL driver among `c("RPostgreSQL", "RPostgres")`.
 
     initialize = function(
       username = NULL,
       password = NULL,
       hostname = "127.0.0.1",
       port = 5432,
-      dbname = "shiny_telemetry"
+      dbname = "shiny_telemetry",
+      driver = "RPostgreSQL"
     ) {
       checkmate::assert_string(password)
       checkmate::assert_string(username)
       checkmate::assert_string(hostname)
       checkmate::assert_int(port)
       checkmate::assert_string(dbname)
+      checkmate::assert_choice(driver, choices = c("RPostgreSQL", "RPostgres"))
 
       logger::log_debug(
         "Parameters for PostgreSQL:\n",
@@ -60,7 +62,9 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
         "  *           db name: {dbname}\n",
         namespace = "shiny.telemetry"
       )
-      private$connect(username, password, hostname, port, dbname)
+      # private method to select the driver
+      selected_driver <- private$select_driver(driver)
+      private$connect(username, password, hostname, port, dbname, selected_driver)
       private$initialize_connection()
     }
 
@@ -71,13 +75,18 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name_linter
     # Private Fields
     db_con = NULL,
     timestamp_wrapper = "to_timestamp({seconds})",
-
+    select_driver = function(driver) {
+      if (driver == "RPostgres") {
+        return(RPostgres::Postgres())
+      } else { # Default to RPostgreSQL if input is not recognized
+        return(RPostgreSQL::PostgreSQL())
+      }
+    },
     # Private methods
-
-    connect = function(user, password, hostname, port, dbname) {
+    connect = function(user, password, hostname, port, dbname, driver) {
       # Initialize connection with database
       private$db_con <- odbc::dbConnect(
-        RPostgreSQL::PostgreSQL(),
+        driver,
         user = user,
         password = password,
         dbname = dbname,

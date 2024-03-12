@@ -1,5 +1,9 @@
 # shiny.telemetry (development version)
 
+### New Features
+
+- Added flexibility to select between [`RPostgreSQL`, `RPostgres`] drivers (#147).
+
 # shiny.telemetry 0.2.0
 
 ### New Features
