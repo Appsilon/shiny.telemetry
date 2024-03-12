@@ -2853,18 +2853,18 @@
         "RoxygenNote": "7.3.1",
         "Author": "André Veríssimo [aut, cre],\n  Kamil Żyła [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "André Veríssimo <opensource+andre@appsilon.com>",
-        "Built": "R 4.3.3; ; 2024-03-12 17:50:45 UTC; unix",
+        "Built": "R 4.3.3; ; 2024-03-12 21:29:41 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "67dc7ed59b629c79dce3da76be69351dbab94a2b",
-        "RemoteSha": "67dc7ed59b629c79dce3da76be69351dbab94a2b",
+        "RemoteRef": "e0549f17660295135c5cd1bfd50915d149e47f67",
+        "RemoteSha": "e0549f17660295135c5cd1bfd50915d149e47f67",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "67dc7ed59b629c79dce3da76be69351dbab94a2b",
-        "GithubSHA1": "67dc7ed59b629c79dce3da76be69351dbab94a2b"
+        "GithubRef": "e0549f17660295135c5cd1bfd50915d149e47f67",
+        "GithubSHA1": "e0549f17660295135c5cd1bfd50915d149e47f67"
       }
     },
     "shinyjs": {
@@ -3498,7 +3498,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "023f4ece64faef8f188468ebb63ede12"
+      "checksum": "641ff86da796bec6348b68abdf4229d1"
     },
     "app.R": {
       "checksum": "b190debeea46fa54ea261bddd22b3e85"
@@ -3507,7 +3507,7 @@
       "checksum": "2c8fcf3c29e18ff1277d16035a31f0b2"
     },
     "renv.lock": {
-      "checksum": "b393203b426d73bfabfdfa19dc8de8b6"
+      "checksum": "2bf7758a00efe622b7a9e8112346b7d5"
     },
     "www/styles.css": {
       "checksum": "56705fbddcc16218aefb166d6f6b61e5"
