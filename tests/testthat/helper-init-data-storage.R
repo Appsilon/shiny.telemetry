@@ -35,7 +35,8 @@ init_test_postgres <- function(.local_envir = parent.frame()) {
     password = Sys.getenv("TEST_POSTGRESQL_PASSWORD"),
     port = Sys.getenv("TEST_POSTGRESQL_PORT"),
     dbname = Sys.getenv("TEST_POSTGRESQL_DBNAME"),
-    hostname = Sys.getenv("TEST_POSTGRESQL_HOSTNAME")
+    hostname = Sys.getenv("TEST_POSTGRESQL_HOSTNAME"),
+    driver = Sys.getenv("TEST_POSTGRESQL_DRIVER")
   )
   testthat::skip_on_cran()
   skip_if_storage_config_missing(storage_config, "PostgreSQL")
