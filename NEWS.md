@@ -2,7 +2,6 @@
 
 ### New Features
 
-
 - Updated `get_user` method to retrieve user in `shinyproxy` environment (#124).
 
 # shiny.telemetry 0.2.0
