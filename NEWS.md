@@ -1,5 +1,9 @@
 # shiny.telemetry (development version)
 
+### Miscellaneous
+
+- Updates documentation to use markdown format (#153).
+
 # shiny.telemetry 0.2.0
 
 ### New Features
