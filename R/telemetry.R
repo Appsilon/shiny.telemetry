@@ -394,8 +394,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param track_value flag that indicates if the basic telemetry should
     #' track the value of the input that are changing. `FALSE` by default.
     #' @param matching_values An object specified possible values to register.
-    #' @param input_type 'text' to registered bare input value, 'json' to parse
-    #' value from JSON format.
+    #' @param input_type `"text"` to registered bare input value, `"json"` to parse
+    #' value from `JSON` format.
     #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
