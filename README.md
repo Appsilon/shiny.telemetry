@@ -49,7 +49,7 @@ telemetry <- Telemetry$new() # 1. Initialize telemetry with default options
 
 shinyApp(
   ui = fluidPage(
-    use_telemetry(), # 2. Add necessary Javascript to Shiny
+    use_telemetry(), # 2. Add necessary javascript to Shiny
     numericInput("n", "n", 1),
     plotOutput('plot')
   ),
@@ -91,7 +91,7 @@ that can range from local filesystem storage to a remote Plumber REST API instan
 
 * Local file:
   * SQLite using `DataStorageSQLite` class
-  * Logfile using `DataStorageLogFile` class
+  * Plain text file using `DataStorageLogFile` class
 * Remote SQL database:
   * MariaDB using `DataStorageMariaDB` class
   * PostgreSQL using `DataStoragePostgreSQL` class

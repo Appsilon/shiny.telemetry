@@ -1,8 +1,6 @@
 Appsilon
 CMD
-JSON
 Javascript
-Logfile
 RStudio
 Rhinoverse
 UI
@@ -12,5 +10,3 @@ cloneable
 customizable
 filesystem
 hostname
-json
-sqlfile
