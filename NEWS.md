@@ -5,6 +5,10 @@
 - Updated `get_user` method to retrieve user in `shinyproxy` environment (#124).
 - Added flexibility to select between [`RPostgreSQL`, `RPostgres`] drivers (#147).
 
+### Miscellaneous
+
+- Updates documentation to use markdown format (#153).
+
 # shiny.telemetry 0.2.0
 
 ### New Features

@@ -4,7 +4,7 @@
 \alias{DataStorageMariaDB}
 \title{Data storage class with MariaDB / MySQL provider}
 \description{
-Implementation of the DataStorage R6 class to MariaDB backend using a
+Implementation of the \code{\link{DataStorage}} R6 class to MariaDB backend using a
 unified API for read/write operations
 }
 \examples{

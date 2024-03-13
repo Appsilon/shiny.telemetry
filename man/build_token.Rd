@@ -17,7 +17,7 @@ disable this communication feature}
 A string that contains an hash to uniquely identify the parameters.
 }
 \description{
-Function that takes creates a signature for the `values` using a secret.
+Function that takes creates a signature for the \code{values} using a secret.
 }
 \details{
 This is used in shiny.telemetry, but also externally with the Plumber

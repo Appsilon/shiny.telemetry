@@ -1,7 +1,7 @@
 #' Data storage class for JSON Log File
 #'
 #' @description
-#' Implementation of the DataStorage R6 class to a JSON log file backend using a unified
+#' Implementation of the [`DataStorage`] R6 class to a JSON log file backend using a unified
 #' API for read/write operations
 #'
 #' @export

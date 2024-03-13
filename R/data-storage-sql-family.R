@@ -1,7 +1,7 @@
 #' Data storage abstract class for SQL providers
 #'
 #' @description
-#' Abstract subclass of the DataStorage R6 class for the SQL family of
+#' Abstract subclass of the [`DataStorage`] R6 class for the SQL family of
 #' providers
 DataStorageSQLFamily <- R6::R6Class( # nolint object_name_linter
   classname = "DataStorageSQLFamily",
