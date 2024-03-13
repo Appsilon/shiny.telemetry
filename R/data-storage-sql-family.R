@@ -86,7 +86,7 @@ DataStorageSQLFamily <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_choice(bucket, c(self$event_bucket))
 
       query <- build_query_sql(
-        bucket, date_from, date_to, private$timestamp_wrapper
+        bucket, date_from, date_to, private$timestamp_wrapper, private$db_con
       )
 
       odbc::dbGetQuery(private$db_con, query) %>%
