@@ -412,8 +412,8 @@ track the value of the input that are changing. \code{FALSE} by default.}
 
 \item{\code{matching_values}}{An object specified possible values to register.}
 
-\item{\code{input_type}}{'text' to registered bare input value, 'json' to parse
-value from JSON format.}
+\item{\code{input_type}}{\code{"text"} to registered bare input value, \code{"json"} to parse
+value from \code{JSON} format.}
 
 \item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}

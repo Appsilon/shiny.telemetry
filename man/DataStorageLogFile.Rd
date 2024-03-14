@@ -2,9 +2,9 @@
 % Please edit documentation in R/data-storage-log-file.R
 \name{DataStorageLogFile}
 \alias{DataStorageLogFile}
-\title{Data storage class for JSON Log File}
+\title{Data storage class for \code{JSON} Log File}
 \description{
-Implementation of the \code{\link{DataStorage}} R6 class to a JSON log file backend using a unified
+Implementation of the \code{\link{DataStorage}} R6 class to a \code{JSON} log file backend using a unified
 API for read/write operations
 }
 \examples{
@@ -64,7 +64,7 @@ Initialize the data storage class
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{log_file_path}}{string with path to JSON log file user actions}
+\item{\code{log_file_path}}{string with path to \code{JSON} log file user actions}
 }
 \if{html}{\out{</div>}}
 }
