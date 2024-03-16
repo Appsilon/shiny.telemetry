@@ -132,7 +132,8 @@ Setup basic telemetry
   browser_version = TRUE,
   navigation_input_id = NULL,
   session = shiny::getDefaultReactiveDomain(),
-  username = NULL
+  username = NULL,
+  track_anonymous_user = TRUE
 )}\if{html}{\out{</div>}}
 }
 
@@ -165,6 +166,9 @@ Shiny session.}
 
 \item{\code{username}}{Character with username. If set, it will overwrite username
 from session object.}
+
+\item{\code{track_anonymous_user}}{\code{TRUE} or \code{FALSE.}If \code{TRUE} and username is \code{NULL},
+it will set a cookie to track anonymous user.\code{TRUE} by default}
 }
 \if{html}{\out{</div>}}
 }

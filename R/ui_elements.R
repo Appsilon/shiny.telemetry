@@ -40,6 +40,16 @@ use_telemetry <- function(id = "") {
   });
       "
       ))
+    ),
+    shiny::tags$script(src =
+                         "https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"),
+    shiny::tags$script(
+      type = "text/javascript",
+      shiny::HTML("
+    Shiny.addCustomMessageHandler('setUserCookie', function(params) {
+      Cookies.set(params.cookieName, params.cookieValue,{expires: params.expiryInDays, path: '/'});
+  });
+   ")
     )
   )
 }

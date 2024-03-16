@@ -109,6 +109,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' Shiny session.
     #' @param username Character with username. If set, it will overwrite username
     #' from session object.
+    #' @param track_anonymous_user `TRUE` or `FALSE.`If `TRUE` and username is `NULL`,
+    #' it will set a cookie to track anonymous user.`TRUE` by default
     #'
     #' @return Nothing. This method is called for side effects.
 
@@ -120,7 +122,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       browser_version = TRUE,
       navigation_input_id = NULL,
       session = shiny::getDefaultReactiveDomain(),
-      username = NULL
+      username = NULL,
+      track_anonymous_user = TRUE
     ) {
 
       checkmate::assert_flag(track_inputs)
@@ -128,10 +131,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_flag(login)
       checkmate::assert_flag(logout)
       checkmate::assert_flag(browser_version)
+      checkmate::assert_flag(track_anonymous_user)
 
       checkmate::assert_character(navigation_input_id, null.ok = TRUE)
 
-      username <- private$get_user(session, username)
+      username <- private$get_user(session, username, track_anonymous_user)
 
       checkmate::assert(
         .combine = "or",
@@ -715,16 +719,49 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         )
       }
     },
-
+    extract_cookie = function(cookie_string, cookie_name = "shiny_user_cookie") {
+      hash <- NULL
+      if (!is.null(cookie_string)) {
+        cookies <- strsplit(cookie_string, ";")[[1]]
+        cookies <- trimws(cookies)
+        for (cookie in cookies) {
+          parts <- strsplit(cookie, "=")[[1]]
+          if (length(parts) == 2 && parts[1] == cookie_name) {
+            # Check if the value looks like a SHA256 hash
+            cookie_value <- parts[2]
+            if (grepl("^[a-f0-9]{64}$", cookie_value)) {
+              hash <- cookie_value
+              break
+            }
+          }
+        }
+      }
+      return(hash)
+    },
     get_user = function(
       session = shiny::getDefaultReactiveDomain(),
-      force_username = NULL
+      force_username = NULL,
+      track_anonymous_user = TRUE
     ) {
       if (!is.null(force_username)) return(force_username)
       if (isFALSE(is.null(session)) && isFALSE(is.null(session$user))) {
         return(session$user) # POSIT Connect
       } else if (nzchar(Sys.getenv("SHINYPROXY_USERNAME"))) {
         return(Sys.getenv("SHINYPROXY_USERNAME"))
+      } else if (track_anonymous_user) {
+        cookie_value <- private$extract_cookie(cookie_string = session$request$HTTP_COOKIE)
+        # cookie_value will be NULL if either not found or not generated using SHA256 algorithm.
+        if (is.null(cookie_value)) {
+          cookie_string <- paste0(session$request$HTTP_USER_AGENT,
+                                  session$request$REMOTE_ADDR, Sys.time())
+          cookie_value <- digest::digest(cookie_string, algo = "sha256")
+          session$sendCustomMessage("setUserCookie", list(
+            cookieName = "shiny_user_cookie",
+            cookieValue = cookie_value,
+            expiryInDays = 365
+          ))
+        }
+        return(cookie_value)
       } else {
         return(NULL)
       }
