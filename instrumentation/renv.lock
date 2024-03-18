@@ -710,7 +710,7 @@
     },
     "sass": {
       "Package": "sass",
-      "Version": "0.4.8",
+      "Version": "0.4.9",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -720,7 +720,7 @@
         "rappdirs",
         "rlang"
       ],
-      "Hash": "168f9353c76d4c4b0a0bbf72e2c2d035"
+      "Hash": "d53dbfddf695303ea4ad66f86e99b95d"
     },
     "semantic.assets": {
       "Package": "semantic.assets",
@@ -809,8 +809,8 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "appsilon",
       "RemoteRepo": "shiny.telemetry",
-      "RemoteRef": "b230a6b9ae0782b6c5896990c780ee415e0fc797",
-      "RemoteSha": "b230a6b9ae0782b6c5896990c780ee415e0fc797",
+      "RemoteRef": "0ab69e8933a55ea80224054f6565f12d2b3e162e",
+      "RemoteSha": "0ab69e8933a55ea80224054f6565f12d2b3e162e",
       "Requirements": [
         "R6",
         "RSQLite",
@@ -828,7 +828,7 @@
         "shiny",
         "tidyr"
       ],
-      "Hash": "38c2b21b3a20ad1b010ffc83713b0d6b"
+      "Hash": "95babb4ab55fc945f05403877017b8b0"
     },
     "sourcetools": {
       "Package": "sourcetools",
@@ -948,13 +948,13 @@
     },
     "tinytex": {
       "Package": "tinytex",
-      "Version": "0.49",
+      "Version": "0.50",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "xfun"
       ],
-      "Hash": "5ac22900ae0f386e54f1c307eca7d843"
+      "Hash": "be7a76845222ad20adb761f462eed3ea"
     },
     "utf8": {
       "Package": "utf8",
