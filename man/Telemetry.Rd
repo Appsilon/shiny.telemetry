@@ -167,8 +167,10 @@ Shiny session.}
 \item{\code{username}}{Character with username. If set, it will overwrite username
 from session object.}
 
-\item{\code{track_anonymous_user}}{\code{TRUE} or \code{FALSE.}If \code{TRUE} and username is \code{NULL},
-it will set a cookie to track anonymous user.\code{TRUE} by default}
+\item{\code{track_anonymous_user}}{flag that indicates to track anonymous user.
+A cookie is used to track same user without login over multiple sessions,
+This is only activated if none of the automatic methods produce a username
+and when a username is not explicitly defined.\code{TRUE} by default}
 }
 \if{html}{\out{</div>}}
 }
