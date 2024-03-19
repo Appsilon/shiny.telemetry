@@ -7,8 +7,8 @@
 use_telemetry <- function(id = "") {
   checkmate::assert_string(id, null.ok = TRUE)
   shiny_namespace <- ""
-  if (!is.null(id) && !identical(id, "")) {
-    shiny_namespace <- glue::glue("{id}-")
+  if (!is.null(id) && !identical(trimws(id), "")) {
+    shiny_namespace <- shiny::NS(trimws(id), "")
   }
 
   shiny::addResourcePath(
@@ -51,8 +51,14 @@ use_telemetry <- function(id = "") {
         ))
       ),
       # Additional scripts
-      shiny::tags$script(file.path("js", "cookie_handler.js"), type = "text/javascript"),
-      shiny::tags$script(file.path("js-cookie", "js.cookie.min.js"), type = "text/javascript")
+      shiny::tags$script(
+        src = file.path("js-cookie", "js.cookie.min.js"),
+        type = "text/javascript"
+      ),
+      shiny::tags$script(
+        src = file.path("js", "cookie_handler.js"),
+        type = "text/javascript"
+      )
     )
   )
 }
