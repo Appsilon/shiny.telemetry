@@ -2838,7 +2838,7 @@
         "Type": "Package",
         "Package": "shiny.telemetry",
         "Title": "'Shiny' App Usage Telemetry",
-        "Version": "0.2.0.9002",
+        "Version": "0.2.0.9003",
         "Authors@R": "c(\n    person(\"André\", \"Veríssimo\", , \"opensource+andre@appsilon.com\", role = c(\"aut\", \"cre\")),\n    person(\"Kamil\", \"Żyła\", , \"kamil@appsilon.com\", role = \"aut\"),\n    person(\"Krystian\", \"Igras\", , \"krystian8207@gmail.com\", role = \"aut\"),\n    person(\"Recle\", \"Vibal\", , \"recle.vibal@appsilon.com\", role = \"aut\"),\n    person(\"Appsilon Sp. z o.o.\", , , \"opensource@appsilon.com\", role = \"cph\")\n  )",
         "Description": "Enables instrumentation of 'Shiny' apps for tracking user\n    session events such as input changes, browser type, and session\n    duration.  These events can be sent to any of the available storage\n    backends and analyzed using the included 'Shiny' app to gain insights\n    about app usage and adoption.",
         "License": "LGPL-3",
@@ -2854,18 +2854,18 @@
         "RoxygenNote": "7.3.1",
         "Author": "André Veríssimo [aut, cre],\n  Kamil Żyła [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "André Veríssimo <opensource+andre@appsilon.com>",
-        "Built": "R 4.3.3; ; 2024-03-18 16:24:37 UTC; unix",
+        "Built": "R 4.3.3; ; 2024-03-19 12:11:10 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "0ab69e8933a55ea80224054f6565f12d2b3e162e",
-        "RemoteSha": "0ab69e8933a55ea80224054f6565f12d2b3e162e",
+        "RemoteRef": "6136a33804a8c100a2be1dd43479f271c218cfe3",
+        "RemoteSha": "6136a33804a8c100a2be1dd43479f271c218cfe3",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "0ab69e8933a55ea80224054f6565f12d2b3e162e",
-        "GithubSHA1": "0ab69e8933a55ea80224054f6565f12d2b3e162e"
+        "GithubRef": "6136a33804a8c100a2be1dd43479f271c218cfe3",
+        "GithubSHA1": "6136a33804a8c100a2be1dd43479f271c218cfe3"
       }
     },
     "shinyjs": {
@@ -3499,7 +3499,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "f7c86cd656873184404778e37cf7d5f4"
+      "checksum": "b14dcfda243c584482f03b6e99f42f27"
     },
     "app.R": {
       "checksum": "b190debeea46fa54ea261bddd22b3e85"
@@ -3508,7 +3508,7 @@
       "checksum": "2c8fcf3c29e18ff1277d16035a31f0b2"
     },
     "renv.lock": {
-      "checksum": "ef1b887ad38397acbc8e7c64f79b1d44"
+      "checksum": "3a60fe48a19ff5e196b626ac1563a6c6"
     },
     "www/styles.css": {
       "checksum": "56705fbddcc16218aefb166d6f6b61e5"
