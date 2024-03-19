@@ -11,8 +11,6 @@ use_telemetry <- function(id = "") {
   if (id != "" && !is.null(id)) {
     shiny_namespace <- glue::glue("{id}-")
   }
-
-
   shiny::tagList(
     shiny::tags$script(
       type = "text/javascript",
@@ -41,15 +39,19 @@ use_telemetry <- function(id = "") {
       "
       ))
     ),
-    shiny::tags$script(src =
-                         "https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"),
-    shiny::tags$script(
-      type = "text/javascript",
-      shiny::HTML("
-    Shiny.addCustomMessageHandler('setUserCookie', function(params) {
-      Cookies.set(params.cookieName, params.cookieValue,{expires: params.expiryInDays, path: '/'});
-  });
-   ")
+    htmltools::htmlDependency(
+      name = "js-cookie",
+      version = "1.0.0",
+      src = "js",
+      package = "shiny.telemetry",
+      script = "js.cookie.min.js"
+    ),
+    htmltools::htmlDependency(
+      name = "manage-cookie",
+      version = "1.0.0",
+      src = "js",
+      package = "shiny.telemetry",
+      script = "manage-cookies.js"
     )
   )
 }
