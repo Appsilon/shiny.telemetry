@@ -9,6 +9,7 @@
 ### Miscellaneous
 
 - Updates documentation to use markdown format (#153).
+- Improves SQL injection safeguards via `glue::glue_sql` to generated SQL queries (#34).
 
 # shiny.telemetry 0.2.0
 
