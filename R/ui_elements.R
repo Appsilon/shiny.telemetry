@@ -8,14 +8,13 @@ use_telemetry <- function(id = "") {
 
   checkmate::assert_string(id, null.ok = TRUE)
   shiny_namespace <- ""
-  if (id != "" && !is.null(id)) {
-    shiny_namespace <- glue::glue("{id}-")
+  if (!is.null(id) && !identical(trimws(id), "")) {
+    shiny_namespace <- shiny::NS(trimws(id), "")
   }
   shiny::tagList(
-    shiny::tags$script(
+    shiny::singleton(shiny::tags$script(
       type = "text/javascript",
-      shiny::HTML(paste0(
-        "
+      shiny::HTML(paste0("
   $(document).on('shiny:sessioninitialized', function(event) {
     var br_ver = (function(){
       var ua= navigator.userAgent, tem, M;
@@ -32,26 +31,21 @@ use_telemetry <- function(id = "") {
       if((tem= ua.match(/version\\/(\\d+)/i))!= null) M.splice(1, 1, tem[1]);
       return M.join(' ');
     })();
-      ",
-        glue::glue("Shiny.setInputValue(\"{shiny_namespace}browser_version\", br_ver);"),
-        "
-  });
-      "
-      ))
-    ),
-    htmltools::htmlDependency(
+  ", glue::glue("Shiny.setInputValue(\"{shiny_namespace}browser_version\", br_ver);"), "});"))
+    )),
+    shiny::singleton(htmltools::htmlDependency(
       name = "js-cookie",
-      version = "1.0.0",
-      src = "js",
+      version = "3.0.5",
+      src = "js/js-cookie-v3.0.5",
       package = "shiny.telemetry",
       script = "js.cookie.min.js"
-    ),
-    htmltools::htmlDependency(
+    )),
+    shiny::singleton(htmltools::htmlDependency(
       name = "manage-cookie",
       version = "1.0.0",
       src = "js",
       package = "shiny.telemetry",
       script = "manage-cookies.js"
-    )
+    ))
   )
 }
