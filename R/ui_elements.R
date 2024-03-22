@@ -11,8 +11,8 @@ use_telemetry <- function(id = "") {
   if (!is.null(id) && !identical(trimws(id), "")) {
     shiny_namespace <- shiny::NS(trimws(id), "")
   }
-  shiny::tagList(
-    shiny::singleton(shiny::tags$script(
+  shiny::singleton(shiny::tagList(
+    shiny::tags$script(
       type = "text/javascript",
       shiny::HTML(paste0("
   $(document).on('shiny:sessioninitialized', function(event) {
@@ -32,20 +32,21 @@ use_telemetry <- function(id = "") {
       return M.join(' ');
     })();
   ", glue::glue("Shiny.setInputValue(\"{shiny_namespace}browser_version\", br_ver);"), "});"))
-    )),
-    shiny::singleton(htmltools::htmlDependency(
+    ),
+    htmltools::htmlDependency(
       name = "js-cookie",
       version = "3.0.5",
       src = "js/js-cookie-v3.0.5",
       package = "shiny.telemetry",
       script = "js.cookie.min.js"
-    )),
-    shiny::singleton(htmltools::htmlDependency(
+    ),
+    htmltools::htmlDependency(
       name = "manage-cookie",
       version = "1.0.0",
       src = "js",
       package = "shiny.telemetry",
       script = "manage-cookies.js"
-    ))
+    )
+  )
   )
 }
