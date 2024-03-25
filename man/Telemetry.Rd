@@ -362,7 +362,9 @@ A short description...
 \if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_all_inputs(
   track_values = FALSE,
   excluded_inputs = c("browser_version"),
-  session = shiny::getDefaultReactiveDomain()
+  session = shiny::getDefaultReactiveDomain(),
+  include_input_ids = NULL,
+  excluded_inputs_regex = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -379,6 +381,13 @@ package.}
 
 \item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
+
+\item{\code{include_input_ids}}{vector of input_ids that should be tracked.
+This input_ids should be an exact match and will be given priority
+over exclude list.}
+
+\item{\code{excluded_inputs_regex}}{vector of input_ids that should not be
+tracked. Accepts \code{regex} and excludes input_ids based on pattern matching.}
 }
 \if{html}{\out{</div>}}
 }
