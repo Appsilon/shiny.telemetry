@@ -753,11 +753,15 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         cookie_value <- private$extract_cookie(cookie_string = session$request$HTTP_COOKIE)
         # cookie_value will be NULL if either not found or not generated using SHA256 algorithm.
         if (is.null(cookie_value)) {
-          cookie_string <- paste0(
-            session$request$HTTP_USER_AGENT,
-            session$request$REMOTE_ADDR, Sys.time()
+          cookie_value <- digest::digest(
+            c(
+              session$token,
+              session$request$HTTP_USER_AGENT,
+              session$request$REMOTE_ADDR,
+              Sys.time()
+            ),
+            algo = "sha256"
           )
-          cookie_value <- digest::digest(cookie_string, algo = "sha256")
           session$sendCustomMessage("setUserCookie", list(
             cookieName = "shiny_user_cookie",
             cookieValue = cookie_value,
