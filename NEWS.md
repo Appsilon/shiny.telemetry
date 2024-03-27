@@ -5,6 +5,7 @@
 - Updated `get_user` method to retrieve user in `shinyproxy` environment (#124).
 - Added flexibility to select between [`RPostgreSQL`, `RPostgres`] drivers (#147).
 - Improved input tracking by implementing inclusion and exclusion logic (#30).
+- Added tracking for returning anonymous users (#142).
 
 ### Miscellaneous
 
