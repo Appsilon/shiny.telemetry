@@ -120,7 +120,8 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       browser_version = TRUE,
       navigation_input_id = NULL,
       session = shiny::getDefaultReactiveDomain(),
-      username = NULL
+      username = NULL,
+      track_errors = TRUE
     ) {
 
       checkmate::assert_flag(track_inputs)
@@ -148,6 +149,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             "browser_version"
           ),
           navigation_inputs = navigation_input_id,
+          track_errors = track_errors,
           session = session
         )
       } else {
@@ -165,6 +167,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       if (isTRUE(browser_version)) {
         self$log_browser_version(session = session)
       }
+     
 
       NULL
     },
@@ -272,7 +275,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       shiny::onSessionEnded(function() {
         logger::log_debug("event: logout", namespace = "shiny.telemetry")
-
+        browser()
         private$log_generic(
           type = "logout",
           details = list(username = username),
@@ -444,9 +447,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         "{dplyr::coalesce(as.character(value), \"'NULL' (note: it might not be tracked)\")}",
         namespace = "shiny.telemetry"
       )
-
+      type = ifelse(input_id=="track_shiny_error_from_telemetry",value$type,"input")
       private$.log_event(
-        type = "input",
+        type = type,
         details = list(id = input_id, value = value),
         session = session
       )
@@ -465,10 +468,34 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     log_custom_event = function(
       event_type, details = NULL, session = shiny::getDefaultReactiveDomain()
     ) {
+      
       private$.log_event(
         type = event_type, details = details, session = session
       )
+    },
+    #' @description
+    #' Log an error event
+    #'
+    #' @param error_message string that describes the error.
+    #' @param context string that provides additional context about where the error occurred.
+    #' @param session `ShinySession` object or NULL to identify the current Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
+    
+  log_error = function(
+    output_id,
+    message,
+    session = shiny::getDefaultReactiveDomain()
+    ) {
+      checkmate::assert_string(message, null.ok = TRUE)
+      
+      private$.log_event(
+        type = "error",
+        details = list(output_id = output_id,message = message),
+        session = session
+      )
     }
+    
 
   ),
   active = list(
@@ -508,7 +535,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         checkmate::check_r6(session, "ShinySession", null.ok = TRUE),
         checkmate::check_class(session, "session_proxy")
       )
-
       self$data_storage$insert(
         app_name = self$app_name,
         type = type,
@@ -521,6 +547,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       track_values,
       excluded_inputs,
       navigation_inputs,
+      track_errors,
       session
     ) {
       checkmate::assert(
@@ -582,8 +609,11 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
               if (isTRUE(track_values)) {
                 log_value <- new[[name]]
               }
-
-              self$log_input_manual(name, log_value, session)
+              if(!(name == "track_shiny_error_from_telemetry" && !track_errors)){
+                self$log_input_manual(name, log_value, session)
+              }
+               
+              
             }
           }
         }
@@ -646,7 +676,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
               "Writing '{event_type}' event with id: '{input_id}'",
               namespace = "shiny.telemetry"
             )
-
+            
             private$.log_event(
               type = event_type,
               details = list(id = input_id),
@@ -663,6 +693,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     .log_event = function(
       type = NULL, details = NULL, session = NULL
     ) {
+      
       private$log_generic(
         type = type,
         details = details,
@@ -714,6 +745,15 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
           )
         )
       }
+    },
+    config_shiny_error_logs = function(session = shiny::getDefaultReactiveDomain()) {
+      observeEvent(session$input$shiny_telemetry_error, {
+        errorInfo <- jsonlite::fromJSON(session$input$shiny_telemetry_error, simplifyDataFrame = FALSE)
+        
+        self$log_error(
+          paste("Output:", errorInfo$name, "- Error Message:", errorInfo$message)
+        )
+      }, ignoreNULL = TRUE)
     },
 
     get_user = function(

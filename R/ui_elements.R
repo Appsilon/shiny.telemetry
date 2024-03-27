@@ -40,6 +40,17 @@ use_telemetry <- function(id = "") {
   });
       "
       ))
-    )
+    ),
+    tags$script(HTML("
+  $(document).on('shiny:error', function(event) {
+   var errorData = {
+          output_id: event.name,
+          message: event.error.message,
+          type: 'error'
+        };
+        Shiny.setInputValue('track_shiny_error_from_telemetry', errorData, {priority: 'event'});
+  });
+"))
+    
   )
 }
