@@ -36,7 +36,7 @@ the supported providers (see DataStorage)."><!-- mathjax --><script src="https:/
     
     <a class="navbar-brand me-2" href="../index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9004</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -194,7 +194,8 @@ dashboard. By default it will use <code>v0.0.0</code>.</p></dd>
 <span>  browser_version <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  navigation_input_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  username <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  username <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  track_anonymous_user <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -241,6 +242,13 @@ Shiny session.</p></dd>
 <dt><code>username</code></dt>
 <dd><p>Character with username. If set, it will overwrite username
 from session object.</p></dd>
+
+
+<dt><code>track_anonymous_user</code></dt>
+<dd><p>flag that indicates to track anonymous user.
+A cookie is used to track same user without login over multiple sessions,
+This is only activated if none of the automatic methods produce a username
+and when a username is not explicitly defined.<code>TRUE</code> by default</p></dd>
 
 
 </dl><p></p></div>
@@ -633,6 +641,9 @@ Shiny session.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">session</span><span class="op">)</span>, <span class="st">"ShinySession"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="fu">start_session</span><span class="op">(</span>session <span class="op">=</span> <span class="va">session</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>session$request doesn't currently simulate a realistic request on MockShinySession</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>session$request doesn't currently simulate a realistic request on MockShinySession</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>session$request doesn't currently simulate a realistic request on MockShinySession</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="fu">log_click</span><span class="op">(</span><span class="st">"a_button"</span>, session <span class="op">=</span> <span class="va">session</span><span class="op">)</span></span></span>
@@ -645,13 +656,13 @@ Shiny session.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">telemetry</span><span class="op">$</span><span class="va">data_storage</span><span class="op">$</span><span class="fu">read_event_data</span><span class="op">(</span><span class="st">"2020-01-01"</span>, <span class="st">"2025-01-01"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   app_name   type  session id    value custom_field username time               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (dashboar… login cfd703… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>       2024-03-19 <span style="color: #949494;">12:13:54</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> (dashboar… click cfd703… a_bu… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>       2024-03-19 <span style="color: #949494;">12:13:54</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> (dashboar… a_bu… cfd703… <span style="color: #BB0000;">NA</span>    2023  <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>       2024-03-19 <span style="color: #949494;">12:13:54</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> (dashboar… a_bu… cfd703… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    23           <span style="color: #BB0000;">NA</span>       2024-03-19 <span style="color: #949494;">12:13:54</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> (dashboar… login cfd703… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           ben      2024-03-19 <span style="color: #949494;">12:13:54</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   app_name   type  session username id    value custom_field time               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (dashboar… login f920cc… 3604997… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           2024-03-27 <span style="color: #949494;">12:48:54</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> (dashboar… click f920cc… <span style="color: #BB0000;">NA</span>       a_bu… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           2024-03-27 <span style="color: #949494;">12:48:54</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> (dashboar… a_bu… f920cc… <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    2023  <span style="color: #BB0000;">NA</span>           2024-03-27 <span style="color: #949494;">12:48:54</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> (dashboar… a_bu… f920cc… <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    23           2024-03-27 <span style="color: #949494;">12:48:54</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> (dashboar… login f920cc… ben      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           2024-03-27 <span style="color: #949494;">12:48:54</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: date &lt;date&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">log_file_path</span><span class="op">)</span></span></span>
@@ -672,8 +683,8 @@ Shiny session.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   time                app_name session type  value custom_field date       id   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2024-03-19 <span style="color: #949494;">12:13:54</span> (dashbo… cfd703… a_bu… 2023  <span style="color: #BB0000;">NA</span>           4686119-0… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2024-03-19 <span style="color: #949494;">12:13:54</span> (dashbo… cfd703… a_bu… <span style="color: #BB0000;">NA</span>    23           4686119-0… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2024-03-27 <span style="color: #949494;">12:48:54</span> (dashbo… f920cc… a_bu… 2023  <span style="color: #BB0000;">NA</span>           4688017-0… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2024-03-27 <span style="color: #949494;">12:48:54</span> (dashbo… f920cc… a_bu… <span style="color: #BB0000;">NA</span>    23           4688017-0… <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: username &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">db_path</span><span class="op">)</span></span></span>
