@@ -191,7 +191,7 @@
     },
     "bslib": {
       "Package": "bslib",
-      "Version": "0.6.1",
+      "Version": "0.6.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -208,7 +208,7 @@
         "rlang",
         "sass"
       ],
-      "Hash": "c0d8599494bc7fb408cd206bbdd9cab0"
+      "Hash": "7fb73102553e0c8e478bfaa0ccebe479"
     },
     "cachem": {
       "Package": "cachem",
@@ -365,17 +365,6 @@
       ],
       "Hash": "fedd9d00c2944ff00a0e2696ccf048ec"
     },
-    "ellipsis": {
-      "Package": "ellipsis",
-      "Version": "0.3.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "rlang"
-      ],
-      "Hash": "bb0eec2fe32e88d9e2836c2f73ea2077"
-    },
     "evaluate": {
       "Package": "evaluate",
       "Version": "0.23",
@@ -525,20 +514,19 @@
     },
     "htmltools": {
       "Package": "htmltools",
-      "Version": "0.5.7",
+      "Version": "0.5.8",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "base64enc",
         "digest",
-        "ellipsis",
         "fastmap",
         "grDevices",
         "rlang",
         "utils"
       ],
-      "Hash": "2d7b3857980e0e0d0a1fd6f11928ab0f"
+      "Hash": "149431ee39aba5bdc264112c8ff94444"
     },
     "htmlwidgets": {
       "Package": "htmlwidgets",
@@ -557,7 +545,7 @@
     },
     "httpuv": {
       "Package": "httpuv",
-      "Version": "1.6.14",
+      "Version": "1.6.15",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -568,7 +556,7 @@
         "promises",
         "utils"
       ],
-      "Hash": "16abeb167dbf511f8cc0552efaf05bab"
+      "Hash": "d55aa087c47a63ead0f6fc10f8fa1ee0"
     },
     "httr": {
       "Package": "httr",
@@ -1049,7 +1037,7 @@
     },
     "shiny": {
       "Package": "shiny",
-      "Version": "1.8.0",
+      "Version": "1.8.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1059,7 +1047,6 @@
         "cachem",
         "commonmark",
         "crayon",
-        "ellipsis",
         "fastmap",
         "fontawesome",
         "glue",
@@ -1079,7 +1066,7 @@
         "withr",
         "xtable"
       ],
-      "Hash": "3a1f41807d648a908e3c7f0334bf85e6"
+      "Hash": "a49e145ac3d0d1299e19ab215504f88e"
     },
     "shiny.semantic": {
       "Package": "shiny.semantic",
@@ -1103,14 +1090,14 @@
     },
     "shiny.telemetry": {
       "Package": "shiny.telemetry",
-      "Version": "0.2.0.9003",
+      "Version": "0.2.0.9004",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "appsilon",
       "RemoteRepo": "shiny.telemetry",
-      "RemoteRef": "6136a33804a8c100a2be1dd43479f271c218cfe3",
-      "RemoteSha": "6136a33804a8c100a2be1dd43479f271c218cfe3",
+      "RemoteRef": "bfbce9ccbf8c65a40bf03909666c7aebb09233af",
+      "RemoteSha": "bfbce9ccbf8c65a40bf03909666c7aebb09233af",
       "Requirements": [
         "R6",
         "RSQLite",
@@ -1118,6 +1105,7 @@
         "digest",
         "dplyr",
         "glue",
+        "htmltools",
         "httr2",
         "jsonlite",
         "logger",
@@ -1128,7 +1116,7 @@
         "shiny",
         "tidyr"
       ],
-      "Hash": "3df2fb1d2a93c4af885ae31a3e6e0422"
+      "Hash": "94790ed92f66063a9663bde4373f3a52"
     },
     "shinyjs": {
       "Package": "shinyjs",
@@ -1334,7 +1322,7 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.42",
+      "Version": "0.43",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1342,7 +1330,7 @@
         "stats",
         "tools"
       ],
-      "Hash": "fd1349170df31f7a10bd98b0189e85af"
+      "Hash": "ab6371d8653ce5f2f9290f4ec7b42a8e"
     },
     "xtable": {
       "Package": "xtable",
