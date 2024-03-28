@@ -393,7 +393,7 @@ This input_ids should be an exact match and will be given priority
 over exclude list.}
 
 \item{\code{excluded_inputs_regex}}{vector of input_ids that should not be
-tracked. Accepts \code{regex} and excludes input_ids based on pattern matching.}
+tracked. All Special characters will be escaped.}
 }
 \if{html}{\out{</div>}}
 }

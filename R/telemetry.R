@@ -380,24 +380,24 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' This input_ids should be an exact match and will be given priority
     #' over exclude list.
     #' @param excluded_inputs_regex vector of input_ids that should not be
-    #' tracked. Accepts `regex` and excludes input_ids based on pattern matching.
+    #' tracked. All Special characters will be escaped.
     #'
     #' @return Nothing. This method is called for side effects.
 
     log_all_inputs = function(
       track_values = FALSE,
       excluded_inputs = c("browser_version"),
-      session = shiny::getDefaultReactiveDomain(),
+      excluded_inputs_regex = NULL,
       include_input_ids = NULL,
-      excluded_inputs_regex = NULL
+      session = shiny::getDefaultReactiveDomain()
     ) {
       private$.log_all_inputs(
         track_values = track_values,
         excluded_inputs = excluded_inputs,
         navigation_inputs = c(),
-        session = session,
+        excluded_inputs_regex = excluded_inputs_regex,
         include_input_ids = include_input_ids,
-        excluded_inputs_regex = excluded_inputs_regex
+        session = session
       )
     },
 
@@ -527,47 +527,13 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         details = details
       )
     },
-    .config_input_tracker = function(include_input_ids = NULL,
-                                     excluded_inputs = NULL,
-                                     excluded_inputs_regex = NULL,
-                                     track_values = FALSE) {
-      checkmate::assert_character(include_input_ids, null.ok = TRUE, any.missing = FALSE)
-      checkmate::assert_character(excluded_inputs, null.ok = TRUE, any.missing = FALSE)
-      checkmate::assert_character(excluded_inputs_regex, null.ok = TRUE, any.missing = FALSE)
-      checkmate::assert_logical(track_values, len = 1)
-      excluded_pattern <- ""
-      included_pattern <- ""
-      if (!is.null(excluded_inputs_regex)) {
-        excluded_pattern_regex <- paste(excluded_inputs_regex, collapse = "|")
-      } else {
-        excluded_pattern_regex <- ""
-      }
-      if (!is.null(excluded_inputs)) {
-        escaped_excludes <- sapply(excluded_inputs, function(input) {
-          gsub("([][{}()+*^$|\\\\?.^-])", "\\\\\\1", input)
-        })
-        excluded_pattern_exact <- paste(escaped_excludes, collapse = "|")
-      } else {
-        excluded_pattern_exact <- ""
-      }
-      excluded_pattern <- paste0(excluded_pattern_regex, "|", excluded_pattern_exact)
-      if (!is.null(include_input_ids)) {
-        included_pattern <- paste0("^(", paste(sapply(include_input_ids,
-                                                      gsub,
-                                                      pattern = "([][{}()+*^$|\\\\?.^-])",
-                                                      replacement = "\\\\\\1", fixed = FALSE),
-                                               collapse = "|"), ")$")
-        purrr::walk(include_input_ids, ~ self$log_input(input_id = .x, track_value = track_values))
-      }
-      list(excluded_pattern = excluded_pattern, included_pattern = included_pattern)
-    },
     .log_all_inputs = function(
       track_values,
       excluded_inputs,
       navigation_inputs,
-      session,
+      excluded_inputs_regex = NULL,
       include_input_ids = NULL,
-      excluded_inputs_regex = NULL
+      session
     ) {
       checkmate::assert(
         .combine = "or",
@@ -577,6 +543,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       checkmate::assert_flag(track_values)
       checkmate::assert_character(navigation_inputs, null.ok = TRUE)
+      checkmate::assert_character(include_input_ids, null.ok = TRUE)
+      checkmate::assert_character(excluded_inputs, null.ok = TRUE)
+      checkmate::assert_character(excluded_inputs_regex, null.ok = TRUE)
 
       if (is.null(navigation_inputs)) {
         navigation_inputs <- c()
@@ -605,43 +574,32 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             session = session
           )
         )
-      excluded_pattern <- ""
-      included_pattern <-  ""
-      if (!is.null(include_input_ids) ||
-            !is.null(excluded_inputs_regex) || !is.null(excluded_inputs)) {
-        # Build include and exclude regex patterns from user input
-        pattern_list <-  private$.config_input_tracker(
-          include_input_ids = include_input_ids,
-          excluded_inputs = excluded_inputs,
-          excluded_inputs_regex = excluded_inputs_regex,
-          track_values = track_values
-        )
-        excluded_pattern <- if (!is.null(pattern_list$excluded_pattern)) {
-          pattern_list$excluded_pattern
-        } else {
-          excluded_pattern
-        }
-        included_pattern <- if (!is.null(pattern_list$included_pattern)) {
-          pattern_list$included_pattern
-        } else {
-          included_pattern
-        }
+      if (!is.null(include_input_ids)) {
+        purrr::walk(include_input_ids, ~ self$log_input(input_id = .x, track_value = track_values))
       }
       shiny::observe({
         old_input_values <- session$userData$shiny_input_values
         new_input_values <- shiny::reactiveValuesToList(session$input)
-
         if (NROW(new_input_values) != 0) {
           names <- unique(c(names(old_input_values), names(new_input_values)))
-          names <- purrr::keep(names, function(name) {
-            if (included_pattern != "") {
-              !grepl(excluded_pattern, name, perl = TRUE) ||
-                grepl(included_pattern, name, perl = TRUE)
-            } else {
-              !grepl(excluded_pattern, name, perl = TRUE)
-            }
-          })
-          for (name in names) {
+          filtered_names <- names
+          if (!is.null(excluded_inputs) && length(excluded_inputs) > 0) {
+            filtered_names <- filtered_names[!filtered_names %in% excluded_inputs]
+          }
+          if (!is.null(excluded_inputs_regex) && length(excluded_inputs_regex) > 0) {
+            excluded_inputs_regex <- excluded_inputs_regex %>%
+              purrr::map_chr(trimws) %>%
+              purrr::keep(~ nzchar(.x))  %>%
+              purrr::map_chr(~clean_regex(.x)) %>%
+              paste(collapse = "|") %>%
+              sub(pattern = "\\|$", replacement = "")
+            filtered_names <- setdiff(filtered_names,
+                                      grep(excluded_inputs_regex, filtered_names, value = TRUE))
+          }
+          if (!is.null(include_input_ids) && length(include_input_ids) > 0) {
+            filtered_names <- unique(c(filtered_names, intersect(names, include_input_ids)))
+          }
+          for (name in filtered_names) {
             old <- old_input_values[name]
             new <- new_input_values[name]
             if (!identical(old, new)) {
