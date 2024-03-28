@@ -235,7 +235,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         "id: '{navigation_id}' and value: '{value}'",
         namespace = "shiny.telemetry"
       )
-
       private$.log_event(
         type = "navigation",
         details = list(id = navigation_id, value = value),
@@ -377,18 +376,27 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' package.
     #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
+    #' @param include_input_ids vector of input_ids that should be tracked.
+    #' This input_ids should be an exact match and will be given priority
+    #' over exclude list.
+    #' @param excluded_inputs_regex vector of input_ids that should not be
+    #' tracked. All Special characters will be escaped.
     #'
     #' @return Nothing. This method is called for side effects.
 
     log_all_inputs = function(
       track_values = FALSE,
       excluded_inputs = c("browser_version"),
+      excluded_inputs_regex = NULL,
+      include_input_ids = NULL,
       session = shiny::getDefaultReactiveDomain()
     ) {
       private$.log_all_inputs(
         track_values = track_values,
         excluded_inputs = excluded_inputs,
         navigation_inputs = c(),
+        excluded_inputs_regex = excluded_inputs_regex,
+        include_input_ids = include_input_ids,
         session = session
       )
     },
@@ -450,7 +458,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         "{dplyr::coalesce(as.character(value), \"'NULL' (note: it might not be tracked)\")}",
         namespace = "shiny.telemetry"
       )
-
       private$.log_event(
         type = "input",
         details = list(id = input_id, value = value),
@@ -475,7 +482,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         type = event_type, details = details, session = session
       )
     }
-
   ),
   active = list(
 
@@ -514,7 +520,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         checkmate::check_r6(session, "ShinySession", null.ok = TRUE),
         checkmate::check_class(session, "session_proxy")
       )
-
       self$data_storage$insert(
         app_name = self$app_name,
         type = type,
@@ -522,11 +527,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         details = details
       )
     },
-
     .log_all_inputs = function(
       track_values,
       excluded_inputs,
       navigation_inputs,
+      excluded_inputs_regex = NULL,
+      include_input_ids = NULL,
       session
     ) {
       checkmate::assert(
@@ -536,8 +542,10 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
 
       checkmate::assert_flag(track_values)
-      checkmate::assert_character(excluded_inputs, null.ok = TRUE)
       checkmate::assert_character(navigation_inputs, null.ok = TRUE)
+      checkmate::assert_character(include_input_ids, null.ok = TRUE)
+      checkmate::assert_character(excluded_inputs, null.ok = TRUE)
+      checkmate::assert_character(excluded_inputs_regex, null.ok = TRUE)
 
       if (is.null(navigation_inputs)) {
         navigation_inputs <- c()
@@ -566,29 +574,43 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             session = session
           )
         )
-
+      if (!is.null(include_input_ids)) {
+        purrr::walk(include_input_ids, ~ self$log_input(input_id = .x, track_value = track_values))
+      }
       shiny::observe({
         old_input_values <- session$userData$shiny_input_values
         new_input_values <- shiny::reactiveValuesToList(session$input)
-
         if (NROW(new_input_values) != 0) {
           names <- unique(c(names(old_input_values), names(new_input_values)))
-          names <- setdiff(names, excluded_inputs)
-          for (name in names) {
+          filtered_names <- names
+          if (!is.null(excluded_inputs) && length(excluded_inputs) > 0) {
+            filtered_names <- filtered_names[!filtered_names %in% excluded_inputs]
+          }
+          if (!is.null(excluded_inputs_regex) && length(excluded_inputs_regex) > 0) {
+            excluded_inputs_regex <- excluded_inputs_regex %>%
+              purrr::map_chr(trimws) %>%
+              purrr::keep(~ nzchar(.x))  %>%
+              purrr::map_chr(~clean_regex(.x)) %>%
+              paste(collapse = "|") %>%
+              sub(pattern = "\\|$", replacement = "")
+            filtered_names <- setdiff(filtered_names,
+                                      grep(excluded_inputs_regex, filtered_names, value = TRUE))
+          }
+          if (!is.null(include_input_ids) && length(include_input_ids) > 0) {
+            filtered_names <- unique(c(filtered_names, intersect(names, include_input_ids)))
+          }
+          for (name in filtered_names) {
             old <- old_input_values[name]
             new <- new_input_values[name]
             if (!identical(old, new)) {
-
               if (name %in% navigation_inputs) {
                 self$log_navigation_manual(name, new[[name]], session)
                 next
               }
-
               log_value <- NULL
               if (isTRUE(track_values)) {
                 log_value <- new[[name]]
               }
-
               self$log_input_manual(name, log_value, session)
             }
           }
@@ -609,7 +631,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       checkmate::assert_string(input_id)
       checkmate::assert_flag(track_value)
-
       checkmate::assert(
         .combine = "or",
         checkmate::check_atomic_vector(matching_values),
@@ -652,7 +673,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
               "Writing '{event_type}' event with id: '{input_id}'",
               namespace = "shiny.telemetry"
             )
-
             private$.log_event(
               type = event_type,
               details = list(id = input_id),
