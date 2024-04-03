@@ -363,14 +363,16 @@ Nothing. This method is called for side effects.
 \if{html}{\out{<a id="method-Telemetry-log_all_inputs"></a>}}
 \if{latex}{\out{\hypertarget{method-Telemetry-log_all_inputs}{}}}
 \subsection{Method \code{log_all_inputs()}}{
-A short description...
+Automatic tracking of all input changes in the App. Depending on the
+parameters, it may only track a subset of inputs by excluding patterns
+or by including specific vector of \code{input_ids}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_all_inputs(
   track_values = FALSE,
   excluded_inputs = c("browser_version"),
-  session = shiny::getDefaultReactiveDomain(),
+  excluded_inputs_regex = NULL,
   include_input_ids = NULL,
-  excluded_inputs_regex = NULL
+  session = shiny::getDefaultReactiveDomain()
 )}\if{html}{\out{</div>}}
 }
 
@@ -385,15 +387,15 @@ This parameter is ignored if \code{track_inputs} is \code{FALSE}.}
 By default it doesn't track browser version, which is added by this
 package.}
 
-\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
-Shiny session.}
+\item{\code{excluded_inputs_regex}}{vector of input_ids that should not be
+tracked. All Special characters will be escaped.}
 
-\item{\code{include_input_ids}}{vector of input_ids that should be tracked.
+\item{\code{include_input_ids}}{vector of input_ids that will be tracked.
 This input_ids should be an exact match and will be given priority
 over exclude list.}
 
-\item{\code{excluded_inputs_regex}}{vector of input_ids that should not be
-tracked. All Special characters will be escaped.}
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current
+Shiny session.}
 }
 \if{html}{\out{</div>}}
 }
@@ -405,7 +407,7 @@ Nothing. This method is called for side effects.
 \if{html}{\out{<a id="method-Telemetry-log_input"></a>}}
 \if{latex}{\out{\hypertarget{method-Telemetry-log_input}{}}}
 \subsection{Method \code{log_input()}}{
-A short description...
+Track changes of a specific input id.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_input(
   input_id,
@@ -419,8 +421,12 @@ A short description...
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{input_id}}{string that identifies the generic input in the Shiny
-application so that the function can track and log changes to it.}
+\item{\code{input_id}}{string (or vector of strings) that identifies the
+generic input in the Shiny application so that the function can track and
+log changes to it.
+
+When the \code{input_id} is a vector of strings, the function will behave just
+as calling \code{log_input} one by one with the same arguments.}
 
 \item{\code{track_value}}{flag that indicates if the basic telemetry should
 track the value of the input that are changing. \code{FALSE} by default.}
@@ -436,7 +442,7 @@ Shiny session.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Nothing. This method is called for side effects.
+Nothing. This method is called for its side effects.
 }
 }
 \if{html}{\out{<hr>}}

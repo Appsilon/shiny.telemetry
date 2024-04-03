@@ -366,7 +366,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     },
 
     #' @description
-    #' A short description...
+    #' Automatic tracking of all input changes in the App. Depending on the
+    #' parameters, it may only track a subset of inputs by excluding patterns
+    #' or by including specific vector of `input_ids`.
     #'
     #' @param track_values flag that indicates if the basic telemetry should
     #' track the values of the inputs that are changing. `FALSE` by default.
@@ -376,7 +378,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' package.
     #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
-    #' @param include_input_ids vector of input_ids that should be tracked.
+    #' @param include_input_ids vector of input_ids that will be tracked.
     #' This input_ids should be an exact match and will be given priority
     #' over exclude list.
     #' @param excluded_inputs_regex vector of input_ids that should not be
@@ -402,9 +404,14 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     },
 
     #' @description
-    #' A short description...
-    #' @param input_id string that identifies the generic input in the Shiny
-    #' application so that the function can track and log changes to it.
+    #' Track changes of a specific input id.
+    #'
+    #' @param input_id string (or vector of strings) that identifies the
+    #' generic input in the Shiny application so that the function can track and
+    #' log changes to it.
+    #'
+    #' When the `input_id` is a vector of strings, the function will behave just
+    #' as calling `log_input` one by one with the same arguments.
     #' @param track_value flag that indicates if the basic telemetry should
     #' track the value of the input that are changing. `FALSE` by default.
     #' @param matching_values An object specified possible values to register.
@@ -413,7 +420,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
-    #' @return Nothing. This method is called for side effects.
+    #' @return Nothing. This method is called for its side effects.
 
     log_input = function(
       input_id,
