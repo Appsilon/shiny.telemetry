@@ -468,7 +468,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       logger::log_debug(
         "event: input '{input_id}' change: ",
-        "{dplyr::coalesce(as.character(value), \"'NULL' (note: it might not be tracked)\")}",
+        "{as.character(value %||% \"'NULL' (note: it might not be tracked)\")}",
         namespace = "shiny.telemetry"
       )
       private$.log_event(
