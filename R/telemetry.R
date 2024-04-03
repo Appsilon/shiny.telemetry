@@ -366,7 +366,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     },
 
     #' @description
-    #' A short description...
+    #' Automatic tracking of all input changes in the App. Depending on the
+    #' parameters, it may only track a subset of inputs by excluding patterns
+    #' or by including specific vector of `input_ids`.
     #'
     #' @param track_values flag that indicates if the basic telemetry should
     #' track the values of the inputs that are changing. `FALSE` by default.
@@ -376,7 +378,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' package.
     #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
-    #' @param include_input_ids vector of input_ids that should be tracked.
+    #' @param include_input_ids vector of input_ids that will be tracked.
     #' This input_ids should be an exact match and will be given priority
     #' over exclude list.
     #' @param excluded_inputs_regex vector of input_ids that should not be
@@ -402,9 +404,14 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     },
 
     #' @description
-    #' A short description...
-    #' @param input_id string that identifies the generic input in the Shiny
-    #' application so that the function can track and log changes to it.
+    #' Track changes of a specific input id.
+    #'
+    #' @param input_id string (or vector of strings) that identifies the
+    #' generic input in the Shiny application so that the function can track and
+    #' log changes to it.
+    #'
+    #' When the `input_id` is a vector of strings, the function will behave just
+    #' as calling `log_input` one by one with the same arguments.
     #' @param track_value flag that indicates if the basic telemetry should
     #' track the value of the input that are changing. `FALSE` by default.
     #' @param matching_values An object specified possible values to register.
@@ -413,7 +420,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param session `ShinySession` object or NULL to identify the current
     #' Shiny session.
     #'
-    #' @return Nothing. This method is called for side effects.
+    #' @return Nothing. This method is called for its side effects.
 
     log_input = function(
       input_id,
@@ -422,14 +429,20 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       input_type = "text",
       session = shiny::getDefaultReactiveDomain()
     ) {
-      private$.log_input(
-        input_id = input_id,
-        track_value = track_value,
-        matching_values = matching_values,
-        input_type = input_type,
-        event_type = "input",
-        session = session
+      checkmate::assert_character(input_id, min.len = 1)
+
+      purrr::walk(
+        input_id,
+        ~ private$.log_input(
+          input_id = .x,
+          track_value = track_value,
+          matching_values = matching_values,
+          input_type = input_type,
+          event_type = "input",
+          session = session
+        )
       )
+      invisible(NULL)
     },
 
     #' @description
@@ -455,7 +468,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
 
       logger::log_debug(
         "event: input '{input_id}' change: ",
-        "{dplyr::coalesce(as.character(value), \"'NULL' (note: it might not be tracked)\")}",
+        "{as.character(value %||% \"'NULL' (note: it might not be tracked)\")}",
         namespace = "shiny.telemetry"
       )
       private$.log_event(
@@ -556,12 +569,14 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
       session$userData$shiny_input_values <- input_values
 
-      logger::log_debug(logger::skip_formatter(
-                                               paste(
-                                                 "shiny inputs initialized:",
-                                                 paste(names(input_values), collapse = ", ")
-                                               )),
-      namespace = "shiny.telemetry"
+      logger::log_debug(
+        logger::skip_formatter(
+          paste(
+            "shiny inputs initialized:",
+            paste(names(input_values), collapse = ", ")
+          )
+        ),
+        namespace = "shiny.telemetry"
       )
 
       # Log initial value for navigation
@@ -574,31 +589,39 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             session = session
           )
         )
-      if (!is.null(include_input_ids)) {
-        purrr::walk(include_input_ids, ~ self$log_input(input_id = .x, track_value = track_values))
-      }
+
       shiny::observe({
         old_input_values <- session$userData$shiny_input_values
         new_input_values <- shiny::reactiveValuesToList(session$input)
         if (NROW(new_input_values) != 0) {
           names <- unique(c(names(old_input_values), names(new_input_values)))
           filtered_names <- names
-          if (!is.null(excluded_inputs) && length(excluded_inputs) > 0) {
+
+          # Filter out excluded inputs by exact match
+          if (length(excluded_inputs) > 0) {
             filtered_names <- filtered_names[!filtered_names %in% excluded_inputs]
           }
-          if (!is.null(excluded_inputs_regex) && length(excluded_inputs_regex) > 0) {
+
+          # Filter out excluded inputs by regular expression
+          if (length(excluded_inputs_regex) > 0) {
             excluded_inputs_regex <- excluded_inputs_regex %>%
               purrr::map_chr(trimws) %>%
               purrr::keep(~ nzchar(.x))  %>%
               purrr::map_chr(~clean_regex(.x)) %>%
               paste(collapse = "|") %>%
               sub(pattern = "\\|$", replacement = "")
-            filtered_names <- setdiff(filtered_names,
-                                      grep(excluded_inputs_regex, filtered_names, value = TRUE))
+            filtered_names <- setdiff(
+              filtered_names,
+              grep(excluded_inputs_regex, filtered_names, value = TRUE)
+            )
           }
-          if (!is.null(include_input_ids) && length(include_input_ids) > 0) {
+
+          # Force `include_inputs_ids` to be tracked (if they exist)
+          if (length(include_input_ids) > 0) {
             filtered_names <- unique(c(filtered_names, intersect(names, include_input_ids)))
           }
+
+          # For each of the filtered names, log the input change
           for (name in filtered_names) {
             old <- old_input_values[name]
             new <- new_input_values[name]
