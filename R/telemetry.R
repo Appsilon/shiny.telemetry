@@ -422,14 +422,20 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       input_type = "text",
       session = shiny::getDefaultReactiveDomain()
     ) {
-      private$.log_input(
-        input_id = input_id,
-        track_value = track_value,
-        matching_values = matching_values,
-        input_type = input_type,
-        event_type = "input",
-        session = session
+      checkmate::assert_character(input_id, min.len = 1)
+
+      purrr::walk(
+        input_id,
+        ~ private$.log_input(
+          input_id = .x,
+          track_value = track_value,
+          matching_values = matching_values,
+          input_type = input_type,
+          event_type = "input",
+          session = session
+        )
       )
+      invisible(NULL)
     },
 
     #' @description
@@ -556,12 +562,14 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       )
       session$userData$shiny_input_values <- input_values
 
-      logger::log_debug(logger::skip_formatter(
-                                               paste(
-                                                 "shiny inputs initialized:",
-                                                 paste(names(input_values), collapse = ", ")
-                                               )),
-      namespace = "shiny.telemetry"
+      logger::log_debug(
+        logger::skip_formatter(
+          paste(
+            "shiny inputs initialized:",
+            paste(names(input_values), collapse = ", ")
+          )
+        ),
+        namespace = "shiny.telemetry"
       )
 
       # Log initial value for navigation
@@ -574,31 +582,39 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             session = session
           )
         )
-      if (!is.null(include_input_ids)) {
-        purrr::walk(include_input_ids, ~ self$log_input(input_id = .x, track_value = track_values))
-      }
+
       shiny::observe({
         old_input_values <- session$userData$shiny_input_values
         new_input_values <- shiny::reactiveValuesToList(session$input)
         if (NROW(new_input_values) != 0) {
           names <- unique(c(names(old_input_values), names(new_input_values)))
           filtered_names <- names
-          if (!is.null(excluded_inputs) && length(excluded_inputs) > 0) {
+
+          # Filter out excluded inputs by exact match
+          if (length(excluded_inputs) > 0) {
             filtered_names <- filtered_names[!filtered_names %in% excluded_inputs]
           }
-          if (!is.null(excluded_inputs_regex) && length(excluded_inputs_regex) > 0) {
+
+          # Filter out excluded inputs by regular expression
+          if (length(excluded_inputs_regex) > 0) {
             excluded_inputs_regex <- excluded_inputs_regex %>%
               purrr::map_chr(trimws) %>%
               purrr::keep(~ nzchar(.x))  %>%
               purrr::map_chr(~clean_regex(.x)) %>%
               paste(collapse = "|") %>%
               sub(pattern = "\\|$", replacement = "")
-            filtered_names <- setdiff(filtered_names,
-                                      grep(excluded_inputs_regex, filtered_names, value = TRUE))
+            filtered_names <- setdiff(
+              filtered_names,
+              grep(excluded_inputs_regex, filtered_names, value = TRUE)
+            )
           }
-          if (!is.null(include_input_ids) && length(include_input_ids) > 0) {
+
+          # Force `include_inputs_ids` to be tracked (if they exist)
+          if (length(include_input_ids) > 0) {
             filtered_names <- unique(c(filtered_names, intersect(names, include_input_ids)))
           }
+
+          # For each of the filtered names, log the input change
           for (name in filtered_names) {
             old <- old_input_values[name]
             new <- new_input_values[name]
