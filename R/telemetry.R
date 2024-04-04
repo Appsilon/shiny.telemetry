@@ -607,7 +607,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
             excluded_inputs_regex <- excluded_inputs_regex %>%
               purrr::map_chr(trimws) %>%
               purrr::keep(~ nzchar(.x))  %>%
-              purrr::map_chr(~clean_regex(.x)) %>%
+              purrr::map_chr(~escape_regex(.x)) %>%
               paste(collapse = "|") %>%
               sub(pattern = "\\|$", replacement = "")
             filtered_names <- setdiff(

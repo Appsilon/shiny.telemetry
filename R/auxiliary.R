@@ -127,10 +127,6 @@ process_row_details <- function(details_json) {
 #'
 #' @noRd
 #' @keywords internal
-clean_regex <- function(input) {
-  if (input == "\\") {
-    "\\\\"
-  } else {
-    gsub("([\\[\\]{}()*+?.^$|-])", "\\\\\\1", input, perl = TRUE)
-  }
+escape_regex <- function(input) {
+  stringr::str_escape(input)
 }
