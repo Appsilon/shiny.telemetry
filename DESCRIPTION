@@ -34,7 +34,8 @@ Imports:
     RSQLite,
     shiny,
     tidyr,
-    htmltools
+    htmltools,
+    stringr
 Suggests:
     box,
     config,
