@@ -11,6 +11,24 @@ use_telemetry <- function(id = "") {
   if (!is.null(id) && !identical(trimws(id), "")) {
     shiny_namespace <- shiny::NS(trimws(id), "")
   }
+  track_error_script <- if (!("onUnhandledError" %in% ls(getNamespace("shiny")))) {
+    shiny::tags$script(
+      shiny::HTML(
+        glue::glue(
+          "$(document).on('shiny:error', function(event) {{
+            var errorData = {{
+              output_id: event.name,
+              message: event.error.message,
+              type: 'error'
+            }};
+            Shiny.setInputValue('{shiny_namespace}track_error', errorData, {{priority: 'event'}});
+          }});"
+        )
+      )
+    )
+  } else {
+    NULL
+  }
   shiny::singleton(shiny::tagList(
     shiny::tags$script(
       type = "text/javascript",
@@ -46,7 +64,8 @@ use_telemetry <- function(id = "") {
       src = "js",
       package = "shiny.telemetry",
       script = "manage-cookies.js"
-    )
+    ),
+    track_error_script
   )
   )
 }

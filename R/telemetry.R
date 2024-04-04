@@ -112,7 +112,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @param track_anonymous_user flag that indicates to track anonymous user.
     #' A cookie is used to track same user without login over multiple sessions,
     #' This is only activated if none of the automatic methods produce a username
-    #' and when a username is not explicitly defined.`TRUE` by default
+    #' and when a username is not explicitly defined.`TRUE` by default.
+    #' @param track_errors flag that indicates if the basic telemetry should
+    #' track the errors. `TRUE` by default
     #'
     #' @return Nothing. This method is called for side effects.
 
@@ -173,8 +175,16 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       if (isTRUE(browser_version)) {
         self$log_browser_version(session = session)
       }
-     
-
+      if (isTRUE(track_errors)) {
+        if ("onUnhandledError" %in% ls(getNamespace("shiny"))) {
+          shiny::onUnhandledError(function(error) {
+            self$log_error(
+              output_id = "global",
+              message = conditionMessage(error)
+            )
+          })
+        }
+      }
       NULL
     },
 
@@ -281,7 +291,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     ) {
       shiny::onSessionEnded(function() {
         logger::log_debug("event: logout", namespace = "shiny.telemetry")
-        browser()
         private$log_generic(
           type = "logout",
           details = list(username = username),
@@ -453,7 +462,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         "{dplyr::coalesce(as.character(value), \"'NULL' (note: it might not be tracked)\")}",
         namespace = "shiny.telemetry"
       )
-      type = ifelse(input_id=="track_shiny_error_from_telemetry",value$type,"input")
+      type <- ifelse(input_id == "track_error", value$type, "input")
       private$.log_event(
         type = type,
         details = list(id = input_id, value = value),
@@ -474,7 +483,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     log_custom_event = function(
       event_type, details = NULL, session = shiny::getDefaultReactiveDomain()
     ) {
-      
       private$.log_event(
         type = event_type, details = details, session = session
       )
@@ -482,27 +490,24 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' @description
     #' Log an error event
     #'
-    #' @param error_message string that describes the error.
-    #' @param context string that provides additional context about where the error occurred.
+    #' @param output_id string that refers to the output element where the error occurred.
+    #' @param message string that describes the error.
     #' @param session `ShinySession` object or NULL to identify the current Shiny session.
     #'
     #' @return Nothing. This method is called for side effects.
-    
-  log_error = function(
-    output_id,
-    message,
-    session = shiny::getDefaultReactiveDomain()
+    log_error = function(
+      output_id,
+      message,
+      session = shiny::getDefaultReactiveDomain()
     ) {
+      checkmate::assert_string(output_id, null.ok = TRUE)
       checkmate::assert_string(message, null.ok = TRUE)
-      
       private$.log_event(
         type = "error",
-        details = list(output_id = output_id,message = message),
+        details = list(output_id = output_id, message = message),
         session = session
       )
     }
-    
-
   ),
   active = list(
 
@@ -615,15 +620,12 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
               if (isTRUE(track_values)) {
                 log_value <- new[[name]]
               }
-              if(!(name == "track_shiny_error_from_telemetry" && !track_errors)){
+              if (!(name == "track_error" && !track_errors)) {
                 self$log_input_manual(name, log_value, session)
               }
-               
-              
             }
           }
         }
-
         session$userData$shiny_input_values <- new_input_values
         input_values <- new_input_values
       })
@@ -682,7 +684,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
               "Writing '{event_type}' event with id: '{input_id}'",
               namespace = "shiny.telemetry"
             )
-            
             private$.log_event(
               type = event_type,
               details = list(id = input_id),
@@ -699,7 +700,6 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     .log_event = function(
       type = NULL, details = NULL, session = NULL
     ) {
-      
       private$log_generic(
         type = type,
         details = details,

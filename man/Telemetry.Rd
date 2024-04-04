@@ -85,6 +85,7 @@ file.remove(db_path)
 \item \href{#method-Telemetry-log_input}{\code{Telemetry$log_input()}}
 \item \href{#method-Telemetry-log_input_manual}{\code{Telemetry$log_input_manual()}}
 \item \href{#method-Telemetry-log_custom_event}{\code{Telemetry$log_custom_event()}}
+\item \href{#method-Telemetry-log_error}{\code{Telemetry$log_error()}}
 \item \href{#method-Telemetry-clone}{\code{Telemetry$clone()}}
 }
 }
@@ -133,7 +134,8 @@ Setup basic telemetry
   navigation_input_id = NULL,
   session = shiny::getDefaultReactiveDomain(),
   username = NULL,
-  track_anonymous_user = TRUE
+  track_anonymous_user = TRUE,
+  track_errors = TRUE
 )}\if{html}{\out{</div>}}
 }
 
@@ -170,7 +172,10 @@ from session object.}
 \item{\code{track_anonymous_user}}{flag that indicates to track anonymous user.
 A cookie is used to track same user without login over multiple sessions,
 This is only activated if none of the automatic methods produce a username
-and when a username is not explicitly defined.\code{TRUE} by default}
+and when a username is not explicitly defined.\code{TRUE} by default.}
+
+\item{\code{track_errors}}{flag that indicates if the basic telemetry should
+track the errors. \code{TRUE} by default}
 }
 \if{html}{\out{</div>}}
 }
@@ -486,6 +491,34 @@ Log a manual event
 
 \item{\code{session}}{\code{ShinySession} object or NULL to identify the current
 Shiny session.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing. This method is called for side effects.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Telemetry-log_error"></a>}}
+\if{latex}{\out{\hypertarget{method-Telemetry-log_error}{}}}
+\subsection{Method \code{log_error()}}{
+Log an error event
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_error(
+  output_id,
+  message,
+  session = shiny::getDefaultReactiveDomain()
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{output_id}}{string that refers to the output element where the error occurred.}
+
+\item{\code{message}}{string that describes the error.}
+
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current Shiny session.}
 }
 \if{html}{\out{</div>}}
 }
