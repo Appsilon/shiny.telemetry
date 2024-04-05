@@ -117,16 +117,3 @@ process_row_details <- function(details_json) {
 
   tmp_result
 }
-
-#' clean inputs by escaping all the special characters,
-#' to use them pattern matching
-#'
-#' @param input string that need to be cleaned
-#'
-#' @return A cleaned regex pattern after escaping special characters.
-#'
-#' @noRd
-#' @keywords internal
-escape_regex <- function(input) {
-  stringr::str_escape(input)
-}
