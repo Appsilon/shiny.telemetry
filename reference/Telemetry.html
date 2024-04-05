@@ -36,7 +36,7 @@ the supported providers (see DataStorage)."><!-- mathjax --><script src="https:/
     
     <a class="navbar-brand me-2" href="../index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9005</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -457,11 +457,15 @@ Shiny session.</p></dd>
 
 </div><p></p><hr><a id="method-Telemetry-log_all_inputs"></a><div class="section">
 <h3 id="method-log-all-inputs-">Method <code>log_all_inputs()</code><a class="anchor" aria-label="anchor" href="#method-log-all-inputs-"></a></h3>
-<p>A short description...</p><div class="section">
+<p>Automatic tracking of all input changes in the App. Depending on the
+parameters, it may only track a subset of inputs by excluding patterns
+or by including specific vector of <code>input_ids</code>.</p><div class="section">
 <h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_all_inputs</span><span class="op">(</span></span>
 <span>  track_values <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  excluded_inputs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"browser_version"</span><span class="op">)</span>,</span>
+<span>  excluded_inputs_regex <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  include_input_ids <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
@@ -480,6 +484,17 @@ By default it doesn't track browser version, which is added by this
 package.</p></dd>
 
 
+<dt><code>excluded_inputs_regex</code></dt>
+<dd><p>vector of input_ids that should not be
+tracked. All Special characters will be escaped.</p></dd>
+
+
+<dt><code>include_input_ids</code></dt>
+<dd><p>vector of input_ids that will be tracked.
+This input_ids should be an exact match and will be given priority
+over exclude list.</p></dd>
+
+
 <dt><code>session</code></dt>
 <dd><p><code>ShinySession</code> object or NULL to identify the current
 Shiny session.</p></dd>
@@ -494,7 +509,7 @@ Shiny session.</p></dd>
 
 </div><p></p><hr><a id="method-Telemetry-log_input"></a><div class="section">
 <h3 id="method-log-input-">Method <code>log_input()</code><a class="anchor" aria-label="anchor" href="#method-log-input-"></a></h3>
-<p>A short description...</p><div class="section">
+<p>Track changes of a specific input id.</p><div class="section">
 <h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_input</span><span class="op">(</span></span>
 <span>  <span class="va">input_id</span>,</span>
@@ -508,8 +523,11 @@ Shiny session.</p></dd>
 <div class="section">
 <h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>input_id</code></dt>
-<dd><p>string that identifies the generic input in the Shiny
-application so that the function can track and log changes to it.</p></dd>
+<dd><p>string (or vector of strings) that identifies the
+generic input in the Shiny application so that the function can track and
+log changes to it.</p>
+<p>When the <code>input_id</code> is a vector of strings, the function will behave just
+as calling <code>log_input</code> one by one with the same arguments.</p></dd>
 
 
 <dt><code>track_value</code></dt>
@@ -535,7 +553,7 @@ Shiny session.</p></dd>
 </div>
 <div class="section">
 <h4 id="returns-9">Returns<a class="anchor" aria-label="anchor" href="#returns-9"></a></h4>
-<p>Nothing. This method is called for side effects.</p>
+<p>Nothing. This method is called for its side effects.</p>
 </div>
 
 </div><p></p><hr><a id="method-Telemetry-log_input_manual"></a><div class="section">
@@ -658,11 +676,11 @@ Shiny session.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   app_name   type  session username id    value custom_field time               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (dashboar… login f920cc… 3604997… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           2024-03-27 <span style="color: #949494;">12:48:54</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> (dashboar… click f920cc… <span style="color: #BB0000;">NA</span>       a_bu… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           2024-03-27 <span style="color: #949494;">12:48:54</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> (dashboar… a_bu… f920cc… <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    2023  <span style="color: #BB0000;">NA</span>           2024-03-27 <span style="color: #949494;">12:48:54</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> (dashboar… a_bu… f920cc… <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    23           2024-03-27 <span style="color: #949494;">12:48:54</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> (dashboar… login f920cc… ben      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           2024-03-27 <span style="color: #949494;">12:48:54</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (dashboar… login 8cc5cb… 1c0ae9a… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           2024-04-05 <span style="color: #949494;">09:27:51</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> (dashboar… click 8cc5cb… <span style="color: #BB0000;">NA</span>       a_bu… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           2024-04-05 <span style="color: #949494;">09:27:51</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> (dashboar… a_bu… 8cc5cb… <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    2023  <span style="color: #BB0000;">NA</span>           2024-04-05 <span style="color: #949494;">09:27:51</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> (dashboar… a_bu… 8cc5cb… <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    23           2024-04-05 <span style="color: #949494;">09:27:51</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> (dashboar… login 8cc5cb… ben      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           2024-04-05 <span style="color: #949494;">09:27:51</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: date &lt;date&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">log_file_path</span><span class="op">)</span></span></span>
@@ -683,8 +701,8 @@ Shiny session.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   time                app_name session type  value custom_field date       id   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2024-03-27 <span style="color: #949494;">12:48:54</span> (dashbo… f920cc… a_bu… 2023  <span style="color: #BB0000;">NA</span>           4688017-0… <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2024-03-27 <span style="color: #949494;">12:48:54</span> (dashbo… f920cc… a_bu… <span style="color: #BB0000;">NA</span>    23           4688017-0… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2024-04-05 <span style="color: #949494;">09:27:51</span> (dashbo… 8cc5cb… a_bu… 2023  <span style="color: #BB0000;">NA</span>           4690113-0… <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2024-04-05 <span style="color: #949494;">09:27:51</span> (dashbo… 8cc5cb… a_bu… <span style="color: #BB0000;">NA</span>    23           4690113-0… <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: username &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">db_path</span><span class="op">)</span></span></span>
