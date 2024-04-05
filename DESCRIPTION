@@ -7,6 +7,7 @@ Authors@R: c(
     person("Kamil", "Żyła", , "kamil@appsilon.com", role = "aut"),
     person("Krystian", "Igras", , "krystian8207@gmail.com", role = "aut"),
     person("Recle", "Vibal", , "recle.vibal@appsilon.com", role = "aut"),
+    person("Arun", "Kodati", , "arun.kodati@appsilon.com", role = "aut"),
     person("Appsilon Sp. z o.o.", , , "opensource@appsilon.com", role = "cph")
   )
 Description: Enables instrumentation of 'Shiny' apps for tracking user
