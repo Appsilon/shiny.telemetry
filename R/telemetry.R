@@ -114,7 +114,9 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
     #' This is only activated if none of the automatic methods produce a username
     #' and when a username is not explicitly defined.`TRUE` by default.
     #' @param track_errors flag that indicates if the basic telemetry should
-    #' track the errors. `TRUE` by default
+    #' track the errors. `TRUE` by default. if using shiny version < `1.8.1`,
+    #' it can auto log errors only in UI output functions.
+    #' By using latest versions of shiny, it can auto log all types of errors.
     #'
     #' @return Nothing. This method is called for side effects.
 
@@ -137,6 +139,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
       checkmate::assert_flag(logout)
       checkmate::assert_flag(browser_version)
       checkmate::assert_flag(track_anonymous_user)
+      checkmate::assert_flag(track_errors)
 
       checkmate::assert_character(navigation_input_id, null.ok = TRUE)
 

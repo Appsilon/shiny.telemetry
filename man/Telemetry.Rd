@@ -175,7 +175,9 @@ This is only activated if none of the automatic methods produce a username
 and when a username is not explicitly defined.\code{TRUE} by default.}
 
 \item{\code{track_errors}}{flag that indicates if the basic telemetry should
-track the errors. \code{TRUE} by default}
+track the errors. \code{TRUE} by default. if using shiny version < \verb{1.8.1},
+it can auto log errors only in UI output functions.
+By using latest versions of shiny, it can auto log all types of errors.}
 }
 \if{html}{\out{</div>}}
 }
