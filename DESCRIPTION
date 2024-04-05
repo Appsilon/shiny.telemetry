@@ -1,12 +1,13 @@
 Type: Package
 Package: shiny.telemetry
 Title: 'Shiny' App Usage Telemetry
-Version: 0.2.0.9004
+Version: 0.2.0.9005
 Authors@R: c(
     person("André", "Veríssimo", , "opensource+andre@appsilon.com", role = c("aut", "cre")),
     person("Kamil", "Żyła", , "kamil@appsilon.com", role = "aut"),
     person("Krystian", "Igras", , "krystian8207@gmail.com", role = "aut"),
     person("Recle", "Vibal", , "recle.vibal@appsilon.com", role = "aut"),
+    person("Arun", "Kodati", , "arun.kodati@appsilon.com", role = "aut"),
     person("Appsilon Sp. z o.o.", , , "opensource@appsilon.com", role = "cph")
   )
 Description: Enables instrumentation of 'Shiny' apps for tracking user
@@ -34,7 +35,8 @@ Imports:
     RSQLite,
     shiny,
     tidyr,
-    htmltools
+    htmltools,
+    stringr
 Suggests:
     box,
     config,

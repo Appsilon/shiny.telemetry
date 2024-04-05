@@ -11,4 +11,5 @@ fake_function <- function() {
   httr2::request
   odbc::dbConnect
   jsonlite::toJSON
+  stringr::str_escape
 }
