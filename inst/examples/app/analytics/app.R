@@ -30,13 +30,4 @@ if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
   )
 }
 
-# check if there is data in the data_storage
-if (nrow(data_storage$read_event_data()) > 0) {
-  # run the analytics app if there is data
-  analytics_app(data_storage = data_storage)
-} else {
-  # the empty app if there is no data
-  empty_app()
-}
-
-# shiny::shinyAppDir(file.path("inst", "examples", "app", "analytics"))
+analytics_app(data_storage = data_storage)
