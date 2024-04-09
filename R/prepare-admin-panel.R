@@ -125,6 +125,34 @@ get_per_day_plot_data <- function(base, per_day) {
 prepare_admin_panel_components <- function(
   input, output, session, data_storage
 ) {
+  if (nrow(data_storage$read_event_data()) == 0) {
+    shiny.semantic::create_modal(
+      shiny.semantic::modal(
+        id = "no_data_modal",
+        title = "Warning",
+        content = shiny::tags$div(
+          class = "grid",
+          shiny::tags$div(
+            class = "sixteen wide column center aligned",
+            style = "text-align: center; padding: 2rem 0;",
+            shiny::tags$div(
+              class = "ui icon header red",
+              shiny::tags$i(class = "exclamation triangle icon"),
+              shiny::tags$div(
+                class = "content",
+                "No telemetry data available!!",
+                shiny::tags$div(
+                  class = "sub header",
+                  "Please run the Instrumentation app first to generate some data"
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  }
+
   hour_levels <- c("12am", paste0(1:11, "am"), "12pm", paste0(1:11, "pm"))
 
   log_data <- shiny::reactive({
