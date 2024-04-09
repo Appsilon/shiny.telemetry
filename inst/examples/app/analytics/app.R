@@ -38,3 +38,5 @@ if (nrow(data_storage$read_event_data()) > 0) {
   # the empty app if there is no data
   empty_app()
 }
+
+# shiny::shinyAppDir(file.path("inst", "examples", "app", "analytics"))
