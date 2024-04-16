@@ -417,7 +417,7 @@ prepare_admin_panel_components <- function(
       dplyr::arrange(.data$date)
 
     if (is_log_empty()) {
-      nested_users_data$new_users <- as.integer()
+      nested_users_data$new_users <- integer(0L)
     } else {
       nested_users_data$new_users <- nested_users_data$username %>%
         purrr::accumulate(union) %>%
