@@ -125,12 +125,59 @@ get_per_day_plot_data <- function(base, per_day) {
 prepare_admin_panel_components <- function(
   input, output, session, data_storage
 ) {
+  if (nrow(data_storage$read_event_data()) == 0) {
+    shiny.semantic::create_modal(
+      shiny.semantic::modal(
+        id = "no_data_modal",
+        title = "Warning",
+        content = shiny::tags$div(
+          class = "grid",
+          shiny::tags$div(
+            class = "sixteen wide column center aligned",
+            style = "text-align: center; padding: 2rem 0;",
+            shiny::tags$div(
+              class = "ui icon header red",
+              shiny::tags$i(class = "exclamation triangle icon"),
+              shiny::tags$div(
+                class = "content",
+                "No telemetry data available!!",
+                shiny::tags$div(
+                  class = "sub header",
+                  style = "padding: 0.5rem 0;",
+                  "Please run an app with",
+                  shiny::tags$a(
+                    href = "https://appsilon.github.io/shiny.telemetry/",
+                    shiny::tags$code("shiny.telemtry"),
+                    target = "_blank"
+                  ),
+                  "first to generate some data"
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  }
+
   hour_levels <- c("12am", paste0(1:11, "am"), "12pm", paste0(1:11, "pm"))
 
   log_data <- shiny::reactive({
+    shiny::req(input$date_from, input$date_to)
+
     data_storage$read_event_data(
       as.Date(input$date_from), as.Date(input$date_to)
     )
+  })
+
+  is_log_empty <- shiny::reactive({
+    shiny::req(log_data())
+
+    if (nrow(log_data()) == 0) {
+      TRUE
+    } else {
+      FALSE
+    }
   })
 
   output$filters <- shiny::renderUI(date_filters())
@@ -279,81 +326,84 @@ prepare_admin_panel_components <- function(
     plot_daily_stats(per_day_plot_data())
   })
 
-  shiny::observe({
-    if (length(time_daily()) > 0) {
-      output$total_time <- semantic.dashboard::renderValueBox({
-        time_hours <- time_daily() %>%
-          dplyr::pull(.data$time_spent) %>%
-          mean() %>%
-          convert_timediff_to_hm()
-
-        semantic.dashboard::valueBox(
-          value = time_hours,
-          subtitle = "Average time spent daily",
-          icon = semantic.dashboard::icon("User Circle"),
-          color = "yellow",
-          width = 16
-        )
-      })
+  output$total_time <- semantic.dashboard::renderValueBox({
+    if (is_log_empty()) {
+      time_hours <- convert_timediff_to_hm(0)
     } else {
-      NULL
+      time_hours <- time_daily() %>%
+        dplyr::pull(.data$time_spent) %>%
+        mean() %>%
+        convert_timediff_to_hm()
     }
+
+    semantic.dashboard::valueBox(
+      value = time_hours,
+      subtitle = "Average time spent daily",
+      icon = semantic.dashboard::icon("User Circle"),
+      color = "yellow",
+      width = 16
+    )
   })
 
-  shiny::observe({
-    if (nrow(selected_log_data()) > 0) {
-      output$total_users <- semantic.dashboard::renderValueBox({
-        semantic.dashboard::valueBox(
-          value = length(unique(
-            selected_log_data() %>%
-              dplyr::filter(.data$type == "login") %>%
-              dplyr::filter(.data$username != "") %>%
-              dplyr::pull(.data$username)
-          )),
-          subtitle = "Unique users (with logins)",
-          icon = semantic.dashboard::icon("User Circle"),
-          color = "red",
-          width = 16
-        )
-      })
+  output$total_users <- semantic.dashboard::renderValueBox({
+    total_users <- length(unique(
+      selected_log_data() %>%
+        dplyr::filter(.data$type == "login") %>%
+        dplyr::filter(.data$username != "") %>%
+        dplyr::pull(.data$username)
+    ))
 
-      output$total_anon <- semantic.dashboard::renderValueBox({
-        semantic.dashboard::valueBox(
-          value = length(unique(
-            selected_log_data() %>%
-              dplyr::filter(.data$type == "login") %>%
-              dplyr::filter(is.na(.data$username)) %>%
-              dplyr::pull(.data$session)
-          )),
-          subtitle = "Anonymous users",
-          icon = semantic.dashboard::icon("User Circle"),
-          color = "red",
-          width = 16
-        )
-      })
+    semantic.dashboard::valueBox(
+      value = total_users,
+      subtitle = "Unique users (with logins)",
+      icon = semantic.dashboard::icon("User Circle"),
+      color = "red",
+      width = 16
+    )
+  })
 
-      output$total_sessions <- semantic.dashboard::renderValueBox({
-        semantic.dashboard::valueBox(
-          value = length(unique(selected_log_data() %>% dplyr::pull(session))),
-          subtitle = "Sessions opened",
-          icon = semantic.dashboard::icon("User Circle"),
-          color = "blue",
-          width = 16
-        )
-      })
+  output$total_anon <- semantic.dashboard::renderValueBox({
+    total_anon_users <- length(unique(
+      selected_log_data() %>%
+        dplyr::filter(.data$type == "login") %>%
+        dplyr::filter(is.na(.data$username)) %>%
+        dplyr::pull(.data$session)
+    ))
 
-      output$total_days <- semantic.dashboard::renderValueBox({
-        semantic.dashboard::valueBox(
-          value = length(unique(as.Date(selected_log_data()$time))),
-          subtitle = "Days active",
-          icon = semantic.dashboard::icon("Calendar"),
-          color = "teal",
-          width = 16
-        )
-      })
-    } else {
-      NULL
-    }
+    semantic.dashboard::valueBox(
+      value = total_anon_users,
+      subtitle = "Anonymous users",
+      icon = semantic.dashboard::icon("User Circle"),
+      color = "red",
+      width = 16
+    )
+  })
+
+  output$total_sessions <- semantic.dashboard::renderValueBox({
+    total_sessions <- length(unique(
+      selected_log_data() %>%
+        dplyr::pull(session)
+    ))
+
+    semantic.dashboard::valueBox(
+      value = total_sessions,
+      subtitle = "Sessions opened",
+      icon = semantic.dashboard::icon("User Circle"),
+      color = "blue",
+      width = 16
+    )
+  })
+
+  output$total_days <- semantic.dashboard::renderValueBox({
+    total_days <- length(unique(as.Date(selected_log_data()$time)))
+
+    semantic.dashboard::valueBox(
+      value = total_days,
+      subtitle = "Days active",
+      icon = semantic.dashboard::icon("Calendar"),
+      color = "teal",
+      width = 16
+    )
   })
 
   ## users tab reactives
@@ -373,12 +423,16 @@ prepare_admin_panel_components <- function(
       dplyr::group_by(.data$date) %>%
       dplyr::arrange(.data$date)
 
-    nested_users_data$new_users <- nested_users_data$username %>%
-      purrr::accumulate(union) %>%
-      purrr::map(length) %>%
-      unlist() %>%
-      diff() %>%
-      purrr::prepend(1)
+    if (is_log_empty()) {
+      nested_users_data$new_users <- integer(0L)
+    } else {
+      nested_users_data$new_users <- nested_users_data$username %>%
+        purrr::accumulate(union) %>%
+        purrr::map(length) %>%
+        unlist() %>%
+        diff() %>%
+        purrr::prepend(1)
+    }
 
     nested_users_data %>%
       dplyr::distinct(.data$username, .data$date, .data$new_users) %>%
@@ -398,12 +452,18 @@ prepare_admin_panel_components <- function(
   })
 
   heatmap_data <- shiny::reactive({
-    heatmap_temp_data <- dplyr::left_join(
-      date_base_with_hours(),
-      active_users(),
-      by = c("date", "day_hour")
-    ) %>%
-      tidyr::replace_na(list(users = 0))
+    if (nrow(active_users()) == 0) {
+      heatmap_temp_data <- date_base_with_hours() %>%
+        dplyr::mutate(users = 0)
+    } else {
+      heatmap_temp_data <- dplyr::left_join(
+        date_base_with_hours(),
+        active_users(),
+        by = c("date", "day_hour")
+      ) %>%
+        tidyr::replace_na(list(users = 0))
+    }
+
     heatmap_temp_data$day_hour <- factor(
       heatmap_temp_data$day_hour,
       levels = hour_levels
