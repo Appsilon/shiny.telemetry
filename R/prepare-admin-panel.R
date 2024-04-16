@@ -143,7 +143,14 @@ prepare_admin_panel_components <- function(
                 "No telemetry data available!!",
                 shiny::tags$div(
                   class = "sub header",
-                  "Please run the Instrumentation app first to generate some data"
+                  style = "padding: 0.5rem 0;",
+                  "Please run an app with",
+                  shiny::tags$a(
+                    href = "https://appsilon.github.io/shiny.telemetry/",
+                    shiny::tags$code("shiny.telemtry"),
+                    target = "_blank"
+                  ),
+                  "first to generate some data"
                 )
               )
             )
