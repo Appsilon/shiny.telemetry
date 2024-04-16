@@ -339,16 +339,13 @@ prepare_admin_panel_components <- function(
   })
 
   output$total_users <- semantic.dashboard::renderValueBox({
-    if (is_log_empty()) {
-      total_users <- 0
-    } else {
-      total_users <- length(unique(
-        selected_log_data() %>%
-          dplyr::filter(.data$type == "login") %>%
-          dplyr::filter(.data$username != "") %>%
-          dplyr::pull(.data$username)
-      ))
-    }
+    total_users <- length(unique(
+      selected_log_data() %>%
+        dplyr::filter(.data$type == "login") %>%
+        dplyr::filter(.data$username != "") %>%
+        dplyr::pull(.data$username)
+    ))
+
     semantic.dashboard::valueBox(
       value = total_users,
       subtitle = "Unique users (with logins)",
@@ -359,16 +356,13 @@ prepare_admin_panel_components <- function(
   })
 
   output$total_anon <- semantic.dashboard::renderValueBox({
-    if (is_log_empty()) {
-      total_anon_users <- 0
-    } else {
-      total_anon_users <- length(unique(
-        selected_log_data() %>%
-          dplyr::filter(.data$type == "login") %>%
-          dplyr::filter(is.na(.data$username)) %>%
-          dplyr::pull(.data$session)
-      ))
-    }
+    total_anon_users <- length(unique(
+      selected_log_data() %>%
+        dplyr::filter(.data$type == "login") %>%
+        dplyr::filter(is.na(.data$username)) %>%
+        dplyr::pull(.data$session)
+    ))
+
     semantic.dashboard::valueBox(
       value = total_anon_users,
       subtitle = "Anonymous users",
@@ -379,14 +373,11 @@ prepare_admin_panel_components <- function(
   })
 
   output$total_sessions <- semantic.dashboard::renderValueBox({
-    if (is_log_empty()) {
-      total_sessions <- 0
-    } else {
-      total_sessions <- length(unique(
-        selected_log_data() %>%
-          dplyr::pull(session)
-      ))
-    }
+    total_sessions <- length(unique(
+      selected_log_data() %>%
+        dplyr::pull(session)
+    ))
+
     semantic.dashboard::valueBox(
       value = total_sessions,
       subtitle = "Sessions opened",
@@ -397,11 +388,8 @@ prepare_admin_panel_components <- function(
   })
 
   output$total_days <- semantic.dashboard::renderValueBox({
-    if (is_log_empty()) {
-      total_days <- 0
-    } else {
-      total_days <- length(unique(as.Date(selected_log_data()$time)))
-    }
+    total_days <- length(unique(as.Date(selected_log_data()$time)))
+
     semantic.dashboard::valueBox(
       value = total_days,
       subtitle = "Days active",
