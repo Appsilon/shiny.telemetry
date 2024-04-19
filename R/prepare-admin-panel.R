@@ -355,7 +355,7 @@ prepare_admin_panel_components <- function(
 
     semantic.dashboard::valueBox(
       value = total_users,
-      subtitle = "Unique users (with logins)",
+      subtitle = "Unique users",
       icon = semantic.dashboard::icon("User Circle"),
       color = "red",
       width = 16
