@@ -77,11 +77,10 @@ analytics_ui <- function() {
       shiny::div(class = "row", shiny::uiOutput("date_header")),
       shiny::div(
         class = "five column row",
-        semantic.dashboard::valueBoxOutput("total_users", 3),
-        semantic.dashboard::valueBoxOutput("total_anon", 3),
-        semantic.dashboard::valueBoxOutput("total_sessions", 3),
+        semantic.dashboard::valueBoxOutput("total_users", 4),
+        semantic.dashboard::valueBoxOutput("total_sessions", 4),
         semantic.dashboard::valueBoxOutput("total_time", 4),
-        semantic.dashboard::valueBoxOutput("total_days", 3)
+        semantic.dashboard::valueBoxOutput("total_days", 4)
       )
     )
   )

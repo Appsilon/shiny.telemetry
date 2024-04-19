@@ -362,23 +362,6 @@ prepare_admin_panel_components <- function(
     )
   })
 
-  output$total_anon <- semantic.dashboard::renderValueBox({
-    total_anon_users <- length(unique(
-      selected_log_data() %>%
-        dplyr::filter(.data$type == "login") %>%
-        dplyr::filter(is.na(.data$username)) %>%
-        dplyr::pull(.data$session)
-    ))
-
-    semantic.dashboard::valueBox(
-      value = total_anon_users,
-      subtitle = "Anonymous users",
-      icon = semantic.dashboard::icon("User Circle"),
-      color = "red",
-      width = 16
-    )
-  })
-
   output$total_sessions <- semantic.dashboard::renderValueBox({
     total_sessions <- length(unique(
       selected_log_data() %>%
