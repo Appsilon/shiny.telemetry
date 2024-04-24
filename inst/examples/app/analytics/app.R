@@ -31,3 +31,5 @@ if (Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect") {
 }
 
 analytics_app(data_storage = data_storage)
+
+# shiny::shinyApp(system.file("examples", "app", "analytics", package = "shiny.telemetry")) # nolint: commented_code line_length.

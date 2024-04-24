@@ -114,3 +114,5 @@ shinyApp(ui = ui, server = function(input, output, session) {
   counter_server("widgets")
   counter_server("another-widgets")
 })
+
+# shiny::shinyAppFile(system.file("examples", "mariadb", "mariadb_app.R", package = "shiny.telemetry")) # nolint: commented_code line_length.
