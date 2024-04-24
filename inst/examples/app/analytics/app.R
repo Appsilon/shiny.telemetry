@@ -17,8 +17,11 @@ library(DT)
 library(shiny.telemetry)
 
 # Default storage backend using LogFile
+log_file_path <- file.path("../instrumentation/user_stats.txt")
+if (!dir.exists(dirname(log_file_path))) log_file_path <- "user_stats.txt"
+
 data_storage <- DataStorageLogFile$new(
-  log_file_path = file.path("../instrumentation/user_stats.txt")
+  log_file_path = log_file_path
 )
 
 # This sample application includes a configuration for RSConnect deployments,
