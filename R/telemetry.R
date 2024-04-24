@@ -816,7 +816,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         }
         cookie_value
       } else {
-        NULL
+        paste0("anon_user_", session$token)
       }
     }
   )
