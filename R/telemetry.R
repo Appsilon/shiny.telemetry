@@ -797,7 +797,7 @@ Telemetry <- R6::R6Class( # nolint object_name_linter
         # cookie_value will be NULL if either not found or not generated using SHA256 algorithm.
         if (is.null(cookie_value)) {
           cookie_value <- paste0(
-            "anon_user",
+            "anon_user_",
             digest::digest(
               c(
                 session$token,
