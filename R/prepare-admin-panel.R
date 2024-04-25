@@ -170,15 +170,7 @@ prepare_admin_panel_components <- function(
     )
   })
 
-  is_log_empty <- shiny::reactive({
-    shiny::req(log_data())
-
-    if (nrow(log_data()) == 0) {
-      TRUE
-    } else {
-      FALSE
-    }
-  })
+  is_log_empty <- shiny::reactive(nrow(shiny::req(log_data())) == 0)
 
   output$filters <- shiny::renderUI(date_filters())
 
