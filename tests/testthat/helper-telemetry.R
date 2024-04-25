@@ -5,7 +5,7 @@ test_common_telemetry <- function(data_storage) {
 
   testthat::local_mocked_bindings(
     observeEvent =  function(
-    eventExpr, handlerExpr, ... # nolint object_name_linter
+    eventExpr, handlerExpr, ... # nolint object_name.
     ) {
       tryCatch(
         shiny::isolate(handlerExpr),

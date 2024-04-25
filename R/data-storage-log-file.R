@@ -23,7 +23,7 @@
 #' data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
 #'
 #' file.remove(log_file_path)
-DataStorageLogFile <- R6::R6Class( # nolint object_name_linter
+DataStorageLogFile <- R6::R6Class( # nolint object_name.
   classname = "DataStorageLogFile",
   inherit = DataStorage,
   #
