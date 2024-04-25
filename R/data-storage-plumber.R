@@ -40,7 +40,7 @@
 #' data_storage$read_event_data()
 #' data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
 #' }
-DataStoragePlumber <- R6::R6Class( # nolint object_name_linter
+DataStoragePlumber <- R6::R6Class( # nolint object_name.
   classname = "DataStoragePlumber",
   inherit = DataStorage,
   #

@@ -26,7 +26,7 @@ test_that("Telemetry tests with mock data_storage layer", {
   # `testthat::local_mocked_bindings` allows for it.
   testthat::local_mocked_bindings(
     observeEvent = function(
-      eventExpr, handlerExpr, ... # nolint object_name_linter
+      eventExpr, handlerExpr, ... # nolint object_name.
     ) {
       shiny::isolate(handlerExpr)
     },

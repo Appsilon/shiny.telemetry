@@ -23,7 +23,7 @@
 #' data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
 #'
 #' file.remove(db_path)
-DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
+DataStorageSQLite <- R6::R6Class( # nolint object_name.
   classname = "DataStorageSQLite",
   inherit = DataStorageSQLFamily,
   #

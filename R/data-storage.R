@@ -4,7 +4,7 @@
 #' Abstract R6 Class that encapsulates all the operations needed by
 #' Shiny.telemetry to read and write. This removes the complexity from the
 #' functions and uses a unified API.
-DataStorage <- R6::R6Class( # nolint object_name_linter
+DataStorage <- R6::R6Class( # nolint object_name.
   classname = "DataStorage",
   public = list(
 
