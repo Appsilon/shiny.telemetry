@@ -22,4 +22,4 @@ data_storage <- DataStoragePostgreSQL$new(
 
 analytics_app(data_storage = data_storage)
 
-# shiny::shinyAppFile(system.file("examples", "postgresql", "postgres_analytics.R", package = "shiny.telemetry")) # nolint: commented_code line_length.
+# shiny::shinyAppFile(system.file("examples", "postgresql", "postgres_analytics.R", package = "shiny.telemetry")) # nolint: commented_code, line_length.

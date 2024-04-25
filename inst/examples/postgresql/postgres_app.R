@@ -115,4 +115,4 @@ shinyApp(ui = ui, server = function(input, output, session) {
   counter_server("another-widgets")
 })
 
-# shiny::shinyAppFile(system.file("examples", "postgresql", "postgres_app.R", package = "shiny.telemetry")) # nolint: commented_code line_length.
+# shiny::shinyAppFile(system.file("examples", "postgresql", "postgres_app.R", package = "shiny.telemetry")) # nolint: commented_code, line_length.
