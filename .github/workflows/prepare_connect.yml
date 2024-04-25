@@ -23,7 +23,7 @@ jobs:
       - name: Setup system dependencies
         run: >
           sudo apt-get update && sudo apt-get install --yes
-          libcurl4-openssl-dev
+          libcurl4-openssl-dev libsodium
 
       - name: Checkout repository
         uses: actions/checkout@v3
