@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.3.3",
+    "Version": "4.4.0",
     "Repositories": [
       {
         "Name": "RSPM",
@@ -570,13 +570,13 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "2.1.1",
+      "Version": "2.1.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "askpass"
       ],
-      "Hash": "2a0dc8c6adfb6f032e4d4af82d258ab5"
+      "Hash": "ea2475b073243d9d338aa8f086ce973e"
     },
     "pillar": {
       "Package": "pillar",
@@ -797,8 +797,8 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "appsilon",
       "RemoteRepo": "shiny.telemetry",
-      "RemoteRef": "878ff38d57e2de5bdf03dbf17403ca418407e253",
-      "RemoteSha": "878ff38d57e2de5bdf03dbf17403ca418407e253",
+      "RemoteRef": "17e043a1a0c588b1d06c87c7b678e19b9092a887",
+      "RemoteSha": "17e043a1a0c588b1d06c87c7b678e19b9092a887",
       "Requirements": [
         "R6",
         "RSQLite",
@@ -818,7 +818,7 @@
         "stringr",
         "tidyr"
       ],
-      "Hash": "2a6219caf8bf607b379eb11c1eee7f1f"
+      "Hash": "38bb5d11aafb80891fe87f50287e1f02"
     },
     "sourcetools": {
       "Package": "sourcetools",
