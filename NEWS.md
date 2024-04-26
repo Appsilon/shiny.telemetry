@@ -13,6 +13,10 @@
 - Improves SQL injection safeguards via `glue::glue_sql` to generated SQL queries (#34).
 - Show proper error message when no telemetry data is available (#177).
 
+### Bug Fixes
+
+- Fixed Analytics app not being able to access data by Instrumentation app (#164).
+
 # shiny.telemetry 0.2.0
 
 ### New Features
