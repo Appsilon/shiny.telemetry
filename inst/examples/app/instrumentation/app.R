@@ -112,8 +112,7 @@ counter_server <- function(id) {
 shinyApp(ui = ui, server = function(input, output, session) {
   telemetry$start_session(
     track_values = TRUE,
-    navigation_input_id = "uisidebar",
-    track_anonymous_user = FALSE
+    navigation_input_id = "uisidebar"
   )
 
   # server code
