@@ -245,7 +245,7 @@
         "Maintainer": "Kirill Müller <kirill@cynkra.com>",
         "Repository": "RSPM",
         "Date/Publication": "2024-03-31 22:20:02 UTC",
-        "Built": "R 4.4.0; x86_64-pc-linux-gnu; 2024-04-25 01:55:55 UTC; unix",
+        "Built": "R 4.4.0; x86_64-pc-linux-gnu; 2024-04-25 19:48:29 UTC; unix",
         "RemoteType": "standard",
         "RemotePkgRef": "RSQLite",
         "RemoteRef": "RSQLite",
@@ -1157,42 +1157,42 @@
     },
     "fs": {
       "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
+      "Repository": "https://packagemanager.posit.co/cran/latest",
       "description": {
         "Package": "fs",
         "Title": "Cross-Platform File System Operations Based on 'libuv'",
-        "Version": "1.6.3",
-        "Authors@R": "c(\n    person(\"Jim\", \"Hester\", role = \"aut\"),\n    person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = \"aut\"),\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"libuv project contributors\", role = \"cph\",\n           comment = \"libuv library\"),\n    person(\"Joyent, Inc. and other Node contributors\", role = \"cph\",\n           comment = \"libuv library\"),\n    person(\"RStudio\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Version": "1.6.4",
+        "Authors@R": "c(\n    person(\"Jim\", \"Hester\", role = \"aut\"),\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\"),\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"libuv project contributors\", role = \"cph\",\n           comment = \"libuv library\"),\n    person(\"Joyent, Inc. and other Node contributors\", role = \"cph\",\n           comment = \"libuv library\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
         "Description": "A cross-platform interface to file system operations, built\n    on top of the 'libuv' C library.",
         "License": "MIT + file LICENSE",
         "URL": "https://fs.r-lib.org, https://github.com/r-lib/fs",
         "BugReports": "https://github.com/r-lib/fs/issues",
-        "Depends": "R (>= 3.4)",
+        "Depends": "R (>= 3.6)",
         "Imports": "methods",
         "Suggests": "covr, crayon, knitr, pillar (>= 1.0.0), rmarkdown, spelling,\ntestthat (>= 3.0.0), tibble (>= 1.1.0), vctrs (>= 0.3.0), withr",
         "VignetteBuilder": "knitr",
         "ByteCompile": "true",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
         "Copyright": "file COPYRIGHTS",
         "Encoding": "UTF-8",
         "Language": "en-US",
         "RoxygenNote": "7.2.3",
         "SystemRequirements": "GNU make",
-        "Config/testthat/edition": "3",
-        "Config/Needs/website": "tidyverse/tidytemplate",
         "NeedsCompilation": "yes",
-        "Packaged": "2023-07-10 16:24:00 UTC; gaborcsardi",
-        "Author": "Jim Hester [aut],\n  Hadley Wickham [aut],\n  Gábor Csárdi [aut, cre],\n  libuv project contributors [cph] (libuv library),\n  Joyent, Inc. and other Node contributors [cph] (libuv library),\n  RStudio [cph, fnd]",
+        "Packaged": "2024-04-25 11:57:22 UTC; gaborcsardi",
+        "Author": "Jim Hester [aut],\n  Hadley Wickham [aut],\n  Gábor Csárdi [aut, cre],\n  libuv project contributors [cph] (libuv library),\n  Joyent, Inc. and other Node contributors [cph] (libuv library),\n  Posit Software, PBC [cph, fnd]",
         "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
         "Repository": "RSPM",
-        "Date/Publication": "2023-07-20 10:30:02 UTC",
-        "Built": "R 4.4.0; x86_64-pc-linux-gnu; 2024-04-25 19:46:44 UTC; unix",
+        "Date/Publication": "2024-04-25 12:50:02 UTC",
+        "Built": "R 4.4.0; x86_64-pc-linux-gnu; 2024-04-26 18:11:57 UTC; unix",
         "RemoteType": "standard",
         "RemotePkgRef": "fs",
         "RemoteRef": "fs",
         "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
         "RemoteReposName": "CRAN",
         "RemotePkgPlatform": "source",
-        "RemoteSha": "1.6.3"
+        "RemoteSha": "1.6.4"
       }
     },
     "generics": {
@@ -2807,7 +2807,7 @@
         "Type": "Package",
         "Package": "shiny.telemetry",
         "Title": "'Shiny' App Usage Telemetry",
-        "Version": "0.2.0.9011",
+        "Version": "0.2.0.9012",
         "Authors@R": "c(\n    person(\"André\", \"Veríssimo\", , \"opensource+andre@appsilon.com\", role = c(\"aut\", \"cre\")),\n    person(\"Kamil\", \"Żyła\", , \"kamil@appsilon.com\", role = \"aut\"),\n    person(\"Krystian\", \"Igras\", , \"krystian8207@gmail.com\", role = \"aut\"),\n    person(\"Recle\", \"Vibal\", , \"recle.vibal@appsilon.com\", role = \"aut\"),\n    person(\"Arun\", \"Kodati\", , \"arun.kodati@appsilon.com\", role = \"aut\"),\n    person(\"Appsilon Sp. z o.o.\", , , \"opensource@appsilon.com\", role = \"cph\")\n  )",
         "Description": "Enables instrumentation of 'Shiny' apps for tracking user\n    session events such as input changes, browser type, and session\n    duration.  These events can be sent to any of the available storage\n    backends and analyzed using the included 'Shiny' app to gain insights\n    about app usage and adoption.",
         "License": "LGPL-3",
@@ -2823,18 +2823,18 @@
         "RoxygenNote": "7.3.1",
         "Author": "André Veríssimo [aut, cre],\n  Kamil Żyła [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Arun Kodati [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "André Veríssimo <opensource+andre@appsilon.com>",
-        "Built": "R 4.4.0; ; 2024-04-26 05:03:57 UTC; unix",
+        "Built": "R 4.4.0; ; 2024-04-27 05:16:46 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "1012e691b5451eff717a3c809125670a0f52dbc1",
-        "RemoteSha": "1012e691b5451eff717a3c809125670a0f52dbc1",
+        "RemoteRef": "57205d3be8892047917d7e07af3bd2e347ce3017",
+        "RemoteSha": "57205d3be8892047917d7e07af3bd2e347ce3017",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "1012e691b5451eff717a3c809125670a0f52dbc1",
-        "GithubSHA1": "1012e691b5451eff717a3c809125670a0f52dbc1"
+        "GithubRef": "57205d3be8892047917d7e07af3bd2e347ce3017",
+        "GithubSHA1": "57205d3be8892047917d7e07af3bd2e347ce3017"
       }
     },
     "shinyjs": {
@@ -3468,7 +3468,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "3e079bc1ff64cb0ffbefad3b449dbccc"
+      "checksum": "d3310cbc73f6835abb0298e6de88213e"
     },
     "app.R": {
       "checksum": "24720f0ecc298c9635fa8452830cc6dd"
@@ -3477,7 +3477,7 @@
       "checksum": "2c8fcf3c29e18ff1277d16035a31f0b2"
     },
     "renv.lock": {
-      "checksum": "eec282d64454b99c178f74c2a1d73a13"
+      "checksum": "1b110ca1b9f56c22f4f816a037f3efdc"
     },
     "www/styles.css": {
       "checksum": "56705fbddcc16218aefb166d6f6b61e5"
