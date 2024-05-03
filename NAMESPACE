@@ -3,6 +3,7 @@
 export(DataStorageLogFile)
 export(DataStorageMSSQLServer)
 export(DataStorageMariaDB)
+export(DataStorageMongoDB)
 export(DataStoragePlumber)
 export(DataStoragePostgreSQL)
 export(DataStorageSQLite)
