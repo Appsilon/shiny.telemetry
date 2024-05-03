@@ -78,7 +78,7 @@ ui <- dashboardPage(
 telemetry <- Telemetry$new(
   app_name = "demo",
   data_storage = DataStorageMongoDB$new(
-    url = "mongodb://root:example@localhost:27017/"
+    username = "root", password = "example"
   )
 )
 

@@ -36,20 +36,38 @@ DataStorageMongoDB <- R6::R6Class( # nolint object_name.
 
     #' @description
     #' Initialize the data storage class
-    #' @param url address of the mongodb server in mongo connection string
-    #' [URI format](https://www.mongodb.com/docs/manual/reference/connection-string/).
-    #' Default is "mongodb://localhost".
-    #' @param db name of database. Default is "shiny_telemetry".
-    #' @param collection name of collection. Default is "event_log".
-    #' @param options additional connection options such as SSL keys/certs (optional).
+    #' @param host the hostname or IP address of the MongoDB server.
+    #' @param port the port number of the MongoDB server (default is 27017).
+    #' @param username the username for authentication (optional).
+    #' @param password the password for authentication (optional).
+    #' @param authdb the default authentication database (optional).
+    #' @param db name of database (default is "shiny_telemetry").
+    #' @param collection name of collection (default is "event_log").
+    #' @param options Additional connection options in a named list format
+    #' (e.g., list(ssl = "true", replicaSet = "myreplicaset")) (optional).
+    #' @param ssl_options additional connection options such as SSL keys/certs
+    #' (default is [`mongolite::ssl_options()`]).
 
     initialize = function(
-      url = "mongodb://localhost",
+      host = "localhost",
+      port = 27017,
+      username = NULL,
+      password = NULL,
+      authdb = NULL,
       db = "shiny_telemetry",
       collection = "event_log",
-      options = mongolite::ssl_options()
+      options = NULL,
+      ssl_options = mongolite::ssl_options()
     ) {
-      private$connect(url, db, collection, options)
+      connection_string <- private$create_connection_string(
+        host = host,
+        port = port,
+        username = username,
+        password = password,
+        authdb = authdb,
+        options = options
+      )
+      private$connect(url = connection_string, db, collection, options = ssl_options)
       private$db_name <- db
       private$collection_name <- collection
     }
@@ -69,6 +87,34 @@ DataStorageMongoDB <- R6::R6Class( # nolint object_name.
     collection_name = NULL,
 
     # Private methods
+    create_connection_string = function(
+      host, port, username, password, authdb, options
+    ) {
+      # create the connection string for mongodb
+      checkmate::assert_string(host)
+      checkmate::assert_int(port)
+      checkmate::assert_string(username, null.ok = TRUE)
+      checkmate::assert_string(password, null.ok = TRUE)
+      checkmate::assert_list(options, null.ok = TRUE)
+
+      if (!is.null(username) && !is.null(password)) {
+        auth_string <- paste0(username, ":", password, "@")
+      } else {
+        auth_string <- ""
+      }
+
+      authdb_string <- ifelse(!is.null(authdb), paste0("/", authdb), "")
+
+      connection_string <- paste0("mongodb://", auth_string, host, ":", port, authdb_string)
+      # Add options if provided
+      if (!is.null(options)) {
+        options_string <- paste0("?", paste(names(options), "=", options, collapse = "&"))
+        connection_string <- paste0(connection_string, options_string)
+      }
+
+      return(connection_string)
+    },
+
     connect = function(url, db, collection, options) {
       # Initialize connection with database
       private$db_con <- mongolite::mongo(

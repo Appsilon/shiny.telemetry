@@ -17,7 +17,7 @@ library(shiny.telemetry)
 
 # Default storage backend using MariaDB
 data_storage <- DataStorageMongoDB$new(
-  url = "mongodb://root:example@localhost:27017/"
+  username = "root", password = "example"
 )
 
 analytics_app(data_storage = data_storage)

@@ -63,25 +63,40 @@ related and action data}
 Initialize the data storage class
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataStorageMongoDB$new(
-  url = "mongodb://localhost",
+  host = "localhost",
+  port = 27017,
+  username = NULL,
+  password = NULL,
+  authdb = NULL,
   db = "shiny_telemetry",
   collection = "event_log",
-  options = mongolite::ssl_options()
+  options = NULL,
+  ssl_options = mongolite::ssl_options()
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{url}}{address of the mongodb server in mongo connection string
-\href{https://www.mongodb.com/docs/manual/reference/connection-string/}{URI format}.
-Default is "mongodb://localhost".}
+\item{\code{host}}{the hostname or IP address of the MongoDB server.}
 
-\item{\code{db}}{name of database. Default is "shiny_telemetry".}
+\item{\code{port}}{the port number of the MongoDB server (default is 27017).}
 
-\item{\code{collection}}{name of collection. Default is "event_log".}
+\item{\code{username}}{the username for authentication (optional).}
 
-\item{\code{options}}{additional connection options such as SSL keys/certs (optional).}
+\item{\code{password}}{the password for authentication (optional).}
+
+\item{\code{authdb}}{the default authentication database (optional).}
+
+\item{\code{db}}{name of database (default is "shiny_telemetry").}
+
+\item{\code{collection}}{name of collection (default is "event_log").}
+
+\item{\code{options}}{Additional connection options in a named list format
+(e.g., list(ssl = "true", replicaSet = "myreplicaset")) (optional).}
+
+\item{\code{ssl_options}}{additional connection options such as SSL keys/certs
+(default is \code{\link[mongolite:ssl_options]{mongolite::ssl_options()}}).}
 }
 \if{html}{\out{</div>}}
 }
