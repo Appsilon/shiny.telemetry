@@ -7,6 +7,7 @@ CMD
 customizable
 filesystem
 hostname
+INITDB
 Javascript
 mongo
 mongodb
