@@ -6,6 +6,7 @@
 - Added flexibility to select between [`RPostgreSQL`, `RPostgres`] drivers (#147).
 - Improved input tracking by implementing inclusion and exclusion logic (#30).
 - Added tracking for returning anonymous users (#142).
+- Added support for MongoDB (see `DataStorageMongoDB` class) (#174).
 
 ### Miscellaneous
 
