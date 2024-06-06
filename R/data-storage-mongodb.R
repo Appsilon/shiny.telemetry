@@ -104,7 +104,6 @@ DataStorageMongoDB <- R6::R6Class( # nolint object_name.
     write = function(values, bucket) {
       checkmate::assert_choice(bucket, choices = c(self$event_bucket))
       checkmate::assert_list(values)
-
       if (!is.null(values$details)) {
         values$details <- jsonlite::fromJSON(values$details)
       }
@@ -124,7 +123,10 @@ DataStorageMongoDB <- R6::R6Class( # nolint object_name.
         event_data %>%
           dplyr::tibble() %>%
           tidyr::unnest(cols = "details") %>%
-          dplyr::mutate(time = lubridate::as_datetime(as.integer(time / 1000)))
+          dplyr::mutate(
+            time = lubridate::as_datetime(as.integer(time / 1000)),
+            value = as.character(value)
+          )
       } else {
         dplyr::tibble(
           app_name = character(),
