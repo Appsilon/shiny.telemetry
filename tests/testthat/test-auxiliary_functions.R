@@ -58,7 +58,7 @@ test_that("build_mongo_connection_string: Build valid string with NULL", {
       authdb = NULL,
       options = NULL
     ),
-    "mongodb://localhost:27017"
+    "mongodb://localhost:27017/"
   )
 })
 
@@ -72,7 +72,7 @@ test_that("build_mongo_connection_string: Build valid string with user and pass"
       authdb = NULL,
       options = NULL
     ),
-    "mongodb://a_user:a_pass@localhost:27017"
+    "mongodb://a_user:a_pass@localhost:27017/"
   )
 })
 
@@ -100,7 +100,7 @@ test_that("build_mongo_connection_string: Build valid string with `options`", {
       authdb = NULL,
       options = list("option1" = "value1", "option2" = "value2")
     ),
-    "mongodb://localhost:27017?option1=value1&option2=value2"
+    "mongodb://localhost:27017/?option1=value1&option2=value2"
   )
 })
 
