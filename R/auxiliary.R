@@ -129,8 +129,8 @@ build_query_mongodb <- function(date_from, date_to) {
 #'   "authdb",
 #'   list("option1" = "value1", "option2" = "value2")
 #' )
-build_mongo_connection_string = function(
-    host, port, username, password, authdb, options
+build_mongo_connection_string <- function(
+  host, port, username, password, authdb, options
 ) {
   checkmate::assert_string(host)
   checkmate::assert_int(port)
