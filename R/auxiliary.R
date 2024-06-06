@@ -116,6 +116,47 @@ build_query_mongodb <- function(date_from, date_to) {
   jsonlite::toJSON(query, auto_unbox = TRUE)
 }
 
+#' Create the connection string for mongodb
+#'
+#' @noRd
+#' @keywords internal
+#' @examples
+#' build_mongo_connection_string(
+#'   "localhost",
+#'   31,
+#'   "user",
+#'   "pass",
+#'   "authdb",
+#'   list("option1" = "value1", "option2" = "value2")
+#' )
+build_mongo_connection_string = function(
+    host, port, username, password, authdb, options
+) {
+  checkmate::assert_string(host)
+  checkmate::assert_int(port)
+  checkmate::assert_string(username, null.ok = TRUE)
+  checkmate::assert_string(password, null.ok = TRUE)
+  checkmate::assert_string(authdb, null.ok = TRUE)
+  checkmate::assert_list(options, null.ok = TRUE)
+
+  paste0(
+    "mongodb://",
+    sprintf("%s:%s@", username, password),
+    host,
+    ":",
+    port,
+    sprintf("/%s", authdb %||% ""),
+    ifelse(
+      isFALSE(is.null(options)),
+      sprintf(
+        "?%s",
+        paste(names(options), "=", options, collapse = "&", sep = "")
+      ),
+      ""
+    )
+  )
+}
+
 #' Process a row's detail (from DB) in JSON format to a data.frame
 #'
 #' @param details_json string containing details a valid JSON, NULL or NA
