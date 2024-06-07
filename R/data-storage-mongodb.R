@@ -72,18 +72,6 @@ DataStorageMongoDB <- R6::R6Class( # nolint object_name.
         digest::digest(password, algo = "sha256")
       }
 
-      options_debug <- if (is.null(options)) {
-        "(empty)"
-      } else {
-        jsonlite::toJSON(options, auto_unbox = TRUE)
-      }
-
-      ssl_options_debug <- if (is.null(ssl_options)) {
-        "(empty)"
-      } else {
-        jsonlite::toJSON(unclass(mongolite::ssl_options()), auto_unbox = TRUE)
-      }
-
       logger::log_debug(
         "Parameters for MongoDB:\n",
         "  *          username: {username %||% \"(empty)\"}\n",
@@ -91,8 +79,9 @@ DataStorageMongoDB <- R6::R6Class( # nolint object_name.
         "  *     hostname:port: {hostname}:{port}\n",
         "  *           db name: {dbname}\n",
         "  *            authdb: {authdb %||% \"(empty)\"}\n",
-        "  *           options: {options_debug}\n",
-        "  *       ssl_options: {ssl_options_debug}\n",
+        "  *           options: {jsonlite::toJSON(options, auto_unbox = TRUE)}\n",
+        "  *       ssl_options: ",
+        "{jsonlite::toJSON(unclass(mongolite::ssl_options()), auto_unbox = TRUE)}\n",
         namespace = "shiny.telemetry"
       )
 
