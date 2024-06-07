@@ -35,47 +35,77 @@ DataStorageMongoDB <- R6::R6Class( # nolint object_name.
 
     #' @description
     #' Initialize the data storage class
-    #' @param host the hostname or IP address of the MongoDB server.
+    #' @param hostname the hostname or IP address of the MongoDB server.
     #' @param port the port number of the MongoDB server (default is 27017).
     #' @param username the username for authentication (optional).
     #' @param password the password for authentication (optional).
     #' @param authdb the default authentication database (optional).
-    #' @param db name of database (default is "shiny_telemetry").
+    #' @param dbname name of database (default is "shiny_telemetry").
     #' @param options Additional connection options in a named list format
     #' (e.g., list(ssl = "true", replicaSet = "myreplicaset")) (optional).
     #' @param ssl_options additional connection options such as SSL keys/certs
     #' (default is [`mongolite::ssl_options()`]).
 
     initialize = function(
-      host = "localhost",
+      hostname = "localhost",
       port = 27017,
       username = NULL,
       password = NULL,
       authdb = NULL,
-      db = "shiny_telemetry",
+      dbname = "shiny_telemetry",
       options = NULL,
       ssl_options = mongolite::ssl_options()
     ) {
       # create the connection string for mongodb
-      checkmate::assert_string(host)
+      checkmate::assert_string(hostname)
       checkmate::assert_int(port)
       checkmate::assert_string(username, null.ok = TRUE)
       checkmate::assert_string(password, null.ok = TRUE)
       checkmate::assert_string(authdb, null.ok = TRUE)
-      checkmate::assert_string(db)
+      checkmate::assert_string(dbname)
       checkmate::assert_list(options, null.ok = TRUE)
       checkmate::assert_list(ssl_options, null.ok = TRUE)
 
+      password_debug <- if (is.null(password)) {
+        "(empty)"
+      } else {
+        digest::digest(password, algo = "sha256")
+      }
+
+      options_debug <- if (is.null(options)) {
+        "(empty)"
+      } else {
+        jsonlite::toJSON(options, auto_unbox = TRUE)
+      }
+
+      ssl_options_debug <- if (is.null(ssl_options)) {
+        "(empty)"
+      } else {
+        jsonlite::toJSON(unclass(mongolite::ssl_options()), auto_unbox = TRUE)
+      }
+
+      logger::log_debug(
+        "Parameters for MongoDB:\n",
+        "  *          username: {username %||% \"(empty)\"}\n",
+        "  * password (sha256): {password_debug}\n",
+        "  *     hostname:port: {hostname}:{port}\n",
+        "  *           db name: {dbname}\n",
+        "  *            authdb: {authdb %||% \"(empty)\"}\n",
+        "  *           options: {options_debug}\n",
+        "  *       ssl_options: {ssl_options_debug}\n",
+        namespace = "shiny.telemetry"
+      )
+
       private$connect(
         url = build_mongo_connection_string(
-          host = host,
+          hostname = hostname,
           port = port,
           username = username,
           password = password,
           authdb = authdb,
           options = options
         ),
-        db,
+        dbname,
         options = ssl_options
       )
     }
@@ -87,11 +117,11 @@ DataStorageMongoDB <- R6::R6Class( # nolint object_name.
     db_con = NULL,
 
     # Private methods
-    connect = function(url, db, options) {
+    connect = function(url, dbname, options) {
       # Initialize connection with database
       private$db_con <- mongolite::mongo(
         url = url,
-        db = db,
+        db = dbname,
         collection = self$event_bucket,
         options = options
       )

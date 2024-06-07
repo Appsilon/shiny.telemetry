@@ -9,11 +9,10 @@ unified API for read/write operations
 }
 \examples{
 \dontrun{
-data_storage <- DataStorageMariaDB$new(
-  url = "mongodb://localhost",
+data_storage <- DataStorageMongoDB$new(
+  host = "localhost",
   db = "test",
-  collection = "test",
-  options = mongolite::ssl_options()
+  ssl_options = mongolite::ssl_options()
 )
 data_storage$insert("example", "test_event", "session1")
 data_storage$insert("example", "input", "s1", list(id = "id1"))
@@ -31,14 +30,6 @@ data_storage$close()
 }
 \section{Super class}{
 \code{\link[shiny.telemetry:DataStorage]{shiny.telemetry::DataStorage}} -> \code{DataStorageMongoDB}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{event_bucket}}{string that identifies the bucket to store user
-related and action data}
-}
-\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -63,13 +54,12 @@ related and action data}
 Initialize the data storage class
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataStorageMongoDB$new(
-  host = "localhost",
+  hostname = "localhost",
   port = 27017,
   username = NULL,
   password = NULL,
   authdb = NULL,
-  db = "shiny_telemetry",
-  collection = "event_log",
+  dbname = "shiny_telemetry",
   options = NULL,
   ssl_options = mongolite::ssl_options()
 )}\if{html}{\out{</div>}}
@@ -78,7 +68,7 @@ Initialize the data storage class
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{host}}{the hostname or IP address of the MongoDB server.}
+\item{\code{hostname}}{the hostname or IP address of the MongoDB server.}
 
 \item{\code{port}}{the port number of the MongoDB server (default is 27017).}
 
@@ -88,9 +78,7 @@ Initialize the data storage class
 
 \item{\code{authdb}}{the default authentication database (optional).}
 
-\item{\code{db}}{name of database (default is "shiny_telemetry").}
-
-\item{\code{collection}}{name of collection (default is "event_log").}
+\item{\code{dbname}}{name of database (default is "shiny_telemetry").}
 
 \item{\code{options}}{Additional connection options in a named list format
 (e.g., list(ssl = "true", replicaSet = "myreplicaset")) (optional).}

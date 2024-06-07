@@ -130,9 +130,9 @@ build_query_mongodb <- function(date_from, date_to) {
 #'   list("option1" = "value1", "option2" = "value2")
 #' )
 build_mongo_connection_string <- function(
-  host, port, username, password, authdb, options
+    hostname, port, username, password, authdb, options
 ) {
-  checkmate::assert_string(host)
+  checkmate::assert_string(hostname)
   checkmate::assert_int(port)
   checkmate::assert_string(username, null.ok = TRUE)
   checkmate::assert_string(password, null.ok = TRUE)
@@ -142,7 +142,7 @@ build_mongo_connection_string <- function(
   paste0(
     "mongodb://",
     sprintf("%s:%s@", username, password),
-    host,
+    hostname,
     ":",
     port,
     sprintf("/%s", authdb %||% ""),
