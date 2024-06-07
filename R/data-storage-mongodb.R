@@ -156,10 +156,12 @@ DataStorageMongoDB <- R6::R6Class( # nolint object_name.
           tidyr::unnest(cols = "details") %>%
           dplyr::mutate(time = lubridate::as_datetime(as.integer(time / 1000)))
 
-        if (!"value" %in% colnames(result)) {
-          dplyr::mutate(result, value = NA_character_)
-        } else {
+        # Force value column to be a character data type
+        if ("value" %in% colnames(result)) {
           dplyr::mutate(result, value = format(value))
+        } else {
+          # If there is no column, then it should still be a character data type
+          dplyr::mutate(result, value = NA_character_)
         }
       } else {
         dplyr::tibble(
