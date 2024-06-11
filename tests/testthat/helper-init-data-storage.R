@@ -88,8 +88,7 @@ init_test_mongodb <- function(.local_envir = parent.frame()) {
     password = Sys.getenv("TEST_MONGODB_PASSWORD"),
     host = Sys.getenv("TEST_MONGODB_HOSTNAME"),
     port = Sys.getenv("TEST_MONGODB_PORT"),
-    db = Sys.getenv("TEST_MONGODB_DBNAME"),
-    collection = Sys.getenv("TEST_MONGODB_COLLECTION")
+    db = Sys.getenv("TEST_MONGODB_DBNAME")
   )
 
   testthat::skip_on_cran()
