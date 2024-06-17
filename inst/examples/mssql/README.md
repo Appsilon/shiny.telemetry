@@ -7,6 +7,13 @@ The database instance has to be running for the application and analytics dashbo
 
 ### Requirements
 
+The database needs to be created manually. Chunk below allows to create databse using the `sqlcmd` utility.
+
+```
+CREATE DATABSAE my_db
+GO
+```
+
 The Microsoft ODBC 18 driver has to be installed in the system to use this example.
 
 https://learn.microsoft.com/en-us/sql/connect/odbc/microsoft-odbc-driver-for-sql-server?view=sql-server-ver16&viewFallbackFrom=sql-server-ver18
