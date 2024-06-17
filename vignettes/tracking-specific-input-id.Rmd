@@ -1,0 +1,94 @@
+---
+title: "Guide on Tracking Specific Inputs"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Guide on Tracking Specific Inputs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This guide will help users to track only a subset of inputs that are important to the analysis.
+
+The main motivation to use this feature in `{shiny.telemetry}` is to reduce the amount of data that is being tracked as some Shiny widgets can generate a lot of events. In particular, on events that are sending input changes triggered via Javascript.
+
+Some widgets will track events, such as mouse clicking on elements or even the position of the cursor, which will have a impact on the application performance and on the amount of data that is being stored.
+
+The developer of the shiny application can achieve this on `{shiny.telemtry}` with 2 completementary strategies:
+
+1. Exclude inputs via a regular expression via the `telemetry$log_all_inputs()` method;
+  - This is most common use case and is available since version `0.3.0`;
+1. Track only specific input ids via the `telemetry$log_input()` method. 
+
+To achieve either of these strategies, the user will need disable the tracking of inputs on the `telemetry$start_session` method and then call the appropriate method.
+_note_: When calling `telemetry$log_all_inputs()` with the default arguments it will behave just like the `telemetry$start_session` method.
+
+```r
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    telemetry$start_session(track_inputs = FALSE)
+    
+    telemetry$log_input(c("app-input_id_1", "app-input_id_2", "app-ns2-input_id_4")) # 1.
+    telemetry$log_all_inputs(excluded_inputs_regex = ".*-namespace2-.*") # 2.
+    
+    # Server logic ...
+  })
+}
+```
+
+### Exclude inputs via a regular expression
+
+In most applications where `{shiny.telemetry}` is being used, the developers want to track all input changes while excluding a specific subset of input ids or patterns.
+
+To achieve this, the user can call on `telemetry$log_all_inputs()` with the `excluded_inputs_regex` argument.
+
+Let's say we want to exclude all input ids that are triggered by the `{DT}` package, then we can use the pattern that it should start with `dt_` and contain only alpha numeric characters or underscore.
+The chunk below shows how to achieve this:
+
+```r
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    telemetry$start_session(track_inputs = FALSE)
+    telemetry$log_all_inputs(excluded_inputs_regex = "dt_[a-zA-Z0-9_]*$"]) 
+    # Server logic ...
+  })
+}
+```
+
+In the event of a specific input id that should be included, regardless of the excluded regular expression, the user can call on `telemetry$log_all_inputs()` with the `include_input_ids` argument that will have a higher priority and included in the tracking.
+
+#### Exclude inputs by full input id
+
+Additionally, the user can exclude inputs by the full input id by passing a vector of input ids to the `excluded_inputs` argument.
+
+```r
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    telemetry$start_session(track_inputs = FALSE)
+    telemetry$log_all_inputs(excluded_inputs = c("input_1", "ns2-input_1", "input_2"]) 
+    # Server logic ...
+  })
+}
+```
+
+### Track a small subset of input ids
+
+If there is a small subset of inputs that should be tracked while ignoring all others, the the user can call on `telemetry$log_input()` with one or more input ids.
+
+When this function is called, it will create an observe event for each of the input ids that are being tracked.
+
+```r
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    telemetry$start_session(track_inputs = FALSE)
+    telemetry$log_input(c("app-input_id_1", "app-input_id_2", "app-ns2-input_id_4")) # 1.
+    # Server logic ...
+  })
+}
+```

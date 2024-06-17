@@ -1,0 +1,106 @@
+---
+title: "Telemetry with External Databases Guide"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Telemetry with External Databases Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The `{shiny.telemetry}` package can be used with any Shiny application and in this guide we will show how to use it with different databases backend.
+
+A requirement for this guide is to have a database server running and the necessary permissions to create a database, tables and insert data.
+
+The following databases are supported by `{shiny.telemetry}`:
+
+- PostgreSQL
+- MariaDB or MySQL
+- MS SQL Server
+- MongoDB
+- SQLite
+
+In our example applications we include `docker-container.yml` for each that will allow to quickly run a database server locally with the necessary configuration. It requires Docker or Podman installed to run the containers.
+
+The examples folder also has a Shiny application that uses each of the backends.
+
+See `inst/examples/` folder or the [github link](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples) for more details.
+
+## Create a data storage backend {.tabset}
+
+The command below will create a data storage instance with the necessary configuration for each database backend. 
+The arguments vary from each database backend, however, the operations are standard across all of them.
+
+### PostgreSQL
+
+The PostgreSQL data storage will create a database in a Postgres server.
+
+```r
+data_storage <- DataStoragePostgreSQL$new(
+  user = "postgres",
+  password = "mysecretpassword",
+  hostname = "127.0.0.1",
+  port = 5432,
+  dbname = "shiny_telemetry",
+  driver = "RPostgreSQL"
+)
+```
+
+### MariaDB / MySQL
+
+```r
+data_storage <- DataStorageMariaDB$new(
+  user = "mariadb", 
+  password = "mysecretpassword",
+  hostname = "127.0.0.1",
+  port = 3306,
+  dbname = "shiny_telemetry"
+)
+```
+
+### MS SQL Server
+
+
+```r
+data_storage <- DataStorageMSSQLServer$new(
+  user = "sqlserver",
+  password = "mysecretpassword", 
+  hostname = "servername", 
+  port = 1433,
+  dbname = "my_db", 
+  driver = "ODBC Driver 17 for SQL Server",
+  trust_server_certificate = "NO"
+)
+```
+
+### MongoDB
+
+```r
+data_storage <- DataStorageMongoDB$new(
+  host = "localhost",
+  dbname = "test",
+  authdb = NULL,
+  options = NULL,
+  ssl_options = mongolite::ssl_options()
+)
+```
+
+### SQLite
+
+Unlike the other database backends, SQLite only requires a path to a file that the Shiny application can write to.
+
+```r
+data_storage <- DataStorageSQLite$new(
+  db_path = "telemetry.sqlite"
+)
+```
+
+## Use data storage in `{shiny.telemetry}`
+
+After initializing the data storage, it will behave just as any other backend in `{shiny.telemetry}`, which allows the developer
