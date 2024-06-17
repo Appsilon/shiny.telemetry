@@ -7,7 +7,15 @@ CMD
 customizable
 filesystem
 hostname
+INITDB
 Javascript
+mongo
+mongodb
+myreplicaset
+replicaSet
 Rhinoverse
 RStudio
+SSL
+ssl
 UI
+URI

@@ -50,6 +50,13 @@ jobs:
       TEST_MSSQLSERVER_HOSTNAME: '127.0.0.1'
       TEST_MSSQLSERVER_TRUST_SERVER_CERTIFICATE: 'YES'
       TEST_MSSQLSERVER_DRIVER: 'ODBC Driver 18 for SQL Server'
+      ## MongoDb
+      TEST_MONGODB_USER: 'mongodb'
+      TEST_MONGODB_PASSWORD: 'mysecretpassword'
+      TEST_MONGODB_HOST: '127.0.0.1'
+      TEST_MONGODB_PORT: 27017
+      TEST_MONGODB_DBNAME: 'shiny_telemetry'
+      TEST_MONGODB_COLLECTION: 'event_log'
 
     ###########################################
     # Services container to run with main job #
@@ -79,6 +86,13 @@ jobs:
         env:
           ACCEPT_EULA: Y
           MSSQL_SA_PASSWORD: 'my-Secr3t_Password'
+      mongodb:
+        image: mongo
+        env:
+          MONGO_INITDB_ROOT_USERNAME: mongodb
+          MONGO_INITDB_ROOT_PASSWORD: mysecretpassword
+        ports:
+          - 27017:27017
 
     steps:
       ##################

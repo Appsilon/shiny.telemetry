@@ -71,6 +71,91 @@ build_query_sql <- function(
   trimws(do.call(glue::glue_sql, c(query, .con = .con)))
 }
 
+#' Build query to read from collection in DataStorageMongoDB provider
+#'
+#' @param date_from date representing the starting day of results. Can be NULL.
+#' @param date_to date representing the last day of results. Can be NULL.
+#'
+#' @return A string or a JSON object that can be used as the query argument of
+#' the `find()` method of a [mongolite::mongo()] class.
+#'
+#' @noRd
+#' @examples
+#' con <- mongolite::mongo()
+#' con$find(query = build_query_mongodb())
+#' con$find(query = build_query_mongodb(Sys.Date() - 365))
+#' con$find(query = build_query_mongodb(date_to = Sys.Date() + 365))
+#' con$find(query = build_query_mongodb(
+#'   date_from = Sys.Date() - 365, date_to = Sys.Date() + 365)
+#' )
+#' con$find(query = build_query_mongodb(
+#'   date_from = as.Date("2023-04-13"), date_to = as.Date("2000-01-01")
+#' ))
+build_query_mongodb <- function(date_from, date_to) {
+  if (is.null(date_from) && is.null(date_to)) {
+    query <- "{}"
+    return(query)
+  } else {
+    query <- list(time = list())
+  }
+
+  if (!is.null(date_from)) {
+    if (inherits(date_from, "Date")) {
+      date_from <- paste0(as.character(date_from), " 00:00:00 UTC")
+    }
+    query$time["$gte"] <- as.integer(lubridate::as_datetime(date_from)) * 1000
+  }
+
+  if (!is.null(date_to)) {
+    if (inherits(date_to, "Date")) {
+      date_to <- paste0(as.character(date_to), " 23:59:59 UTC")
+    }
+    query$time["$lte"] <- as.integer(lubridate::as_datetime(date_to)) * 1000
+  }
+
+  jsonlite::toJSON(query, auto_unbox = TRUE)
+}
+
+#' Create the connection string for mongodb
+#'
+#' @noRd
+#' @keywords internal
+#' @examples
+#' build_mongo_connection_string(
+#'   "localhost",
+#'   31,
+#'   "user",
+#'   "pass",
+#'   "authdb",
+#'   list("option1" = "value1", "option2" = "value2")
+#' )
+build_mongo_connection_string <- function(
+    hostname, port, username, password, authdb, options) {
+  checkmate::assert_string(hostname)
+  checkmate::assert_int(port)
+  checkmate::assert_string(username, null.ok = TRUE)
+  checkmate::assert_string(password, null.ok = TRUE)
+  checkmate::assert_string(authdb, null.ok = TRUE)
+  checkmate::assert_list(options, null.ok = TRUE)
+
+  paste0(
+    "mongodb://",
+    sprintf("%s:%s@", username, password),
+    hostname,
+    ":",
+    port,
+    sprintf("/%s", authdb %||% ""),
+    ifelse(
+      isFALSE(is.null(options)),
+      sprintf(
+        "?%s",
+        paste(names(options), "=", options, collapse = "&", sep = "")
+      ),
+      ""
+    )
+  )
+}
+
 #' Process a row's detail (from DB) in JSON format to a data.frame
 #'
 #' @param details_json string containing details a valid JSON, NULL or NA
