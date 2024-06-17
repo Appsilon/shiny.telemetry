@@ -10,7 +10,7 @@
 #' \dontrun{
 #' data_storage <- DataStorageMongoDB$new(
 #'   host = "localhost",
-#'   dbname = "test",
+#'   db = "test",
 #'   ssl_options = mongolite::ssl_options()
 #' )
 #' data_storage$insert("example", "test_event", "session1")
