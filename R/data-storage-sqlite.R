@@ -59,7 +59,7 @@ DataStorageSQLite <- R6::R6Class( # nolint object_name.
     },
 
     read_data = function(date_from, date_to, bucket) {
-      super$read_data(date_from, date_to, bucket) |>
+      super$read_data(date_from, date_to, bucket) %>%
         dplyr::mutate(time = lubridate::as_datetime(time))
     }
   )
