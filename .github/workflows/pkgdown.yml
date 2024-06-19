@@ -7,21 +7,15 @@ on:
       - main
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 name: pkgdown
 
 jobs:
   pkgdown:
-    name: 🌍 Build and publish website
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v3
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -31,21 +25,11 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, any::yaml, any::fs, any::purrr, any::withr, any::desc, any::rlang, local::.
+          extra-packages: any::pkgdown, local::.
           needs: website
 
-      - name: Build site
-        shell: Rscript {0}
+      - name: Deploy to gh-pages branch
         run: |
-          source("pkgdown/build.R")
-          build_versioned(
-            repo = ".",
-            root_url = "https://averissimo.github.io/shiny.telemetry",
-            destination = "docs"
-          )
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: docs
-          branch: gh-pages
+          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
