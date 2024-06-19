@@ -1,13 +1,5 @@
-:root, [data-bs-theme="light"] {
+:root {
   --primary-color: #4AB76C;
-  --bs-primary-rgb: #4AB76C;
-  --bslib-color-bg: #4AB76C;
-  --navbar-color: #262323;
-}
-
-.navbar.bg-primary {
-  --primary-color: #4AB76C;
-  --bs-primary-rgb: #4AB76C;
   --bslib-color-bg: #4AB76C;
   --navbar-color: #262323;
 }
