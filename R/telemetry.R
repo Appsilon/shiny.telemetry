@@ -185,8 +185,12 @@ Telemetry <- R6::R6Class( # nolint object_name.
             when = as.character(utils::packageVersion("shiny")),
             what = "Telemetry$start_session(track_errors = \"is not fully enabled \")",
             details = c(
-              "Update the shiny package to version `1.8.1` or higher to log all errors.",
-              "Until then, shiny.telemetry can only detect errors triggered by the `shiny:error` javacript event."
+              "Update the shiny package to version `1.8.1` or higher to enable logging of all errors.",
+              paste(
+                "Until then, shiny.telemetry can only detect errors triggered by",
+                "the `shiny:error` javacript event.",
+                sep = " "
+              )
             ),
             env = getNamespace("shiny")
           )
