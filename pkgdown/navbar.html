@@ -4,7 +4,6 @@
     {{#includes}}{{{before_title}}}{{/includes}}
     <a class="navbar-brand me-2" href="{{#site}}{{root}}{{/site}}index.html">{{#site}}{{title}}{{/site}}</a>
 
-
     <div id="version-switcher" class="dropdown">
       <a
         href="#"
@@ -14,7 +13,9 @@
         aria-expanded="false"
         aria-haspopup="true"
       >
-        ___CURRENT_PLACEHOLDER___
+        <small class="nav-text {{#development}}text-{{version_label}}{{/development}} me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{#development}}{{version_tooltip}}{{/development}}">
+          ___CURRENT_PLACEHOLDER___
+        </small>
       </a>
       <ul class="dropdown-menu">
         ___OPTIONS_PLACEHOLDER___

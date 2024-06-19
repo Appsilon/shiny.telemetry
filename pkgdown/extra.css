@@ -1,13 +1,5 @@
-:root, [data-bs-theme="light"] {
+:root {
   --primary-color: #4AB76C;
-  --bs-primary-rgb: #4AB76C;
-  --bslib-color-bg: #4AB76C;
-  --navbar-color: #262323;
-}
-
-.navbar.bg-primary {
-  --primary-color: #4AB76C;
-  --bs-primary-rgb: #4AB76C;
   --bslib-color-bg: #4AB76C;
   --navbar-color: #262323;
 }
@@ -20,6 +12,14 @@
 .navbar-light .navbar-nav .active > .nav-link {
   background-color: var(--primary-color);
   color: var(--bs-navbar-brand-color);
+}
+
+.nav-link::after {
+  color: var(--bs-secondary-color);
+}
+
+.nav-link:hover::after, .nav-link:focus::after, .nav-link:active::after {
+  color: var(--navbar-color);
 }
 
 nav .text-muted {

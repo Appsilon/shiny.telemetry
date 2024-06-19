@@ -19,7 +19,9 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -29,9 +31,21 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages: any::pkgdown, any::yaml, any::fs, any::purrr, any::withr, any::desc, any::rlang, local::.
           needs: website
 
-      - name: R pkgdown Multi Version docs
-        uses: insightsengineering/r-pkgdown-multiversion@v2.4.4
+      - name: Build site
+        shell: Rscript {0}
+        run: |
+          source("pkgdown/build.R")
+          build_versioned(
+            repo = ".",
+            root_url = "https://averissimo.github.io/shiny.telemetry",
+            destination = "docs"
+          )
 
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs
+          branch: gh-pages

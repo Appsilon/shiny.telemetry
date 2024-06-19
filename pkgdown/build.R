@@ -1,41 +1,84 @@
 #' @param repo The path to the git repository to build.
-#' @param versions A list of lists. Each sublist should contain the following keys:
+#' @param versions A list of lists. Each sublist should contain the following
+#' keys:
 #'   - `git_ref`: The git ref to build.
 #'   - `url`: The URL path for the version.
-#'   - `label`: The label to display in the navbar. To use the version from DESCRIPTION provide `TRUE`.
+#'   - `label`: The label to display in the navbar. To use the version
+#'   from DESCRIPTION provide `TRUE`.
 #' Additonally, exactly one version should have `url` set to "/".
 #' @param root_url The root URL for all versions of the website.
 #' @param destination The destination directory for the built website.
 build_versioned <- function(repo, versions, root_url, destination) {
+  versions <- rlang::maybe_missing(versions, github_version_tags())
+
   validate_versions(versions)
-
   # Prepare a repo for building
-  temp_repo <- fs::dir_copy(repo, fs::file_temp("versioned-build-repo-"))
-  on.exit(fs::dir_delete(temp_repo))
-  # NOTE: detach to avoid git worktree complaining about the current ref being checked out
-  system2("git", c("-C", temp_repo, "switch", "--detach", "@"))
-  build_version <- build_version_factory(temp_repo, versions, root_url, destination)
+  temp_repo <- withr::local_tempdir(pattern = "versioned-build-repo-")
+  fs::dir_copy(repo, temp_repo)
 
-  # NOTE: building the root URL first, so pkgdown doesn't complain about a non-empty destination directory
-  root_index <- purrr::detect_index(versions, \(x) isTRUE(x$url == "/"))
+  # NOTE: detach to avoid git worktree complaining about the current ref being
+  #  checked out
+  system2("git", c("-C", temp_repo, "switch", "--detach", "@"))
+  build_version <- build_version_factory(
+    repo = temp_repo,
+    versions = versions,
+    root_url = root_url,
+    destination = destination
+  )
+
+  # NOTE: building the root URL first, so pkgdown doesn't complain about a
+  #  non-empty destination directory
+  root_index <- purrr::detect_index(versions, function(x) isTRUE(x$url == "/"))
   purrr::walk(c(versions[root_index], versions[-root_index]), build_version)
 }
 
 validate_versions <- function(versions) {
   expected_names <- c("git_ref", "url", "label")
-  n_root <- 0
-  purrr::walk(versions, function(version) {
-    diff <- setdiff(expected_names, names(version))
-    if (length(diff) > 0) {
-      stop("A version is missing the following keys: ", paste(diff, collapse = ", "))
+  n_root <- vapply(
+    versions,
+    function(version) {
+      diff <- setdiff(expected_names, names(version))
+      if (length(diff) > 0) {
+        stop(
+          "A version is missing the following keys: ",
+          paste(diff, collapse = ", ")
+        )
+      }
+      isTRUE(version$url == "/")
+    },
+    logical(1L)
+  )
+
+  if (sum(n_root) != 1L) stop("Exactly one version should have url set to '/'")
+}
+
+github_version_tags <- function() {
+  tags <- purrr::keep(
+    system2("git", c("tag", "-l"), stdout = TRUE),
+    function(x) grepl("^v([0-9]+[.]?)+$", x)
+  )
+
+  tags_ordered <- sprintf(
+    "v%s",
+    sort(package_version(gsub("^v", "", tags)), decreasing = TRUE)
+  )
+
+  versions <- purrr::map(
+    tags_ordered,
+    function(x) {
+      list(
+        git_ref = sprintf("refs/tags/%s", x),
+        url = sprintf("/%s", ifelse(identical(x, tags_ordered[[1]]), "", x)),
+        label = gsub("^v", "", x)
+      )
     }
-    if (isTRUE(version$url == "/")) {
-      n_root <<- n_root + 1
-    }
-  })
-  if (n_root != 1) {
-    stop("Exactly one version should have url set to '/'")
-  }
+  )
+
+  # Add developer version
+  append(
+    list(list(git_ref = "refs/remotes/origin/main", url = "/dev", label = TRUE)),
+    versions
+  )
 }
 
 build_version_factory <- function(repo, versions, root_url, destination) {
@@ -45,42 +88,59 @@ build_version_factory <- function(repo, versions, root_url, destination) {
 
   function(version) {
     # Prepare a worktree for building
-    build_dir <- fs::file_temp("versioned-build-worktree-")
-    on.exit(system2("git", c("-C", repo, "worktree", "remove", "--force", build_dir))) # NOTE: --force because we add the navbar file
-    status <- system2("git", c("-C", repo, "worktree", "add", build_dir, version$git_ref))
-    if (status != 0) {
+    build_dir <- withr::local_tempdir(pattern = "versioned-build-worktree-")
+
+    status <- system2(
+      "git",
+      c("-C", repo, "worktree", "add", build_dir, version$git_ref)
+    )
+    on.exit(
+      # NOTE: --force because we add the navbar file
+      system2("git", c("-C", repo, "worktree", "remove", "--force", build_dir))
+    )
+    if ((status) != 0) {
       stop("Failed to create a worktree for ref ", version$git_ref)
     }
+
+    # Overwrite the pkgdown folder with latest changes
+    config <- yaml::read_yaml(fs::path_join(c(repo, "pkgdown", "_pkgdown.yml")))
 
     # Write the navbar template and extra.css
     template_dir <- fs::path_join(c(build_dir, "pkgdown", "templates"))
     fs::dir_create(template_dir)
-    writeLines(navbar_template(version), fs::path_join(c(template_dir, "navbar.html")))
-    fs::file_copy(extra_css_path, fs::path_join(c(build_dir, "pkgdown", "extra.css")), overwrite = TRUE)
+    writeLines(
+      navbar_template(version),
+      fs::path_join(c(template_dir, "navbar.html"))
+    )
+    fs::file_copy(
+      extra_css_path,
+      fs::path_join(c(build_dir, "pkgdown", "extra.css")),
+      overwrite = TRUE
+    )
 
-    # NOTE: providing an absolute path to build_site won't work: https://github.com/r-lib/pkgdown/issues/2172
-    withr::with_dir(build_dir, {
-      pkgdown::build_site_github_pages(
-        override = list(
-          url = sub("/$", "", url_join(root_url, version$url)),
-          navbar = list(type = "light")
-        ),
-        dest_dir = fs::path_join(c(destination, version$url))
-      )
-    })
+    pkgdown::build_site_github_pages(
+      pkg = build_dir,
+      override = list(
+        url = sub("/$", "", url_join(root_url, version$url)),
+        template = config$template,
+        navbar = list(
+          type = config$navbar$type,
+          bg = config$navbar$bg,
+          fg = config$navbar$fg,
+          structure = config$navbar$structure
+        )
+      ),
+      dest_dir = fs::path_join(c(destination, version$url))
+    )
   }
 }
 
 url_join <- function(url, path) {
-  paste(
-    sub("/$", "", url),
-    sub("^/", "", path),
-    sep = "/"
-  )
+  sprintf("%s/%s", sub("/$", "", url), sub("^/", "", path))
 }
 
 navbar_template_factory <- function(versions, root_url) {
-  navbar_code <- readLines("pkgdown/navbar_template.html")
+  navbar_code <- readLines("pkgdown/navbar.html")
   index_current <- grep("___CURRENT_PLACEHOLDER___", navbar_code)
   index_options <- grep("___OPTIONS_PLACEHOLDER___", navbar_code)
   stopifnot(index_current < index_options)
