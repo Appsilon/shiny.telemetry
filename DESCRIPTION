@@ -29,6 +29,7 @@ Imports:
     jsonlite,
     logger,
     lubridate,
+    lifecycle,
     odbc,
     purrr,
     R6,

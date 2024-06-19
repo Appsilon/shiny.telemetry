@@ -179,6 +179,19 @@ Telemetry <- R6::R6Class( # nolint object_name.
         self$log_browser_version(session = session)
       }
       if (isTRUE(track_errors)) {
+        # Warning for users with shiny version < 1.8.1
+        if (!rlang::is_installed("shiny", version = "1.8.1", compare = ">=")) {
+          lifecycle::deprecate_warn(
+            when = as.character(utils::packageVersion("shiny")),
+            what = "Telemetry$start_session(track_errors = \"is not fully enabled \")",
+            details = c(
+              "Update the shiny package to version `1.8.1` or higher to log all errors.",
+              "Until then, shiny.telemetry can only detect errors triggered by the `shiny:error` javacript event."
+            ),
+            env = getNamespace("shiny")
+          )
+        }
+
         if ("onUnhandledError" %in% ls(getNamespace("shiny"))) {
           shiny::onUnhandledError(function(error) {
             self$log_error(
@@ -293,6 +306,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
     ) {
       shiny::onSessionEnded(function() {
         logger::log_debug("event: logout", namespace = "shiny.telemetry")
+
         private$log_generic(
           type = "logout",
           details = list(username = username),
@@ -487,10 +501,8 @@ Telemetry <- R6::R6Class( # nolint object_name.
         namespace = "shiny.telemetry"
       )
 
-      type <- ifelse(input_id == "track_error", value$type, "input")
-
       private$.log_event(
-        type = type,
+        type = ifelse(identical(input_id, "track_error"), value$type, "input"),
         details = list(id = input_id, value = value),
         session = session
       )
@@ -509,6 +521,11 @@ Telemetry <- R6::R6Class( # nolint object_name.
     log_custom_event = function(
       event_type, details = NULL, session = shiny::getDefaultReactiveDomain()
     ) {
+
+      logger::log_debug(
+        "custom event {event_type}", namespace = "shiny.telemetry"
+      )
+
       private$.log_event(
         type = event_type, details = details, session = session
       )
@@ -528,6 +545,12 @@ Telemetry <- R6::R6Class( # nolint object_name.
     ) {
       checkmate::assert_string(output_id, null.ok = TRUE)
       checkmate::assert_string(message, null.ok = TRUE)
+
+      logger::log_debug(
+        "event: error on '{output_id}' with message: {message}",
+        namespace = "shiny.telemetry"
+      )
+
       private$.log_event(
         type = "error",
         details = list(output_id = output_id, message = message),
@@ -674,7 +697,13 @@ Telemetry <- R6::R6Class( # nolint object_name.
               if (isTRUE(track_values)) {
                 log_value <- new[[name]]
               }
-              if (!(name == "track_error" && !track_errors)) {
+              if (track_errors && identical(name, "track_error")) {
+                self$log_error(
+                  output_id = new[[name]]$output_id,
+                  message = new[[name]]$message,
+                  session = session
+                )
+              } else {
                 self$log_input_manual(name, log_value, session)
               }
             }
