@@ -18,6 +18,7 @@
 ### Bug Fixes
 
 - Fixed Analytics app not being able to access data by Instrumentation app (#164).
+- Fixed SQLite data storage backend when reading date column (#182).
 
 # shiny.telemetry 0.2.0
 
