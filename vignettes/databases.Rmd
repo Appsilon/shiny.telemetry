@@ -106,6 +106,6 @@ data_storage <- DataStorageSQLite$new(
 )
 ```
 
-## Use data storage in `{shiny.telemetry}`
+## Data storage usage in `{shiny.telemetry}`
 
-After initializing the data storage, it will behave just as any other backend in `{shiny.telemetry}`, which allows the developer
+The data storage API to read and write events for `{shiny.telemetry}` is consistent across all backends, which allows the developer to implement and test the package with the most convenient backend and then easily migrate to an external database.
