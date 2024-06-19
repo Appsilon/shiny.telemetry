@@ -31,7 +31,6 @@ template:
 url: https://appsilon.github.io/shiny.telemetry/
 
 navbar:
-  type: light
   bg: primary
   fg: "#262323"
   structure:

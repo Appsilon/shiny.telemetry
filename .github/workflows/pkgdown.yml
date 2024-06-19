@@ -32,19 +32,6 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
-      - name: Build site
-        shell: Rscript {0}
-        run: |
-          source("pkgdown/build.R")
-          build_versioned(
-            repo = ".",
-            versions = yaml::read_yaml("pkgdown/versions.yml"),
-            root_url = "https://shiny.telemetry.github.io/rhino",
-            destination = "docs"
-          )
+      - name: R pkgdown Multi Version docs
+        uses: insightsengineering/r-pkgdown-multiversion@v2.4.4
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: docs
-          branch: bot/github-pages
