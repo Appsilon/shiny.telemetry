@@ -34,4 +34,7 @@ jobs:
 
       - name: R pkgdown Multi Version docs
         uses: insightsengineering/r-pkgdown-multiversion@v2.4.4
+        with:
+          default-landing-page: latest-tag
+          latest-tag-alt-name: latest-cran
 
