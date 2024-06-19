@@ -8,10 +8,10 @@
 #' Additonally, exactly one version should have `url` set to "/".
 #' @param root_url The root URL for all versions of the website.
 #' @param destination The destination directory for the built website.
-build_versioned <- function(repo, versions_spec, root_url, destination) {
-  versions_spec <- rlang::maybe_missing(versions_spec, github_version_tags())
+build_versioned <- function(repo, versions, root_url, destination) {
+  versions <- rlang::maybe_missing(versions, github_version_tags())
 
-  validate_versions(versions_spec)
+  validate_versions(versions)
   # Prepare a repo for building
   temp_repo <- withr::local_tempdir(pattern = "versioned-build-repo-")
   fs::dir_copy(repo, temp_repo)
@@ -21,15 +21,15 @@ build_versioned <- function(repo, versions_spec, root_url, destination) {
   system2("git", c("-C", temp_repo, "switch", "--detach", "@"))
   build_version <- build_version_factory(
     repo = temp_repo,
-    versions = versions_spec,
+    versions = versions,
     root_url = root_url,
     destination = destination
   )
 
   # NOTE: building the root URL first, so pkgdown doesn't complain about a
   #  non-empty destination directory
-  root_index <- purrr::detect_index(versions_spec, function(x) isTRUE(x$url == "/"))
-  purrr::walk(c(versions_spec[root_index], versions_spec[-root_index]), build_version)
+  root_index <- purrr::detect_index(versions, function(x) isTRUE(x$url == "/"))
+  purrr::walk(c(versions[root_index], versions[-root_index]), build_version)
 }
 
 validate_versions <- function(versions) {
@@ -49,7 +49,7 @@ validate_versions <- function(versions) {
     logical(1L)
   )
 
-  if (sum(n_root) == 1L) stop("Exactly one version should have url set to '/'")
+  if (sum(n_root) != 1L) stop("Exactly one version should have url set to '/'")
 }
 
 github_version_tags <- function() {
@@ -68,7 +68,7 @@ github_version_tags <- function() {
     function(x) {
       list(
         git_ref = sprintf("refs/tags/%s", x),
-        url = sprintf("/%s", ifelse(identical(x, tags[[1]]), "", x)),
+        url = sprintf("/%s", ifelse(identical(x, tags_ordered[[1]]), "", x)),
         label = gsub("^v", "", x)
       )
     }
@@ -76,7 +76,7 @@ github_version_tags <- function() {
 
   # Add developer version
   append(
-    list(list(git_ref = "refs/remotes/origin/main", url = "/", label = TRUE)),
+    list(list(git_ref = "refs/remotes/origin/main", url = "/dev", label = TRUE)),
     versions
   )
 }
