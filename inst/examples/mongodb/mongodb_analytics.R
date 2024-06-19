@@ -15,11 +15,11 @@ library(DT)
 # Please install shiny.telemetry with all dependencies
 library(shiny.telemetry)
 
-# Default storage backend using PostgreSQL
-data_storage <- DataStoragePostgreSQL$new(
-  user = "postgres", password = "mysecretpassword"
+# Default storage backend using MariaDB
+data_storage <- DataStorageMongoDB$new(
+  username = "root", password = "example"
 )
 
 analytics_app(data_storage = data_storage)
 
-# shiny::shinyAppFile(system.file("examples", "postgresql", "postgres_analytics.R", package = "shiny.telemetry")) # nolint: commented_code, line_length.
+# shiny::shinyAppFile(system.file("examples", "mariadb", "mariadb_analytics.R", package = "shiny.telemetry")) # nolint: commented_code, line_length.

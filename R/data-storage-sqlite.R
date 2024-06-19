@@ -23,7 +23,7 @@
 #' data_storage$read_event_data(Sys.Date() - 1, Sys.Date() + 1)
 #'
 #' file.remove(db_path)
-DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
+DataStorageSQLite <- R6::R6Class( # nolint object_name.
   classname = "DataStorageSQLite",
   inherit = DataStorageSQLFamily,
   #
@@ -56,6 +56,11 @@ DataStorageSQLite <- R6::R6Class( # nolint object_name_linter
     connect = function(db_path) {
       # Initialize connection with sqlite database
       private$db_con <- odbc::dbConnect(RSQLite::SQLite(), dbname = db_path)
+    },
+
+    read_data = function(date_from, date_to, bucket) {
+      super$read_data(date_from, date_to, bucket) %>%
+        dplyr::mutate(time = lubridate::as_datetime(time))
     }
   )
 )

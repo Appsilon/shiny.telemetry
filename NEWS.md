@@ -4,13 +4,21 @@
 
 - Updated `get_user` method to retrieve user in `shinyproxy` environment (#124).
 - Added flexibility to select between [`RPostgreSQL`, `RPostgres`] drivers (#147).
+- Improved input tracking by implementing inclusion and exclusion logic (#30).
 - Added tracking for returning anonymous users (#142).
 - Added shiny error tracking (#116).
+- Added support for MongoDB (see `DataStorageMongoDB` class) (#174).
 
 ### Miscellaneous
 
 - Updates documentation to use markdown format (#153).
 - Improves SQL injection safeguards via `glue::glue_sql` to generated SQL queries (#34).
+- Show proper error message when no telemetry data is available (#177).
+
+### Bug Fixes
+
+- Fixed Analytics app not being able to access data by Instrumentation app (#164).
+- Fixed SQLite data storage backend when reading date column (#182).
 
 # shiny.telemetry 0.2.0
 

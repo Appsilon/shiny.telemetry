@@ -48,7 +48,7 @@ ui <- dashboardPage(
         segment(
           class = "basic",
           h3("Sample application instrumented by Shiny.telemetry"),
-          p(glue::glue("Note: using MariaDB as data backend.")),
+          p(glue::glue("Note: using SQLite as data backend.")),
           p("Information logged:"),
           tags$ul(
             tags$li("Start of session"),
@@ -74,12 +74,10 @@ ui <- dashboardPage(
   )
 )
 
-# Default Telemetry with data storage backend using MariaDB
+# Default Telemetry with data storage backend using SQLite
 telemetry <- Telemetry$new(
   app_name = "demo",
-  data_storage = DataStorageMariaDB$new(
-    user = "mariadb", password = "mysecretpassword"
-  )
+  data_storage = DataStorageSQLite$new(db_path = "telemetry.sqlite")
 )
 
 # Define the server logic for a module
@@ -115,4 +113,4 @@ shinyApp(ui = ui, server = function(input, output, session) {
   counter_server("another-widgets")
 })
 
-# shiny::shinyAppFile(system.file("examples", "mariadb", "mariadb_app.R", package = "shiny.telemetry")) # nolint: commented_code, line_length.
+# shiny::shinyAppFile(system.file("examples", "sqlite", "sqlite_app.R", package = "shiny.telemetry")) # nolint: commented_code, line_length.

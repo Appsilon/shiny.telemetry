@@ -77,8 +77,8 @@ ui <- dashboardPage(
 # Default Telemetry with data storage backend using MariaDB
 telemetry <- Telemetry$new(
   app_name = "demo",
-  data_storage = DataStorageMariaDB$new(
-    user = "mariadb", password = "mysecretpassword"
+  data_storage = DataStorageMongoDB$new(
+    username = "root", password = "example"
   )
 )
 

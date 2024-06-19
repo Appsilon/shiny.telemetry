@@ -15,11 +15,7 @@ library(DT)
 # Please install shiny.telemetry with all dependencies
 library(shiny.telemetry)
 
-# Default storage backend using PostgreSQL
-data_storage <- DataStoragePostgreSQL$new(
-  user = "postgres", password = "mysecretpassword"
-)
+# Default storage backend using SQLite
+data_storage <- DataStorageSQLite$new(db_path = "telemetry.sqlite")
 
 analytics_app(data_storage = data_storage)
-
-# shiny::shinyAppFile(system.file("examples", "postgresql", "postgres_analytics.R", package = "shiny.telemetry")) # nolint: commented_code, line_length.
