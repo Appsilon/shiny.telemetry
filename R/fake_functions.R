@@ -12,4 +12,5 @@ fake_function <- function() {
   odbc::dbConnect
   jsonlite::toJSON
   stringr::str_escape
+  lifecycle::deprecate_warn
 }
