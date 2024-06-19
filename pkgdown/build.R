@@ -32,8 +32,7 @@ build_versioned <- function(repo, versions, root_url, destination) {
 
 validate_versions <- function(versions) {
   expected_names <- c("git_ref", "url", "label")
-  n_root <- 0
-  purrr::map(versions, function(version) {
+  n_root <- purrr::map(versions, function(version) {
     diff <- setdiff(expected_names, names(version))
     if (length(diff) > 0) {
       stop(
