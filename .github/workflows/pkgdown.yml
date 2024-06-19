@@ -40,7 +40,7 @@ jobs:
           source("pkgdown/build.R")
           build_versioned(
             repo = ".",
-            root_url = "https://appsilon.github.io/shiny.telemetry",
+            root_url = sprintf("https://%s.github.io/shiny.telemetry", Sys.getenv("GITHUB_REPOSITORY_OWNER")),
             destination = "docs"
           )
 
