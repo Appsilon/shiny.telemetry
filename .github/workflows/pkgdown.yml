@@ -31,7 +31,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, any::yaml, any::fs, any::purrr, any::withr, any::desc, local::.
+          extra-packages: any::pkgdown, any::yaml, any::fs, any::purrr, any::withr, any::desc, any::rlang, local::.
           needs: website
 
       - name: Build site
@@ -40,7 +40,6 @@ jobs:
           source("pkgdown/build.R")
           build_versioned(
             repo = ".",
-            versions = yaml::read_yaml("pkgdown/versions.yml"),
             root_url = "https://averissimo.github.io/shiny.telemetry",
             destination = "docs"
           )
