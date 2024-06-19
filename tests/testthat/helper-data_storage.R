@@ -60,6 +60,34 @@ test_that_common_data_storage <- function(init_fun, provider_name) {
       test_common_len_gt_1_alt(data_storage, dashboard_name)
     }
   )
+
+  testthat::test_that(
+    glue::glue(
+      .sep = " ",
+      provider_name,
+      "Time column is writen / read correctly"
+    ),
+    {
+      data_storage <- init_fun()
+      dashboard_name <- paste0("dashboard-", rlang::hash(Sys.time()))
+
+      test_common_read_date(data_storage, dashboard_name)
+    }
+  )
+
+  testthat::test_that(
+    glue::glue(
+      .sep = " ",
+      provider_name,
+      "Date colimn is writen / read correctly"
+    ),
+    {
+      data_storage <- init_fun()
+      dashboard_name <- paste0("dashboard-", rlang::hash(Sys.time()))
+
+      test_common_read_date(data_storage, dashboard_name)
+    }
+  )
 }
 
 test_common_data_storage <- function(data_storage, dashboard_name = "test_dashboard") {
@@ -197,6 +225,45 @@ test_common_len_gt_1 <- function(data_storage, dashboard_name = "test_dashboard"
     purrr::pluck("value") %>%
     unname() %>%
     expect_equal(format(paste(1:10, collapse = ", ")))
+}
+
+test_common_read_time <- function(data_storage, dashboard_name = "test_dashboard") {
+  require(testthat)
+  withr::defer(data_storage$close())
+
+  # Mock the `lubridate::now` to compare exact datetime
+  manual_time <- lubridate::now(tzone = "UTC")
+
+  data_storage$insert(
+    app_name = dashboard_name,
+    type = "without_session",
+    time = manual_time
+  )
+
+  result <- data_storage$read_event_data(app_name = dashboard_name)
+
+  result %>%
+    purrr::pluck("time") %>%
+    expect_equal(manual_time)
+}
+
+test_common_read_date <- function(data_storage, dashboard_name = "test_dashboard") {
+  require(testthat)
+  withr::defer(data_storage$close())
+
+  manual_time <- lubridate::now(tzone = "UTC")
+
+  data_storage$insert(
+    app_name = dashboard_name,
+    type = "without_session",
+    time = manual_time
+  )
+
+  result <- data_storage$read_event_data(app_name = dashboard_name)
+
+  result %>%
+    purrr::pluck("date") %>%
+    expect_equal(as.Date(manual_time))
 }
 
 test_common_len_gt_1_alt <- function(data_storage, dashboard_name = "test_dashboard") {
