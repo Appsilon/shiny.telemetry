@@ -1,0 +1,9 @@
+- git_ref: 'refs/remotes/origin/main'
+  url: /dev
+  label: true
+- git_ref: 'refs/tags/v0.2.0'
+  url: '/'
+  label: '0.2'
+- git_ref: 'refs/tags/v0.1.0'
+  url: '/v0.1.0'
+  label: '0.1'
