@@ -8,10 +8,10 @@
 #' @param destination The destination directory for the built website.
 build_versioned <- function(repo, versions, root_url, destination) {
   validate_versions(versions)
-
   # Prepare a repo for building
-  temp_repo <- fs::dir_copy(repo, fs::file_temp("versioned-build-repo-"))
-  on.exit(fs::dir_delete(temp_repo))
+  temp_repo <- withr::local_tempdir(pattern = "versioned-build-repo-")
+  fs::dir_copy(repo, temp_repo)
+
   # NOTE: detach to avoid git worktree complaining about the current ref being checked out
   system2("git", c("-C", temp_repo, "switch", "--detach", "@"))
   build_version <- build_version_factory(temp_repo, versions, root_url, destination)
@@ -45,12 +45,17 @@ build_version_factory <- function(repo, versions, root_url, destination) {
 
   function(version) {
     # Prepare a worktree for building
-    build_dir <- fs::file_temp("versioned-build-worktree-")
-    on.exit(system2("git", c("-C", repo, "worktree", "remove", "--force", build_dir))) # NOTE: --force because we add the navbar file
+    build_dir <- withr::local_tempdir(pattern = "versioned-build-worktree-")
+
     status <- system2("git", c("-C", repo, "worktree", "add", build_dir, version$git_ref))
-    if (status != 0) {
-      stop("Failed to create a worktree for ref ", version$git_ref)
-    }
+    on.exit(
+      # NOTE: --force because we add the navbar file
+      system2("git", c("-C", repo, "worktree", "remove", "--force", build_dir))
+    )
+    status != 0 && stop("Failed to create a worktree for ref ", version$git_ref)
+
+    # Overwrite the pkgdown folder with latest changes
+    config <- yaml::read_yaml(fs::path_join(c(repo, "pkgdown", "_pkgdown.yml")))
 
     # Write the navbar template and extra.css
     template_dir <- fs::path_join(c(build_dir, "pkgdown", "templates"))
@@ -59,25 +64,26 @@ build_version_factory <- function(repo, versions, root_url, destination) {
     fs::file_copy(extra_css_path, fs::path_join(c(build_dir, "pkgdown", "extra.css")), overwrite = TRUE)
 
     # NOTE: providing an absolute path to build_site won't work: https://github.com/r-lib/pkgdown/issues/2172
-    browser()
-    withr::with_dir(build_dir, {
-      pkgdown::build_site_github_pages(
+    withr::with_dir(
+      new = build_dir,
+      code = pkgdown::build_site_github_pages(
         override = list(
-          url = sub("/$", "", url_join(root_url, version$url))
+          url = sub("/$", "", url_join(root_url, version$url)),
+          template = config$template,
+          navbar = list(
+            type = config$navbar$type,
+            bg = config$navbar$bg,
+            fg = config$navbar$fg,
+            structure = config$navbar$structure
+          )
         ),
         dest_dir = fs::path_join(c(destination, version$url))
       )
-    })
+    )
   }
 }
 
-url_join <- function(url, path) {
-  paste(
-    sub("/$", "", url),
-    sub("^/", "", path),
-    sep = "/"
-  )
-}
+url_join <- function(url, path) sprintf("%s/%s", sub("/$", "", url), sub("^/", "", path))
 
 navbar_template_factory <- function(versions, root_url) {
   navbar_code <- readLines("pkgdown/navbar.html")

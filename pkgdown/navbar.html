@@ -13,14 +13,14 @@
         aria-expanded="false"
         aria-haspopup="true"
       >
-        ___CURRENT_PLACEHOLDER___
+        <small class="nav-text {{#development}}text-{{version_label}}{{/development}} me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{#development}}{{version_tooltip}}{{/development}}">
+          ___CURRENT_PLACEHOLDER___
+        </small>
       </a>
       <ul class="dropdown-menu">
         ___OPTIONS_PLACEHOLDER___
       </ul>
     </div>
-
-    <small class="nav-text {{#development}}text-{{version_label}}{{/development}} me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{#development}}{{version_tooltip}}{{/development}}">{{#package}}{{version}}{{/package}}</small>
 
     {{#includes}}{{{before_navbar}}}{{/includes}}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="{{#translate}}{{toggle_nav}}{{/translate}}">

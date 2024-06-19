@@ -29,12 +29,22 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages: any::pkgdown, any::yaml, any::fs, any::purrr, any::withr, any::desc, local::.
           needs: website
 
-      - name: R pkgdown Multi Version docs
-        uses: insightsengineering/r-pkgdown-multiversion@v2.4.4
-        with:
-          default-landing-page: latest-tag
-          latest-tag-alt-name: latest-cran
+      - name: Build site
+        shell: Rscript {0}
+        run: |
+          source("pkgdown/build.R")
+          build_versioned(
+            repo = ".",
+            versions = yaml::read_yaml("pkgdown/versions.yml"),
+            root_url = "https://averissimo.github.io/shiny.telemetry",
+            destination = "docs"
+          )
 
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs
+          branch: gh-pages

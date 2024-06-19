@@ -14,6 +14,14 @@
   color: var(--bs-navbar-brand-color);
 }
 
+.nav-link::after {
+  color: var(--bs-secondary-color);
+}
+
+.nav-link:hover::after, .nav-link:focus::after, .nav-link:active::after {
+  color: var(--navbar-color);
+}
+
 nav .text-muted {
   --bs-secondary-color: var(--navbar-color);
 }
