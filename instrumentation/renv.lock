@@ -792,14 +792,14 @@
     },
     "shiny.telemetry": {
       "Package": "shiny.telemetry",
-      "Version": "0.2.0.9013",
+      "Version": "0.2.0.9014",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "appsilon",
       "RemoteRepo": "shiny.telemetry",
-      "RemoteRef": "a7674afd2f39b6fdf4f9ebde354667f645384d7e",
-      "RemoteSha": "a7674afd2f39b6fdf4f9ebde354667f645384d7e",
+      "RemoteRef": "d43314447e440c54b02efc8958105107eb42eba0",
+      "RemoteSha": "d43314447e440c54b02efc8958105107eb42eba0",
       "Requirements": [
         "R6",
         "RSQLite",
@@ -819,7 +819,7 @@
         "stringr",
         "tidyr"
       ],
-      "Hash": "56e0ed9ef8bf4272d14c99f4493476d7"
+      "Hash": "39bd8d3f93479dea1ef99f88a1cf9576"
     },
     "sourcetools": {
       "Package": "sourcetools",
@@ -985,7 +985,7 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.44",
+      "Version": "0.45",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -993,7 +993,7 @@
         "stats",
         "tools"
       ],
-      "Hash": "317a0538d32f4a009658bcedb7923f4b"
+      "Hash": "ca59c87fe305b16a9141a5874c3a7889"
     },
     "xtable": {
       "Package": "xtable",
