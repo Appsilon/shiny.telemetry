@@ -521,10 +521,9 @@ Telemetry <- R6::R6Class( # nolint object_name.
     log_custom_event = function(
       event_type, details = NULL, session = shiny::getDefaultReactiveDomain()
     ) {
+      checkmate::assert_string(event_type)
 
-      logger::log_debug(
-        "custom event {event_type}", namespace = "shiny.telemetry"
-      )
+      logger::log_debug("custom event {event_type}", namespace = "shiny.telemetry")
 
       private$.log_event(
         type = event_type, details = details, session = session
