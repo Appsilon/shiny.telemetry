@@ -502,7 +502,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
       )
 
       private$.log_event(
-        type = ifelse(identical(input_id, "track_error"), value$type, "input"),
+        type = "input",
         details = list(id = input_id, value = value),
         session = session
       )
