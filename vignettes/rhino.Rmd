@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `{shiny.telemetry}` package can be used with any Shiny application and in this guied we will show how to use it with [{rhino} package](https://appsilon.github.io/rhino/).
+The `{shiny.telemetry}` package can be used with any Shiny application and in this guide we will show how to use it with [{rhino} package](https://appsilon.github.io/rhino/).
 
 <div style="float: right;">
 <a href="https://appsilon.github.io/rhino/" target="_blank"><img src="https://appsilon.github.io/rhino/reference/figures/rhino.png" style="height: 140px;" /></a>
@@ -38,7 +38,7 @@ The `{rhino}` frameworks promotes the use of `{box}` to import functions from pa
 See the `{rhino}` documentation on how to [write R code](https://appsilon.github.io/rhino/articles/how-to/write-r-code.html) for more details.
 
 The minimal setup for `{shiny.telemetry}` needs to import:
-- Class for the chosen DataStorage backend (e.g. `DataStorageLogFile` for a text-based storage or `DataStorageMariaDB` for a MariaDB database);
+- Class for the chosen `DataStorage` backend (e.g. `DataStorageLogFile` for a text-based storage or `DataStorageMariaDB` for a MariaDB database);
 - Class for the Telemetry function that will track all the events;
 - Function to load the necessary Javascript code in the UI definition.
 
@@ -98,8 +98,7 @@ The [start_session()](https://appsilon.github.io/shiny.telemetry/reference/Telem
 
 This setups telemetry to write events to a local file data storage backed and it will write 4 types of events:
 
-- Login timestamp with username;
-  - Username is determined from connect/shinyapps.io deployment or with an anonymous unique user id;
+- Login timestamp with username _(if available)_;
 - Browser user agent;
 - Logout timestamp when the session ends;
 - All input changes.

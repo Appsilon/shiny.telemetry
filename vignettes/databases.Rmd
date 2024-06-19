@@ -30,16 +30,17 @@ In our example applications we include `docker-container.yml` for each that will
 
 The examples folder also has a Shiny application that uses each of the backends.
 
-See `inst/examples/` folder or the [github link](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples) for more details.
+See `inst/examples/` folder or the [GitHub link](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples) for more details.
 
 ## Create a data storage backend {.tabset}
 
-The command below will create a data storage instance with the necessary configuration for each database backend. 
-The arguments vary from each database backend, however, the operations are standard across all of them.
+Each data storage backend will create the necessary tables _(or Collection in the case of MongoDB)_ with the respective schema when needed.
+
+The arguments to create an data storage instance vary, however, the read and write operations have the same API. When migrating between backends, the only changes needed are in the initialization of the data storage object.
 
 ### PostgreSQL
 
-The PostgreSQL data storage will create a database in a Postgres server.
+The PostgreSQL data storage will create a database in a PostgreSQL server.
 
 ```r
 data_storage <- DataStoragePostgreSQL$new(
@@ -64,6 +65,8 @@ data_storage <- DataStorageMariaDB$new(
 )
 ```
 
+_note_: The `dbname` data base needs to be created before running the application with `{shiny.telemetry}`.
+
 ### MS SQL Server
 
 
@@ -78,6 +81,8 @@ data_storage <- DataStorageMSSQLServer$new(
   trust_server_certificate = "NO"
 )
 ```
+
+_note_: The `dbname` data base needs to be created before running the application with `{shiny.telemetry}`.
 
 ### MongoDB
 

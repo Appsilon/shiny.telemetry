@@ -20,7 +20,7 @@ The main motivation to use this feature in `{shiny.telemetry}` is to reduce the 
 
 Some widgets will track events, such as mouse clicking on elements or even the position of the cursor, which will have a impact on the application performance and on the amount of data that is being stored.
 
-The developer of the shiny application can achieve this on `{shiny.telemtry}` with 2 completementary strategies:
+The developer of the shiny application can achieve this on `{shiny.telemtry}` with 2 complementary strategies:
 
 1. Exclude inputs via a regular expression via the `telemetry$log_all_inputs()` method;
   - This is most common use case and is available since version `0.3.0`;
