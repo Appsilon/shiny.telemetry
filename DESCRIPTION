@@ -42,7 +42,6 @@ Imports:
 Suggests:
     box,
     config,
-    covr,
     DT,
     mongolite,
     plotly,
