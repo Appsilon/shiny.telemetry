@@ -187,13 +187,36 @@ Telemetry <- R6::R6Class( # nolint object_name.
             details = c(
               "Update the shiny package to version `1.8.1` or higher to enable logging of all errors.",
               paste(
-                "Until then, shiny.telemetry can only detect errors triggered by",
+                "Until then, shiny.telemetry can only reliably detect errors triggered by",
                 "the `shiny:error` javacript event.",
                 sep = " "
               )
             ),
             env = getNamespace("shiny")
           )
+
+          if (is.null(getOption("error"))) {
+            options(
+              "shiny.error" = function(.envir = parent.frame()) {
+                output_id <- paste(as.character(.envir$e$call %||% "global"), collapse = ", ")
+
+                # Ignores errors in render calls as those should be caught by
+                # shiny:error javascript event and contain more information.
+                if (grepl("(shiny::)?render[a-zA-Z_]", output_id)) {
+                  return(invisible())
+                }
+
+                self$log_error(
+                  output_id = output_id,
+                  message = .envir$e$message %||% "Unknown error.",
+                  session = session
+                )
+              }
+            )
+
+            # Restore previous option
+            shiny::onSessionEnded(function() options("shiny.error" = NULL))
+          }
         }
 
         if ("onUnhandledError" %in% ls(getNamespace("shiny"))) {
