@@ -59,7 +59,7 @@ box::use(
 The next step is to call `use_telemetry()` function in the root UI definition on `app/main.R` file to load the necessary Javascript code.
 
 ```r
-# app/main.R
+# app/main.R (change n `ui` function)
 #' @export
 ui <- function(id) {
   ns <- NS(id)
@@ -77,7 +77,7 @@ The next step is to create a `Telemetry` object that will be used to track event
 We recommend creating an instance of `Telemetry` on the `app/main.R` and then start the telemetry session on the root `server` function definition, just as shown below:
 
 ```r
-# app/main.R
+# app/main.R (create telemetry object and initialize in a session)
 telemetry <- Telemetry$new(
   app_name = "rhino_app",
   data_storage = DataStorageLogFile$new("local_file.txt")
