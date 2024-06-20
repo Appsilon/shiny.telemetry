@@ -179,9 +179,14 @@ Telemetry <- R6::R6Class( # nolint object_name.
         self$log_browser_version(session = session)
       }
       if (isTRUE(track_errors)) {
-        # Warning for users with shiny version < 1.8.1
-        if (!rlang::is_installed("shiny", version = "1.8.1", compare = ">=")) {
-
+        if ("onUnhandledError" %in% ls(getNamespace("shiny"))) {
+          shiny::onUnhandledError(function(error) {
+            self$log_error(
+              output_id = "global",
+              message = conditionMessage(error)
+            )
+          })
+        } else {
           lifecycle::deprecate_warn(
             when = as.character(utils::packageVersion("shiny")),
             what = "Telemetry$start_session(track_errors = \"is not fully enabled \")",
@@ -213,7 +218,6 @@ Telemetry <- R6::R6Class( # nolint object_name.
                   collapse = "__"
                 )
 
-
                 self$log_error(
                   output_id = output_id,
                   message = .envir$e$message %||% "Unknown error.",
@@ -233,15 +237,6 @@ Telemetry <- R6::R6Class( # nolint object_name.
               )
             })
           }
-        }
-
-        if ("onUnhandledError" %in% ls(getNamespace("shiny"))) {
-          shiny::onUnhandledError(function(error) {
-            self$log_error(
-              output_id = "global",
-              message = conditionMessage(error)
-            )
-          })
         }
       }
       NULL
