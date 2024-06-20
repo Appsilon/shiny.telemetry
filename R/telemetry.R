@@ -14,6 +14,15 @@
 #' can be customizable when instantiating the class, by using another one of
 #' the supported providers (see [`DataStorage`]).
 #'
+#' @section Debugging:
+#'
+#' Events are logged at the `DEBUG` level using the `logger` package.
+#' To see the logs, you can set:
+#'
+#' ```r
+#' logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
+#' ```
+#'
 #' @seealso [`DataStorage`] which this function wraps.
 #' @export
 #' @examples

@@ -16,11 +16,21 @@ The default data storage provider uses a local SQLite database, but this
 can be customizable when instantiating the class, by using another one of
 the supported providers (see \code{\link{DataStorage}}).
 }
+\section{Debugging}{
+
+
+Events are logged at the \code{DEBUG} level using the \code{logger} package.
+To see the logs, you can set:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
+}\if{html}{\out{</div>}}
+}
+
 \examples{
 log_file_path <- tempfile(fileext = ".txt")
 telemetry <- Telemetry$new(
   data_storage = DataStorageLogFile$new(log_file_path = log_file_path)
-)
+) # 1. Initialize telemetry with default options
 
 #
 # Use in a shiny application
@@ -78,7 +88,6 @@ telemetry_sqlite$log_custom_event("a_button", list(custom_field = 23), session =
 telemetry_sqlite$data_storage$read_event_data("2020-01-01", "2055-01-01")
 
 file.remove(db_path)
-
 
 }
 \seealso{
