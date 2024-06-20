@@ -92,11 +92,12 @@ server <- function(id) {
 }
 ```
 
-The [start_session()](https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html#method-Telemetry-start_session) can be customized to enable/disable different types of events and can be further extended to include/exclude input ids. See the [Guide on tracking specific inputs](tracking-specific-input-id) for more details.
+The [telemetry$start_session()](https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html#method-Telemetry-start_session) call can be customized to enable/disable different types of events and can be further extended to include/exclude input ids. See the [Guide on tracking specific inputs](tracking-specific-input-id) for more details.
 
 ### Conclusion
 
-This setups telemetry to write events to a local file data storage backed and it will write 4 types of events:
+Using `{shiny.telemetry}` with rhino is as easy as doing it with any other Shiny application.
+The setup allows to access all of `{shiny.telemetry}` functionality to write events to a data storage backed and it will write 4 types of events:
 
 - Login timestamp with username _(if available)_;
 - Browser user agent;
