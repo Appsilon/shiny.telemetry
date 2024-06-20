@@ -1,8 +1,8 @@
 ---
-title: "Using `shiny.telemetry` with Rhino Guide"
+title: "Setup shiny.telemetry in a Rhino application"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using `shiny.telemetry` with Rhino Guide}
+  %\VignetteIndexEntry{Setup shiny.telemetry in a Rhino application}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -104,4 +104,4 @@ The setup allows to access all of `{shiny.telemetry}` functionality to write eve
 - Logout timestamp when the session ends;
 - All input changes.
 
-To learn how to use Database backends you can refer to the [Guide to setup databases](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).
+To learn how to use Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).

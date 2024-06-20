@@ -1,8 +1,8 @@
 ---
-title: "Telemetry with External Databases Guide"
+title: "Use External Databases with shiny.telemetry"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Telemetry with External Databases Guide}
+  %\VignetteIndexEntry{Use External Databases with shiny.telemetry}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -1,8 +1,8 @@
 ---
-title: "Guide on Tracking Specific Inputs"
+title: "Track a Subset of Inputs to Improve Performance"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Guide on Tracking Specific Inputs}
+  %\VignetteIndexEntry{Track a Subset of Inputs to Improve Performance}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,7 +16,8 @@ knitr::opts_chunk$set(
 
 This guide will help users to track only a subset of inputs that are important to the analysis.
 
-The main motivation to use this feature in `{shiny.telemetry}` is to reduce the amount of data that is being tracked as some Shiny widgets can generate a lot of events. In particular, on events that are sending input changes triggered via Javascript.
+One of the main motivations to use this feature in `{shiny.telemetry}` is to reduce the amount of data that is being tracked as some Shiny widgets can generate a lot of events.
+In particular, on events that are sending input changes triggered via Javascript.
 
 Some widgets will track events, such as mouse clicking on elements or even the position of the cursor, which will have a impact on the application performance and on the amount of data that is being stored.
 
