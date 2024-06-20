@@ -23,21 +23,43 @@ telemetry <- Telemetry$new(
 )
 
 #
-# Create dummy session (only for example purposes)
-session <- shiny::MockShinySession$new()
+# Use in a shiny application
+
+if (interactive()) {
+  library(shiny)
+
+  shinyApp(
+    ui = fluidPage(
+      use_telemetry(), # 2. Add necessary javascript to Shiny
+      numericInput("n", "n", 1),
+      plotOutput('plot')
+    ),
+    server = function(input, output) {
+      telemetry$start_session() # 3. Minimal setup to track events
+      output$plot <- renderPlot({ hist(runif(input$n)) })
+    }
+  )
+}
+
+#
+# Manual logging of Telemetry that can be used inside Shiny Application
+# to further customize the events to be tracked.
+
+session <- shiny::MockShinySession$new() # Create dummy session (only for example purposes)
 class(session) <- c(class(session), "ShinySession")
 
-telemetry$start_session(session = session)
-
 telemetry$log_click("a_button", session = session)
+
+telemetry$log_error("global", message = "An error has occured")
 
 telemetry$log_custom_event("a_button", list(value = 2023), session = session)
 telemetry$log_custom_event("a_button", list(custom_field = 23), session = session)
 
-# Manual call loging with custom username
+# Manual call login with custom username
 telemetry$log_login("ben", session = session)
 
-telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01")
+# Read all data
+telemetry$data_storage$read_event_data()
 
 file.remove(log_file_path)
 
@@ -45,16 +67,19 @@ file.remove(log_file_path)
 # Using SQLite
 
 db_path <- tempfile(fileext = ".sqlite")
-telemetry <- Telemetry$new(
+telemetry_sqlite <- Telemetry$new(
   data_storage = DataStorageSQLite$new(db_path = db_path)
 )
 
-telemetry$log_custom_event("a_button", list(value = 2023), session = session)
-telemetry$log_custom_event("a_button", list(custom_field = 23), session = session)
+telemetry_sqlite$log_custom_event("a_button", list(value = 2023), session = session)
+telemetry_sqlite$log_custom_event("a_button", list(custom_field = 23), session = session)
 
-telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01")
+# Read all data from time range
+telemetry_sqlite$data_storage$read_event_data("2020-01-01", "2055-01-01")
 
 file.remove(db_path)
+
+
 }
 \seealso{
 \code{\link{DataStorage}} which this function wraps.
