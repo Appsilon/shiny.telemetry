@@ -42,11 +42,13 @@ navbar:
       text: "How-to Guides"
       icon: fa-book-reader
       menu:
-        - text: Using `shiny.telemetry` with Rhino
+        - text: Setup shiny.telemetry in a Rhino application
           href: articles/rhino.html
-        - text: Tracking Specific Inputs
+        - text: Track a Subset of Inputs to Improve Performance
           href: articles/tracking-specific-input-id.html
-        - text: Telemetry with External Databases
+        - text: Data Storage backends
+          navbar: Data Storage backends
+        - text: Use External Databases with shiny.telemetry
           href: articles/databases.html
     reference:
       icon: fa-file-code-o
