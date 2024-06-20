@@ -22,7 +22,7 @@ use_telemetry <- function(id = "") {
       message: event.error.message,
       type: 'error'
     }};
-    Shiny.setInputValue('{shiny_namespace}track_error', errorData, {{priority: 'event'}});
+    Shiny.setInputValue('{shiny_namespace}track_error_telemetry_js', errorData, {{priority: 'event'}});
   }});
   "
         )

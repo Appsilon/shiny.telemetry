@@ -181,6 +181,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
       if (isTRUE(track_errors)) {
         # Warning for users with shiny version < 1.8.1
         if (!rlang::is_installed("shiny", version = "1.8.1", compare = ">=")) {
+
           lifecycle::deprecate_warn(
             when = as.character(utils::packageVersion("shiny")),
             what = "Telemetry$start_session(track_errors = \"is not fully enabled \")",
@@ -199,16 +200,19 @@ Telemetry <- R6::R6Class( # nolint object_name.
             env = getNamespace("shiny")
           )
 
-          if (is.null(getOption("error"))) {
+          if (is.null(getOption("shiny.error"))) {
             options(
               "shiny.error" = function(.envir = parent.frame()) {
-                output_id <- paste(as.character(.envir$e$call %||% "global"), collapse = ", ")
+                # make sure id is a string without spaces
+                output_id <- paste(
+                  gsub(
+                    " |\t|\r",
+                    "_",
+                    as.character(.envir$e$call %||% "global")
+                  ),
+                  collapse = "__"
+                )
 
-                # Ignores errors in render calls as those should be caught by
-                # shiny:error javascript event and contain more information.
-                if (grepl("(shiny::)?render[a-zA-Z_]", output_id)) {
-                  return(invisible())
-                }
 
                 self$log_error(
                   output_id = output_id,
@@ -220,6 +224,14 @@ Telemetry <- R6::R6Class( # nolint object_name.
 
             # Restore previous option
             shiny::onSessionEnded(function() options("shiny.error" = NULL))
+          } else {
+            shiny::observeEvent(input[[private$.track_error_id]], {
+              self$log_error(
+                output_id = input[[private$.track_error_id]]$output_id,
+                message = input[[private$.track_error_id]]$message,
+                session = session
+              )
+            })
           }
         }
 
@@ -605,6 +617,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
     .name = NULL,
     .version = NULL,
     .data_storage = NULL,
+    .track_error_id = "track_error_telemetry_js",
 
     # Methods
 
@@ -727,13 +740,9 @@ Telemetry <- R6::R6Class( # nolint object_name.
               if (isTRUE(track_values)) {
                 log_value <- new[[name]]
               }
-              if (track_errors && identical(name, "track_error")) {
-                self$log_error(
-                  output_id = new[[name]]$output_id,
-                  message = new[[name]]$message,
-                  session = session
-                )
-              } else {
+
+              # Skip inputs from error tracking in JS
+              if (!track_errors || !identical(name, private$.track_error_id)) {
                 self$log_input_manual(name, log_value, session)
               }
             }
