@@ -209,6 +209,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
       if (isTRUE(browser_version)) {
         self$log_browser_version(session = session)
       }
+
       if (isTRUE(track_errors)) {
         if ("onUnhandledError" %in% ls(getNamespace("shiny"))) {
           # onUnhandledError handler is only available in shiny >= 1.8.1
@@ -261,7 +262,10 @@ Telemetry <- R6::R6Class( # nolint object_name.
             )
 
             # Restore previous option
-            shiny::onSessionEnded(function() options("shiny.error" = NULL))
+            shiny::onSessionEnded(
+              fun = function() options("shiny.error" = NULL),
+              session = session
+            )
           } else {
             shiny::observeEvent(input[[private$.track_error_id]], {
               self$log_error(
