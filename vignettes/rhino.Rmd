@@ -26,11 +26,12 @@ It is designed to help you build Shiny apps that are scalable, maintainable, and
 
 Using `{shiny.telemtry}` with `{rhino}` is very simple and it requires only a few lines of code just as any other app.
 
+After initializing `{rhino}` with `rhino::init()` or using an existing `{rhino}` code base, you can start using `{shiny.telemetry}` to track events in your application by:
+
 1. Import functions from `{shiny.telemetry}` using `{box}`;
-1. Add necessary Javascript to UI definition;
+1. Add Javascript code to UI definition;
 1. Create a `Telemetry` object;
-1. Start telemetry session attached to a server function;
-  - This will track all inputs for the server and all subsequent modules.
+1. Start telemetry session attached to a Shiny session.
 
 ### Import functions from `shiny.telemetry`
 
@@ -38,7 +39,8 @@ The `{rhino}` frameworks promotes the use of `{box}` to import functions from pa
 See the `{rhino}` documentation on how to [write R code](https://appsilon.github.io/rhino/articles/how-to/write-r-code.html) for more details.
 
 The minimal setup for `{shiny.telemetry}` needs to import:
-- Class for the chosen `DataStorage` backend (e.g. `DataStorageLogFile` for a text-based storage or `DataStorageMariaDB` for a MariaDB database);
+
+- Class for the chosen `DataStorage` backend (e.g. `DataStorageLogFile` for a text-based storage, `DataStorageMariaDB` for a MariaDB database, among others);
 - Class for the Telemetry function that will track all the events;
 - Function to load the necessary Javascript code in the UI definition.
 
@@ -70,7 +72,7 @@ ui <- function(id) {
 }
 ```
 
-### Create Telemetry object
+### Create `Telemetry` object
 
 The next step is to create a `Telemetry` object that will be used to track events in the app.
 
