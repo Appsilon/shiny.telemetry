@@ -1,0 +1,136 @@
+---
+title: "Use External Databases with shiny.telemetry"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Use External Databases with shiny.telemetry}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The `{shiny.telemetry}` package can be used with any Shiny application and in this guide we will show how to use it with different databases backend.
+
+A requirement for this guide is to have a database server running and the necessary permissions to create a database, tables and insert data.
+
+The following databases are supported by `{shiny.telemetry}`:
+
+- PostgreSQL
+- MariaDB or MySQL
+- MS SQL Server
+- MongoDB
+- SQLite
+
+We provide example applications for each database backend with necessary R code to run both the application and the analytics server.
+This is further supported with a `docker-container.yml` to help users quickly setup and test the apps locally.
+It requires Docker (`docker compose up -d`) or Podman (`podman-compose up -d`) installed to run the containers.
+
+These applications are available under the `inst/examples/` folder or via the [GitHub link](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples).
+
+## Create a data storage backend {.tabset}
+
+Each data storage backend will create the necessary tables _(or "Collection" in the case of MongoDB)_ with the respective schema when needed.
+
+The arguments to create an data storage instance vary, as different databases require their own options.
+However, once the data storage object is created, the read and write operations have the same API.
+
+Below you find chunks to create a data storage object for each supported database.
+
+### PostgreSQL
+
+```r
+data_storage <- DataStoragePostgreSQL$new(
+  user = "postgres",
+  password = "mysecretpassword",
+  hostname = "127.0.0.1",
+  port = 5432,
+  dbname = "shiny_telemetry",
+  driver = "RPostgreSQL"
+)
+```
+
+_notes_:
+- The `dbname` database needs to be created before running the application with `{shiny.telemetry}`.
+- The `driver` allows users to use either `RPostgreSQL` or `RPostgres`.
+
+### MariaDB / MySQL
+
+```r
+data_storage <- DataStorageMariaDB$new(
+  user = "mariadb", 
+  password = "mysecretpassword",
+  hostname = "127.0.0.1",
+  port = 3306,
+  dbname = "shiny_telemetry"
+)
+```
+
+_notes_:
+- The `dbname` database needs to be created before running the application with `{shiny.telemetry}`.
+
+### MS SQL Server
+
+
+```r
+data_storage <- DataStorageMSSQLServer$new(
+  user = "sqlserver",
+  password = "mysecretpassword", 
+  hostname = "servername", 
+  port = 1433,
+  dbname = "my_db", 
+  driver = "ODBC Driver 17 for SQL Server",
+  trust_server_certificate = "NO"
+)
+```
+
+_note_: The `dbname` database needs to be created before running the application with `{shiny.telemetry}`.
+
+### MongoDB
+
+```r
+data_storage <- DataStorageMongoDB$new(
+  host = "localhost",
+  dbname = "test",
+  authdb = NULL,
+  options = NULL,
+  ssl_options = mongolite::ssl_options()
+)
+```
+
+### SQLite
+
+Unlike the other database backends, SQLite only requires a path to a file that the Shiny application can write to.
+
+```r
+data_storage <- DataStorageSQLite$new(
+  db_path = "telemetry.sqlite"
+)
+```
+
+## Data storage usage in `{shiny.telemetry}`
+
+The data storage API to read and write events for `{shiny.telemetry}` is consistent across all backends, which allows the developer to implement and test the package with the most convenient backend and then easily migrate to an external database.
+
+Therefore, once it is initialized it can be used to create the `Telemetry` object and start a session.
+
+```r
+# Same example as README with custom database backend.
+telemetry <- Telemetry$new(data_storage = data_storage) # 1. Initialize telemetry with object created above
+
+shinyApp(
+  ui = fluidPage(
+    use_telemetry(), # 2. Add necessary javascript to Shiny
+    numericInput("n", "n", 1),
+    plotOutput('plot')
+  ),
+  server = function(input, output) {
+    telemetry$start_session() # 3. Minimal setup to track events
+    output$plot <- renderPlot({ hist(runif(input$n)) })
+  }
+)
+```

@@ -14,6 +14,7 @@
 - Updates documentation to use markdown format (#153).
 - Improves SQL injection safeguards via `glue::glue_sql` to generated SQL queries (#34).
 - Show proper error message when no telemetry data is available (#177).
+- Adds how-to guides to site (#179 and #180)
 
 ### Bug Fixes
 
