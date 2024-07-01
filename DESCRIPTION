@@ -1,7 +1,7 @@
 Type: Package
 Package: shiny.telemetry
 Title: 'Shiny' App Usage Telemetry
-Version: 0.2.0.9014
+Version: 0.2.0.9015
 Authors@R: c(
     person("André", "Veríssimo", , "opensource+andre@appsilon.com", role = c("aut", "cre")),
     person("Kamil", "Żyła", , "kamil@appsilon.com", role = "aut"),
@@ -25,8 +25,10 @@ Imports:
     digest,
     dplyr (>= 1.1.0),
     glue,
+    htmltools,
     httr2,
     jsonlite,
+    lifecycle,
     logger,
     lubridate,
     odbc,
@@ -35,21 +37,19 @@ Imports:
     rlang,
     RSQLite,
     shiny,
-    tidyr,
-    htmltools,
-    stringr
+    stringr,
+    tidyr
 Suggests:
     box,
     config,
-    covr,
     DT,
+    mongolite,
     plotly,
     plumber,
     RColorBrewer,
     RMariaDB,
-    RPostgreSQL,
     RPostgres,
-    mongolite,
+    RPostgreSQL,
     scales,
     semantic.dashboard (>= 0.1.1),
     shiny.semantic (>= 0.2.0),
