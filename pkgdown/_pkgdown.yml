@@ -35,10 +35,10 @@ navbar:
   bg: primary
   fg: "#262323"
   structure:
-    left: [tutorials, reference, changelog]
+    left: [how-to-guides, reference, changelog]
     right: [search, github, twitter, mastodon]
   components:
-    tutorials:
+    how-to-guides:
       text: "How-to Guides"
       icon: fa-book-reader
       menu:
