@@ -28,7 +28,7 @@ The following databases are supported by `{shiny.telemetry}`:
 
 We provide example applications for each database backend with necessary R code to run both the application and the analytics server.
 This is further supported with a `docker-container.yml` to help users quickly setup and test the apps locally.
-It requires Docker (`docker compose up -d`) or Podman (`podman-compose up -d`) installed to run the containers.
+It requires [Docker](https://docs.docker.com/reference/) (`docker compose up -d`) or [Podman](https://podman.io/docs) (`podman-compose up -d`) installed to run the containers.
 
 These applications are available under the `inst/examples/` folder or via the [GitHub link](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples).
 
