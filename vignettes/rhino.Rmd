@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `{shiny.telemetry}` package can be used with any Shiny application and in this guide we will show how to use it with [{rhino} package](https://appsilon.github.io/rhino/).
+The `{shiny.telemetry}` package can be used with any Shiny application and in this guide we will show how to add it to a [{rhino} application](https://appsilon.github.io/rhino/).
 
 <div style="float: right;">
 <a href="https://appsilon.github.io/rhino/" target="_blank"><img src="https://appsilon.github.io/rhino/reference/figures/rhino.png" style="height: 140px;" /></a>
