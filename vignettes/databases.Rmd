@@ -20,11 +20,11 @@ A requirement for this guide is to have a database server running and the necess
 
 The following databases are supported by `{shiny.telemetry}`:
 
-- PostgreSQL
-- MariaDB or MySQL
-- MS SQL Server
-- MongoDB
-- SQLite
+- [PostgreSQL](https://www.postgresql.org/docs/current/index.html)
+- [MariaDB](https://mariadb.org/documentation/) or [MySQL](https://dev.mysql.com/doc/refman/en/)
+- [MS SQL Server](https://learn.microsoft.com/en-us/sql/sql-server/)
+- [MongoDB](https://www.mongodb.com/docs/manual/)
+- [SQLite](https://www.sqlite.org/docs.html)
 
 We provide example applications for each database backend with necessary R code to run both the application and the analytics server.
 This is further supported with a `docker-container.yml` to help users quickly setup and test the apps locally.
