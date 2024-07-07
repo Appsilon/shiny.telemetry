@@ -16,8 +16,6 @@ knitr::opts_chunk$set(
 
 The `{shiny.telemetry}` package can be used with any Shiny application and in this guide we will show how to use it with different databases backend.
 
-A requirement for this guide is to have a database server running and the necessary permissions to create a database, tables and insert data.
-
 The following databases are supported by `{shiny.telemetry}`:
 
 - [PostgreSQL](https://www.postgresql.org/docs/current/index.html)
@@ -25,6 +23,11 @@ The following databases are supported by `{shiny.telemetry}`:
 - [MS SQL Server](https://learn.microsoft.com/en-us/sql/sql-server/)
 - [MongoDB](https://www.mongodb.com/docs/manual/)
 - [SQLite](https://www.sqlite.org/docs.html)
+
+A requirements to use `{shiny.telemetry}` with external databases in a production environment is to have the database server running and a user with the necessary permissions to insert.
+A minimal setup should have a user that only has write/insert permissions to the `{shiny.telemetry}` table storing the events.
+The read permission is only necessary for processing the data, such as the default analytics dashboard that we provide with the package (see `analytics_app()`).
+This database setup can be done by an infrastructure team or the database administrator.
 
 We provide example applications for each database backend with necessary R code to run both the application and the analytics server.
 This is further supported with a `docker-container.yml` to help users quickly setup and test the apps locally.
@@ -56,8 +59,9 @@ data_storage <- DataStoragePostgreSQL$new(
 ```
 
 _notes_:
+
 - The `dbname` database needs to be created before running the application with `{shiny.telemetry}`;
-- The `driver` allows users to use either `RPostgreSQL` or `RPostgres`;
+- The `driver` allows users to use either `{RPostgreSQL}` or `{RPostgres}` R packages;
 - Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
   - The `.Renviron` file is the default way in R of setting up environment variables _(instead of `Sys.setenv()` as shown above for convenience)_.
 
@@ -75,6 +79,7 @@ data_storage <- DataStorageMariaDB$new(
 ```
 
 _notes_:
+
 - The `dbname` database needs to be created before running the application with `{shiny.telemetry}`;
 - Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
   - The `.Renviron` file is the default way in R of setting up environment variables _(instead of `Sys.setenv()` as shown above for convenience)_.
@@ -95,7 +100,7 @@ data_storage <- DataStorageMSSQLServer$new(
 )
 ```
 
-_note_: 
+_notes_: 
 
 - The `dbname` database needs to be created before running the application with `{shiny.telemetry}`;
 - Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
@@ -130,7 +135,7 @@ The data storage API to read and write events for `{shiny.telemetry}` is consist
 Therefore, once it is initialized it can be used to create the `Telemetry` object and start a session.
 
 ```r
-# Same example as README with custom database backend.
+# data_storage variable is initialized with one of the previous code chunks.
 telemetry <- Telemetry$new(data_storage = data_storage) # 1. Initialize telemetry with object created above
 
 shinyApp(
