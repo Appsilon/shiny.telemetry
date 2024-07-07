@@ -223,6 +223,20 @@ It shows:
 
 Other examples for the different backends can be found in the `inst/examples` folder of the package.
 
+## Conclusion
+
+To use `{shiny.telemetry}` with rhino, you only need to make 4 minor adjustments that adds six lines of code _(with default options)_.
+It is as easy as doing it with any other Shiny application.
+
+The setup allows to access all of `{shiny.telemetry}` functionality to write events to a data storage backed and it will write 4 types of events:
+
+- Login timestamp with username _(if available)_;
+- Browser user agent;
+- Logout timestamp when the session ends;
+- All input changes.
+
+To learn how to use Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).
+
 #### Alternative methods to access event data
 
 The event data can be accessed directly, either via the `DataStorage` API in `{shiny.telemetry}` or by accessing the data directly in the backend.
@@ -264,17 +278,79 @@ testthat::with_mocked_bindings(
 
 knitr::kable(data_storage$read_event_data())
 ```
+## Appendix: Use an External Database
 
-## Conclusion
+The storage backend can be swapped between the JSON log file used above to an external database by just changing the `data_storage` parameter when initializing `{shiny.telemetr}`. To learn how to use the different available Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).
 
-To use `{shiny.telemetry}` with rhino, you only need to make 4 minor adjustments that adds six lines of code _(with default options)_.
-It is as easy as doing it with any other Shiny application.
+In this section we will show how to use PostgreSQL, which is one of the supported databases in a Rhino application. Using any of the others is similar.
 
-The setup allows to access all of `{shiny.telemetry}` functionality to write events to a data storage backed and it will write 4 types of events:
+The only necessary modification in the code is to replace the `DataStorageLogFile` with `DataStoragePostgreSQL` and provide the necessary connection information.
 
-- Login timestamp with username _(if available)_;
-- Browser user agent;
-- Logout timestamp when the session ends;
-- All input changes.
+However, we recommend using environment variables to store sensitive information, such as passwords, and avoid storing them directly in the code. As such, we will use the `config.yml` and `.Renviron` files to keep this information safe.
 
-To learn how to use Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).
+The first step is changing the data storage backend in `app/main.R` file.
+
+```r
+# app/main.R (change the data storage backend)
+telemetry <- Telemetry$new(
+  app_name = "rhino_app",
+  data_storage = DataStoragePostgreSQL$new(
+    user = config$get("postgres_user"),
+    password = config$get("postgres_pass"),
+    hostname = config$get("postgres_host"),
+    port = config$get("postgres_port"),
+    dbname = config$get("postgres_dbname"),
+    driver = "RPostgreSQL"
+  )
+)
+```
+
+Notice that we are using the `{config}` package to read the secrets from the `config.yml` file.
+Therefore the next step is to import the `{config}` package with `{box}` in the `app/main.R` file.
+
+```r
+# app/main.R (top of the file)
+box::use(
+  config, # Adds config package that reads config.yml file at the root of the project
+  shiny[
+    bootstrapPage, div, moduleServer, NS, renderUI, tags, textInput, uiOutput,
+    verbatimTextOutput,
+  ],
+  # other packaage imports ...
+  shiny.telemetry[DataStorageLogFile, Telemetry, use_telemetry],
+)
+```
+
+The `config.yml` can be configured to read the secrets for the environment, as well allowing for different configurations for different environments.
+It is safe to commit this file to a repository as it does not contain any sensitive information itself.
+
+```yaml
+# config.yml
+default:
+  rhino_log_level: !expr Sys.getenv("RHINO_LOG_LEVEL", "INFO")
+  rhino_log_file: !expr Sys.getenv("RHINO_LOG_FILE", NA)
+  postgres_user: !expr Sys.getenv("POSTGRES_USER", NA)
+  postgres_pass: !expr Sys.getenv("POSTGRES_PASS", NA)
+  postgres_host: !expr Sys.getenv("POSTGRES_HOST", NA)
+  postgres_port: !expr Sys.getenv("POSTGRES_PORT", 5432)
+  postgres_dbname: "shiny_telemetry"
+  
+staging:
+  postgres_dbname: "shiny_telemetry_stg"
+
+production:
+  postgres_dbname: "shiny_telemetry_prd"
+```
+
+The last change is on the `.Renviron` file that will keep the secrets safe and avoid storing them directly in the code. As long as this file is not committed to the repository, the secrets will be safe.
+
+When deploying an application to POSIT Connect or ShinyProxy, the secrets can be set as environment variables in the deployment configuration.
+
+```
+# .Renviron
+POSTGRES_USER=postgres
+POSTGRES_PASS=mysecretpassword
+POSTGRES_HOST=127.0.0.1
+```
+
+See the Rhino guide to ["Manage secrets and environments"](https://appsilon.github.io/rhino/articles/how-to/manage-secrets-and-environments.html) for more details on the best practices to manage secrets and environments.
