@@ -223,20 +223,6 @@ It shows:
 
 Other examples for the different backends can be found in the `inst/examples` folder of the package.
 
-## Conclusion
-
-To use `{shiny.telemetry}` with rhino, you only need to make 4 minor adjustments that adds six lines of code _(with default options)_.
-It is as easy as doing it with any other Shiny application.
-
-The setup allows to access all of `{shiny.telemetry}` functionality to write events to a data storage backed and it will write 4 types of events:
-
-- Login timestamp with username _(if available)_;
-- Browser user agent;
-- Logout timestamp when the session ends;
-- All input changes.
-
-To learn how to use Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).
-
 #### Alternative methods to access event data
 
 The event data can be accessed directly, either via the `DataStorage` API in `{shiny.telemetry}` or by accessing the data directly in the backend.
@@ -278,6 +264,21 @@ testthat::with_mocked_bindings(
 
 knitr::kable(data_storage$read_event_data())
 ```
+
+## Conclusion
+
+To use `{shiny.telemetry}` with rhino, you only need to make 4 minor adjustments that adds six lines of code _(with default options)_.
+It is as easy as doing it with any other Shiny application.
+
+The setup allows to access all of `{shiny.telemetry}` functionality to write events to a data storage backed and it will write 4 types of events:
+
+- Login timestamp with username _(if available)_;
+- Browser user agent;
+- Logout timestamp when the session ends;
+- All input changes.
+
+To learn how to use Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).
+
 ## Appendix: Use an External Database
 
 The storage backend can be swapped between the JSON log file used above to an external database by just changing the `data_storage` parameter when initializing `{shiny.telemetr}`. To learn how to use the different available Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).
