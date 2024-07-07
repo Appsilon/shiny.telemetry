@@ -46,11 +46,11 @@ Below you find chunks to create a data storage object for each supported databas
 
 ### PostgreSQL
 
-```r
-Sys.setenv("TELEMTRY_PASS" = "mysecretpassword")
+```{r, eval=FALSE}
+Sys.setenv("POSTGRES_USER" = "postgres", "POSTGRES_PASS" = "mysecretpassword")
 data_storage <- DataStoragePostgreSQL$new(
-  user = "postgres",
-  password = Sys.getenv("TELEMTRY_PASS"),
+  user = Sys.getenv("POSTGRES_USER"),
+  password = Sys.getenv("POSTGRES_PASS"),
   hostname = "127.0.0.1",
   port = 5432,
   dbname = "shiny_telemetry",
@@ -65,13 +65,16 @@ _notes_:
 - Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
   - The `.Renviron` file is the default way in R of setting up environment variables _(instead of `Sys.setenv()` as shown above for convenience)_.
 
+To run PostgreSQL in a container locally, you can use the following Docker compose file: [`inst/examples/postgresql/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples/postgresql/docker-compose.yml).
+
+
 ### MariaDB / MySQL
 
-```r
-Sys.setenv("TELEMTRY_PASS" = "mysecretpassword")
+```{r, eval=FALSE}
+Sys.setenv("MARIADB_USER" = "mariadb", "MARIADB_PASS" = "mysecretpassword")
 data_storage <- DataStorageMariaDB$new(
-  user = "mariadb", 
-  password = Sys.getenv("TELEMTRY_PASS"),
+  user = Sys.getenv("MARIADB_USER"), 
+  password = Sys.getenv("MARIADB_PASS"),
   hostname = "127.0.0.1",
   port = 3306,
   dbname = "shiny_telemetry"
@@ -81,22 +84,23 @@ data_storage <- DataStorageMariaDB$new(
 _notes_:
 
 - The `dbname` database needs to be created before running the application with `{shiny.telemetry}`;
-- Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
+- Never store usernames, passwords and other sensitive directly in code. Please use environment variables or other secure methods;
   - The `.Renviron` file is the default way in R of setting up environment variables _(instead of `Sys.setenv()` as shown above for convenience)_.
+
+To run MariaDB in a container locally, you can use the following Docker compose file: [`inst/examples/mariadb/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples/mariadb/docker-compose.yml).
 
 ### MS SQL Server
 
-
-```r
-Sys.setenv("TELEMTRY_PASS" = "mysecretpassword")
+```{r, eval=FALSE}
+Sys.setenv(MSSQL_USER = "sa", MSSQL_PASS = "my-Secr3t_Password")
 data_storage <- DataStorageMSSQLServer$new(
-  user = "sqlserver",
-  password = Sys.getenv("TELEMTRY_PASS"),
-  hostname = "servername", 
+  user = Sys.getenv("MSSQL_USER"),
+  password = Sys.getenv("MSSQL_PASS"),
+  hostname = "127.0.0.1", 
   port = 1433,
   dbname = "my_db", 
-  driver = "ODBC Driver 17 for SQL Server",
-  trust_server_certificate = "NO"
+  driver = "ODBC Driver 18 for SQL Server", 
+  trust_server_certificate = "YES"
 )
 ```
 
@@ -106,9 +110,11 @@ _notes_:
 - Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
   - The `.Renviron` file is the default way in R of setting up environment variables _(instead of `Sys.setenv()` as shown above for convenience)_.
 
+To run Microsoft SQL Server in a container locally, you can use the following Docker compose file: [`inst/examples/mssql/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples/mssql/docker-compose.yml).
+
 ### MongoDB
 
-```r
+```{r, eval=FALSE}
 data_storage <- DataStorageMongoDB$new(
   host = "localhost",
   dbname = "test",
@@ -116,17 +122,19 @@ data_storage <- DataStorageMongoDB$new(
   options = NULL,
   ssl_options = mongolite::ssl_options()
 )
+
+To run MongoDB in a container locally, you can use the following Docker compose file: [`inst/examples/mssql/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples/mongodb/docker-compose.yml).
 ```
 
 ### SQLite
 
-Unlike the other database backends, SQLite only requires a path to a file that the Shiny application can write to.
-
-```r
+```{r, eval=FALSE}
 data_storage <- DataStorageSQLite$new(
   db_path = "telemetry.sqlite"
 )
 ```
+
+Unlike the other database backends, SQLite only requires a path to a file that the Shiny application can write to.
 
 ## Data storage usage in `{shiny.telemetry}`
 
