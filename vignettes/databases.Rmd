@@ -44,9 +44,10 @@ Below you find chunks to create a data storage object for each supported databas
 ### PostgreSQL
 
 ```r
+Sys.setenv("TELEMTRY_PASS" = "mysecretpassword")
 data_storage <- DataStoragePostgreSQL$new(
   user = "postgres",
-  password = "mysecretpassword",
+  password = Sys.getenv("TELEMTRY_PASS"),
   hostname = "127.0.0.1",
   port = 5432,
   dbname = "shiny_telemetry",
@@ -55,15 +56,18 @@ data_storage <- DataStoragePostgreSQL$new(
 ```
 
 _notes_:
-- The `dbname` database needs to be created before running the application with `{shiny.telemetry}`.
-- The `driver` allows users to use either `RPostgreSQL` or `RPostgres`.
+- The `dbname` database needs to be created before running the application with `{shiny.telemetry}`;
+- The `driver` allows users to use either `RPostgreSQL` or `RPostgres`;
+- Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
+  - The `.Renviron` file is the default way in R of setting up environment variables _(instead of `Sys.setenv()` as shown above for convenience)_.
 
 ### MariaDB / MySQL
 
 ```r
+Sys.setenv("TELEMTRY_PASS" = "mysecretpassword")
 data_storage <- DataStorageMariaDB$new(
   user = "mariadb", 
-  password = "mysecretpassword",
+  password = Sys.getenv("TELEMTRY_PASS"),
   hostname = "127.0.0.1",
   port = 3306,
   dbname = "shiny_telemetry"
@@ -71,15 +75,18 @@ data_storage <- DataStorageMariaDB$new(
 ```
 
 _notes_:
-- The `dbname` database needs to be created before running the application with `{shiny.telemetry}`.
+- The `dbname` database needs to be created before running the application with `{shiny.telemetry}`;
+- Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
+  - The `.Renviron` file is the default way in R of setting up environment variables _(instead of `Sys.setenv()` as shown above for convenience)_.
 
 ### MS SQL Server
 
 
 ```r
+Sys.setenv("TELEMTRY_PASS" = "mysecretpassword")
 data_storage <- DataStorageMSSQLServer$new(
   user = "sqlserver",
-  password = "mysecretpassword", 
+  password = Sys.getenv("TELEMTRY_PASS"),
   hostname = "servername", 
   port = 1433,
   dbname = "my_db", 
@@ -88,7 +95,11 @@ data_storage <- DataStorageMSSQLServer$new(
 )
 ```
 
-_note_: The `dbname` database needs to be created before running the application with `{shiny.telemetry}`.
+_note_: 
+
+- The `dbname` database needs to be created before running the application with `{shiny.telemetry}`;
+- Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
+  - The `.Renviron` file is the default way in R of setting up environment variables _(instead of `Sys.setenv()` as shown above for convenience)_.
 
 ### MongoDB
 

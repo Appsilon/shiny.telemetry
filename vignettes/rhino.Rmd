@@ -26,12 +26,83 @@ It is designed to help you build Shiny apps that are scalable, maintainable, and
 
 Using `{shiny.telemtry}` with `{rhino}` is very simple and it requires only a few lines of code just as any other app.
 
-After initializing `{rhino}` with `rhino::init()` or using an existing `{rhino}` code base, you can start using `{shiny.telemetry}` to track events in your application by:
+Useful links:
+
+- [Creating your first Rhino app](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html)
+- [App structure in a Rhino application](https://appsilon.github.io/rhino/articles/explanation/application-structure.html)
+- [Write R code in Rhino](https://appsilon.github.io/rhino/articles/how-to/write-r-code.html)
+- [Use External Databases with `{shiny.telemetry}`](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html)
+
+## Creating a new `{rhino}` application
+
+Starting a new `{rhino}` application is as simple as running the `rhino::init()` command.
+Learn more about "Creating your first Rhino app" [in this guide](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html).
+
+The command creates a boilerplate folder structure for a `{rhino}` application, where `app/main.R` contains the UI and server logic.
+The application structure is best explained on this ["App structure" documentation](https://appsilon.github.io/rhino/articles/explanation/application-structure.html).
+
+Before setting up `{shiny.telemetry}` in the application, let's add a simple input element to the boilerplate code. Otherwise, the only events that will be tracked are the login, logout and the user's browser version.
+
+For this we will add a text input to the application and in the sections below observe how it is being tracked by `{shiny.telemtry}`.
+
+Adding the code below to the `app/main.R` file will add a text input and a "Hello world" message with the contents of the input.
+
+```r
+# app/main.R (replace with the following code)
+box::use(
+  shiny[
+    bootstrapPage, div, moduleServer, NS, renderUI, tags, textInput, uiOutput, 
+    verbatimTextOutput,
+  ],
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  bootstrapPage(
+    textInput(ns("name"), "My name", "world"),
+    verbatimTextOutput(ns("text")),
+    uiOutput(ns("message"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$message <- renderUI({
+      div(
+        style = "display: flex; justify-content: center; align-items: center; height: 50vh;",
+        tags$h1(
+          tags$span(sprintf("Hello %s! ", input$name)),
+          tags$a("Check out Rhino docs!", href = "https://appsilon.github.io/rhino/")
+        )
+      )
+    })
+  })
+}
+
+```
+
+### Using an existing `{rhino}` application
+
+Alternatively, you can add `{shiny.telemetry}` to an existing `{rhino}` application by following the steps in the next sections.
+
+Please note, that if there are no input elements in the application, the only events that will be tracked are the login, logout and the user's browser version.
+
+## Setup `{shiny.telemetry}`
+
+The following 4 steps are needed to start using `{shiny.telemetry}` for tracking inputs in the application:
 
 1. Import functions from `{shiny.telemetry}` using `{box}`;
 1. Add Javascript code to UI definition;
 1. Create a `Telemetry` object;
 1. Start telemetry session attached to a Shiny session.
+
+The first step is to install `{shiny.telemetry}` with:
+
+```r
+rhino::pkg_install("shiny.telemetry")
+```
 
 ### Import functions from `shiny.telemetry`
 
@@ -50,7 +121,10 @@ This can be done by adding the following code to the top of `app/main.R` file on
 ```r
 # app/main.R (top of file)
 box::use(
-  shiny[bootstrapPage, div, moduleServer, NS, renderUI, tags, uiOutput, textInput],
+  shiny[
+    bootstrapPage, div, moduleServer, NS, renderUI, tags, textInput, uiOutput,
+    verbatimTextOutput,
+  ],
   # other packaage imports ...
   shiny.telemetry[DataStorageLogFile, Telemetry, use_telemetry],
 )
@@ -60,13 +134,20 @@ box::use(
 
 The next step is to call `use_telemetry()` function in the root UI definition on `app/main.R` file to load the necessary Javascript code.
 
+Note that the `id` parameter needs to be passed to the `use_telemetry()` function to ensure that the browser version is tracked correctly, as well as the mechanism to track anonymous user via client side cookies.
+
 ```r
 # app/main.R (change n `ui` function)
 #' @export
 ui <- function(id) {
   ns <- NS(id)
   bootstrapPage(
-    use_telemetry(),
+    use_telemetry(id),
+    tags$div(
+      style = "display: flex; justify-content: center; align-items: center; margin-top: 2em;",
+      textInput(ns("name"), "My name", "world")
+    ),
+    verbatimTextOutput(ns("text")),
     uiOutput(ns("message"))
   )
 }
@@ -76,7 +157,15 @@ ui <- function(id) {
 
 The next step is to create a `Telemetry` object that will be used to track events in the app.
 
-We recommend creating an instance of `Telemetry` on the `app/main.R` and then start the telemetry session on the root `server` function definition, just as shown below:
+We recommend creating an instance of `Telemetry` on the `app/main.R` and then start the telemetry session on the root `server` function definition, just as shown in the code below.
+
+This will create a text file with the events tracked by `{shiny.telemetry}`.
+It is the simplest storage backend available and the file contains JSON data that can be easily read and processed. 
+
+To learn about other backends see the ["Use External Databases with shiny.telemetry" guide](databases.Rmd).
+
+Please note, that the values themselves are not tracked by default and need to be enabled by setting the `track_values` parameter to `TRUE` in the [`start_session()`](https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html#method-Telemetry-start_session) method.
+In this example we are enabling them to help demonstrate the capabilities of `{shiny.telemetry}`.
 
 ```r
 # app/main.R (create telemetry object and initialize in a session)
@@ -88,17 +177,99 @@ telemetry <- Telemetry$new(
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    telemetry$start_session()
+    telemetry$start_session(track_values = TRUE)
     # Server logic ...
   })
 }
 ```
 
-The [telemetry$start_session()](https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html#method-Telemetry-start_session) call can be customized to enable/disable different types of events and can be further extended to include/exclude input ids. See the [Guide on tracking specific inputs](tracking-specific-input-id) for more details.
+The [`telemetry$start_session()`](https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html#method-Telemetry-start_session) call can be customized to enable/disable different types of events and can be further extended to include/exclude input ids.
+See the [Guide on tracking specific inputs](tracking-specific-input-id) for more details.
 
-### Conclusion
+The application is now ready to track the input changes, login, logout and browser version. Start the application and test it out yourself.
 
-Using `{shiny.telemetry}` with rhino is as easy as doing it with any other Shiny application.
+```r
+shiny::runApp() # Start the application and change inputs 
+```
+
+![Figure 1: Running Rhino app and changing the input.](figures/rhino_app_example.gif)
+
+## Access the events
+
+The `{shiny.telemetry}` package provides a default dashboard to visualize the events tracked by the application.
+In this example we will use the `local_file.txt` that has been configured in the application.
+
+To start the dashboard run the code below after installing the suggested packages (`renv::install("semantic.dashboard", "shinyjs", "plotly", "timevis", "DT")`)
+
+```r
+# Required suggested packages:
+#  renv::install("semantic.dashboard", "shinyjs", "plotly", "timevis", "DT")
+library(shiny.telemetry)
+
+data_storage <- DataStorageLogFile$new("local_file.txt")
+analytics_app(data_storage = data_storage)
+```
+
+This will start a dashboard that will show the events tracked by the application.
+It shows:
+
+- General stats with the number of events, unique users and average session;
+- Activity stats with event data by input id;
+- User stats with session by same user 
+    - Returning anonymous users are tracked by client side cookies;
+- Session stats with duration and activity per user session.
+
+![Figure 2: Dashboard demo.](figures/rhino_dashboard.gif)
+
+Other examples for the different backends can be found in the `inst/examples` folder of the package.
+
+#### Alternative methods to access event data
+
+The event data can be accessed directly, either via the `DataStorage` API in `{shiny.telemetry}` or by accessing the data directly in the backend.
+
+The `DataStorage` API has 2 main functions to read and write data to the respective backend.
+
+1. [`read_event_data()`](https://appsilon.github.io/shiny.telemetry/reference/DataStorage.html#method-DataStorage-read_event_data) used to read data from the backend and returns a data frame with the events data;
+    - Optionally parameters can be used to limit the results by data range and application name;
+2. [`insert`](https://appsilon.github.io/shiny.telemetry/reference/DataStorage.html#method-DataStorage-insert) used to write new events to the backend.
+
+To read all the data being tracked in this example we can run the following code:
+
+```{r fake_code, eval=FALSE}
+library(shiny.telemetry)
+data_storage <- DataStorageLogFile$new("local_file.txt")
+data_storage$read_event_data()
+```
+
+```{r pseudo_data_storage_read, echo=FALSE}
+# Code that replicates the example above
+session_id <- sprintf("%s...", substr(rlang::hash(Sys.time()), 1, 6))
+user_id <- sprintf("%s...", substr(rlang::hash(list(Sys.time(), session_id)), 1, 6))
+time <- Sys.time()
+data_storage <- shiny.telemetry::DataStorageLogFile$new(withr::local_file("local_file.txt"))
+telemetry <- shiny.telemetry::Telemetry$new(app_name = "rhino_app", data_storage)
+session <- shiny::MockShinySession$new() # Create dummy session (only for example purposes)
+class(session) <- c(class(session), "ShinySession")
+session$token <- session_id
+
+telemetry$log_login(user_id, session = session)
+telemetry$log_input_manual("name", "John Doe", session = session)
+telemetry$log_input_manual("name", "Jane Doe", session = session)
+telemetry$log_input_manual("name", "My custom name", session = session)
+testthat::with_mocked_bindings(
+  telemetry$log_logout(user_id, session = session),
+  onSessionEnded = function(fun, ...) fun(),
+  .package = "shiny" 
+)
+
+knitr::kable(data_storage$read_event_data())
+```
+
+## Conclusion
+
+Using `{shiny.telemetry}` with rhino only involes added 4 minor modifications and 6 lines of code.
+It is as easy as doing it with any other Shiny application.
+
 The setup allows to access all of `{shiny.telemetry}` functionality to write events to a data storage backed and it will write 4 types of events:
 
 - Login timestamp with username _(if available)_;
