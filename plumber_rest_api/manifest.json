@@ -1776,27 +1776,28 @@
         "URL": "https://appsilon.github.io/shiny.telemetry/,\nhttps://github.com/Appsilon/shiny.telemetry",
         "BugReports": "https://github.com/Appsilon/shiny.telemetry/issues",
         "Imports": "checkmate,\ndigest,\ndplyr (>= 1.1.0),\nglue,\nhtmltools,\nhttr2,\njsonlite,\nlifecycle,\nlogger,\nlubridate,\nodbc,\npurrr,\nR6,\nrlang,\nRSQLite,\nshiny,\nstringr,\ntidyr",
-        "Suggests": "box,\nconfig,\nDT,\nmongolite,\nplotly,\nplumber,\nRColorBrewer,\nRMariaDB,\nRPostgres,\nRPostgreSQL,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nshinyjs,\ntestthat (>= 3.1.7),\ntimevis,\nwithr",
+        "Suggests": "box,\nconfig,\nDT,\nmongolite,\nplotly,\nplumber,\nRColorBrewer,\nRMariaDB,\nRPostgres,\nRPostgreSQL,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nshinyjs,\ntestthat (>= 3.1.7),\ntimevis,\nwithr,\nknitr,\nrmarkdown",
         "Config/testthat/edition": "3",
         "Encoding": "UTF-8",
         "Language": "en-US",
         "LazyData": "true",
         "Roxygen": "list(markdown = TRUE)",
         "RoxygenNote": "7.3.1",
+        "VignetteBuilder": "knitr",
         "Author": "André Veríssimo [aut, cre],\n  Kamil Żyła [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Arun Kodati [aut],\n  Wahaduzzaman Khan [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "André Veríssimo <opensource+andre@appsilon.com>",
-        "Built": "R 4.4.1; ; 2024-07-01 07:27:51 UTC; unix",
+        "Built": "R 4.4.1; ; 2024-07-09 15:09:16 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "3b7fae0a5e8bc4c80be0f7dc60df403f99cfb267",
-        "RemoteSha": "3b7fae0a5e8bc4c80be0f7dc60df403f99cfb267",
+        "RemoteRef": "d408ca3ecd40787b1bb40b54396aab727653612a",
+        "RemoteSha": "d408ca3ecd40787b1bb40b54396aab727653612a",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "3b7fae0a5e8bc4c80be0f7dc60df403f99cfb267",
-        "GithubSHA1": "3b7fae0a5e8bc4c80be0f7dc60df403f99cfb267"
+        "GithubRef": "d408ca3ecd40787b1bb40b54396aab727653612a",
+        "GithubSHA1": "d408ca3ecd40787b1bb40b54396aab727653612a"
       }
     },
     "sodium": {
@@ -2277,7 +2278,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "ab2ce6c4f36c408f57dd5e5ec0830b07"
+      "checksum": "5ad0fd5e5df34e3e3fff2256941e277b"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"
@@ -2310,7 +2311,7 @@
       "checksum": "5aa33f0354380519046a4a6cc7aaf05c"
     },
     "renv.lock": {
-      "checksum": "10a0be1e37ac5a7e50fe178c8ed97290"
+      "checksum": "6e81cd9a3216d0ea6eec63f6993c2591"
     }
   },
   "users": null

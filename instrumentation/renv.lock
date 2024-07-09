@@ -458,7 +458,7 @@
     },
     "knitr": {
       "Package": "knitr",
-      "Version": "1.47",
+      "Version": "1.48",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -470,7 +470,7 @@
         "xfun",
         "yaml"
       ],
-      "Hash": "7c99b2d55584b982717fcc0950378612"
+      "Hash": "acf380f300c721da9fde7df115a5f86f"
     },
     "later": {
       "Package": "later",
@@ -798,8 +798,8 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "appsilon",
       "RemoteRepo": "shiny.telemetry",
-      "RemoteRef": "3b7fae0a5e8bc4c80be0f7dc60df403f99cfb267",
-      "RemoteSha": "3b7fae0a5e8bc4c80be0f7dc60df403f99cfb267",
+      "RemoteRef": "d408ca3ecd40787b1bb40b54396aab727653612a",
+      "RemoteSha": "d408ca3ecd40787b1bb40b54396aab727653612a",
       "Requirements": [
         "R6",
         "RSQLite",
@@ -820,7 +820,7 @@
         "stringr",
         "tidyr"
       ],
-      "Hash": "c6d5794e1eee279ca51971c32b15dff1"
+      "Hash": "0d78f83426257e36da499ea502fd80ee"
     },
     "sourcetools": {
       "Package": "sourcetools",
@@ -1010,10 +1010,10 @@
     },
     "yaml": {
       "Package": "yaml",
-      "Version": "2.3.8",
+      "Version": "2.3.9",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "29240487a071f535f5e5d5a323b7afbd"
+      "Hash": "9cb28d11799d93c953f852083d55ee9e"
     }
   }
 }
