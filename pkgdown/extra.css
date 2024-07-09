@@ -1,36 +1,29 @@
 :root {
   --primary-color: #4AB76C;
-}
-
-.navbar {
-  background-color: var(--primary-color) !important;
-}
-
-
-#navbar > ul.navbar-nav > li.nav-item > a {
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.navbar-dark .navbar-nav .active > .nav-link {
-  background-color: var(--primary-color) !important;
-  color: #fff !important;
-}
-
-.navbar-brand {
-  color: #fff !important;
-}
-
-#navbar > ul.navbar-nav > li.nav-item a:hover {
-  background-color: var(--primary-color) !important;
+  --bslib-color-bg: #4AB76C;
+  --navbar-color: #262323;
 }
 
 .navbar-dark input[type="search"] {
-  background-color: #fff !important;
-  color: #444 !important;
+  background-color: #fff;
+  color: #444;
+}
+
+.navbar-light .navbar-nav .active > .nav-link {
+  background-color: var(--primary-color);
+  color: var(--bs-navbar-brand-color);
+}
+
+.nav-link::after {
+  color: var(--bs-secondary-color);
+}
+
+.nav-link:hover::after, .nav-link:focus::after, .nav-link:active::after {
+  color: var(--navbar-color);
 }
 
 nav .text-muted {
-  color: #d8d8d8 !important;
+  --bs-secondary-color: var(--navbar-color);
 }
 
 a {
@@ -38,7 +31,7 @@ a {
 }
 
 a:hover {
-  color: #2c2b2b;
+  color: var(--navbar-color);
 }
 
 button.btn.btn-primary.btn-copy-ex {
