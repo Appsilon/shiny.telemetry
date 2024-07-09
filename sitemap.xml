@@ -1,75 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/404.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/PULL_REQUEST_TEMPLATE.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorage.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageLogFile.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageMSSQLServer.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageMariaDB.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageMongoDB.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStoragePlumber.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStoragePostgreSQL.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageSQLFamily.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageSQLite.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/analytics_app.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/build_id_from_secret.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/build_token.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/date_from_null.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/date_to_null.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/prepare_admin_panel_components.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/shiny.telemetry/reference/use_telemetry.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://appsilon.github.io/shiny.telemetry/404.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/CONTRIBUTING.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/PULL_REQUEST_TEMPLATE.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/articles/databases.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/articles/index.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/articles/rhino.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/articles/tracking-specific-input-id.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/authors.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/index.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/news/index.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorage.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageLogFile.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageMSSQLServer.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageMariaDB.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageMongoDB.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/DataStoragePlumber.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/DataStoragePostgreSQL.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageSQLFamily.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/DataStorageSQLite.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/analytics_app.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/build_id_from_secret.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/build_token.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/date_from_null.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/date_to_null.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/index.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/prepare_admin_panel_components.html</loc></url>
+<url><loc>https://appsilon.github.io/shiny.telemetry/reference/use_telemetry.html</loc></url>
 </urlset>
+
