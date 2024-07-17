@@ -9,4 +9,3 @@ docs
 .Renviron
 cran-comments.md
 CRAN-SUBMISSION
-^docs$
