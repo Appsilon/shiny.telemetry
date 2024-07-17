@@ -31,7 +31,7 @@ Useful links:
 - [Creating your first Rhino app](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html)
 - [App structure in a Rhino application](https://appsilon.github.io/rhino/articles/explanation/application-structure.html)
 - [Write R code in Rhino](https://appsilon.github.io/rhino/articles/how-to/write-r-code.html)
-- [Use External Databases with `{shiny.telemetry}`](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html)
+- [Use External Databases with `{shiny.telemetry}`](https://appsilon.github.io/shiny.telemetry/articles/databases.html)
 
 ## Creating a new `{rhino}` application
 
@@ -277,11 +277,11 @@ The setup allows to access all of `{shiny.telemetry}` functionality to write eve
 - Logout timestamp when the session ends;
 - All input changes.
 
-To learn how to use Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).
+To learn how to use Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/databases.html).
 
 ## Appendix: Use an External Database
 
-The storage backend can be swapped between the JSON log file used above to an external database by just changing the `data_storage` parameter when initializing `{shiny.telemetr}`. To learn how to use the different available Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).
+The storage backend can be swapped between the JSON log file used above to an external database by just changing the `data_storage` parameter when initializing `{shiny.telemetr}`. To learn how to use the different available Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/databases.html).
 
 In this section we will show how to use PostgreSQL, which is one of the supported databases in a Rhino application. Using any of the others is similar.
 

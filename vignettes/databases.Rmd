@@ -65,7 +65,7 @@ _notes_:
 - Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
   - The `.Renviron` file is the default way in R of setting up environment variables _(instead of `Sys.setenv()` as shown above for convenience)_.
 
-To run PostgreSQL in a container locally, you can use the following Docker compose file: [`inst/examples/postgresql/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples/postgresql/docker-compose.yml).
+To run PostgreSQL in a container locally, you can use the following Docker compose file: [`inst/examples/postgresql/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/blob/main/inst/examples/postgresql/docker-compose.yml).
 
 
 ### MariaDB / MySQL
@@ -87,7 +87,7 @@ _notes_:
 - Never store usernames, passwords and other sensitive directly in code. Please use environment variables or other secure methods;
   - The `.Renviron` file is the default way in R of setting up environment variables _(instead of `Sys.setenv()` as shown above for convenience)_.
 
-To run MariaDB in a container locally, you can use the following Docker compose file: [`inst/examples/mariadb/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples/mariadb/docker-compose.yml).
+To run MariaDB in a container locally, you can use the following Docker compose file: [`inst/examples/mariadb/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/blob/main/inst/examples/mariadb/docker-compose.yml).
 
 ### MS SQL Server
 
@@ -110,7 +110,7 @@ _notes_:
 - Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
   - The `.Renviron` file is the default way in R of setting up environment variables _(instead of `Sys.setenv()` as shown above for convenience)_.
 
-To run Microsoft SQL Server in a container locally, you can use the following Docker compose file: [`inst/examples/mssql/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples/mssql/docker-compose.yml).
+To run Microsoft SQL Server in a container locally, you can use the following Docker compose file: [`inst/examples/mssql/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/blob/main/inst/examples/mssql/docker-compose.yml).
 
 ### MongoDB
 
@@ -123,7 +123,7 @@ data_storage <- DataStorageMongoDB$new(
   ssl_options = mongolite::ssl_options()
 )
 
-To run MongoDB in a container locally, you can use the following Docker compose file: [`inst/examples/mssql/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/tree/main/inst/examples/mongodb/docker-compose.yml).
+To run MongoDB in a container locally, you can use the following Docker compose file: [`inst/examples/mssql/docker-compose.yml`](https://github.com/Appsilon/shiny.telemetry/blob/main/inst/examples/mongodb/docker-compose.yml).
 ```
 
 ### SQLite
