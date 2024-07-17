@@ -1187,34 +1187,35 @@
       "description": {
         "Package": "httr2",
         "Title": "Perform HTTP Requests and Process the Responses",
-        "Version": "1.0.1",
-        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = c(\"aut\", \"cre\")),\n    person(\"RStudio\", role = c(\"cph\", \"fnd\")),\n    person(\"Maximilian\", \"Girlich\", role = \"ctb\")\n  )",
+        "Version": "1.0.2",
+        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")),\n    person(\"Maximilian\", \"Girlich\", role = \"ctb\")\n  )",
         "Description": "Tools for creating and modifying HTTP requests, then\n    performing them and processing the results. 'httr2' is a modern\n    re-imagining of 'httr' that uses a pipe-based interface and solves\n    more of the problems that API wrapping packages face.",
         "License": "MIT + file LICENSE",
         "URL": "https://httr2.r-lib.org, https://github.com/r-lib/httr2",
         "BugReports": "https://github.com/r-lib/httr2/issues",
-        "Depends": "R (>= 3.6)",
+        "Depends": "R (>= 4.0)",
         "Imports": "cli (>= 3.0.0), curl (>= 5.1.0), glue, lifecycle, magrittr,\nopenssl, R6, rappdirs, rlang (>= 1.1.0), vctrs (>= 0.6.3),\nwithr",
         "Suggests": "askpass, bench, clipr, covr, docopt, httpuv, jose, jsonlite,\nknitr, rmarkdown, testthat (>= 3.1.8), tibble, webfakes, xml2",
         "VignetteBuilder": "knitr",
         "Config/Needs/website": "tidyverse/tidytemplate",
         "Config/testthat/edition": "3",
+        "Config/testthat/parallel": "true",
         "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.1",
+        "RoxygenNote": "7.3.2",
         "NeedsCompilation": "no",
-        "Packaged": "2024-04-01 18:58:33 UTC; hadleywickham",
-        "Author": "Hadley Wickham [aut, cre],\n  RStudio [cph, fnd],\n  Maximilian Girlich [ctb]",
-        "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
+        "Packaged": "2024-07-15 20:48:57 UTC; hadleywickham",
+        "Author": "Hadley Wickham [aut, cre],\n  Posit Software, PBC [cph, fnd],\n  Maximilian Girlich [ctb]",
+        "Maintainer": "Hadley Wickham <hadley@posit.co>",
         "Repository": "RSPM",
-        "Date/Publication": "2024-04-01 19:30:02 UTC",
-        "Built": "R 4.4.0; ; 2024-04-25 19:48:29 UTC; unix",
+        "Date/Publication": "2024-07-16 09:30:02 UTC",
+        "Built": "R 4.4.0; ; 2024-07-17 04:26:43 UTC; unix",
         "RemoteType": "standard",
         "RemotePkgRef": "httr2",
         "RemoteRef": "httr2",
         "RemoteRepos": "https://packagemanager.posit.co/cran/__linux__/jammy/latest",
         "RemoteReposName": "CRAN",
         "RemotePkgPlatform": "source",
-        "RemoteSha": "1.0.1"
+        "RemoteSha": "1.0.2"
       }
     },
     "jquerylib": {
@@ -2145,7 +2146,7 @@
         "Type": "Package",
         "Package": "shiny.telemetry",
         "Title": "'Shiny' App Usage Telemetry",
-        "Version": "0.2.0.9015",
+        "Version": "0.3.0",
         "Authors@R": "c(\n    person(\"André\", \"Veríssimo\", , \"opensource+andre@appsilon.com\", role = c(\"aut\", \"cre\")),\n    person(\"Kamil\", \"Żyła\", , \"kamil@appsilon.com\", role = \"aut\"),\n    person(\"Krystian\", \"Igras\", , \"krystian8207@gmail.com\", role = \"aut\"),\n    person(\"Recle\", \"Vibal\", , \"recle.vibal@appsilon.com\", role = \"aut\"),\n    person(\"Arun\", \"Kodati\", , \"arun.kodati@appsilon.com\", role = \"aut\"),\n    person(\"Wahaduzzaman\", \"Khan\", , \"wahaduzzaman@appsilon.com\", role = \"aut\"),\n    person(\"Appsilon Sp. z o.o.\", , , \"opensource@appsilon.com\", role = \"cph\")\n  )",
         "Description": "Enables instrumentation of 'Shiny' apps for tracking user\n    session events such as input changes, browser type, and session\n    duration.  These events can be sent to any of the available storage\n    backends and analyzed using the included 'Shiny' app to gain insights\n    about app usage and adoption.",
         "License": "LGPL-3",
@@ -2162,18 +2163,18 @@
         "VignetteBuilder": "knitr",
         "Author": "André Veríssimo [aut, cre],\n  Kamil Żyła [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Arun Kodati [aut],\n  Wahaduzzaman Khan [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "André Veríssimo <opensource+andre@appsilon.com>",
-        "Built": "R 4.4.1; ; 2024-07-09 15:09:16 UTC; unix",
+        "Built": "R 4.4.1; ; 2024-07-17 15:55:56 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "d408ca3ecd40787b1bb40b54396aab727653612a",
-        "RemoteSha": "d408ca3ecd40787b1bb40b54396aab727653612a",
+        "RemoteRef": "a1341b1b068edf07c5ebc58570fff0b56080c5af",
+        "RemoteSha": "a1341b1b068edf07c5ebc58570fff0b56080c5af",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "d408ca3ecd40787b1bb40b54396aab727653612a",
-        "GithubSHA1": "d408ca3ecd40787b1bb40b54396aab727653612a"
+        "GithubRef": "a1341b1b068edf07c5ebc58570fff0b56080c5af",
+        "GithubSHA1": "a1341b1b068edf07c5ebc58570fff0b56080c5af"
       }
     },
     "sourcetools": {
@@ -2705,7 +2706,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "04c3d0a30cd6911bb51b71de4b5c9b29"
+      "checksum": "b4dd1c8f40f65efe3ac54f66fc101a51"
     },
     "app.R": {
       "checksum": "9f0eba0f09bda485101c886f593407a5"
@@ -2714,7 +2715,7 @@
       "checksum": "968f17d0f34fcffeef3e184e755b94ae"
     },
     "renv.lock": {
-      "checksum": "a2462f46b70d6285c30114dae5fb44aa"
+      "checksum": "29ba16225e2186788ab75cc6ddc69d87"
     }
   },
   "users": null
