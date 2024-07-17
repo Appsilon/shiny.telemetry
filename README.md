@@ -6,7 +6,7 @@
 [![R CMD check](https://github.com/Appsilon/shiny.telemetry/actions/workflows/main.yml/badge.svg)](https://github.com/Appsilon/shiny.telemetry/actions/workflows/main.yml)
 [![downloads monthly](https://cranlogs.r-pkg.org/badges/shiny.telemetry)](https://CRAN.R-project.org/package=shiny.telemetry)
 [![downloads total](https://cranlogs.r-pkg.org/badges/grand-total/shiny.telemetry)](https://CRAN.R-project.org/package=shiny.telemetry)
-[![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/license/lgpl-3-0/)
+[![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/license/lgpl-3-0)
 
 The `shiny.telemetry` R package tracks events occurring on a user session,
 such as input changes and session duration, and stores them in a local or remote database.
@@ -125,10 +125,10 @@ See [CONTRIBUTING](https://appsilon.github.io/shiny.telemetry/CONTRIBUTING.html)
 <img src="https://avatars0.githubusercontent.com/u/6096772" align="right" alt="" width="6%" />
 
 Appsilon is a **Posit (formerly RStudio) Full Service Certified Partner**.<br/>
-Learn more at [appsilon.com](https://appsilon.com).
+Learn more at [appsilon.com](https://www.appsilon.com).
 
 Get in touch [opensource@appsilon.com](mailto:opensource@appsilon.com)
 
 Explore the [Rhinoverse](https://rhinoverse.dev) - a family of R packages built around [Rhino](https://appsilon.github.io/rhino/)!
 
-<a href = "https://appsilon.com/careers/" target="_blank"><img src="https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/WeAreHiring1.png" alt="We are hiring!"/></a>
+<a href = "https://www.appsilon.com/careers" target="_blank"><img src="https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/WeAreHiring1.png" alt="We are hiring!"/></a>
