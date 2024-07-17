@@ -3,6 +3,8 @@ template:
   bootstrap: 5
   bootswatch: pulse
   bslib:
+    primary: "#4AB76C"
+    secondary-color: "#f00"
     pkgdown-nav-height: 100px
   includes:
     in_header: |
@@ -29,15 +31,25 @@ template:
 url: https://appsilon.github.io/shiny.telemetry/
 
 navbar:
+  type: light
   bg: primary
+  fg: "#262323"
   structure:
-    left: [home, reference, changelog]
+    left: [how-to-guides, reference, changelog]
     right: [search, github, twitter, mastodon]
   components:
-    home:
-      icon: fa-home
-      text: "Start"
-      href: index.html
+    how-to-guides:
+      text: "How-to Guides"
+      icon: fa-book-reader
+      menu:
+        - text: Setup shiny.telemetry in a Rhino application
+          href: articles/rhino.html
+        - text: Track a Subset of Inputs to Improve Performance
+          href: articles/tracking-specific-input-id.html
+        - text: Data Storage backends
+          navbar: Data Storage backends
+        - text: Use External Databases with shiny.telemetry
+          href: articles/databases.html
     reference:
       icon: fa-file-code-o
       text: "Reference"
