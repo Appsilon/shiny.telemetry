@@ -184,7 +184,7 @@ server <- function(id) {
 ```
 
 The [`telemetry$start_session()`](https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html#method-Telemetry-start_session) call can be customized to enable/disable different types of events and can be further extended to include/exclude input ids.
-See the [Guide on tracking specific inputs](https://appsilon.github.io/shiny.telemetry/articles/tracking-specific-input-id.html) for more details.
+See the [Guide on tracking specific inputs](tracking-specific-input-id.Rmd) for more details.
 
 The application is now ready to track the input changes, login, logout and browser version. Start the application and test it out yourself.
 
