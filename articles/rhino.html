@@ -38,7 +38,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.9015</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -110,7 +110,7 @@ your first Rhino app</a></li>
 structure in a Rhino application</a></li>
 <li><a href="https://appsilon.github.io/rhino/articles/how-to/write-r-code.html" class="external-link">Write
 R code in Rhino</a></li>
-<li><a href="https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html">Use
+<li><a href="https://appsilon.github.io/shiny.telemetry/articles/databases.html">Use
 External Databases with <code>{shiny.telemetry}</code></a></li>
 </ul>
 <div class="section level2">
@@ -267,7 +267,7 @@ below.</p>
 <a href="https://appsilon.github.io/shiny.telemetry/">shiny.telemetry</a>. It is the simplest storage backend
 available and the file contains JSON data that can be easily read and
 processed.</p>
-<p>To learn about other backends see the <a href="databases.Rmd">“Use
+<p>To learn about other backends see the <a href="https://appsilon.github.io/shiny.telemetry/articles/databases.html">“Use
 External Databases with shiny.telemetry” guide</a>.</p>
 <p>Please note, that the values themselves are not tracked by default
 and need to be enabled by setting the <code>track_values</code>
@@ -290,8 +290,8 @@ capabilities of <a href="https://appsilon.github.io/shiny.telemetry/">shiny.tele
 <span><span class="op">}</span></span></code></pre></div>
 <p>The <a href="https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html#method-Telemetry-start_session"><code>telemetry$start_session()</code></a>
 call can be customized to enable/disable different types of events and
-can be further extended to include/exclude input ids. See the <a href="tracking-specific-input-id">Guide on tracking specific inputs</a>
-for more details.</p>
+can be further extended to include/exclude input ids. See the <a href="https://appsilon.github.io/shiny.telemetry/articles/tracking-specific-input-id.html">Guide
+on tracking specific inputs</a> for more details.</p>
 <p>The application is now ready to track the input changes, login,
 logout and browser version. Start the application and test it out
 yourself.</p>
@@ -391,52 +391,52 @@ following code:</p>
 <tr class="odd">
 <td align="left">rhino_app</td>
 <td align="left">login</td>
-<td align="left">592337…</td>
-<td align="left">d24474…</td>
+<td align="left">e00431…</td>
+<td align="left">99caf0…</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">2024-07-09 15:10:41</td>
-<td align="left">2024-07-09</td>
+<td align="left">2024-07-17 15:56:57</td>
+<td align="left">2024-07-17</td>
 </tr>
 <tr class="even">
 <td align="left">rhino_app</td>
 <td align="left">input</td>
-<td align="left">592337…</td>
+<td align="left">e00431…</td>
 <td align="left">NA</td>
 <td align="left">name</td>
 <td align="left">John Doe</td>
-<td align="left">2024-07-09 15:10:41</td>
-<td align="left">2024-07-09</td>
+<td align="left">2024-07-17 15:56:57</td>
+<td align="left">2024-07-17</td>
 </tr>
 <tr class="odd">
 <td align="left">rhino_app</td>
 <td align="left">input</td>
-<td align="left">592337…</td>
+<td align="left">e00431…</td>
 <td align="left">NA</td>
 <td align="left">name</td>
 <td align="left">Jane Doe</td>
-<td align="left">2024-07-09 15:10:41</td>
-<td align="left">2024-07-09</td>
+<td align="left">2024-07-17 15:56:57</td>
+<td align="left">2024-07-17</td>
 </tr>
 <tr class="even">
 <td align="left">rhino_app</td>
 <td align="left">input</td>
-<td align="left">592337…</td>
+<td align="left">e00431…</td>
 <td align="left">NA</td>
 <td align="left">name</td>
 <td align="left">My custom name</td>
-<td align="left">2024-07-09 15:10:41</td>
-<td align="left">2024-07-09</td>
+<td align="left">2024-07-17 15:56:57</td>
+<td align="left">2024-07-17</td>
 </tr>
 <tr class="odd">
 <td align="left">rhino_app</td>
 <td align="left">logout</td>
-<td align="left">592337…</td>
-<td align="left">d24474…</td>
+<td align="left">e00431…</td>
+<td align="left">99caf0…</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">2024-07-09 15:10:41</td>
-<td align="left">2024-07-09</td>
+<td align="left">2024-07-17 15:56:57</td>
+<td align="left">2024-07-17</td>
 </tr>
 </tbody>
 </table>
@@ -458,7 +458,7 @@ functionality to write events to a data storage backed and it will write
 <li>Logout timestamp when the session ends;</li>
 <li>All input changes.</li>
 </ul>
-<p>To learn how to use Database backends you can refer to the <a href="https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html">“Use
+<p>To learn how to use Database backends you can refer to the <a href="https://appsilon.github.io/shiny.telemetry/articles/databases.html">“Use
 External Databases with shiny.telemetry” guide</a>.</p>
 </div>
 <div class="section level2">
@@ -468,7 +468,7 @@ External Databases with shiny.telemetry” guide</a>.</p>
 above to an external database by just changing the
 <code>data_storage</code> parameter when initializing
 <code>{shiny.telemetr}</code>. To learn how to use the different
-available Database backends you can refer to the <a href="https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html">“Use
+available Database backends you can refer to the <a href="https://appsilon.github.io/shiny.telemetry/articles/databases.html">“Use
 External Databases with shiny.telemetry” guide</a>.</p>
 <p>In this section we will show how to use PostgreSQL, which is one of
 the supported databases in a Rhino application. Using any of the others
@@ -551,7 +551,7 @@ manage secrets and environments.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed with <span class="emoji" data-emoji="heart">❤️</span> by <a href="https://appsilon.com" class="external-link">Appsilon</a>.</p>
+  <p>Developed with <span class="emoji" data-emoji="heart">❤️</span> by <a href="https://www.appsilon.com" class="external-link">Appsilon</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
