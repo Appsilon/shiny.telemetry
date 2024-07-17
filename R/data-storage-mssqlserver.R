@@ -13,10 +13,15 @@
 #'
 #' @examples
 #' \dontrun{
-#' data_storage <- DataStorageMSSQLServer$new(user = "sqlserver",
-#' password = "mysecretpassword", hostname = "servername", port = 1433,
-#' dbname = "my_db", driver = "ODBC Driver 17 for SQL Server",
-#' trust_server_certificate = "NO")
+#' data_storage <- DataStorageMSSQLServer$new(
+#'   user = "sa",
+#'   password = "my-Secr3t_Password",
+#'   hostname = "localhost",
+#'   port = 1433,
+#'   dbname = "shiny_telemetry",
+#'   driver = "ODBC Driver 18 for SQL Server",
+#'   trust_server_certificate = "YES"
+#' )
 #'
 #' data_storage$insert("example", "test_event", "session1")
 #' data_storage$insert("example", "input", "s1", list(id = "id1"))

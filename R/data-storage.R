@@ -63,11 +63,11 @@ DataStorage <- R6::R6Class( # nolint object_name.
       #  :: (id, value, username)
       db_data %>%
         dplyr::bind_rows(dplyr::tibble(
-          time = as.POSIXct(character(0)),
-          date = as.Date(character(0)),
-          id = character(0),
-          value = character(0),
-          username = character(0)
+          time = as.POSIXct(character(0L)),
+          date = as.Date(character(0L)),
+          id = character(0L),
+          value = character(0L),
+          username = character(0L)
         ))
     },
 

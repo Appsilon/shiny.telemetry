@@ -31,7 +31,7 @@ Useful links:
 - [Creating your first Rhino app](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html)
 - [App structure in a Rhino application](https://appsilon.github.io/rhino/articles/explanation/application-structure.html)
 - [Write R code in Rhino](https://appsilon.github.io/rhino/articles/how-to/write-r-code.html)
-- [Use External Databases with `{shiny.telemetry}`](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html)
+- [Use External Databases with `{shiny.telemetry}`](https://appsilon.github.io/shiny.telemetry/articles/databases.html)
 
 ## Creating a new `{rhino}` application
 
@@ -162,7 +162,7 @@ We recommend creating an instance of `Telemetry` on the `app/main.R` and then st
 This will create a text file with the events tracked by `{shiny.telemetry}`.
 It is the simplest storage backend available and the file contains JSON data that can be easily read and processed. 
 
-To learn about other backends see the ["Use External Databases with shiny.telemetry" guide](databases.Rmd).
+To learn about other backends see the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/databases.html).
 
 Please note, that the values themselves are not tracked by default and need to be enabled by setting the `track_values` parameter to `TRUE` in the [`start_session()`](https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html#method-Telemetry-start_session) method.
 In this example we are enabling them to help demonstrate the capabilities of `{shiny.telemetry}`.
@@ -184,7 +184,7 @@ server <- function(id) {
 ```
 
 The [`telemetry$start_session()`](https://appsilon.github.io/shiny.telemetry/reference/Telemetry.html#method-Telemetry-start_session) call can be customized to enable/disable different types of events and can be further extended to include/exclude input ids.
-See the [Guide on tracking specific inputs](tracking-specific-input-id) for more details.
+See the [Guide on tracking specific inputs](https://appsilon.github.io/shiny.telemetry/articles/tracking-specific-input-id.html) for more details.
 
 The application is now ready to track the input changes, login, logout and browser version. Start the application and test it out yourself.
 
@@ -277,11 +277,11 @@ The setup allows to access all of `{shiny.telemetry}` functionality to write eve
 - Logout timestamp when the session ends;
 - All input changes.
 
-To learn how to use Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).
+To learn how to use Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/databases.html).
 
 ## Appendix: Use an External Database
 
-The storage backend can be swapped between the JSON log file used above to an external database by just changing the `data_storage` parameter when initializing `{shiny.telemetr}`. To learn how to use the different available Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/shiny-telemetry-databases.html).
+The storage backend can be swapped between the JSON log file used above to an external database by just changing the `data_storage` parameter when initializing `{shiny.telemetr}`. To learn how to use the different available Database backends you can refer to the ["Use External Databases with shiny.telemetry" guide](https://appsilon.github.io/shiny.telemetry/articles/databases.html).
 
 In this section we will show how to use PostgreSQL, which is one of the supported databases in a Rhino application. Using any of the others is similar.
 

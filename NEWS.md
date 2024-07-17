@@ -1,4 +1,4 @@
-# shiny.telemetry (development version)
+# shiny.telemetry 0.3.0
 
 ### New Features
 

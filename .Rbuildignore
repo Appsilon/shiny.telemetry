@@ -12,3 +12,7 @@
 ^renv$
 ^renv\.lock$
 pkgdown
+cran-comments.md
+CRAN-SUBMISSION
+^docs$
+^CRAN-SUBMISSION$
