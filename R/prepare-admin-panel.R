@@ -19,12 +19,18 @@ date_filters <- function() {
 }
 
 get_users_per_day <- function(log_data) {
+  # Only keep login and logout events as they contain usernames
   log_data %>%
+    dplyr::filter(.data$type %in% c("login", "logout")) %>%
     dplyr::select("date", "username", "session") %>%
     dplyr::distinct() %>%
     # Create anonymous or users type
     dplyr::mutate(
-      user_type = dplyr::if_else(is.na(.data$username), "anonymous", "users")
+      user_type = dplyr::if_else(
+        is.na(.data$username) | grepl("^anon_user_[a-z0-9]+", .data$username),
+        "anonymous",
+        "users"
+      )
     ) %>%
     dplyr::group_by(.data$date, .data$user_type) %>%
     dplyr::summarise(users = dplyr::n()) %>%
@@ -913,7 +919,7 @@ prepare_admin_panel_components <- function(
     shiny::validate(shiny::need(selected_session(), label = "selected_session"))
     selected_log_data() %>%
       dplyr::filter(
-        .data$type %in% c("login", "logout", "input", "navigation"),
+        .data$type %in% c("login", "logout", "input", "navigation", "error"),
         session == selected_session()
       ) %>%
       dplyr::mutate(
@@ -921,7 +927,8 @@ prepare_admin_panel_components <- function(
         content = dplyr::case_when(
           type %in% c("login", "logout") ~ type,
           type == "input" ~ sprintf("Input: %s <br /> Value: %s", id, value),
-          type == "navigation" ~ sprintf("Navigated: %s", id)
+          type == "navigation" ~ sprintf("Navigated: %s", id),
+          type == "error" ~ sprintf("Error: %s", message),
         ),
         style = "text-align: left;",
         end = NA
