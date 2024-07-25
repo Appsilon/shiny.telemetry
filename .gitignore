@@ -7,3 +7,5 @@ user_stats.sqlite
 docs
 *.Rproj
 .Renviron
+cran-comments.md
+CRAN-SUBMISSION

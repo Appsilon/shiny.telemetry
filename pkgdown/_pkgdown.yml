@@ -35,9 +35,21 @@ navbar:
   bg: primary
   fg: "#262323"
   structure:
-    left: [tutorials, reference, changelog]
+    left: [how-to-guides, reference, changelog]
     right: [search, github, twitter, mastodon]
   components:
+    how-to-guides:
+      text: "How-to Guides"
+      icon: fa-book-reader
+      menu:
+        - text: Setup shiny.telemetry in a Rhino application
+          href: articles/rhino.html
+        - text: Track a Subset of Inputs to Improve Performance
+          href: articles/tracking-specific-input-id.html
+        - text: Data Storage backends
+          navbar: Data Storage backends
+        - text: Use External Databases with shiny.telemetry
+          href: articles/databases.html
     reference:
       icon: fa-file-code-o
       text: "Reference"
@@ -69,4 +81,4 @@ footer:
   structure:
     left: developed
   components:
-    developed: "Developed with :heart: by [Appsilon](https://appsilon.com)."
+    developed: "Developed with :heart: by [Appsilon](https://www.appsilon.com)."

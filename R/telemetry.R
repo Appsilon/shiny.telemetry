@@ -5,16 +5,23 @@
 #' An instance of this class will define metadata and data storage provider
 #' for gathering telemetry analytics of a Shiny dashboard.
 #'
-#'
 #' The `name` and `version` parameters will describe the dashboard name and
 #' version to track using analytics, allowing to store the analytics data from
 #' multiple dashboards in the same data storage provider. As well as
 #' discriminate different versions of the dashboard.
 #'
-#'
 #' The default data storage provider uses a local SQLite database, but this
 #' can be customizable when instantiating the class, by using another one of
 #' the supported providers (see [`DataStorage`]).
+#'
+#' @section Debugging:
+#'
+#' Events are logged at the `DEBUG` level using the `logger` package.
+#' To see the logs, you can set:
+#'
+#' ```r
+#' logger::log_threshold("DEBUG", namespace = "shiny.telemetry")
+#' ```
 #'
 #' @seealso [`DataStorage`] which this function wraps.
 #' @export
@@ -22,24 +29,46 @@
 #' log_file_path <- tempfile(fileext = ".txt")
 #' telemetry <- Telemetry$new(
 #'   data_storage = DataStorageLogFile$new(log_file_path = log_file_path)
-#' )
+#' ) # 1. Initialize telemetry with default options
 #'
 #' #
-#' # Create dummy session (only for example purposes)
-#' session <- shiny::MockShinySession$new()
+#' # Use in a shiny application
+#'
+#' if (interactive()) {
+#'   library(shiny)
+#'
+#'   shinyApp(
+#'     ui = fluidPage(
+#'       use_telemetry(), # 2. Add necessary javascript to Shiny
+#'       numericInput("n", "n", 1),
+#'       plotOutput('plot')
+#'     ),
+#'     server = function(input, output) {
+#'       telemetry$start_session() # 3. Minimal setup to track events
+#'       output$plot <- renderPlot({ hist(runif(input$n)) })
+#'     }
+#'   )
+#' }
+#'
+#' #
+#' # Manual logging of Telemetry that can be used inside Shiny Application
+#' # to further customize the events to be tracked.
+#'
+#' session <- shiny::MockShinySession$new() # Create dummy session (only for example purposes)
 #' class(session) <- c(class(session), "ShinySession")
 #'
-#' telemetry$start_session(session = session)
-#'
 #' telemetry$log_click("a_button", session = session)
+#'
+#' telemetry$log_error("global", message = "An error has occured")
 #'
 #' telemetry$log_custom_event("a_button", list(value = 2023), session = session)
 #' telemetry$log_custom_event("a_button", list(custom_field = 23), session = session)
 #'
-#' # Manual call loging with custom username
+#' # Manual call login with custom username
 #' telemetry$log_login("ben", session = session)
 #'
-#' telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01")
+#' # Read all data
+#' telemetry$data_storage$read_event_data()
 #'
 #' file.remove(log_file_path)
 #'
@@ -47,16 +76,18 @@
 #' # Using SQLite
 #'
 #' db_path <- tempfile(fileext = ".sqlite")
-#' telemetry <- Telemetry$new(
+#' telemetry_sqlite <- Telemetry$new(
 #'   data_storage = DataStorageSQLite$new(db_path = db_path)
 #' )
 #'
-#' telemetry$log_custom_event("a_button", list(value = 2023), session = session)
-#' telemetry$log_custom_event("a_button", list(custom_field = 23), session = session)
+#' telemetry_sqlite$log_custom_event("a_button", list(value = 2023), session = session)
+#' telemetry_sqlite$log_custom_event("a_button", list(custom_field = 23), session = session)
 #'
-#' telemetry$data_storage$read_event_data("2020-01-01", "2025-01-01")
+#' # Read all data from time range
+#' telemetry_sqlite$data_storage$read_event_data("2020-01-01", "2055-01-01")
 #'
 #' file.remove(db_path)
+#'
 Telemetry <- R6::R6Class( # nolint object_name.
   classname = "Telemetry",
   public = list(
@@ -112,7 +143,11 @@ Telemetry <- R6::R6Class( # nolint object_name.
     #' @param track_anonymous_user flag that indicates to track anonymous user.
     #' A cookie is used to track same user without login over multiple sessions,
     #' This is only activated if none of the automatic methods produce a username
-    #' and when a username is not explicitly defined.`TRUE` by default
+    #' and when a username is not explicitly defined.`TRUE` by default.
+    #' @param track_errors flag that indicates if the basic telemetry should
+    #' track the errors. `TRUE` by default. if using shiny version < `1.8.1`,
+    #' it can auto log errors only in UI output functions.
+    #' By using latest versions of shiny, it can auto log all types of errors.
     #'
     #' @return Nothing. This method is called for side effects.
 
@@ -125,7 +160,8 @@ Telemetry <- R6::R6Class( # nolint object_name.
       navigation_input_id = NULL,
       session = shiny::getDefaultReactiveDomain(),
       username = NULL,
-      track_anonymous_user = TRUE
+      track_anonymous_user = TRUE,
+      track_errors = TRUE
     ) {
 
       checkmate::assert_flag(track_inputs)
@@ -134,6 +170,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
       checkmate::assert_flag(logout)
       checkmate::assert_flag(browser_version)
       checkmate::assert_flag(track_anonymous_user)
+      checkmate::assert_flag(track_errors)
 
       checkmate::assert_character(navigation_input_id, null.ok = TRUE)
 
@@ -154,6 +191,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
             "browser_version"
           ),
           navigation_inputs = navigation_input_id,
+          track_errors = track_errors,
           session = session
         )
       } else {
@@ -172,6 +210,73 @@ Telemetry <- R6::R6Class( # nolint object_name.
         self$log_browser_version(session = session)
       }
 
+      if (isTRUE(track_errors)) {
+        if ("onUnhandledError" %in% ls(getNamespace("shiny"))) {
+          # onUnhandledError handler is only available in shiny >= 1.8.1
+          shiny::onUnhandledError(function(error) {
+            self$log_error(
+              output_id = "global",
+              message = conditionMessage(error)
+            )
+          })
+        } else {
+          # In shiny < 1.8.1, we fallback to using the `shiny.error` option and
+          # if that is already set, we track the `shiny:error` javascript event.
+          lifecycle::deprecate_warn(
+            when = as.character(utils::packageVersion("shiny")),
+            what = "Telemetry$start_session(track_errors = \"is not fully enabled \")",
+            details = c(
+              paste(
+                "Update the shiny package to version `1.8.1` or higher to",
+                "enable logging of all errors.",
+                sep = " "
+              ),
+              paste(
+                "Until then, shiny.telemetry can only reliably detect errors",
+                "triggered by the `shiny:error` javacript event.",
+                sep = " "
+              )
+            ),
+            env = getNamespace("shiny")
+          )
+
+          if (is.null(getOption("shiny.error"))) {
+            options(
+              "shiny.error" = function(.envir = parent.frame()) {
+                # make sure id is a string without spaces
+                output_id <- paste(
+                  gsub(
+                    " |\t|\r",
+                    "_",
+                    as.character(.envir$e$call %||% "global")
+                  ),
+                  collapse = "__"
+                )
+
+                self$log_error(
+                  output_id = output_id,
+                  message = .envir$e$message %||% "Unknown error.",
+                  session = session
+                )
+              }
+            )
+
+            # Restore previous option
+            shiny::onSessionEnded(
+              fun = function() options("shiny.error" = NULL),
+              session = session
+            )
+          } else {
+            shiny::observeEvent(input[[private$.track_error_id]], {
+              self$log_error(
+                output_id = input[[private$.track_error_id]]$output_id,
+                message = input[[private$.track_error_id]]$message,
+                session = session
+              )
+            })
+          }
+        }
+      }
       NULL
     },
 
@@ -471,6 +576,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
         "{as.character(value %||% \"'NULL' (note: it might not be tracked)\")}",
         namespace = "shiny.telemetry"
       )
+
       private$.log_event(
         type = "input",
         details = list(id = input_id, value = value),
@@ -491,8 +597,39 @@ Telemetry <- R6::R6Class( # nolint object_name.
     log_custom_event = function(
       event_type, details = NULL, session = shiny::getDefaultReactiveDomain()
     ) {
+      checkmate::assert_string(event_type)
+
+      logger::log_debug("custom event {event_type}", namespace = "shiny.telemetry")
+
       private$.log_event(
         type = event_type, details = details, session = session
+      )
+    },
+    #' @description
+    #' Log an error event
+    #'
+    #' @param output_id string that refers to the output element where the error occurred.
+    #' @param message string that describes the error.
+    #' @param session `ShinySession` object or NULL to identify the current Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
+    log_error = function(
+      output_id,
+      message,
+      session = shiny::getDefaultReactiveDomain()
+    ) {
+      checkmate::assert_string(output_id, null.ok = TRUE)
+      checkmate::assert_string(message, null.ok = TRUE)
+
+      logger::log_debug(
+        "event: error on '{output_id}' with message: {message}",
+        namespace = "shiny.telemetry"
+      )
+
+      private$.log_event(
+        type = "error",
+        details = list(output_id = output_id, message = message),
+        session = session
       )
     }
   ),
@@ -513,6 +650,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
     .name = NULL,
     .version = NULL,
     .data_storage = NULL,
+    .track_error_id = "track_error_telemetry_js",
 
     # Methods
 
@@ -544,6 +682,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
       track_values,
       excluded_inputs,
       navigation_inputs,
+      track_errors,
       excluded_inputs_regex = NULL,
       include_input_ids = NULL,
       session
@@ -634,11 +773,14 @@ Telemetry <- R6::R6Class( # nolint object_name.
               if (isTRUE(track_values)) {
                 log_value <- new[[name]]
               }
-              self$log_input_manual(name, log_value, session)
+
+              # Skip inputs from error tracking in JS
+              if (!track_errors || !identical(name, private$.track_error_id)) {
+                self$log_input_manual(name, log_value, session)
+              }
             }
           }
         }
-
         session$userData$shiny_input_values <- new_input_values
         input_values <- new_input_values
       })
