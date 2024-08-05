@@ -1,3 +1,14 @@
+# shiny.telemetry (development)
+
+### New Features
+
+- Added `log_errors` method that allows users to track errors in their Shiny apps outside `start_session` (#189).
+
+### Bug Fixes
+
+- Fixed problem with `log_all_inputs` call that crashed telemetry (#187).
+- Fixed error appearing in analytics app (#188).
+
 # shiny.telemetry 0.3.0
 
 ### New Features
