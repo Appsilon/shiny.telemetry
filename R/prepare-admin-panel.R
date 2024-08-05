@@ -917,7 +917,13 @@ prepare_admin_panel_components <- function(
 
   selected_session_data <- shiny::reactive({
     shiny::validate(shiny::need(selected_session(), label = "selected_session"))
-    selected_log_data() %>%
+    selected_data <- selected_log_data()
+
+    if(!'message' %in% names(selected_data)) {
+      selected_data$message <- NA
+    }
+
+    selected_data %>%
       dplyr::filter(
         .data$type %in% c("login", "logout", "input", "navigation", "error"),
         session == selected_session()
@@ -927,7 +933,7 @@ prepare_admin_panel_components <- function(
         content = dplyr::case_when(
           type %in% c("login", "logout") ~ type,
           type == "input" ~ sprintf("Input: %s <br /> Value: %s", id, value),
-          type == "navigation" ~ sprintf("Navigated: %s", id),
+          type == "navigation" ~ sprintf("Navigated (%s): %s", id, value),
           type == "error" ~ sprintf("Error: %s", message),
         ),
         style = "text-align: left;",
