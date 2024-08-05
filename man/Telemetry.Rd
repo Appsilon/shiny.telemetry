@@ -120,6 +120,7 @@ file.remove(db_path)
 \item \href{#method-Telemetry-log_input_manual}{\code{Telemetry$log_input_manual()}}
 \item \href{#method-Telemetry-log_custom_event}{\code{Telemetry$log_custom_event()}}
 \item \href{#method-Telemetry-log_error}{\code{Telemetry$log_error()}}
+\item \href{#method-Telemetry-log_errors}{\code{Telemetry$log_errors()}}
 \item \href{#method-Telemetry-clone}{\code{Telemetry$clone()}}
 }
 }
@@ -553,7 +554,7 @@ Nothing. This method is called for side effects.
 \if{html}{\out{<a id="method-Telemetry-log_error"></a>}}
 \if{latex}{\out{\hypertarget{method-Telemetry-log_error}{}}}
 \subsection{Method \code{log_error()}}{
-Log an error event
+Log a manual error event
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_error(
   output_id,
@@ -569,6 +570,26 @@ Log an error event
 
 \item{\code{message}}{string that describes the error.}
 
+\item{\code{session}}{\code{ShinySession} object or NULL to identify the current Shiny session.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Nothing. This method is called for side effects.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Telemetry-log_errors"></a>}}
+\if{latex}{\out{\hypertarget{method-Telemetry-log_errors}{}}}
+\subsection{Method \code{log_errors()}}{
+Track errors as they occur in observe and reactive
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Telemetry$log_errors(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
 \item{\code{session}}{\code{ShinySession} object or NULL to identify the current Shiny session.}
 }
 \if{html}{\out{</div>}}
