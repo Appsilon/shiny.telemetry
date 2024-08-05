@@ -919,7 +919,7 @@ prepare_admin_panel_components <- function(
     shiny::validate(shiny::need(selected_session(), label = "selected_session"))
     selected_data <- selected_log_data()
 
-    if(!'message' %in% names(selected_data)) {
+    if (!"message" %in% names(selected_data)) {
       selected_data$message <- NA
     }
 
