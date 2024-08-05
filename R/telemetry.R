@@ -440,7 +440,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
         navigation_inputs = c(),
         excluded_inputs_regex = excluded_inputs_regex,
         include_input_ids = include_input_ids,
-        track_errors = FALSE,
+        track_errors = TRUE,
         session = session
       )
     },
