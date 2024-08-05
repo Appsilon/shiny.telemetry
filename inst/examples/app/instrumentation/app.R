@@ -115,11 +115,6 @@ shinyApp(ui = ui, server = function(input, output, session) {
     navigation_input_id = "uisidebar"
   )
 
-  # observe({
-  #   input$apply_slider
-  #   stop("bla")
-  # })
-
   # server code
   output$plot1 <- renderPlot({
     input$apply_slider
