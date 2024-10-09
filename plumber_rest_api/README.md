@@ -92,6 +92,6 @@ Learn more at [appsilon.com](https://www.appsilon.com).
 
 Get in touch [opensource@appsilon.com](mailto:opensource@appsilon.com)
 
-Check the [Rhinoverse](https://rhinoverse.dev).
+Check the [Rhinoverse](https://www.appsilon.com/rhinoverse).
 
 <a href = "https://www.appsilon.com/careers" target="_blank"><img src="https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/WeAreHiring1.png" alt="We are hiring!"/></a>

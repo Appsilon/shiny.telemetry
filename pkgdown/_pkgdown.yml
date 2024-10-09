@@ -26,7 +26,7 @@ template:
       </script>
       <script async defer src="https://buttons.github.io/buttons.js"></script>
     before_navbar: |
-      <a href="https://rhinoverse.dev" class="home"><i class="fa fa-lg fa-chevron-left"></i></a>
+      <a href="https://www.appsilon.com/rhinoverse" class="home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
 url: https://appsilon.github.io/shiny.telemetry/
 
