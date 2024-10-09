@@ -33,7 +33,7 @@ the supported providers (see DataStorage)."><!-- Google tag (gtag.js) --><script
 
     <a class="navbar-brand me-2" href="../index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9000</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -128,6 +128,7 @@ To see the logs, you can set:</p>
 <li><p><a href="#method-Telemetry-log_input_manual"><code>Telemetry$log_input_manual()</code></a></p></li>
 <li><p><a href="#method-Telemetry-log_custom_event"><code>Telemetry$log_custom_event()</code></a></p></li>
 <li><p><a href="#method-Telemetry-log_error"><code>Telemetry$log_error()</code></a></p></li>
+<li><p><a href="#method-Telemetry-log_errors"><code>Telemetry$log_errors()</code></a></p></li>
 <li><p><a href="#method-Telemetry-clone"><code>Telemetry$clone()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-Telemetry-new"></a><div class="section">
 <h3 id="method-new-">Method <code><a href="https://rdrr.io/r/methods/new.html" class="external-link">new()</a></code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
@@ -616,7 +617,7 @@ Shiny session.</p></dd>
 
 </div><p></p><hr><a id="method-Telemetry-log_error"></a><div class="section">
 <h3 id="method-log-error-">Method <code>log_error()</code><a class="anchor" aria-label="anchor" href="#method-log-error-"></a></h3>
-<p>Log an error event</p><div class="section">
+<p>Log a manual error event</p><div class="section">
 <h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_error</span><span class="op">(</span></span>
 <span>  <span class="va">output_id</span>,</span>
@@ -646,15 +647,35 @@ Shiny session.</p></dd>
 <p>Nothing. This method is called for side effects.</p>
 </div>
 
-</div><p></p><hr><a id="method-Telemetry-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
-<p>The objects of this class are cloneable with this method.</p><div class="section">
+</div><p></p><hr><a id="method-Telemetry-log_errors"></a><div class="section">
+<h3 id="method-log-errors-">Method <code>log_errors()</code><a class="anchor" aria-label="anchor" href="#method-log-errors-"></a></h3>
+<p>Track errors as they occur in observe and reactive</p><div class="section">
 <h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">log_errors</span><span class="op">(</span>session <span class="op">=</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/domains.html" class="external-link">getDefaultReactiveDomain</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-14">Arguments<a class="anchor" aria-label="anchor" href="#arguments-14"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>session</code></dt>
+<dd><p><code>ShinySession</code> object or NULL to identify the current Shiny session.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-13">Returns<a class="anchor" aria-label="anchor" href="#returns-13"></a></h4>
+<p>Nothing. This method is called for side effects.</p>
+</div>
+
+</div><p></p><hr><a id="method-Telemetry-clone"></a><div class="section">
+<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-15">Usage<a class="anchor" aria-label="anchor" href="#usage-15"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Telemetry</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-15">Arguments<a class="anchor" aria-label="anchor" href="#arguments-15"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
@@ -714,11 +735,11 @@ Shiny session.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   app_name    type   session id    output_id message value custom_field username</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (dashboard) click  e5c29c… a_bu… <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (dashboard) click  7b253c… a_bu… <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> (dashboard) error  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    global    An err… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> (dashboard) a_but… e5c29c… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      2023  <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> (dashboard) a_but… e5c29c… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    23           <span style="color: #BB0000;">NA</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> (dashboard) login  e5c29c… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           ben     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> (dashboard) a_but… 7b253c… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      2023  <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> (dashboard) a_but… 7b253c… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    23           <span style="color: #BB0000;">NA</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> (dashboard) login  7b253c… <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>           ben     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: time &lt;dttm&gt;, date &lt;date&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">log_file_path</span><span class="op">)</span></span></span>
@@ -740,8 +761,8 @@ Shiny session.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   time                app_name session type  value custom_field date       id   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2024-07-17 <span style="color: #949494;">15:56:50</span> (dashbo… e5c29c… a_bu… 2023  <span style="color: #BB0000;">NA</span>           2024-07-17 <span style="color: #BB0000;">NA</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2024-07-17 <span style="color: #949494;">15:56:50</span> (dashbo… e5c29c… a_bu… <span style="color: #BB0000;">NA</span>    23           2024-07-17 <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2024-10-09 <span style="color: #949494;">14:11:01</span> (dashbo… 7b253c… a_bu… 2023  <span style="color: #BB0000;">NA</span>           2024-10-09 <span style="color: #BB0000;">NA</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 2024-10-09 <span style="color: #949494;">14:11:01</span> (dashbo… 7b253c… a_bu… <span style="color: #BB0000;">NA</span>    23           2024-10-09 <span style="color: #BB0000;">NA</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: username &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">db_path</span><span class="op">)</span></span></span>
@@ -758,7 +779,7 @@ Shiny session.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>
