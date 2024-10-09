@@ -211,71 +211,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
       }
 
       if (isTRUE(track_errors)) {
-        if ("onUnhandledError" %in% ls(getNamespace("shiny"))) {
-          # onUnhandledError handler is only available in shiny >= 1.8.1
-          shiny::onUnhandledError(function(error) {
-            self$log_error(
-              output_id = "global",
-              message = conditionMessage(error)
-            )
-          })
-        } else {
-          # In shiny < 1.8.1, we fallback to using the `shiny.error` option and
-          # if that is already set, we track the `shiny:error` javascript event.
-          lifecycle::deprecate_warn(
-            when = as.character(utils::packageVersion("shiny")),
-            what = "Telemetry$start_session(track_errors = \"is not fully enabled \")",
-            details = c(
-              paste(
-                "Update the shiny package to version `1.8.1` or higher to",
-                "enable logging of all errors.",
-                sep = " "
-              ),
-              paste(
-                "Until then, shiny.telemetry can only reliably detect errors",
-                "triggered by the `shiny:error` javacript event.",
-                sep = " "
-              )
-            ),
-            env = getNamespace("shiny")
-          )
-
-          if (is.null(getOption("shiny.error"))) {
-            options(
-              "shiny.error" = function(.envir = parent.frame()) {
-                # make sure id is a string without spaces
-                output_id <- paste(
-                  gsub(
-                    " |\t|\r",
-                    "_",
-                    as.character(.envir$e$call %||% "global")
-                  ),
-                  collapse = "__"
-                )
-
-                self$log_error(
-                  output_id = output_id,
-                  message = .envir$e$message %||% "Unknown error.",
-                  session = session
-                )
-              }
-            )
-
-            # Restore previous option
-            shiny::onSessionEnded(
-              fun = function() options("shiny.error" = NULL),
-              session = session
-            )
-          } else {
-            shiny::observeEvent(input[[private$.track_error_id]], {
-              self$log_error(
-                output_id = input[[private$.track_error_id]]$output_id,
-                message = input[[private$.track_error_id]]$message,
-                session = session
-              )
-            })
-          }
-        }
+        self$log_errors(session)
       }
       NULL
     },
@@ -504,6 +440,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
         navigation_inputs = c(),
         excluded_inputs_regex = excluded_inputs_regex,
         include_input_ids = include_input_ids,
+        track_errors = TRUE,
         session = session
       )
     },
@@ -606,7 +543,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
       )
     },
     #' @description
-    #' Log an error event
+    #' Log a manual error event
     #'
     #' @param output_id string that refers to the output element where the error occurred.
     #' @param message string that describes the error.
@@ -631,6 +568,80 @@ Telemetry <- R6::R6Class( # nolint object_name.
         details = list(output_id = output_id, message = message),
         session = session
       )
+    },
+
+    #' @description
+    #' Track errors as they occur in observe and reactive
+    #'
+    #' @param session `ShinySession` object or NULL to identify the current Shiny session.
+    #'
+    #' @return Nothing. This method is called for side effects.
+    log_errors = function(session = shiny::getDefaultReactiveDomain()) {
+      if ("onUnhandledError" %in% ls(getNamespace("shiny"))) {
+        # onUnhandledError handler is only available in shiny >= 1.8.1
+        shiny::onUnhandledError(function(error) {
+          self$log_error(
+            output_id = "global",
+            message = conditionMessage(error)
+          )
+        })
+      } else {
+        # In shiny < 1.8.1, we fallback to using the `shiny.error` option and
+        # if that is already set, we track the `shiny:error` javascript event.
+        lifecycle::deprecate_warn(
+          when = as.character(utils::packageVersion("shiny")),
+          what = "Telemetry$start_session(track_errors = \"is not fully enabled \")",
+          details = c(
+            paste(
+              "Update the shiny package to version `1.8.1` or higher to",
+              "enable logging of all errors.",
+              sep = " "
+            ),
+            paste(
+              "Until then, shiny.telemetry can only reliably detect errors",
+              "triggered by the `shiny:error` javacript event.",
+              sep = " "
+            )
+          ),
+          env = getNamespace("shiny")
+        )
+
+        if (is.null(getOption("shiny.error"))) {
+          options(
+            "shiny.error" = function(.envir = parent.frame()) {
+              # make sure id is a string without spaces
+              output_id <- paste(
+                gsub(
+                  " |\t|\r",
+                  "_",
+                  as.character(.envir$e$call %||% "global")
+                ),
+                collapse = "__"
+              )
+
+              self$log_error(
+                output_id = output_id,
+                message = .envir$e$message %||% "Unknown error.",
+                session = session
+              )
+            }
+          )
+
+          # Restore previous option
+          shiny::onSessionEnded(
+            fun = function() options("shiny.error" = NULL),
+            session = session
+          )
+        } else {
+          shiny::observeEvent(session$input[[private$.track_error_id]], {
+            self$log_error(
+              output_id = session$input[[private$.track_error_id]]$output_id,
+              message = session$input[[private$.track_error_id]]$message,
+              session = session
+            )
+          })
+        }
+      }
     }
   ),
   active = list(
@@ -682,7 +693,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
       track_values,
       excluded_inputs,
       navigation_inputs,
-      track_errors,
+      track_errors = TRUE,
       excluded_inputs_regex = NULL,
       include_input_ids = NULL,
       session
