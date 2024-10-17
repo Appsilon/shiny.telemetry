@@ -1755,35 +1755,35 @@
         "Type": "Package",
         "Package": "shiny.telemetry",
         "Title": "'Shiny' App Usage Telemetry",
-        "Version": "0.3.0.9000",
+        "Version": "0.3.1",
         "Authors@R": "c(\n    person(\"André\", \"Veríssimo\", , \"opensource+andre@appsilon.com\", role = c(\"aut\", \"cre\")),\n    person(\"Kamil\", \"Żyła\", , \"kamil@appsilon.com\", role = \"aut\"),\n    person(\"Krystian\", \"Igras\", , \"krystian8207@gmail.com\", role = \"aut\"),\n    person(\"Recle\", \"Vibal\", , \"recle.vibal@appsilon.com\", role = \"aut\"),\n    person(\"Arun\", \"Kodati\", , \"arun.kodati@appsilon.com\", role = \"aut\"),\n    person(\"Wahaduzzaman\", \"Khan\", , \"wahaduzzaman@appsilon.com\", role = \"aut\"),\n    person(\"Appsilon Sp. z o.o.\", , , \"opensource@appsilon.com\", role = \"cph\")\n  )",
         "Description": "Enables instrumentation of 'Shiny' apps for tracking user\n    session events such as input changes, browser type, and session\n    duration.  These events can be sent to any of the available storage\n    backends and analyzed using the included 'Shiny' app to gain insights\n    about app usage and adoption.",
         "License": "LGPL-3",
         "URL": "https://appsilon.github.io/shiny.telemetry/,\nhttps://github.com/Appsilon/shiny.telemetry",
         "BugReports": "https://github.com/Appsilon/shiny.telemetry/issues",
         "Imports": "checkmate,\ndigest,\ndplyr (>= 1.1.0),\nglue,\nhtmltools,\nhttr2,\njsonlite,\nlifecycle,\nlogger,\nlubridate,\nodbc,\npurrr,\nR6,\nrlang,\nRSQLite,\nshiny,\nstringr,\ntidyr",
-        "Suggests": "box,\nconfig,\nDT,\nmongolite,\nplotly,\nplumber,\nRColorBrewer,\nRMariaDB,\nRPostgres,\nRPostgreSQL,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nshinyjs,\ntestthat (>= 3.1.7),\ntimevis,\nwithr,\nknitr,\nrmarkdown",
+        "Suggests": "box,\nconfig,\nDT,\nknitr,\nmongolite,\nplotly,\nplumber,\nRColorBrewer,\nRMariaDB,\nrmarkdown,\nRPostgres,\nRPostgreSQL,\nscales,\nsemantic.dashboard (>= 0.1.1),\nshiny.semantic (>= 0.2.0),\nshinyjs,\ntestthat (>= 3.1.7),\ntimevis,\nwithr",
+        "VignetteBuilder": "knitr",
         "Config/testthat/edition": "3",
         "Encoding": "UTF-8",
         "Language": "en-US",
         "LazyData": "true",
         "Roxygen": "list(markdown = TRUE)",
-        "RoxygenNote": "7.3.1",
-        "VignetteBuilder": "knitr",
+        "RoxygenNote": "7.3.2",
         "Author": "André Veríssimo [aut, cre],\n  Kamil Żyła [aut],\n  Krystian Igras [aut],\n  Recle Vibal [aut],\n  Arun Kodati [aut],\n  Wahaduzzaman Khan [aut],\n  Appsilon Sp. z o.o. [cph]",
         "Maintainer": "André Veríssimo <opensource+andre@appsilon.com>",
-        "Built": "R 4.4.1; ; 2024-10-09 14:09:38 UTC; unix",
+        "Built": "R 4.4.1; ; 2024-10-17 10:44:48 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "appsilon",
         "RemoteRepo": "shiny.telemetry",
-        "RemoteRef": "06b89f1be8ae8344788b5eb232de99ba63fde13e",
-        "RemoteSha": "06b89f1be8ae8344788b5eb232de99ba63fde13e",
+        "RemoteRef": "ac55f11e4457ecede0241f2870afc860afc1497c",
+        "RemoteSha": "ac55f11e4457ecede0241f2870afc860afc1497c",
         "GithubHost": "api.github.com",
         "GithubRepo": "shiny.telemetry",
         "GithubUsername": "appsilon",
-        "GithubRef": "06b89f1be8ae8344788b5eb232de99ba63fde13e",
-        "GithubSHA1": "06b89f1be8ae8344788b5eb232de99ba63fde13e"
+        "GithubRef": "ac55f11e4457ecede0241f2870afc860afc1497c",
+        "GithubSHA1": "ac55f11e4457ecede0241f2870afc860afc1497c"
       }
     },
     "sodium": {
@@ -2257,7 +2257,7 @@
   },
   "files": {
     ".Rprofile": {
-      "checksum": "d9a89125e150849074bd30936304a4e1"
+      "checksum": "53e2a41629a6747963afab0a3ce52855"
     },
     "api/handlers/insert.R": {
       "checksum": "eadd36b72d6dd25ba331b462855e603a"
@@ -2287,10 +2287,10 @@
       "checksum": "9d7b496a437a7ea4ffe91b25fc698960"
     },
     "README.md": {
-      "checksum": "069c831b460e79da195f09d85c5a3897"
+      "checksum": "f59646a922d56016e351111b91e0ae06"
     },
     "renv.lock": {
-      "checksum": "62b34ecb36fca69b041e75d7c8498346"
+      "checksum": "f4d7effd577d1cbec8f673ddcd200c5a"
     }
   },
   "users": null

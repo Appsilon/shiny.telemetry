@@ -323,14 +323,14 @@
     },
     "data.table": {
       "Package": "data.table",
-      "Version": "1.16.0",
+      "Version": "1.16.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "methods"
       ],
-      "Hash": "fb24e05d4a91d8b1c7ff8e284bde834a"
+      "Hash": "2e00b378fc3be69c865120d9f313039a"
     },
     "digest": {
       "Package": "digest",
@@ -368,13 +368,13 @@
     },
     "evaluate": {
       "Package": "evaluate",
-      "Version": "1.0.0",
+      "Version": "1.0.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "6b567375113ceb7d9f800de4dd42218e"
+      "Hash": "3fd29944b231036ad67c3edb32e02201"
     },
     "fansi": {
       "Package": "fansi",
@@ -935,13 +935,13 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "1.0.10",
+      "Version": "1.0.11",
       "Source": "Repository",
       "Repository": "RSPM",
       "Requirements": [
         "utils"
       ],
-      "Hash": "d0387d5687ec933dd7587efd4cfa2d85"
+      "Hash": "47623f66b4e80b3b0587bc5d7b309888"
     },
     "rlang": {
       "Package": "rlang",
@@ -1091,14 +1091,14 @@
     },
     "shiny.telemetry": {
       "Package": "shiny.telemetry",
-      "Version": "0.3.0.9000",
+      "Version": "0.3.1",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "appsilon",
       "RemoteRepo": "shiny.telemetry",
-      "RemoteRef": "06b89f1be8ae8344788b5eb232de99ba63fde13e",
-      "RemoteSha": "06b89f1be8ae8344788b5eb232de99ba63fde13e",
+      "RemoteRef": "ac55f11e4457ecede0241f2870afc860afc1497c",
+      "RemoteSha": "ac55f11e4457ecede0241f2870afc860afc1497c",
       "Requirements": [
         "R6",
         "RSQLite",
@@ -1119,7 +1119,7 @@
         "stringr",
         "tidyr"
       ],
-      "Hash": "073e6192dbfdbc45132101c089d24a9a"
+      "Hash": "74861cb47a2f9da30d5862f9694c40ad"
     },
     "shinyjs": {
       "Package": "shinyjs",
