@@ -1,3 +1,9 @@
+# shiny.telemetry 0.3.1.9001
+
+### New Features
+
+- Added a dropdown to the `analytics_app()` to switch between applications.
+
 # shiny.telemetry 0.3.1
 
 ### New Features
