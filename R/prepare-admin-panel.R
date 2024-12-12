@@ -168,12 +168,31 @@ prepare_admin_panel_components <- function(
 
   hour_levels <- c("12am", paste0(1:11, "am"), "12pm", paste0(1:11, "pm"))
 
-  log_data <- shiny::reactive({
+  full_log_data <- shiny::reactive({
     shiny::req(input$date_from, input$date_to)
 
     data_storage$read_event_data(
       as.Date(input$date_from), as.Date(input$date_to)
     )
+  })
+
+  shiny::observeEvent(full_log_data(), {
+    applications <- unique(full_log_data()$app_name)
+    if (length(applications) == 0) {
+      applications <- character()
+    }
+    shiny.semantic::update_dropdown_input(
+      session = session,
+      input_id = "app_name",
+      choices = applications,
+      value = applications[1]
+    )
+  })
+
+  log_data <- shiny::reactive({
+    shiny::req(input$app_name)
+    full_log_data() |>
+      dplyr::filter(.data$app_name == input$app_name)
   })
 
   is_log_empty <- shiny::reactive(nrow(shiny::req(log_data())) == 0)
