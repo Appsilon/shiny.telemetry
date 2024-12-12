@@ -65,6 +65,13 @@ analytics_ui <- function() {
             "download_data", "Download", style = "margin-left: 2em;"
           )
         )
+      ),
+      semantic.dashboard::menuItem(
+        shiny.semantic::selectInput(
+          inputId = "app_name",
+          label = shiny::tags$label("Application name", shiny.semantic::icon("laptop")),
+          choices = character()
+        )
       )
     )
   )
