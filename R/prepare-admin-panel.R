@@ -177,10 +177,7 @@ prepare_admin_panel_components <- function(
   })
 
   shiny::observeEvent(full_log_data(), {
-    applications <- unique(full_log_data()$app_name)
-    if (length(applications) == 0) {
-      applications <- character()
-    }
+        applications <- sort(unique(full_log_data()$app_name)) %||% character(0L)
     shiny.semantic::update_dropdown_input(
       session = session,
       input_id = "app_name",
