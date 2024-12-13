@@ -1,0 +1,44 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/rocker-org/devcontainer-features/r-rig:latest": {
+      "version": "release",
+      "vscodeRSupport": "languageserver",
+      "installRadian": true,
+      "installDevTools": true
+    },
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      "packages": "libpq-dev"
+    },
+    "ghcr.io/rocker-org/devcontainer-features/r-dependent-packages:0": {},
+    "ghcr.io/rocker-org/devcontainer-features/rstudio-server:0": {
+      "version": "daily"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "forwardPorts": [
+    8787
+  ],
+  "portsAttributes": {
+    "8787": {
+      "label": "RStudio IDE"
+    }
+  },
+  "remoteEnv": {
+    "PKG_SYSREQS": "true",
+    "RENV_CONFIG_PAK_ENABLED": "TRUE"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "REditorSupport.r",
+        "github.copilot"
+      ],
+      "settings": {
+        "r.rterm.linux": "/usr/local/bin/radian",
+        "git.confirmSync": false,
+        "workbench.settings.editor": "json"
+      }
+    }
+  }
+}
