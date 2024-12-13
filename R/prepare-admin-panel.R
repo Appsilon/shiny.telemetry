@@ -188,7 +188,7 @@ prepare_admin_panel_components <- function(
 
   log_data <- shiny::reactive({
     shiny::req(input$app_name)
-    full_log_data() |>
+    full_log_data() %>%
       dplyr::filter(.data$app_name == input$app_name)
   })
 
