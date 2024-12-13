@@ -2,7 +2,7 @@
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "features": {
     "ghcr.io/rocker-org/devcontainer-features/r-rig:latest": {
-      "version": "4.3.1",
+      "version": "release",
       "vscodeRSupport": "languageserver",
       "installRadian": true,
       "installDevTools": true
