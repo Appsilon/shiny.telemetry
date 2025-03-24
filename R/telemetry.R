@@ -754,15 +754,11 @@ Telemetry <- R6::R6Class( # nolint object_name.
 
           # Filter out excluded inputs by regular expression
           if (length(excluded_inputs_regex) > 0) {
-            excluded_inputs_regex <- excluded_inputs_regex %>%
-              purrr::map_chr(trimws) %>%
-              purrr::keep(~ nzchar(.x))  %>%
-              paste(collapse = "|") %>%
-              sub(pattern = "\\|$", replacement = "")
+            merged_regex <- merge_regex(excluded_inputs_regex)
             filtered_names <- setdiff(
-              filtered_names,
-              grep(excluded_inputs_regex, filtered_names, value = TRUE)
+              filtered_names, grep(merged_regex, filtered_names, value = TRUE)
             )
+
           }
 
           # Force `include_inputs_ids` to be tracked (if they exist)
