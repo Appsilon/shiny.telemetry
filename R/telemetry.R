@@ -710,6 +710,14 @@ Telemetry <- R6::R6Class( # nolint object_name.
       checkmate::assert_character(excluded_inputs, null.ok = TRUE)
       checkmate::assert_character(excluded_inputs_regex, null.ok = TRUE)
 
+      checkmate::assert(
+        tryCatch({
+          lapply(excluded_inputs_regex, regexpr, text = "mock_text")
+          TRUE
+        }, error = function(err) "Regular expression is not valid"),
+        .var.name = "excluded_inputs_regex"
+      )
+
       merged_regex <- merge_excluded_regex(excluded_inputs_regex)
 
       if (is.null(navigation_inputs)) {

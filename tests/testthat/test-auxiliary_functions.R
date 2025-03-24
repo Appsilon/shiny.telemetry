@@ -139,7 +139,3 @@ describe("merge_excluded_regex generates valid regular expressions with", {
     expect_false(grepl(merge_excluded_regex(list("a", "\\[a-z\\]")), "y"))
   })
 })
-
-testthat("merge_excluded_regex invalid regular expressions throw error", {
-  expect_error(grepl(merge_excluded_regex(list("(", "[b-z]", ")")), "y"))
-})

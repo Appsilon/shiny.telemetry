@@ -210,7 +210,7 @@ process_row_details <- function(details_json) {
 #' @returns Single regular expression string.
 #' @keywords internal
 merge_excluded_regex <- function(regex_l, remove_whitespace = TRUE) {
-  checkmate::assert_list(regex_l, types = "character")
+  checkmate::assert_character(regex_l)
   checkmate::assert_flag(remove_whitespace)
 
   if (remove_whitespace) {
@@ -218,14 +218,6 @@ merge_excluded_regex <- function(regex_l, remove_whitespace = TRUE) {
   }
 
   clean_regex_l <- purrr::keep(regex_l, ~ nzchar(.x))
-
-  checkmate::assert(
-    tryCatch({
-      lapply(clean_regex_l, regexpr, x = "placeholder")
-      TRUE
-    }, error = function(err) "Regular expression is not valid"),
-    .var.name = "regex_l"
-  )
 
   # Prevent any | at the end of the regex
   sub("\\|$", "", paste(clean_regex_l, collapse = "|"))
