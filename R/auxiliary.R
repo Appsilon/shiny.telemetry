@@ -210,8 +210,12 @@ process_row_details <- function(details_json) {
 #' @returns Single regular expression string.
 #' @keywords internal
 merge_excluded_regex <- function(regex_l, remove_whitespace = TRUE) {
-  checkmate::assert_character(regex_l)
+  checkmate::assert_character(regex_l, null.ok = TRUE)
   checkmate::assert_flag(remove_whitespace)
+
+  if (is.null(regex_l)) {
+    return(NULL)
+  }
 
   if (remove_whitespace) {
     regex_l <- purrr::map_chr(regex_l, trimws)

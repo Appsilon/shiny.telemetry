@@ -136,7 +136,7 @@ test_that("Telemetry tests with mock data_storage layer", {
   withr::deferred_run()
 })
 
-describe("excluded_inputs_regex invalid regular expressions", {
+describe("excluded_inputs_regex", {
   data_storage <- list(
     insert = function(
     app_name, type, session = NULL, details = NULL, time = NULL
@@ -154,7 +154,7 @@ describe("excluded_inputs_regex invalid regular expressions", {
   session <- shiny::MockShinySession$new()
   class(session) <- c("ShinySession", class(session))
 
-  it("throws error with invalid expression", {
+  it("throws error with invalid regular expression", {
     expect_error(
       telemetry$log_all_inputs(FALSE, excluded_inputs_regex = c("(", "[b-z]", ")"), session = session),
       "Regular expression is not valid"
@@ -162,9 +162,15 @@ describe("excluded_inputs_regex invalid regular expressions", {
       expect_warning("pattern compilation error")
   })
 
-  it("throws error with invalid expression", {
+  it("accepts valid expressions", {
     expect_no_error(
-      telemetry$log_all_inputs(FALSE, excluded_inputs_regex = c("(a)", "[b-z]", "(b)"), session = session)
+      telemetry$log_all_inputs(excluded_inputs_regex = c("(a)", "[b-z]", "(b)"), session = session)
+    )
+  })
+
+  it("accepts NULL default", {
+    expect_no_error(
+      telemetry$log_all_inputs(excluded_inputs_regex = NULL, session = session)
     )
   })
 })
