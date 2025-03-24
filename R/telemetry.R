@@ -767,7 +767,6 @@ Telemetry <- R6::R6Class( # nolint object_name.
             filtered_names <- setdiff(
               filtered_names, grep(merged_regex, filtered_names, value = TRUE)
             )
-
           }
 
           # Force `include_inputs_ids` to be tracked (if they exist)
