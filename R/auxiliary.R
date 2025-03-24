@@ -209,7 +209,7 @@ process_row_details <- function(details_json) {
 #'
 #' @returns Single regular expression string.
 #' @keywords internal
-merge_regex <- function(regex_l, remove_whitespace = TRUE) {
+merge_excluded_regex <- function(regex_l, remove_whitespace = TRUE) {
   checkmate::assert_list(regex_l, types = "character")
   checkmate::assert_flag(remove_whitespace)
 

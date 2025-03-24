@@ -118,28 +118,28 @@ test_that("build_mongo_connection_string: Build valid string with all parameters
   )
 })
 
-describe("merge_regex generates valid regular expressions with", {
+describe("merge_excluded_regex generates valid regular expressions with", {
   it("* or +", {
-    expect_true(grepl(merge_regex(list("[b-z]", "aa+")), "aaa"))
-    expect_true(grepl(merge_regex(list("[b-z]", "a+")), "a"))
-    expect_true(grepl(merge_regex(list("[b-z]", "ba*")), "ba"))
-    expect_true(grepl(merge_regex(list("[b-z]", "ba*")), "b"))
+    expect_true(grepl(merge_excluded_regex(list("[b-z]", "aa+")), "aaa"))
+    expect_true(grepl(merge_excluded_regex(list("[b-z]", "a+")), "a"))
+    expect_true(grepl(merge_excluded_regex(list("[b-z]", "ba*")), "ba"))
+    expect_true(grepl(merge_excluded_regex(list("[b-z]", "ba*")), "b"))
   })
 
   it("count of characters", {
-    expect_true(grepl(merge_regex(list("[b-z]", "a{2}", "1234")), "aa"))
-    expect_false(grepl(merge_regex(list("[b-z]", "^a{2}$", "1234")), "aaaa"))
+    expect_true(grepl(merge_excluded_regex(list("[b-z]", "a{2}", "1234")), "aa"))
+    expect_false(grepl(merge_excluded_regex(list("[b-z]", "^a{2}$", "1234")), "aaaa"))
   })
 
   it("range of characters", {
-    expect_true(grepl(merge_regex(list("^[b-z]+$", "a{2}", "1234")), "chrome"))
+    expect_true(grepl(merge_excluded_regex(list("^[b-z]+$", "a{2}", "1234")), "chrome"))
   })
 
   it("escape characters", {
-    expect_false(grepl(merge_regex(list("a", "\\[a-z\\]")), "y"))
+    expect_false(grepl(merge_excluded_regex(list("a", "\\[a-z\\]")), "y"))
   })
 })
 
-testthat("merge_regex invalid regular expressions throw error", {
-  expect_error(grepl(merge_regex(list("(", "[b-z]", ")")), "y"))
+testthat("merge_excluded_regex invalid regular expressions throw error", {
+  expect_error(grepl(merge_excluded_regex(list("(", "[b-z]", ")")), "y"))
 })
