@@ -708,10 +708,9 @@ Telemetry <- R6::R6Class( # nolint object_name.
       checkmate::assert_character(navigation_inputs, null.ok = TRUE)
       checkmate::assert_character(include_input_ids, null.ok = TRUE)
       checkmate::assert_character(excluded_inputs, null.ok = TRUE)
+      checkmate::assert_character(excluded_inputs_regex, null.ok = TRUE)
 
       checkmate::assert(
-        combine = "and",
-        checkmate::check_character(excluded_inputs_regex, null.ok = TRUE),
         tryCatch({
           lapply(excluded_inputs_regex, regexpr, text = "mock_text")
           TRUE
@@ -766,7 +765,7 @@ Telemetry <- R6::R6Class( # nolint object_name.
           # Filter out excluded inputs by regular expression
           if (length(excluded_inputs_regex) > 0) {
             filtered_names <- setdiff(
-              filtered_names, grep(merged_regex, filtered_names)
+              filtered_names, grep(merged_regex, filtered_names, value = TRUE)
             )
 
           }
