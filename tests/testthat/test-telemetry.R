@@ -139,7 +139,7 @@ test_that("Telemetry tests with mock data_storage layer", {
 describe("excluded_inputs_regex", {
   data_storage <- list(
     insert = function(
-    app_name, type, session = NULL, details = NULL, time = NULL
+      app_name, type, session = NULL, details = NULL, time = NULL
     ) {
       message(glue::glue(
         "Writing type={type} value: ",
@@ -156,7 +156,7 @@ describe("excluded_inputs_regex", {
 
   it("throws error with invalid regular expression", {
     expect_error(
-      telemetry$log_all_inputs(FALSE, excluded_inputs_regex = c("(", "[b-z]", ")"), session = session),
+      telemetry$log_all_inputs(excluded_inputs_regex = c("(", "[b-z]", ")"), session = session),
       "Regular expression is not valid"
     ) %>%
       expect_warning("pattern compilation error")
@@ -174,4 +174,3 @@ describe("excluded_inputs_regex", {
     )
   })
 })
-
