@@ -5,89 +5,36 @@
 #'
 #' @keywords internal
 test_that_common_data_storage <- function(init_fun, provider_name) {
-  testthat::test_that(
-    glue::glue(
-      .sep = " ",
-      provider_name,
-      "Can write to database via DataStorage"
-    ),
-    {
-      data_storage <- init_fun()
-      dashboard_name <- paste0("dashboard-", rlang::hash(Sys.time()))
+  require(testthat)
+  dashboard_name <- function() sprintf("dashboard-%s", rlang::hash(Sys.time()))
+  describe(provider_name, {
+    it(
+      "Can write to database via DataStorage",
+      test_common_data_storage(init_fun(), dashboard_name())
+    )
 
-      test_common_data_storage(data_storage, dashboard_name)
-    }
-  )
+    it(
+      "Insert and read events without details",
+      test_common_empty_details(init_fun(), dashboard_name())
+    )
 
-  testthat::test_that(
-    glue::glue(
-      .sep = " ",
-      provider_name,
-      "Insert and read events without details"
-    ),
-    {
-      data_storage <- init_fun()
-      dashboard_name <- paste0("dashboard-", rlang::hash(Sys.time()))
+    it("Insert and read custom fields with length > 1",
+      test_common_len_gt_1(init_fun(), dashboard_name())
+    )
 
-      test_common_empty_details(data_storage, dashboard_name)
-    }
-  )
+    it(
+      "Insert and read custom fields with length > 1 on a pre-populated file",
+      test_common_len_gt_1_alt(init_fun(), dashboard_name())
+    )
 
-  testthat::test_that(
-    glue::glue(
-      .sep = " ",
-      provider_name,
-      "Insert and read custom fields with length > 1"
-    ),
-    {
-      data_storage <- init_fun()
-      dashboard_name <- paste0("dashboard-", rlang::hash(Sys.time()))
+    it("Time column is writen / read correctly",
+      test_common_read_date(init_fun(), dashboard_name())
+    )
 
-      test_common_len_gt_1(data_storage, dashboard_name)
-    }
-  )
-
-  testthat::test_that(
-    glue::glue(
-      .sep = " ",
-      provider_name,
-      "Insert and read custom fields with length > 1 on a pre-populated file"
-    ),
-    {
-      data_storage <- init_fun()
-      dashboard_name <- paste0("dashboard-", rlang::hash(Sys.time()))
-
-      test_common_len_gt_1_alt(data_storage, dashboard_name)
-    }
-  )
-
-  testthat::test_that(
-    glue::glue(
-      .sep = " ",
-      provider_name,
-      "Time column is writen / read correctly"
-    ),
-    {
-      data_storage <- init_fun()
-      dashboard_name <- paste0("dashboard-", rlang::hash(Sys.time()))
-
-      test_common_read_date(data_storage, dashboard_name)
-    }
-  )
-
-  testthat::test_that(
-    glue::glue(
-      .sep = " ",
-      provider_name,
-      "Date colimn is writen / read correctly"
-    ),
-    {
-      data_storage <- init_fun()
-      dashboard_name <- paste0("dashboard-", rlang::hash(Sys.time()))
-
-      test_common_read_date(data_storage, dashboard_name)
-    }
-  )
+    it("Date column is writen / read correctly",
+      test_common_read_date(init_fun(), dashboard_name())
+    )
+  })
 }
 
 test_common_data_storage <- function(data_storage, dashboard_name = "test_dashboard") {
