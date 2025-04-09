@@ -22,7 +22,7 @@ The following databases are supported by `{shiny.telemetry}`:
 - [MariaDB](https://mariadb.org/documentation/) or [MySQL](https://dev.mysql.com/doc/refman/en/)
 - [MS SQL Server](https://learn.microsoft.com/en-us/sql/sql-server/)
 - [MongoDB](https://www.mongodb.com/docs/manual/)
-- [SQLite](https://www.sqlite.org/docs.html)
+- [SQLite](https://sqlite.org/docs.html)
 
 A requirements to use `{shiny.telemetry}` with external databases in a production environment is to have the database server running and a user with the necessary permissions to insert.
 A minimal setup should have a user that only has write/insert permissions to the `{shiny.telemetry}` table storing the events.
