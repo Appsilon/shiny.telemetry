@@ -212,7 +212,13 @@ process_row_details <- function(details_json) {
 #' @returns Single regular expression string.
 #' @keywords internal
 merge_excluded_regex <- function(regex_l, trim_whitespace = TRUE) {
-  checkmate::assert_character(regex_l, null.ok = TRUE)
+  checkmate::assert(
+    combine = "or",
+    .var.name = "regex_l",
+    checkmate::check_character(regex_l),
+    checkmate::check_list(regex_l, types = "character"),
+    checkmate::check_null(regex_l)
+  )
   checkmate::assert_flag(trim_whitespace)
 
   if (is.null(regex_l)) return(NULL)
