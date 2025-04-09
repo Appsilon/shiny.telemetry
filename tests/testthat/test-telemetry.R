@@ -1,4 +1,4 @@
-test_that("Telemetry tests with mock data_storage layer", {
+describe("Telemetry tests with mock data_storage layer", {
   data_storage <- list(
     insert = function(
       app_name, type, session = NULL, details = NULL, time = NULL
@@ -36,102 +36,104 @@ test_that("Telemetry tests with mock data_storage layer", {
   #
   # Test login and logout (last one shouldn't produce anything)
 
-  telemetry$log_login(
-    username = "ben",
-    session = session
-  ) %>% expect_message("Writing type=login value: .*\"username\":\"ben\".*")
+  it("login", {
+    telemetry$log_login(
+      username = "ben",
+      session = session
+    ) %>% expect_message("Writing type=login value: .*\"username\":\"ben\".*")
+  })
 
-  telemetry$log_logout(
-    session = session
-  ) %>% expect_silent()
+  it("logout", {
+    telemetry$log_logout(
+      session = session
+    ) %>% expect_silent()
+  })
 
-  #
-  # Test simple usage of log_input
-  session$setInputs(sample = 53, sample2 = 31)
+  it("log_input simple usage", {
+    session$setInputs(sample = 53, sample2 = 31)
 
-  telemetry$log_input(
-    input_id = "sample",
-    matching_values = NULL,
-    track_value = TRUE,
-    input_type = "text",
-    session = session
-  ) %>% expect_message("Writing type=input value: .*\"value\":53.*")
+    telemetry$log_input(
+      input_id = "sample",
+      matching_values = NULL,
+      track_value = TRUE,
+      input_type = "text",
+      session = session
+    ) %>% expect_message("Writing type=input value: .*\"value\":53.*")
+  })
 
-  #
-  # Test simple usage of log_input with matching values that don't match
-  session$setInputs(sample = 63, sample2 = 41)
+  it("log_input simple usage with character", {
+    session$setInputs(uisidebar = "tab1")
+    telemetry$log_navigation(
+      input_id = "uisidebar",
+      session = session
+    ) %>%
+      expect_message("Writing type=navigation value: .*\"value\":\"tab1\".*")
+  })
 
-  telemetry$log_input(
-    "sample",
-    track_value = TRUE,
-    matching_values = c(62, "62"),
-    input_type = "text",
-    session = session
-  ) %>% expect_silent()
+  it("log_input with matching values that don't match (no writes)", {
+    session$setInputs(sample = 63, sample2 = 41)
 
-  #
-  # Test simple usage of log_input with matching values
-  session$setInputs(sample = 73, sample2 = 51)
+    telemetry$log_input(
+      "sample",
+      track_value = TRUE,
+      matching_values = c(62, "62"),
+      input_type = "text",
+      session = session
+    ) %>% expect_silent()
+  })
 
-  telemetry$log_input(
-    "sample",
-    track_value = TRUE,
-    matching_values = 73,
-    input_type = "text",
-    session = session
-  ) %>% expect_message("Writing type=input value: .*\"value\":73.*")
+  it("log_input with matching values that match (write)", {
+    session$setInputs(sample = 73, sample2 = 51)
 
-  #
-  # Test simple usage of log_input without tracking values
-  session$setInputs(sample = 83, sample2 = 61)
-  telemetry$log_input(
-    "sample",
-    matching_values = NULL,
-    input_type = "text",
-    session = session
-  ) %>% expect_message("Writing type=input value: .*\"id\":\"sample\".*")
+    telemetry$log_input(
+      "sample",
+      track_value = TRUE,
+      matching_values = 73,
+      input_type = "text",
+      session = session
+    ) %>% expect_message("Writing type=input value: .*\"value\":73.*")
+  })
 
-  #
-  # Test simple usage of log_input without tracking values
-  # (where value is not atomic)
-  session$setInputs(sample = 1:10, sample2 = 31)
-  telemetry$log_input(
-    "sample",
-    matching_values = NULL,
-    input_type = "text",
-    session = session
-  ) %>% expect_message("Writing type=input value: .*\"id\":\"sample\".*")
+  it("log_input without tracking values", {
+    session$setInputs(sample = 83, sample2 = 61)
+    telemetry$log_input(
+      "sample",
+      matching_values = NULL,
+      input_type = "text",
+      session = session
+    ) %>% expect_message("Writing type=input value: .*\"id\":\"sample\".*")
+  })
 
-  #
-  # Test simple usage of log_input (where value is not atomic)
-  session$setInputs(sample = list(1, 2, 3), sample2 = 31)
-  telemetry$log_input(
-    "sample",
-    track_value = TRUE,
-    matching_values = NULL,
-    input_type = "text",
-    session = session
-  ) %>%
-    expect_message("Writing type=input value: .*\"id\":\"sample_1\".*") %>%
-    expect_message("Writing type=input value: .*\"id\":\"sample_2\".*") %>%
-    expect_message("Writing type=input value: .*\"id\":\"sample_3\".*")
+  it("log_input without tracking values (where value is not atomic)", {
+    session$setInputs(sample = 1:10, sample2 = 31)
+    telemetry$log_input(
+      "sample",
+      matching_values = NULL,
+      input_type = "text",
+      session = session
+    ) %>% expect_message("Writing type=input value: .*\"id\":\"sample\".*")
+  })
 
-  #
-  # Test simple usage of log_input
-  session$setInputs(uisidebar = "tab1")
-  telemetry$log_navigation(
-    input_id = "uisidebar",
-    session = session
-  ) %>%
-    expect_message("Writing type=navigation value: .*\"value\":\"tab1\".*")
+  it("log_input with tracking values (where value is not atomic", {
+    session$setInputs(sample = list(1, 2, 3), sample2 = 31)
+    telemetry$log_input(
+      "sample",
+      track_value = TRUE,
+      matching_values = NULL,
+      input_type = "text",
+      session = session
+    ) %>%
+      expect_message("Writing type=input value: .*\"id\":\"sample_1\".*") %>%
+      expect_message("Writing type=input value: .*\"id\":\"sample_2\".*") %>%
+      expect_message("Writing type=input value: .*\"id\":\"sample_3\".*")
+  })
 
-  telemetry$log_navigation_manual(
-    navigation_id = "sample",
-    value = "tab2",
-    session = session
-  ) %>%
-    expect_message("Writing type=navigation value: .*\"value\":\"tab2\".*")
-
-  # Manual call to revert mock_binding of 'observeEvent'
-  withr::deferred_run()
+  it("log_navigation_manual", {
+    telemetry$log_navigation_manual(
+      navigation_id = "sample",
+      value = "tab2",
+      session = session
+    ) %>%
+      expect_message("Writing type=navigation value: .*\"value\":\"tab2\".*")
+  })
 })
