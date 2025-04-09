@@ -206,7 +206,7 @@ process_row_details <- function(details_json) {
 #' Merge a list of regular expressions into a single one
 #'
 #' @param regex_l list of regular expressions to be merged.
-#' @param remove_whitespace boolean indicating if whitespace should be trim
+#' @param trim_whitespace boolean indicating if whitespace should be trim
 #' from the start and end of the regex list.
 #'
 #' @returns Single regular expression string.

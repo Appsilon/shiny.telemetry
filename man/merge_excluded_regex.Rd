@@ -9,7 +9,7 @@ merge_excluded_regex(regex_l, trim_whitespace = TRUE)
 \arguments{
 \item{regex_l}{list of regular expressions to be merged.}
 
-\item{remove_whitespace}{boolean indicating if whitespace should be trim
+\item{trim_whitespace}{boolean indicating if whitespace should be trim
 from the start and end of the regex list.}
 }
 \value{
