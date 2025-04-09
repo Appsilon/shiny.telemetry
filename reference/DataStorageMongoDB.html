@@ -19,7 +19,7 @@ unified API for read/write operations"><!-- Google tag (gtag.js) --><script asyn
 
     <a class="navbar-brand me-2" href="../index.html">shiny.telemetry</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9002</small>
 
     <a href="https://www.appsilon.com/rhinoverse" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -88,7 +88,7 @@ unified API for read/write operations</p>
 <span>  authdb <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dbname <span class="op">=</span> <span class="st">"shiny_telemetry"</span>,</span>
 <span>  options <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  ssl_options <span class="op">=</span> <span class="fu">mongolite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mongolite/man/ssl_options.html" class="external-link">ssl_options</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  ssl_options <span class="op">=</span> <span class="fu">mongolite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/mongolite/reference/ssl_options.html" class="external-link">ssl_options</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -125,7 +125,7 @@ unified API for read/write operations</p>
 
 <dt><code>ssl_options</code></dt>
 <dd><p>additional connection options such as SSL keys/certs
-(default is <code><a href="https://rdrr.io/pkg/mongolite/man/ssl_options.html" class="external-link">mongolite::ssl_options()</a></code>).</p></dd>
+(default is <code><a href="https://jeroen.r-universe.dev/mongolite/reference/ssl_options.html" class="external-link">mongolite::ssl_options()</a></code>).</p></dd>
 
 
 </dl><p></p></div>
@@ -157,7 +157,7 @@ unified API for read/write operations</p>
 <span class="r-in"><span><span class="va">data_storage</span> <span class="op">&lt;-</span> <span class="va">DataStorageMongoDB</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  host <span class="op">=</span> <span class="st">"localhost"</span>,</span></span>
 <span class="r-in"><span>  db <span class="op">=</span> <span class="st">"test"</span>,</span></span>
-<span class="r-in"><span>  ssl_options <span class="op">=</span> <span class="fu">mongolite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mongolite/man/ssl_options.html" class="external-link">ssl_options</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  ssl_options <span class="op">=</span> <span class="fu">mongolite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/mongolite/reference/ssl_options.html" class="external-link">ssl_options</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">data_storage</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span><span class="st">"example"</span>, <span class="st">"test_event"</span>, <span class="st">"session1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">data_storage</span><span class="op">$</span><span class="fu">insert</span><span class="op">(</span><span class="st">"example"</span>, <span class="st">"input"</span>, <span class="st">"s1"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"id1"</span><span class="op">)</span><span class="op">)</span></span></span>

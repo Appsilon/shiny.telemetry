@@ -5,7 +5,7 @@ articles:
   databases: databases.html
   rhino: rhino.html
   tracking-specific-input-id: tracking-specific-input-id.html
-last_built: 2024-12-13T13:30Z
+last_built: 2025-04-09T09:15Z
 urls:
   reference: https://appsilon.github.io/shiny.telemetry/reference
   article: https://appsilon.github.io/shiny.telemetry/articles
