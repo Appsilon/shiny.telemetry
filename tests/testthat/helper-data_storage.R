@@ -1,40 +1,63 @@
 
 #' Set of common tests for different data storage providers
 #' @param init_fun function to initialize data storage provider
-#' @param provider_name string with name of data storage provider
 #'
 #' @keywords internal
-test_that_common_data_storage <- function(init_fun, provider_name) {
+it_common_data_storage <- function(init_fun) {
   require(testthat)
   dashboard_name <- function() sprintf("dashboard-%s", rlang::hash(Sys.time()))
-  describe(provider_name, {
-    it(
+
+  #
+  do.call(
+    it,
+    list(
       "Can write to database via DataStorage",
       test_common_data_storage(init_fun(), dashboard_name())
-    )
+    ),
+    envir = parent.frame()
+  )
 
-    it(
+  do.call(
+    it,
+    list(
       "Insert and read events without details",
       test_common_empty_details(init_fun(), dashboard_name())
-    )
+    ),
+    envir = parent.frame()
+  )
 
-    it("Insert and read custom fields with length > 1",
+  do.call(
+    it,
+    list("Insert and read custom fields with length > 1",
       test_common_len_gt_1(init_fun(), dashboard_name())
-    )
+    ),
+    envir = parent.frame()
+  )
 
-    it(
+  do.call(
+    it,
+    list(
       "Insert and read custom fields with length > 1 on a pre-populated file",
       test_common_len_gt_1_alt(init_fun(), dashboard_name())
-    )
+    ),
+    envir = parent.frame()
+  )
 
-    it("Time column is writen / read correctly",
+  do.call(
+    it,
+    list("Time column is writen / read correctly",
       test_common_read_date(init_fun(), dashboard_name())
-    )
+    ),
+    envir = parent.frame()
+  )
 
-    it("Date column is writen / read correctly",
+  do.call(
+    it,
+    list("Date column is writen / read correctly",
       test_common_read_date(init_fun(), dashboard_name())
-    )
-  })
+    ),
+    envir = parent.frame()
+  )
 }
 
 test_common_data_storage <- function(data_storage, dashboard_name = "test_dashboard") {
