@@ -16,7 +16,7 @@ Features:
 
 ## Setup
 
-To get a minimal Plumber instance running locally it requires an `R` environment _(at least `≥v4.1`)_ and the `renv` R package.
+To get a minimal Plumber instance running locally it requires an `R` environment _(`≥v4.1`)_ and the `renv` R package.
 
 Start by downloading or cloning the source files in the repository and open an R session on the `/plumber_rest_api` directory.
 
