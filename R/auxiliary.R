@@ -202,3 +202,31 @@ process_row_details <- function(details_json) {
 
   tmp_result
 }
+
+#' Merge a list of regular expressions into a single one
+#'
+#' @param regex_l list of regular expressions to be merged.
+#' @param trim_whitespace boolean indicating if whitespace should be trim
+#' from the start and end of the regex list.
+#'
+#' @returns Single regular expression string.
+#' @keywords internal
+merge_excluded_regex <- function(regex_l, trim_whitespace = TRUE) {
+  checkmate::assert(
+    combine = "or",
+    .var.name = "regex_l",
+    checkmate::check_character(regex_l),
+    checkmate::check_list(regex_l, types = "character"),
+    checkmate::check_null(regex_l)
+  )
+  checkmate::assert_flag(trim_whitespace)
+
+  if (is.null(regex_l)) return(NULL)
+
+  if (trim_whitespace) regex_l <- purrr::map_chr(regex_l, trimws)
+
+  clean_regex_l <- purrr::keep(regex_l, ~ nzchar(.x))
+
+  # Prevent any | at the end of the regex
+  sub("\\|$", "", paste(clean_regex_l, collapse = "|"))
+}

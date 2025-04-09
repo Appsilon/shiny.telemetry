@@ -86,10 +86,13 @@ DataStorageLogFile <- R6::R6Class( # nolint object_name.
 
       values$time <- values$time %>% as.double()
 
+      fd <- file(bucket, open = "a+")
+      on.exit(close(fd))
+
       values %>%
         purrr::compact() %>%
         jsonlite::toJSON() %>%
-        cat(file = bucket, sep = "\n", append = TRUE)
+        writeLines(con = fd)
     },
 
     table_schema = dplyr::tibble(

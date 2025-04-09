@@ -77,9 +77,9 @@ DataStoragePostgreSQL <- R6::R6Class( # nolint object_name.
     timestamp_wrapper = "to_timestamp({seconds})",
     select_driver = function(driver) {
       if (driver == "RPostgres") {
-        return(RPostgres::Postgres())
+        RPostgres::Postgres()
       } else { # Default to RPostgreSQL if input is not recognized
-        return(RPostgreSQL::PostgreSQL())
+        RPostgreSQL::PostgreSQL()
       }
     },
     # Private methods

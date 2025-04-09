@@ -117,3 +117,25 @@ test_that("build_mongo_connection_string: Build valid string with all parameters
     "mongodb://a_user:a_pass@localhost:27017/path_to_authdb?option1=value1&option2=value2"
   )
 })
+
+describe("merge_excluded_regex generates valid regular expressions with", {
+  it("* or +", {
+    expect_true(grepl(merge_excluded_regex(list("[b-z]", "aa+")), "aaa"))
+    expect_true(grepl(merge_excluded_regex(list("[b-z]", "a+")), "a"))
+    expect_true(grepl(merge_excluded_regex(list("[b-z]", "ba*")), "ba"))
+    expect_true(grepl(merge_excluded_regex(list("[b-z]", "ba*")), "b"))
+  })
+
+  it("count of characters", {
+    expect_true(grepl(merge_excluded_regex(list("[b-z]", "a{2}", "1234")), "aa"))
+    expect_false(grepl(merge_excluded_regex(list("[b-z]", "^a{2}$", "1234")), "aaaa"))
+  })
+
+  it("range of characters", {
+    expect_true(grepl(merge_excluded_regex(list("^[b-z]+$", "a{2}", "1234")), "chrome"))
+  })
+
+  it("escape characters", {
+    expect_false(grepl(merge_excluded_regex(list("a", "\\[a-z\\]")), "y"))
+  })
+})
