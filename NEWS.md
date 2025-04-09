@@ -5,6 +5,10 @@
 - Added a dropdown to the `analytics_app()` to switch between applications.
 - Resolve bug#192 that ignored excluded input regex.
 
+### Bug Fixes
+
+- Fixed problem with concurrent writes in log file backend.
+
 # shiny.telemetry 0.3.1
 
 ### New Features
