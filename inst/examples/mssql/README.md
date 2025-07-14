@@ -10,7 +10,7 @@ The database instance has to be running for the application and analytics dashbo
 The database needs to be created manually. Chunk below allows to create databse using the `sqlcmd` utility.
 
 ```
-CREATE DATABSAE my_db
+CREATE DATABASE shiny_telemetry
 GO
 ```
 
