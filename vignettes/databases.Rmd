@@ -19,7 +19,7 @@ The `{shiny.telemetry}` package can be used with any Shiny application and in th
 The following databases are supported by `{shiny.telemetry}`:
 
 - [PostgreSQL](https://www.postgresql.org/docs/current/index.html)
-- [MariaDB](https://mariadb.org/documentation/) or [MySQL](https://dev.mysql.com/doc/refman/en/)
+- [MariaDB](https://mariadb.org/documentation/) or [MySQL](https://dev.mysql.com/doc/)
 - [MS SQL Server](https://learn.microsoft.com/en-us/sql/sql-server/)
 - [MongoDB](https://www.mongodb.com/docs/manual/)
 - [SQLite](https://sqlite.org/docs.html)
@@ -73,7 +73,7 @@ To run PostgreSQL in a container locally, you can use the following Docker compo
 ```{r, eval=FALSE}
 Sys.setenv("MARIADB_USER" = "mariadb", "MARIADB_PASS" = "mysecretpassword")
 data_storage <- DataStorageMariaDB$new(
-  user = Sys.getenv("MARIADB_USER"), 
+  user = Sys.getenv("MARIADB_USER"),
   password = Sys.getenv("MARIADB_PASS"),
   hostname = "127.0.0.1",
   port = 3306,
@@ -96,15 +96,15 @@ Sys.setenv(MSSQL_USER = "sa", MSSQL_PASS = "my-Secr3t_Password")
 data_storage <- DataStorageMSSQLServer$new(
   user = Sys.getenv("MSSQL_USER"),
   password = Sys.getenv("MSSQL_PASS"),
-  hostname = "127.0.0.1", 
+  hostname = "127.0.0.1",
   port = 1433,
-  dbname = "my_db", 
-  driver = "ODBC Driver 18 for SQL Server", 
+  dbname = "my_db",
+  driver = "ODBC Driver 18 for SQL Server",
   trust_server_certificate = "YES"
 )
 ```
 
-_notes_: 
+_notes_:
 
 - The `dbname` database needs to be created before running the application with `{shiny.telemetry}`;
 - Never store passwords and other sensitive directly in code. Please use environment variables or other secure methods;
