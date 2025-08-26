@@ -2,14 +2,15 @@ Type: Package
 Package: shiny.telemetry
 Title: 'Shiny' App Usage Telemetry
 Version: 0.3.2
-Authors@R (parsed):
-    * André Veríssimo <opensource+andre@appsilon.com> [aut, cre]
-    * Kamil Żyła <kamil@appsilon.com> [aut]
-    * Krystian Igras <krystian8207@gmail.com> [aut]
-    * Recle Vibal <recle.vibal@appsilon.com> [aut]
-    * Arun Kodati <arun.kodati@appsilon.com> [aut]
-    * Wahaduzzaman Khan <wahaduzzaman@appsilon.com> [aut]
-    * Appsilon Sp. z o.o. <opensource@appsilon.com> [cph]
+Authors@R: c(
+    person("André", "Veríssimo", , "opensource+andre@appsilon.com", role = c("aut", "cre")),
+    person("Kamil", "Żyła", , "kamil@appsilon.com", role = "aut"),
+    person("Krystian", "Igras", , "krystian8207@gmail.com", role = "aut"),
+    person("Recle", "Vibal", , "recle.vibal@appsilon.com", role = "aut"),
+    person("Arun", "Kodati", , "arun.kodati@appsilon.com", role = "aut"),
+    person("Wahaduzzaman", "Khan", , "wahaduzzaman@appsilon.com", role = "aut"),
+    person("Appsilon Sp. z o.o.", , , "opensource@appsilon.com", role = "cph")
+  )
 Description: Enables instrumentation of 'Shiny' apps for tracking
     user session events such as input changes, browser type, and session
     duration.  These events can be sent to any of the available storage
