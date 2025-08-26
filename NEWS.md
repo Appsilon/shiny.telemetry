@@ -1,9 +1,9 @@
-# shiny.telemetry 0.3.1.9002
+# shiny.telemetry 0.3.2
 
 ### New Features
 
 - Added a dropdown to the `analytics_app()` to switch between applications.
-- Resolve bug#192 that ignored excluded input regex.
+- Resolve bug that ignored excluded input regex (#192).
 
 ### Bug Fixes
 
